@@ -10,6 +10,7 @@ Hidden Treasures is a website designed to support and promote charity events. Th
 ## Developers
 
 - Andrew Chen
+- Toshiro Mendoza
 - [Developer Name Here]
 - [Developer Name Here]
 
