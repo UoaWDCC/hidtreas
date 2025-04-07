@@ -9,7 +9,7 @@ Hidden Treasures is a website designed to support and promote charity events. Th
 
 ## Developers
 
-- [Developer Name Here]
+- **Ruby McNamee** - Developer/Designer
 - [Developer Name Here]
 - [Developer Name Here]
 
