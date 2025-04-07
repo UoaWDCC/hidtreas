@@ -12,6 +12,7 @@ Hidden Treasures is a website designed to support and promote charity events. Th
 - Toshiro Mendoza
 - [Developer Name Here]
 - [Developer Name Here]
+- Daniel Kim
 
 ## Designer
 
