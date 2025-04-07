@@ -20,7 +20,7 @@ Hidden Treasures is a website designed to support and promote charity events. Th
 
 ## Designer
 
-- [Designer Name Here]
+- Bryanna 
 
 ## Tech Stack
 
