@@ -9,19 +9,16 @@ Hidden Treasures is a website designed to support and promote charity events. Th
 
 ## Developers
 
-- Jack Harken
-- Andrew Chen
-- Toshiro Mendoza
-- **Ruby McNamee** - Developer/Designer
-- [Developer Name Here]
-- [Developer Name Here]
-- [Developer Name Here]
-- **Nathan Dalpatan** - Developer
-- Daniel Kim
+- **Jack Harken**
+- **Andrew Chen**
+- **Toshiro Mendoza**
+- **Ruby McNamee**
+- **Nathan Dalpatan**
+- **Daniel Kim**
 
 ## Designer
 
-- Bryanna 
+- **Bryanna Yeo**
 
 ## Tech Stack
 
