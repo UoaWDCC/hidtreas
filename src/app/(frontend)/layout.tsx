@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles.css'
+import './global.css'
 
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
