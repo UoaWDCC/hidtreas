@@ -6,6 +6,7 @@ import {
   IconBrandFacebook,
   IconBrandYoutube,
 } from '@tabler/icons-react'
+import Image from 'next/image'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -56,11 +57,17 @@ const links: {
 
 export default function Footer() {
   return (
-    <div className="bg-orange-100">
-      <div className="w-full text-cyan-950 flex flex-wrap flex-row p-10">
-        <div className="w-lg">
+    <div className="relative bg-orange-100 w-full">
+      <Image
+        src="/footerLogo.png"
+        alt="Hidden Treasure Logo"
+        className="absolute w-115 h-100 bottom-0 left-0 z-0 invisible xl:visible"
+        width={115}
+        height={100}
+      />
+      <div className="text-cyan-950 flex flex-wrap flex-row p-10">
+        <div className="w-lg h-50 hidden xl:block">
           <p className="text-5xl font-bold">Hidden Treasure</p>
-          <p>Preserving the past, inspiring the future</p>
         </div>
 
         <div className="flex flex-wrap flex-row gap-20">
@@ -91,8 +98,8 @@ export default function Footer() {
           ))}
         </div>
       </div>
-      <div className="w-full text-stone-950 p-5 flex flex-row justify-between">
-        <div className="w-50" />
+      <div className="text-stone-950 p-5 flex flex-row justify-between">
+        <div className="w-50 hidden xl:block" />
         <p className="text-center">© 2023 Hidden Treasure. All rights reserved.</p>
         <div className="flex flex-row gap-5">
           <a href="/privacy" className="text-center">
