@@ -1,4 +1,11 @@
-import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/solid'
+import {
+  IconPhoneFilled,
+  IconMailFilled,
+  IconBrandInstagram,
+  IconBrandLinkedin,
+  IconBrandFacebook,
+  IconBrandYoutube,
+} from '@tabler/icons-react'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -32,16 +39,16 @@ const links: {
   {
     label: 'CONNECT WITH US',
     items: [
-      { label: '0800 123 456', href: undefined, icon: PhoneIcon },
-      { label: 'insert.email@here.com', href: undefined, icon: EnvelopeIcon },
+      { label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
+      { label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
     ],
     extlinks: [
-      { href: 'https://www.instagram.com/hiddentreasure', icon: PhoneIcon },
-      { href: 'https://www.facebook.com/hiddentreasure', icon: PhoneIcon },
-      { href: 'https://www.youtube.com/hiddentreasure', icon: PhoneIcon },
+      { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
+      { href: 'https://www.facebook.com/hiddentreasure', icon: IconBrandFacebook },
+      { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
       {
         href: 'https://www.linkedin.com/company/hiddentreasure',
-        icon: 'linkedin',
+        icon: IconBrandLinkedin,
       },
     ],
   },
@@ -49,33 +56,55 @@ const links: {
 
 export default function Footer() {
   return (
-    <div className="w-full bg-cyan-600 text-cyan-950 flex flex-wrap flex-row p-10">
-      <div className="w-lg">
-        <p className="text-5xl font-bold">Hidden Treasure</p>
-        <p>Preserving the past, inspiring the future</p>
-      </div>
+    <div className="bg-orange-100">
+      <div className="w-full text-cyan-950 flex flex-wrap flex-row p-10">
+        <div className="w-lg">
+          <p className="text-5xl font-bold">Hidden Treasure</p>
+          <p>Preserving the past, inspiring the future</p>
+        </div>
 
-      <div className="flex flex-wrap flex-row gap-20">
-        {links.map((link) => (
-          <div key={link.label}>
-            <p className="text-xl font-bold mb-3">{link.label}</p>
-            {link.items.map((item) => (
-              <p key={item.label}>
-                {item.icon && <item.icon className="h-5 w-5 mr-2 inline" />}
-                <a href={item.href} className={item.href ? 'hover:underline' : ''}>
-                  {item.label}
-                </a>
-              </p>
-            ))}
-            <div className="flex flex-row mt-5">
-              {link.extlinks?.map((item) => (
-                <a key={item.href} href={item.href}>
+        <div className="flex flex-wrap flex-row gap-20">
+          {links.map((link) => (
+            <div key={link.label}>
+              <p className="text-xl font-bold mb-3">{link.label}</p>
+              {link.items.map((item) => (
+                <p key={item.label}>
                   {item.icon && <item.icon className="h-5 w-5 mr-2 inline" />}
-                </a>
+                  <a href={item.href} className={item.href ? 'hover:underline' : ''}>
+                    {item.label}
+                  </a>
+                </p>
               ))}
+              <div className="flex flex-row mt-5">
+                {link.extlinks?.map((item) => (
+                  <div
+                    key={item.href}
+                    className="rounded-full bg-cyan-950 w-7 h-7 flex justify-center items-center mr-3"
+                  >
+                    <a href={item.href}>
+                      {item.icon && <item.icon className="h-5 w-5 text-stone-50" />}
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+      <div className="w-full text-stone-950 p-5 flex flex-row justify-between">
+        <div className="w-50" />
+        <p className="text-center">© 2023 Hidden Treasure. All rights reserved.</p>
+        <div className="flex flex-row gap-5">
+          <a href="/privacy" className="text-center">
+            FAQ
+          </a>
+          <a href="/privacy" className="text-center">
+            Privacy Policy
+          </a>
+          <a href="/privacy" className="text-center">
+            Terms of Service
+          </a>
+        </div>
       </div>
     </div>
   )
