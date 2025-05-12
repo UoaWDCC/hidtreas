@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function Header() {
   return (
-    <header className="bg-[#fdf4ed] px-6 md:px-16 py-5 flex items-center justify-between shadow-sm">
+    <header className="bg-[#fdf4ed] px-6 md:px-16 py-2.5 flex items-center justify-between shadow-sm">
       {/* Logo + Brand */}
       <div className="flex items-center space-x-3">
         <Image src="/logo.PNG" alt="Hidden Treasure Logo" width={64} height={64} />
