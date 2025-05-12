@@ -75,6 +75,7 @@ export default function Footer() {
         className="absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible"
         width={100}
         height={90}
+        priority
       />
       <div className="text-cyan-950 flex flex-wrap flex-row p-10">
         <div className="w-lg h-50 hidden xl:block pl-70">
