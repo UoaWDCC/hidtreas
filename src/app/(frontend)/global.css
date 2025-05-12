@@ -1,9 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-  --font-default: var(--font-tajawal);
-  --font-h1: var(--font-k2d);
-  --font-h2: var(--font-inter);
+  --font-default: var(--font-k2d);
+  --font-header: var(--font-inter);
 }
 
 * {
@@ -16,12 +15,9 @@ body {
   margin: 0;
   background-color: #fdf4ed;
   font-family: var(--font-default);
+  color: #13384e;
 }
 
 h1 {
-  font-family: var(--font-h1);
-}
-
-h2 {
-  font-family: var(--font-h2);
+  font-family: var(--font-header);
 }

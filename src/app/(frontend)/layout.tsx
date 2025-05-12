@@ -15,12 +15,6 @@ const inter = Inter({
   weight: ['400'],
 })
 
-const tajawal = Tajawal({
-  subsets: ['arabic'],
-  variable: '--font-tajawal',
-  weight: ['400'],
-})
-
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
   title: 'Hidden Treasures',
@@ -30,7 +24,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={`${k2d.variable} ${inter.variable} ${tajawal.variable}`}>
+    <html lang="en" className={`${k2d.variable} ${inter.variable}`}>
       <body>
         <main>{children}</main>
       </body>
