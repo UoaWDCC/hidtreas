@@ -1,7 +1,9 @@
 @import 'tailwindcss';
 
 :root {
-  --font-mono: 'Roboto Mono', monospace;
+  --font-default: var(--font-tajawal);
+  --font-h1: var(--font-k2d);
+  --font-h2: var(--font-inter);
 }
 
 * {
@@ -12,5 +14,14 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: system-ui, sans-serif;
+  background-color: #fdf4ed;
+  font-family: var(--font-default);
+}
+
+h1 {
+  font-family: var(--font-h1);
+}
+
+h2 {
+  font-family: var(--font-h2);
 }
