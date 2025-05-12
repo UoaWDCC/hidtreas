@@ -1,5 +1,5 @@
-import elderly from '/public/elderly.jpg'
-import logo from '/public/biggerlogo.png'
+import elderly from '/src/public/elderly.jpg'
+import logo from '/src/public/biggerlogo.png'
 import Image from 'next/image'
 
 export default function HeroSection() {
