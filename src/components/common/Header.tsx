@@ -5,7 +5,7 @@ export default function Header() {
     <header className="bg-[#fdf4ed] px-6 md:px-16 py-2.5 flex items-center justify-between shadow-sm">
       {/* Logo + Brand */}
       <div className="flex items-center space-x-3">
-        <Image src="/logo.PNG" alt="Hidden Treasure Logo" width={64} height={64} />
+        <Image src="/sharpened_logo.png" alt="Hidden Treasure Logo" width={64} height={64} />
         <span className="text-[#0b2e42] text-2xl font-semibold tracking-wide font-Playfair antialiased drop-shadow-md">
           HIDDEN TREASURE
         </span>
