@@ -1,11 +1,11 @@
-import logo from '/src/public/logo.png'
+import logo from '@/assets/logo.png'
 import Image from 'next/image'
 
 export default function Header() {
 
   return (
     <div className="flex flex-col items-center"> 
-      <div className="flex justify-center pt-4"> 
+      <div className="flex jusify-center pt-4"> 
         <div className="flex items-center gap-4">
           <Image src={logo} alt="Hidden Treasure Logo"
             width={40}
