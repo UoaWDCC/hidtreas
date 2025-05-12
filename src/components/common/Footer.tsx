@@ -80,7 +80,14 @@ export default function Footer() {
       <div className="text-cyan-950 flex flex-wrap flex-row p-10">
         <div className="w-lg h-50 hidden xl:block pl-70">
           <p className="text-lg">SIGN UP NOW!</p>
-          <form onSubmit={() => router.push('/signup?email=' + email)}>
+          <form
+            onSubmit={() => {
+              if (email.length === 0) router.push('/signup')
+              else {
+                router.push('/signup?email=' + email)
+              }
+            }}
+          >
             <div className="bg-cyan-950 text-stone-50 rounded-xl w-50 mt-3 flex flex-row justify-between pr-3">
               <input
                 type="text"
@@ -124,7 +131,7 @@ export default function Footer() {
       </div>
       <div className="text-stone-950 p-5 flex flex-row justify-between">
         <div className="w-50 hidden xl:block" />
-        <p className="text-center">© 2023 Hidden Treasure. All rights reserved.</p>
+        <p className="text-center">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
         <div className="flex flex-row gap-5">
           <a href="/privacy" className="text-center">
             FAQ
