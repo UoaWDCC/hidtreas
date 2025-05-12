@@ -68,7 +68,7 @@ export default function Footer() {
   }
 
   return (
-    <div className="relative bg-orange-100 w-full">
+    <div className="relative w-full">
       <Image
         src="/footerLogo.png"
         alt="Hidden Treasure Logo"
