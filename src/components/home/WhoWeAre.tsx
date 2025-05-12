@@ -11,10 +11,11 @@ export default function WhoWeAre() {
       <Image
         src={whoWeAre}
         alt="Who We Are"
-        width={993}
-        height={523}
-        className="mx-auto my-4 rounded-lg"
+        width={1000}
+        height={525}
+        className="mx-auto my-4 rounded-4xl"
       />
+
       <div className="absolute right-75 w-[700px] mt-4">
         <p className="text-[20px] text-justify">
           Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque
@@ -31,12 +32,12 @@ export default function WhoWeAre() {
         </button>
       </div>
 
-      <div className="absolute top-195 left-10 z-10">
+      <div className="absolute top-185 left-20 z-10">
         <Image
           src={koruLeaf}
           alt="Koru and Leaf"
-          width={550}
-          height={350}
+          width={450}
+          height={250}
           className="mx-auto my-4"
         />
       </div>
