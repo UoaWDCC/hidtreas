@@ -1,3 +1,4 @@
+'use client'
 import {
   IconPhoneFilled,
   IconMailFilled,
@@ -5,8 +6,11 @@ import {
   IconBrandLinkedin,
   IconBrandFacebook,
   IconBrandYoutube,
+  IconArrowRight,
 } from '@tabler/icons-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -56,18 +60,28 @@ const links: {
 ]
 
 export default function Footer() {
+  const router = useRouter()
+
   return (
     <div className="relative bg-orange-100 w-full">
       <Image
         src="/footerLogo.png"
         alt="Hidden Treasure Logo"
-        className="absolute w-115 h-100 bottom-0 left-0 z-0 invisible xl:visible"
-        width={115}
-        height={100}
+        className="absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible"
+        width={100}
+        height={90}
       />
       <div className="text-cyan-950 flex flex-wrap flex-row p-10">
-        <div className="w-lg h-50 hidden xl:block">
-          <p className="text-5xl font-bold">Hidden Treasure</p>
+        <div className="w-lg h-50 hidden xl:block pl-70">
+          <p className="text-lg">SIGN UP NOW!</p>
+          <form onSubmit={() => router.push('/signup')}>
+            <div className="bg-cyan-950 text-stone-50 rounded-xl w-50 mt-3 flex flex-row justify-between pr-3">
+              <input type="text" className="rounded-l-xl px-5 w-40" />
+              <button type="submit">
+                <IconArrowRight />
+              </button>
+            </div>
+          </form>
         </div>
 
         <div className="flex flex-wrap flex-row gap-20">
