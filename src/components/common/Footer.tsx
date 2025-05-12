@@ -60,7 +60,12 @@ const links: {
 ]
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
   const router = useRouter()
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
 
   return (
     <div className="relative bg-orange-100 w-full">
@@ -74,10 +79,14 @@ export default function Footer() {
       <div className="text-cyan-950 flex flex-wrap flex-row p-10">
         <div className="w-lg h-50 hidden xl:block pl-70">
           <p className="text-lg">SIGN UP NOW!</p>
-          <form onSubmit={() => router.push('/signup')}>
+          <form onSubmit={() => router.push('/signup?email=' + email)}>
             <div className="bg-cyan-950 text-stone-50 rounded-xl w-50 mt-3 flex flex-row justify-between pr-3">
-              <input type="text" className="rounded-l-xl px-5 w-40" />
-              <button type="submit">
+              <input
+                type="text"
+                className="rounded-l-xl pl-5 w-40 z-10"
+                onChange={handleEmailChange}
+              />
+              <button type="submit" className="cursor-pointer">
                 <IconArrowRight />
               </button>
             </div>
