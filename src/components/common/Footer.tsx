@@ -11,6 +11,7 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import footerLogo from '@/assets/footerLogo.png'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -70,7 +71,7 @@ export default function Footer() {
   return (
     <div className="relative w-full">
       <Image
-        src="/footerLogo.png"
+        src={footerLogo}
         alt="Hidden Treasure Logo"
         className="absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible"
         width={100}
