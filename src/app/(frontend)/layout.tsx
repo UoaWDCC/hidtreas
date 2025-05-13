@@ -1,5 +1,19 @@
-import { Inter } from 'next/font/google'
+import React from 'react'
 import './global.css'
+
+import { K2D, Inter, Tajawal } from 'next/font/google'
+
+const k2d = K2D({
+  subsets: ['latin'],
+  variable: '--font-k2d',
+  weight: ['400'],
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  weight: ['400'],
+})
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -8,9 +22,11 @@ export const metadata = {
   title: 'Hidden Treasures',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout(props: { children: React.ReactNode }) {
+  const { children } = props
+
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={`${k2d.variable} ${inter.variable}`}>
       <body>
         <main>{children}</main>
       </body>
