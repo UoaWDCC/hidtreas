@@ -4,42 +4,42 @@ import logoImage from '@/assets/sharpened_logo.png'
 
 export default function HeroSection() {
   return (
-    <section className="px-8 md:px-24 py-1">
-      <div className="relative rounded-b-[5.5rem] overflow-hidden w-98% min-h-[350px] aspect-[16/7.5]">
+    <section className="px-4 sm:px-6 md:px-8 lg:px-24 py-1">
+      <div className="relative rounded-b-3xl md:rounded-b-[5.5rem] overflow-hidden w-full min-h-[34.375rem] md:min-h-[21.875rem] aspect-auto md:aspect-[16/7.5]">
         <Image
           src={elderlyImage}
           alt="Elderly"
           fill
-          className="object-cover object-center rounded-b-[5.5rem]"
+          className="object-cover object-center rounded-b-3xl md:rounded-b-[5.5rem]"
           priority
         />
-        <div className="absolute inset-0 bg-white/60 z-10" />
+        <div className="absolute inset-0 bg-white/50 z-10" />
 
         {/* Content */}
-        <div className="absolute inset-0 z-20 flex items-start justify-start pl-8 md:pl-32 pt-[5.75rem] md:pt-[8.75rem]">
-          <div className="flex flex-col md:flex-row items-center gap-8 max-w-6xl w-full">
-            {/* Logo (left) */}
-            <div className="flex-shrink-0">
+        <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-32 md:pt-[8.75rem] px-4">
+          <div className="flex flex-col items-center md:flex-row md:items-start md:gap-8 w-full max-w-xs sm:max-w-sm md:max-w-none">
+            {/* Logo */}
+            <div className="flex-shrink-0 mb-6 md:mb-0">
               <Image
                 src={logoImage}
                 alt="Logo"
                 width={400}
                 height={400}
-                className="w-[18rem] md:w-[25rem] h-auto"
+                className="w-[9rem] sm:w-[10rem] md:w-[16rem] lg:w-[25rem] h-auto"
               />
             </div>
 
-            {/* Text Content (right) */}
-            <div className="flex-1 text-center md:text-left max-w-xl">
-              <h1 className="text-[3.5rem] md:text-[5.2rem] font-extrabold leading-tight tracking-wide">
+            {/* Text Content */}
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-[0.125rem]">
                 HIDDEN
                 <br />
                 TREASURE
               </h1>
-              <p className="mt-4 text-[1.4rem] md:text-[1.6rem] font-normal">
+              <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal">
                 Preserving the past, inspiring the future.
               </p>
-              <button className="mt-6 bg-[#13384E] text-white px-6 py-3 rounded-md text-base md:text-lg font-semibold hover:bg-[#0a2638] transition">
+              <button className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] transition">
                 JOIN US
               </button>
             </div>
