@@ -5,44 +5,21 @@ import otherKoru from '@/assets/otherkoru.png'
 
 export default function WhoWeAre() {
   return (
-    <div>
-      <p className="flex justify-center text-[80px]">WHO WE ARE</p>
+    <div className="relative w-full">
+      <p className="flex justify-center text-[80px] font-bold">WHO WE ARE</p>
 
-      <Image
-        src={whoWeAre}
-        alt="Who We Are"
-        width={1000}
-        height={525}
-        className="mx-auto my-4 rounded-4xl"
-      />
-
-      <div className="absolute right-75 w-[700px] mt-4">
-        <p className="text-[20px] text-justify">
-          Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque
-          faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id
-          cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.
-        </p>
-      </div>
-
-      <div className="flex justify-center mt-6">
-        <button
-          className="absolute top-260 right-75 px-15 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-800"
-        >
-          FIND OUT MORE
-        </button>
-      </div>
-
-      <div className="absolute top-185 left-20 z-10">
+      <div className="absolute left-0 bottom-[15%] w-[30vw] z-10">
         <Image
           src={koruLeaf}
           alt="Koru and Leaf"
+          layout="intrinsic"
           width={450}
           height={250}
-          className="mx-auto my-4"
+          className="w-full h-auto"
         />
       </div>
 
-      <div className="absolute top-10 right-20 z-10">
+      <div className="absolute top-[12%] right-0 w-[25vw] z-10">
         <Image
           src={otherKoru}	
           alt="Other Koru"
@@ -51,6 +28,33 @@ export default function WhoWeAre() {
           className="mx-auto my-4"
         />
       </div>
+
+      <div className="relative w-[65vw] mx-auto my-8">
+        <Image
+          src={whoWeAre}
+          alt="Who We Are"
+          className=" w-full h-auto  rounded-3xl"
+        />
+      </div>
+
+      <div className="w-[65vw] mx-auto flex justify-end mt-4">
+        <p className="text-right text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl max-w-prose">
+          Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit quisque
+          faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id. Placerat in id
+          cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean.
+        </p>
+      </div>
+
+      <div className="w-[65vw] mx-auto mt-4 text-right">
+        <button
+          className="px-6 py-2 bg-blue-900 text-white rounded-lg shadow-md hover:bg-blue-800"
+        >
+          FIND OUT MORE
+        </button>
+      </div>
+      
+      
+
     </div>
   )
 }
