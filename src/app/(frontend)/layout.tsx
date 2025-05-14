@@ -15,8 +15,6 @@ const inter = Inter({
   weight: ['400'],
 })
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
   title: 'Hidden Treasures',
