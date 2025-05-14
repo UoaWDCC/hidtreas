@@ -5,6 +5,7 @@ export default async function AboutPage() {
   return (
     <div className="home">
       <Header />
+      <h1>test</h1>
       <Footer />
     </div>
   )
