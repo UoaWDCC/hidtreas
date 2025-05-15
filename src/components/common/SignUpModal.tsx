@@ -38,6 +38,7 @@ export default function SignUpModal({
         setSignOpen(false)
       }}
       className="w-sm h-[30rem] flex flex-row xl:w-xl"
+      superClassName="bg-stone-200/75"
       noHeader
     >
       <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
