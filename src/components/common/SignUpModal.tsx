@@ -2,6 +2,7 @@ import { IconX } from '@tabler/icons-react'
 import Modal from './Modal'
 import Image from 'next/image'
 import Logo from '@/assets/sharpened_logo.png'
+import BirdPNG from '@/assets/signUpBird.png'
 import { useRouter } from 'next/navigation'
 
 const fields = [
@@ -33,19 +34,42 @@ export default function SignUpModal({
   return (
     <Modal
       open={signOpen}
-      onClose={() => setSignOpen(false)}
-      className="w-xl h-[30rem] flex flex-row"
+      onClose={() => {
+        setSignOpen(false)
+      }}
+      className="w-sm h-[30rem] flex flex-row xl:w-xl"
       noHeader
     >
-      <div className="w-sm h-full bg-cyan-500 rounded-l-lg">Image</div>
-      <div className="relative w-100 p-6 h-full flex flex-col items-center justify-center text-center">
+      <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
+        <Image src={BirdPNG} alt="Hidden Treasure Logo" className="w-sm h-full rounded-l-lg" />
+      </div>
+      <div className="relative w-sm p-6 h-full flex flex-col items-center justify-center text-center">
         <IconX
           className="absolute top-5 right-5 cursor-pointer"
           onClick={() => setSignOpen(false)}
         />
         <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
         <h1 className="text-3xl font-[1000]">SIGN UP WITH US TODAY!</h1>
-        <form>
+        <form
+          onSubmit={(event) => {
+            const form = event.target as HTMLFormElement
+            if (form.firstname.value.trim().length <= 0) {
+              alert('Please enter a valid first name')
+            } else if (form.lastname.value.trim().length <= 0) {
+              alert('Please enter a valid last name')
+            } else if (form.email.value.trim().length <= 0) {
+              alert('Please enter a valid email address')
+            } else if (!form.agreeTnC.checked) {
+              alert('Please agree to the terms and conditions')
+            } else {
+              alert('Form submitted successfully!')
+              form.reset()
+              setSignOpen(false)
+              return
+            }
+            event.preventDefault()
+          }}
+        >
           {fields.map((field) => {
             const defaultValue = field.name === 'email' ? initialEmail : ''
             return (
@@ -59,16 +83,18 @@ export default function SignUpModal({
               />
             )
           })}
-          <input type="checkbox" name="agreeTnC" className="mt-5 mr-1 hover:cursor-pointer" />
-          <label className="text-xs">
-            I AGREE TO THE{' '}
-            <a
-              onClick={() => router.push('/TermsAndConditions')}
-              className="underline hover:cursor-pointer"
-            >
-              TERMS AND CONDITIONS
-            </a>
-          </label>
+          <div>
+            <input type="checkbox" name="agreeTnC" className="mt-5 mr-1 hover:cursor-pointer" />
+            <label className="text-xs">
+              I AGREE TO THE{' '}
+              <a
+                onClick={() => router.push('/TermsAndConditions')}
+                className="underline hover:cursor-pointer"
+              >
+                TERMS AND CONDITIONS
+              </a>
+            </label>
+          </div>
           <button
             type="submit"
             className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5"
