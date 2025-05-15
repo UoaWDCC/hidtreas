@@ -3,9 +3,11 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import nasz from '@/assets/sharpened_logo.png'
+import SignUpModal from './SignUpModal'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [signOpen, setSignOpen] = useState(false)
 
   return (
     <header className="px-4 md:px-16 py-[0.6rem] flex items-center justify-between relative">
@@ -58,7 +60,10 @@ export default function Header() {
           </a>
         </h1>
         <h1>
-          <button className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] transition">
+          <button
+            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] transition"
+            onClick={() => setSignOpen(true)}
+          >
             SIGN UP
           </button>
         </h1>
@@ -77,12 +82,18 @@ export default function Header() {
             <a href="#events" className="uppercase tracking-wide font-medium">
               Events
             </a>
-            <button className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] transition">
+            <button
+              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] transition"
+              onClick={() => setSignOpen(true)}
+            >
               SIGN UP
             </button>
           </div>
         </div>
       )}
+
+      {/* Sign Up Modal */}
+      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </header>
   )
 }
