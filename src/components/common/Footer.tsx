@@ -63,6 +63,7 @@ const links: {
 
 export default function Footer() {
   const [email, setEmail] = useState('')
+  const [signupOpen, setSignupOpen] = useState(false)
   const router = useRouter()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +72,8 @@ export default function Footer() {
 
   return (
     <div className="relative w-full">
-      <Modal>
+      <Modal open={signupOpen} onClose={() => setSignupOpen(false)}>
+        <Modal.Header>asdfasdf</Modal.Header>
         asdfasdf
         <Modal.Body>ssdfs</Modal.Body>
       </Modal>
@@ -87,11 +89,9 @@ export default function Footer() {
         <div className="w-lg h-50 hidden xl:block pl-70">
           <p className="text-lg">SIGN UP NOW!</p>
           <form
-            onSubmit={() => {
-              if (email.length === 0) router.push('/signup')
-              else {
-                router.push('/signup?email=' + email)
-              }
+            onSubmit={(event) => {
+              setSignupOpen(true)
+              event.preventDefault()
             }}
           >
             <div className="bg-cyan-950 text-stone-50 rounded-xl w-50 mt-3 flex flex-row justify-between pr-3">
