@@ -45,7 +45,7 @@ export default function HeroSection() {
                 Preserving the past, inspiring the future.
               </p>
               <button
-                className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] transition"
+                className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] hover:cursor-pointer transition"
                 onClick={() => setSignOpen(true)}
               >
                 JOIN US

@@ -61,7 +61,7 @@ export default function Header() {
         </h1>
         <h1>
           <button
-            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] transition"
+            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
@@ -83,7 +83,7 @@ export default function Header() {
               Events
             </a>
             <button
-              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] transition"
+              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
               onClick={() => setSignOpen(true)}
             >
               SIGN UP

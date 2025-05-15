@@ -98,7 +98,7 @@ export default function SignUpModal({
           </div>
           <button
             type="submit"
-            className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5"
+            className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-[#0a2638] transition"
           >
             SIGN UP
           </button>

@@ -32,7 +32,7 @@ export default function WhatWeDo() {
           </p>
 
           <button
-            className="border-2 border-[#13384E] text-[#13384E] font-semibold px-6 py-2 rounded-md hover:bg-[#13384E] hover:text-white transition"
+            className="border-2 border-[#13384E] text-[#13384E] font-semibold px-6 py-2 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
