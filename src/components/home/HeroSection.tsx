@@ -1,8 +1,13 @@
+'use client'
 import Image from 'next/image'
 import elderlyImage from '@/assets/elderly.jpg'
 import logoImage from '@/assets/sharpened_logo.png'
+import { useState } from 'react'
+import SignUpModal from '../common/SignUpModal'
 
 export default function HeroSection() {
+  const [signOpen, setSignOpen] = useState(false)
+
   return (
     <section className="px-4 sm:px-6 md:px-8 lg:px-24 py-1">
       <div className="relative rounded-b-3xl md:rounded-b-[5.5rem] overflow-hidden w-full min-h-[34.375rem] md:min-h-[21.875rem] aspect-auto md:aspect-[16/7.5]">
@@ -39,13 +44,17 @@ export default function HeroSection() {
               <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal">
                 Preserving the past, inspiring the future.
               </p>
-              <button className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] transition">
+              <button
+                className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] hover:cursor-pointer transition"
+                onClick={() => setSignOpen(true)}
+              >
                 JOIN US
               </button>
             </div>
           </div>
         </div>
       </div>
+      <SignUpModal setSignOpen={setSignOpen} signOpen={signOpen} />
     </section>
   )
 }
