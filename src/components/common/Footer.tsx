@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import footerLogo from '@/assets/footerLogo.png'
+import Modal from './Modal'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -70,6 +71,10 @@ export default function Footer() {
 
   return (
     <div className="relative w-full">
+      <Modal>
+        asdfasdf
+        <Modal.Body>ssdfs</Modal.Body>
+      </Modal>
       <Image
         src={footerLogo}
         alt="Hidden Treasure Logo"
