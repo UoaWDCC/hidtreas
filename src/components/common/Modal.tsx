@@ -71,7 +71,7 @@ Modal.Body = Body
 
 /**
  * This is the Modal component itself.
- * It is a wrapper for the Modal.Body, Modal.Header, Modal.Footer components.
+ * It is a wrapper for the Modal.Body, Modal.Header components.
  *
  * @param children - The content of the modal.
  * @param className - Additional classes to apply to the modal.
@@ -85,6 +85,7 @@ export default function Modal({
   superClassName,
   open = true,
   onClose,
+  noHeader = false,
   ...rest
 }: {
   children: React.ReactNode
@@ -92,6 +93,7 @@ export default function Modal({
   superClassName?: string
   open?: boolean
   onClose?: () => void
+  noHeader?: boolean
   [key: string]: any
 }) {
   const { head, body } = moveHeader(children, onClose ? onClose : () => {})
@@ -100,7 +102,7 @@ export default function Modal({
       className={`fixed inset-0 flex items-center justify-center z-50 ${superClassName} ${open ? '' : 'hidden'}`}
     >
       <div className={`bg-white rounded-lg w-lg ${className}`} {...rest}>
-        {head}
+        {!noHeader && head}
         {body}
       </div>
     </div>
@@ -108,21 +110,16 @@ export default function Modal({
 }
 
 const moveHeader = (children: React.ReactNode, onClose: () => void) => {
-  const all = React.Children.map(children, (child) => {
-    if (React.isValidElement(child) && child.type === Header) {
-      const header = child as React.ReactElement<any>
-      return React.cloneElement(header, {
-        onClose: onClose,
-      })
-    }
-    return child
-  })
-  const head = all?.find((child) => {
+  const headBase = (React.Children.toArray(children).find((child) => {
     return React.isValidElement(child) && child.type === Header
-  }) as React.ReactElement
+  }) as React.ReactElement<typeof Header & { onClose?: () => void }>) || <Header />
 
-  const body = all?.filter((child) => {
-    return React.isValidElement(child) && child.type !== Header
+  const head = React.cloneElement(headBase, {
+    onClose: onClose,
+  })
+
+  const body = React.Children.toArray(children).filter((child) => {
+    return React.isValidElement(child) && child.type === Header ? false : true
   }) as React.ReactNode
 
   return { head, body }
