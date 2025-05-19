@@ -16,6 +16,8 @@ export default function HeroSection() {
       
       <div className="relative z-10 container mx-auto px-4">
         <h1 className="text-6xl font-bold mb-8 pt-10">FAQ</h1>
+        <div className = "flex flex-col">
+          
         <div className="relative w-275 h-80 rounded-lg overflow-hidden">
           <Image
             src={placeholder}
@@ -25,12 +27,13 @@ export default function HeroSection() {
             className="object-cover"
           />
         </div>
-      <div className="relative text-right">
+      <div className="text-right">
       <p>
         Pulvinar vivamus fringilla lacus nec metus bibendum egestas. <br />
         Iaculis massa nisl malesuada lacinia integer nunc posuere. <br />
         Ut hendrerit semper vel.
       </p>
+      </div>
       </div>
     </div>
   </div>  
