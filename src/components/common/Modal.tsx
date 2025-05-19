@@ -86,6 +86,7 @@ export default function Modal({
   open = true,
   onClose,
   noHeader = false,
+  doNotCloseOnClickOutside = false,
   ...rest
 }: {
   children: React.ReactNode
@@ -94,11 +95,17 @@ export default function Modal({
   open?: boolean
   onClose?: () => void
   noHeader?: boolean
+  doNotCloseOnClickOutside?: boolean
   [key: string]: any
 }) {
   const { head, body } = moveHeader(children, onClose ? onClose : () => {})
   return (
     <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose && !doNotCloseOnClickOutside ? onClose() : {}
+        }
+      }}
       className={`fixed inset-0 flex items-center justify-center z-50 ${superClassName} ${open ? '' : 'hidden'}`}
     >
       <div className={`bg-white rounded-lg w-lg ${className}`} {...rest}>

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Logo from '@/assets/sharpened_logo.png'
 import BirdPNG from '@/assets/signUpBird.png'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const fields = [
   {
@@ -30,6 +31,7 @@ export default function SignUpModal({
   initialEmail?: string
 }) {
   const router = useRouter()
+  const [answers, setAnswers] = useState(false)
 
   return (
     <Modal
@@ -40,6 +42,7 @@ export default function SignUpModal({
       className="w-sm h-[30rem] flex flex-row xl:w-xl"
       superClassName="bg-stone-200/75"
       noHeader
+      doNotCloseOnClickOutside={answers}
     >
       <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
         <Image src={BirdPNG} alt="Hidden Treasure Logo" className="w-sm h-full rounded-l-lg" />
@@ -81,6 +84,7 @@ export default function SignUpModal({
                 placeholder={field.placeholder}
                 name={field.name}
                 defaultValue={defaultValue}
+                onChange={() => setAnswers(true)}
               />
             )
           })}
@@ -89,7 +93,10 @@ export default function SignUpModal({
             <label className="text-xs">
               I AGREE TO THE{' '}
               <a
-                onClick={() => router.push('/TermsAndConditions')}
+                onClick={() => {
+                  router.push('/TermsAndConditions')
+                  setAnswers(true)
+                }}
                 className="underline hover:cursor-pointer"
               >
                 TERMS AND CONDITIONS
