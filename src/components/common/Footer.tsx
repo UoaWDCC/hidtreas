@@ -7,11 +7,14 @@ import {
   IconBrandFacebook,
   IconBrandYoutube,
   IconArrowRight,
+  IconX,
 } from '@tabler/icons-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import footerLogo from '@/assets/footerLogo.png'
+import Modal from './Modal'
+import SignUpModal from './SignUpModal'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -62,7 +65,7 @@ const links: {
 
 export default function Footer() {
   const [email, setEmail] = useState('')
-  const router = useRouter()
+  const [signOpen, setSignOpen] = useState(false)
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -70,6 +73,7 @@ export default function Footer() {
 
   return (
     <div className="relative w-full">
+      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} initialEmail={email} />
       <Image
         src={footerLogo}
         alt="Hidden Treasure Logo"
@@ -82,11 +86,9 @@ export default function Footer() {
         <div className="w-lg h-50 hidden xl:block pl-70">
           <p className="text-lg">SIGN UP NOW!</p>
           <form
-            onSubmit={() => {
-              if (email.length === 0) router.push('/signup')
-              else {
-                router.push('/signup?email=' + email)
-              }
+            onSubmit={(event) => {
+              setSignOpen(true)
+              event.preventDefault()
             }}
           >
             <div className="bg-cyan-950 text-stone-50 rounded-xl w-50 mt-3 flex flex-row justify-between pr-3">
