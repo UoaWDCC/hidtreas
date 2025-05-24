@@ -18,19 +18,27 @@ export default function SecondAccordion({ items }: Props) {
   }
 
   return (
-    <div className="h-screen w-screen px-40 pt-20">
+    <div className="h-140 w-screen px-40 pt-20">
       {items.map((items, index) => (
         <div key={index} className="border-t">
           <button
-            className="w-full text-left px-4 py-2 hover:bg-[#e6dcd5]"
+            className="w-full text-left px-4 py-2 cursor-pointer"
             onClick={() => toggle(index)}
           >
             <div className="flex flex-row justify-between">
-              <span className="font-bold">{items.title}</span>
-              <span className="text-xl font-bold">{openId === index ? '-' : '+'}</span>
+              <h3 className="font-bold">{items.title}</h3>
+              <span className="text-2xl font-bold">{openId === index ? '-' : '+'}</span>
             </div>
           </button>
-          {openId === index && <div className="px-4 py-2">{items.content}</div>}
+          <div
+            className={`px-4 pt-2 overflow-hidden transition-all duration-300 ease-in-out ${
+              index === openId
+                ? 'opacity-100 max-h-96 pb-8'
+                : 'opacity-0 max-h-0 pointer-events-auto'
+            }`}
+          >
+            {items.content}
+          </div>
         </div>
       ))}
     </div>
