@@ -12,15 +12,17 @@ export default async function ContactPage() {
 
             <section className="px-10 md:px-40 py-12 mb-6">
                 <div className="flex flex-col md:flex-row items-center justify-center">
-                    <div className="pr-5 w-full md:w-1/2 flex flex-col items-center justify-center relative">
-                        <h1 className="text-5xl font-extrabold mb-6">CONTACT US</h1>
-                        <div className="relative w-full max-w-sm">
-                            <Image src={placeholderImage} alt="Placeholder Image" className="w-full h-auto"/>
-                            <Image
-                                src={fern}
-                                alt="Fern Leaf"
-                                className="absolute bottom-0 right-0 w-40 h-auto translate-x-[4.5rem] translate-y-[1.75rem]"
-                            />
+                    <div className="pr-5 w-full md:w-1/2 flex flex-col items-center justify-center">
+                        <div className="flex flex-col items-center justify-center relative">
+                            <h1 className="text-5xl font-black mb-0">CONTACT US</h1>
+                            <div className="relative w-full">
+                                <Image src={placeholderImage} alt="Placeholder Image" className="w-full h-auto"/>
+                                <Image
+                                    src={fern}
+                                    alt="Fern Leaf"
+                                    className="absolute bottom-0 right-0 w-40 h-auto translate-x-[4.5rem] translate-y-[1.75rem]"
+                                />
+                            </div>
                         </div>
                     </div>
 
