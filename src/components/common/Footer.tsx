@@ -136,13 +136,13 @@ export default function Footer() {
         <div className="w-50 hidden xl:block" />
         <p className="text-center">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
         <div className="flex flex-row gap-5">
-          <a href="/privacy" className="text-center">
+          <a href="/faq" className="text-center">
             FAQ
           </a>
           <a href="/privacy" className="text-center">
             Privacy Policy
           </a>
-          <a href="/privacy" className="text-center">
+          <a href="/tos" className="text-center">
             Terms of Service
           </a>
         </div>
