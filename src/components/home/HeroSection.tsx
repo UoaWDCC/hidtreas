@@ -39,7 +39,7 @@ export default function HeroSection() {
               <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal">
                 Preserving the past, inspiring the future.
               </p>
-              <button className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] transition">
+              <button className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] transition cursor-pointer">
                 JOIN US
               </button>
             </div>
