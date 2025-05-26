@@ -35,22 +35,25 @@ const Accordion: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-[#fdf4ed] p-4">
+    <div className="w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
       {items.map((item, index) => (
-        <div key={index} className="border-y border-gray-300">
+        <div key={index} className="border-y border-black-300 w-full">
           <button
             onClick={() => toggle(index)}
-            className="w-full flex justify-between items-center py-4">
-            <span className="font-bold">{item.title}</span>
-            <span className="text-xl font-bold">
+            className="w-full flex justify-between items-center py-4"
+          >
+            <span className="text-xl font-bold">{item.title}</span>
+            <span className="text-2xl font-bold shrink-0">
               {openIndex === index ? "−" : "+"}
             </span>
           </button>
-          {openIndex === index && (
-            <div className="pb-4">
-              {item.content}
-            </div>
-          )}
+          <div
+            className={`transition-all duration-300 ease-in-out overflow-hidden text-m w-full break-words ${
+              openIndex === index ? 'max-h-40 pb-4' : 'max-h-0 pb-0'
+            }`}
+          >
+            {item.content}
+          </div>
         </div>
       ))}
     </div>
@@ -58,4 +61,3 @@ const Accordion: React.FC = () => {
 };
 
 export default Accordion;
-
