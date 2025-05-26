@@ -4,6 +4,49 @@ import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
 
 export default function MeetTheTeam() {
+  const peopleArray = [
+    {
+      name: 'Alice',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Bob',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Carol',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'David',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Eve',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Fred',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Gaby',
+      role: 'Founder',
+      image: profilePic,
+    },
+    {
+      name: 'Hank Green',
+      role: 'Founder',
+      image: profilePic,
+    },
+  ]
+
   return (
     <div className="relative pt-[6rem] pb-[6rem]  ">
       {/* whole section */}
@@ -29,14 +72,9 @@ export default function MeetTheTeam() {
         {/* whole grid */}
 
         <div className="mt-[9vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
-          <TeamMember name="Alice" role="Founder" image={profilePic} />
-          <TeamMember name="Bob" role="Founder" image={profilePic} />
-          <TeamMember name="Claire" role="Founder" image={profilePic} />
-          <TeamMember name="Denise" role="Founder" image={profilePic} />
-          <TeamMember name="Eve" role="Founder" image={profilePic} />
-          <TeamMember name="Fred" role="Founder" image={profilePic} />
-          <TeamMember name="Greg" role="Founder" image={profilePic} />
-          <TeamMember name="Hank Green!" role="Founder" image={profilePic} />
+          {peopleArray.map((person) => {
+            return <TeamMember name={person.name} role={person.role} image={person.image} />
+          })}
         </div>
       </div>
     </div>
@@ -47,6 +85,7 @@ function TeamMember({ name, role, image }: { name: string; role: string; image: 
   return (
     <div className="flex flex-col items-center text-center">
       {/* image */}
+
       <Image src={image} alt={`${name}'s photo`} className="w-[clamp(4rem,20vw,10rem)] h-auto" />
 
       {/* text stuff */}
