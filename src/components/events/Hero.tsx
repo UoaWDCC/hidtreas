@@ -4,7 +4,7 @@ import blueKoru from '@/assets/blue_koru.png'
 
 export default function Hero() {
   return (
-    <div className="relative py-[64px]">
+    <div className="relative pt-32 pb-16">
       {/* Hero */}
       <div className="relative flex justify-center">
         <div className="w-full relative flex justify-center">
