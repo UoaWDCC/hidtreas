@@ -3,14 +3,18 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import nasz from '@/assets/sharpened_logo.png'
+import SignUpModal from './SignUpModal'
+import Link from 'next/link'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [signOpen, setSignOpen] = useState(false)
 
   return (
     <header className="px-4 md:px-16 py-[0.6rem] flex items-center justify-between relative">
       {/* Logo + Brand */}
-      <div className="flex items-center space-x-2 md:space-x-3">
+      {/* Logo + Brand — Wrapped in Link to home */}
+      <Link href="/" className="flex items-center space-x-2 md:space-x-3">
         <Image
           src={nasz}
           alt="Hidden Treasure Logo"
@@ -21,7 +25,7 @@ export default function Header() {
         <h1 className="text-[1rem] md:text-[1.35rem] font-semibold tracking-wide antialiased">
           HIDDEN TREASURE
         </h1>
-      </div>
+      </Link>
 
       {/* Mobile Menu Button */}
       <button
@@ -43,22 +47,25 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-[2.5rem] font-medium text-[1.125rem] antialiased">
         <h1>
-          <a href="#about" className="hover:underline uppercase tracking-wide">
+          <a href="/about" className="hover:underline uppercase tracking-wide">
             About Us
           </a>
         </h1>
         <h1>
-          <a href="#blogs" className="hover:underline uppercase tracking-wide">
+          <a href="/blogs" className="hover:underline uppercase tracking-wide">
             Blogs
           </a>
         </h1>
         <h1>
-          <a href="#events" className="hover:underline uppercase tracking-wide">
+          <a href="/events" className="hover:underline uppercase tracking-wide">
             Events
           </a>
         </h1>
         <h1>
-          <button className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] transition">
+          <button
+            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
+            onClick={() => setSignOpen(true)}
+          >
             SIGN UP
           </button>
         </h1>
@@ -68,21 +75,27 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <a href="#about" className="uppercase tracking-wide font-medium">
+            <a href="/about" className="uppercase tracking-wide font-medium">
               About Us
             </a>
-            <a href="#blogs" className="uppercase tracking-wide font-medium">
+            <a href="/blogs" className="uppercase tracking-wide font-medium">
               Blogs
             </a>
-            <a href="#events" className="uppercase tracking-wide font-medium">
+            <a href="/events" className="uppercase tracking-wide font-medium">
               Events
             </a>
-            <button className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] transition">
+            <button
+              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
+              onClick={() => setSignOpen(true)}
+            >
               SIGN UP
             </button>
           </div>
         </div>
       )}
+
+      {/* Sign Up Modal */}
+      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </header>
   )
 }
