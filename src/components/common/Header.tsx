@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import nasz from '@/assets/sharpened_logo.png'
 import SignUpModal from './SignUpModal'
+import Link from 'next/link'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
