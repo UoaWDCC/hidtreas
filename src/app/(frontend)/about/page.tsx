@@ -1,5 +1,8 @@
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
+import Hero from '@/components/about/Hero'
+import Descriptions from '@/components/about/Descriptions'
+
 import Image from 'next/image'
 
 import { La_Belle_Aurore, Kosugi_Maru } from 'next/font/google'
@@ -26,6 +29,9 @@ export default async function AboutPage() {
   return (
     <>
       <Header />
+
+      <Hero />
+      <Descriptions />
 
       {/* Quotes Section */}
       <section className="py-8 md:py-16">
