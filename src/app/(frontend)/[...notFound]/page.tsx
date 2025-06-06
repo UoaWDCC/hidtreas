@@ -72,7 +72,7 @@ export default async function NotFound() {
               src={img.src}
               alt=""
               className={`absolute ${img.class}`}
-              height={50}
+              width={50}
             />
           ))}
         </div>
