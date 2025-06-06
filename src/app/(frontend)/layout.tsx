@@ -6,7 +6,7 @@ import { K2D, Inter, Tajawal } from 'next/font/google'
 const k2d = K2D({
   subsets: ['latin'],
   variable: '--font-k2d',
-  weight: ['400'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
 })
 
 const inter = Inter({

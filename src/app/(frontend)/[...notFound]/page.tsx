@@ -7,7 +7,10 @@ export default async function NotFound() {
     <div className="h-screen flex flex-col">
       <Header />
       <div className="w-full h-full flex flex-col items-center justify-center text-center tracking-widest">
-        <div className="text-3xl font-[900]">
+        <div>
+          <h2 className="font-black text-[150px]">404</h2>
+        </div>
+        <div className="text-3xl font-black">
           <h1>Oh No!</h1>
           <h1>This Treasure Does Not Exist.</h1>
         </div>
