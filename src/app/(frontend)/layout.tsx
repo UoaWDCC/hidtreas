@@ -12,7 +12,6 @@ const k2d = K2D({
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  weight: ['400'],
 })
 
 export const metadata = {
