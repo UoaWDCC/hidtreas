@@ -24,7 +24,7 @@ export default function EventsPage() {
       <Header />
 
       {/* Koru decoration */}
-      <div className="pt-15 relative overflow-visible">
+      <div className="pt-15 relative overflow-visible hidden md:block">
         <Image
           src={Koru}
           alt="Koru decoration"
@@ -50,11 +50,12 @@ export default function EventsPage() {
         {/* First Event */}
         <div
           className="
-            flex flex-col md:flex-row items-start
-            pt-3 sm:pt-10 md:pt-10 lg:pt-20 xl:pt-28
-            pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-50
-            gap-6 md:gap-10 lg:gap-20
-          "
+    flex flex-col md:flex-row items-start
+    pt-3 sm:pt-10 md:pt-10 lg:pt-20 xl:pt-28
+    pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-50
+    gap-6 md:gap-10 lg:gap-20
+    mb-10 md:mb-0
+  "
         >
           <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
             <Image
