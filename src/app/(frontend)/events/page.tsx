@@ -52,8 +52,8 @@ export default function EventsPage() {
           className="
             flex flex-col md:flex-row items-start
             pt-3 sm:pt-10 md:pt-10 lg:pt-20 xl:pt-28
-            pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-32
-            gap-6 md:gap-10 lg:gap-14
+            pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-50
+            gap-6 md:gap-10 lg:gap-20
           "
         >
           <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
@@ -72,6 +72,18 @@ export default function EventsPage() {
             >
               12 June 2025
             </div>
+
+            {/* Responsive dark red circle */}
+            <div
+              className="
+      absolute
+      rounded-full
+      bg-[#eb5454]
+      w-8 h-8 bottom-[-16px] left-[-16px]        /* small screens */
+      md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px]  /* medium screens */
+      lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px]  /* large screens */
+    "
+            />
           </div>
 
           <div className="text-white max-w-xl">
@@ -92,20 +104,20 @@ export default function EventsPage() {
 
             <button
               onClick={() => setSignOpen(true)}
-              className="mt-6 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer"
+              className="mt-10 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer"
             >
               SIGN UP HERE
             </button>
           </div>
         </div>
 
-        {/* Second Event (same layout: image left, text right) */}
+        {/* Second Event */}
         <div
           className="
             flex flex-col md:flex-row items-start
-            pt-20 sm:pt-24 md:pt-24 lg:pt-32 xl:pt-36
-            pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-32
-            gap-6 md:gap-10 lg:gap-14
+            pt-3 sm:pt-10 md:pt-10 lg:pt-20 xl:pt-28
+            pl-4 sm:pl-8 md:pl-12 lg:pl-20 xl:pl-50
+            gap-6 md:gap-10 lg:gap-20
           "
         >
           <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
@@ -124,6 +136,24 @@ export default function EventsPage() {
             >
               12 June 2025
             </div>
+
+            {/* Responsive Kiwi image instead of red circle */}
+            <div
+              className="
+    absolute
+    bottom-[-16px] right-[-16px]       /* small screens */
+    md:bottom-[-20px] md:right-[-20px] /* medium screens */
+    lg:bottom-[-24px] lg:right-[-24px] /* large screens */
+    w-8 h-8 md:w-15 md:h-15 lg:w-20 lg:h-20
+    flex items-center justify-center
+  "
+            >
+              <Image
+                src={KiwiBird}
+                alt="Kiwi decoration"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
 
           <div className="text-white max-w-xl">
@@ -135,14 +165,16 @@ export default function EventsPage() {
 
             <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
               Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum
-              culpa est eligendi veniam. Qui blanditiis inventore ut sint beatae. Aut quia assumenda
-              eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi
-              veniam. Qui blanditiis inventore ut sint beatae.
+              culpa est eligendi veniam. Qui blanditiis inventore ut sint beatae.
+            </p>
+            <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
+              Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum
+              culpa est eligendi veniam. Qui blanditiis inventore ut sint beatae.
             </p>
 
             <button
               onClick={() => setSignOpen(true)}
-              className="mt-6 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer"
+              className="mt-10 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer"
             >
               SIGN UP HERE
             </button>
