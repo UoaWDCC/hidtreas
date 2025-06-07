@@ -37,9 +37,9 @@ export default function EventsPage() {
         className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center"
         style={{ height: '5rem' }}
       >
-        <h1 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
+        <h2 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
           RECENT EVENTS
-        </h1>
+        </h2>
       </div>
 
       {/* Main Recent Events section */}
@@ -56,13 +56,23 @@ export default function EventsPage() {
             gap-6 md:gap-10 lg:gap-14
           "
         >
-          <Image
-            src={PlaceholderImg}
-            alt="Event placeholder image"
-            width={400}
-            height={300}
-            className="w-full max-w-[70%] md:max-w-[400px] h-auto"
-          />
+          <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
+            <Image
+              src={PlaceholderImg}
+              alt="Event placeholder image"
+              width={400}
+              height={300}
+              className="w-full h-auto"
+            />
+
+            {/* Date Box */}
+            <div
+              className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold"
+              style={{ borderBottomRightRadius: '0.75rem' }}
+            >
+              12 June 2025
+            </div>
+          </div>
 
           <div className="text-white max-w-xl">
             <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
@@ -98,13 +108,23 @@ export default function EventsPage() {
             gap-6 md:gap-10 lg:gap-14
           "
         >
-          <Image
-            src={PlaceholderImg}
-            alt="Event placeholder image"
-            width={400}
-            height={300}
-            className="w-full max-w-[70%] md:max-w-[400px] h-auto"
-          />
+          <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
+            <Image
+              src={PlaceholderImg}
+              alt="Event placeholder image"
+              width={400}
+              height={300}
+              className="w-full h-auto"
+            />
+
+            {/* Date Box */}
+            <div
+              className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold"
+              style={{ borderBottomRightRadius: '0.75rem' }}
+            >
+              12 June 2025
+            </div>
+          </div>
 
           <div className="text-white max-w-xl">
             <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
