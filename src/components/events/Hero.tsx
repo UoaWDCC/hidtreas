@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import landscapePlaceholder from '@/assets/landscape_placeholder.png'
-import blueKoru from '@/assets/blue_koru.png'
+import blueKoru from '@/assets/blue_koru_crop.png'
 
 export default function Hero() {
   return (
