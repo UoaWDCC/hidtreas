@@ -4,7 +4,7 @@ import peoplePlaceholder from '@/assets/people_placeholder.png'
 export default function Hero() {
   return (
     <div>
-    {/* Hero */}
+      {/* Hero */}
       <div className="relative flex justify-center">
         <div className="w-full relative flex">
           {/* Image */}
