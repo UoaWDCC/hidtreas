@@ -1,10 +1,13 @@
+'use client'
 import Image from 'next/image'
 import groupPic from '@/assets/groupPic.png'
 import placeholder from '@/assets/placeholderGroupPic.png'
 import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
+import { useRouter } from 'next/navigation'
 
 export default function WhoWeAre() {
+  const router = useRouter()
   return (
     <div className="relative pt-[6rem] pb-[6rem]">
       <div className="flex justify-center">
@@ -31,7 +34,10 @@ export default function WhoWeAre() {
             Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo
             eu aenean.
           </p>
-          <button className=" bg-[#13384E] px-[2rem] py-[0.35rem] rounded-[0.4rem] text-white text-[1.3vw] mt-[2vw]">
+          <button
+            className=" bg-[#13384E] px-[2rem] py-[0.35rem] rounded-[0.4rem] text-white text-[1.3vw] mt-[2vw] hover:cursor-pointer"
+            onClick={() => router.push('/about')}
+          >
             FIND OUT MORE
           </button>
         </div>
