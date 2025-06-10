@@ -35,9 +35,9 @@ const Accordion: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
+    <div className="h-0 w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
       {items.map((item, index) => (
-        <div key={index} className="border-y border-black-300 w-full">
+        <div key={index} className="border-t">
           <button
             onClick={() => toggle(index)}
             className="w-full flex justify-between items-center py-4"
