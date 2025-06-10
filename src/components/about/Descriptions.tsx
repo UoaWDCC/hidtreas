@@ -7,9 +7,9 @@ export default function Descriptions() {
     <div>
     {/* Descriptions Section */}
       {/* Small top right image */}
-      <div className="relative w-full h-full py-64">
-        <div className="relative w-full flex justify-end px-15">
-          <div className="absolute -top-20 right-10 w-[20vw] aspect-square">
+      <div className="relative w-full h-full pb-64 pt-[10vw]">
+        <div className="relative w-full flex justify-end">
+          <div className="absolute -top-[5vh] right-10 w-[18vw] aspect-square">
             <Image 
             src={placeholder} 
             alt="Small image" 
@@ -33,7 +33,7 @@ export default function Descriptions() {
 
 
           {/* Descriptive text */}
-          <div className="w-[50vw]">
+          <div className="w-[45vw]">
             <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal text-center">
               Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
               quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id.
@@ -51,8 +51,8 @@ export default function Descriptions() {
         </div>
 
         {/* Small bottom left image */}
-        <div className="relative w-full flex justify px-15">
-          <div className="absolute -bottom-64 left-10 w-[20vw] aspect-square">
+        <div className="relative w-full flex justify">
+          <div className="absolute -bottom-[10vh] left-10 w-[18vw] aspect-square">
             <Image 
             src={placeholder} 
             alt="Small image" 
@@ -62,7 +62,7 @@ export default function Descriptions() {
         </div>
 
         {/* Spacer */}
-        <div className="h-64" />
+        <div className="h-[5vw]" />
       </div>
     </div>
   )

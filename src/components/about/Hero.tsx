@@ -6,12 +6,12 @@ export default function Hero() {
     <div>
     {/* Hero */}
       <div className="relative flex justify-center">
-        <div className="w-full relative">
+        <div className="w-full relative flex">
           {/* Image */}
           <Image
             src={peoplePlaceholder}
             alt="Hidden Treasure People" // Actual image should be wider than placeholder
-            className="object-contain w-[auto] h-screen"
+            className="object-contain w-[auto] h-screen max-w-[50vw]"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-[0.125rem] -translate-y-8">
