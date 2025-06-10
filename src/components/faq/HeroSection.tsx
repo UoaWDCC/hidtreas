@@ -14,10 +14,10 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4">
-        <h1 className="text-6xl font-bold mb-8 pt-10 pl-20">FAQ</h1>
+      <div className="relative z-10 container">
+        <h1 className="text-6xl font-bold pt-10 pl-50">FAQ</h1>
         <div className="flex flex-col width-70%">
-          <div className="relative h-80 rounded-lg overflow-hidden">
+          <div className="relative h-90 rounded-lg overflow-hidden">
             <Image
               src={placeholder}
               alt="Placeholder Image"
