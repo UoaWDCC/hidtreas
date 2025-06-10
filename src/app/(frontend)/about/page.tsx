@@ -1,35 +1,17 @@
+import Image from 'next/image'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
+
+// About Us sections
 import Hero from '@/components/about/Hero'
 import Descriptions from '@/components/about/Descriptions'
-
-import Image from 'next/image'
-
-import { La_Belle_Aurore, Kosugi_Maru } from 'next/font/google'
-
-const laBelleAurore = La_Belle_Aurore({
-  subsets: ['latin'],
-  weight: '400',
-})
-
-const kosugiMaru = Kosugi_Maru({
-  subsets: ['latin'],
-  weight: '400',
-})
-
-// Import assets
-import blueWave from '@/assets/blue_wave.png'
-import bigFeather from '@/assets/big_feather.png'
-import blueKoru from '@/assets/blue_koru.png'
-import aboutUsLeaf from '@/assets/about_us_leaf.png'
-import quotesBackground from '@/assets/quotesbackground.png'
-import meetTheTeamBackground from '@/assets/meettheteambackground.png'
+import MeetTheWDCCTeam from '@/components/about/MeetTheWDCCTeam'
+import QuotesSection from '@/components/about/QuotesSection'
 
 export default async function AboutPage() {
   return (
-    <>
+    <div className="home">
       <Header />
-
       <Hero />
       <Descriptions />
 
@@ -142,7 +124,11 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* About Us content sections */}
+      <QuotesSection />
+      <MeetTheWDCCTeam />
+
       <Footer />
-    </>
+    </div>
   )
 }
