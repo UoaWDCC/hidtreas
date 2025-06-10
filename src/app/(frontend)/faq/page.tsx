@@ -1,6 +1,7 @@
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import SecondAccordion from '@/components/faq/SecondAccordion'
+import FAQ from '@/components/faq/FAQ'
 
 const items = [
   {
@@ -29,6 +30,7 @@ export default async function AboutPage() {
   return (
     <div className="home">
       <Header />
+      <FAQ />
       <SecondAccordion items={items} />
       <Footer />
     </div>
