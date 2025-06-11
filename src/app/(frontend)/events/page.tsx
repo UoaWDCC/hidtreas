@@ -6,6 +6,7 @@ import Footer from '@/components/common/Footer'
 import Hero from '@/components/events/Hero'
 import EventsSignUpModal from '@/components/events/EventsSignUpModal'
 import RecentEvents from '@/components/events/RecentEvents'
+import PastEventsSection from '@/components/events/PastEventsSection'
 
 export default function EventsPage() {
   const [signOpen, setSignOpen] = useState(false)
@@ -23,6 +24,7 @@ export default function EventsPage() {
           Temporary, Click Here
         </button>
       </div>
+      <PastEventsSection />
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </div>
