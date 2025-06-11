@@ -31,3 +31,8 @@ body {
 h1 {
   font-family: var(--font-header);
 }
+
+@theme {
+  --font-k2d: var(--font-k2d, 'K2D', sans-serif);
+  --font-inter: var(--font-inter, 'Inter', sans-serif);
+}
