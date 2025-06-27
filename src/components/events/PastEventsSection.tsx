@@ -3,7 +3,7 @@ import PastEvents from '@/components/events/PastEventsGrid'
 import Image from 'next/image'
 import BlueKoru from '@/assets/blue_koru.png'
 
-export default async function PastEventsSection() {
+export default function PastEventsSection() {
   return (
     <div className="relative py-50">
       <Image
