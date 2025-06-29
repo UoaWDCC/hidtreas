@@ -16,11 +16,11 @@ const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl }) =>
                 <Image src={imageUrl} alt={title} className={"w-full h-full object-cover"} width={993} height={524} />
             </div>
 
-            <h1 className={"text-3xl font-black self-start mb-2"}>
+            <h1 className={"text-3xl font-black self-start mb-2 clamp-2"}>
                 {title}
             </h1>
 
-            <p className={"text-sm text-gray-800 self-start mb-4"}>
+            <p className={"text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[6rem]"}>
                 {description}
             </p>
 
