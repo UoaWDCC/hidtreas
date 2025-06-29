@@ -12,7 +12,7 @@ export default async function BlogsPage() {
         <div className={"blogs"}>
             <Header/>
             <div className={"flex justify-center"}>
-                <div className="grid grid-cols-3 gap-12">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-12">
                     {blogs.map((blog) => (
                         // TODO: Change placeholderImage to blog.ImageUrl once all images come from CMS
                         <BlogCard
