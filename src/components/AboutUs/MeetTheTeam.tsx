@@ -72,9 +72,14 @@ export default function MeetTheTeam() {
         {/* whole grid */}
 
         <div className="mt-[9vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
-          {peopleArray.map((person) => {
-            return <TeamMember name={person.name} role={person.role} image={person.image} />
-          })}
+          {peopleArray.map((person) => (
+            <TeamMember
+              key={person.name}
+              name={person.name}
+              role={person.role}
+              image={person.image}
+            />
+          ))}
         </div>
       </div>
     </div>
