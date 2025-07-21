@@ -1,10 +1,12 @@
-
 'use client'
+
+import { useState } from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import Hero from '@/components/events/Hero'
 import EventsSignUpModal from '@/components/events/EventsSignUpModal'
-import { useState } from 'react'
+import RecentEvents from '@/components/events/RecentEvents'
+import PastEventsSection from '@/components/events/PastEventsSection'
 
 export default function EventsPage() {
   const [signOpen, setSignOpen] = useState(false)
@@ -13,14 +15,8 @@ export default function EventsPage() {
     <div className="home">
       <Header />
       <Hero />
-      <div className="flex justify-center mt-10 mb-10 ">
-        <button
-          className="bg-[#13384E] text-white hover:cursor-pointer w-[15rem] h-[5rem]"
-          onClick={() => setSignOpen(true)}
-        >
-          Temporary, Click Here
-        </button>
-      </div>
+      <RecentEvents />
+      <PastEventsSection />
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </div>
