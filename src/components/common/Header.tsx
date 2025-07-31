@@ -47,19 +47,19 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-[2.5rem] font-medium text-[1.125rem] antialiased">
         <h1>
-          <a href="/about" className="hover:underline uppercase tracking-wide">
+          <Link href="/about" className="hover:underline uppercase tracking-wide">
             About Us
-          </a>
+          </Link>
         </h1>
         <h1>
-          <a href="/blogs" className="hover:underline uppercase tracking-wide">
+          <Link href="/blogs" className="hover:underline uppercase tracking-wide">
             Blogs
-          </a>
+          </Link>
         </h1>
         <h1>
-          <a href="/events" className="hover:underline uppercase tracking-wide">
+          <Link href="/events" className="hover:underline uppercase tracking-wide">
             Events
-          </a>
+          </Link>
         </h1>
         <h1>
           <button
@@ -75,15 +75,15 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <a href="/about" className="uppercase tracking-wide font-medium">
+            <Link href="/about" className="uppercase tracking-wide font-medium">
               About Us
-            </a>
-            <a href="/blogs" className="uppercase tracking-wide font-medium">
+            </Link>
+            <Link href="/blogs" className="uppercase tracking-wide font-medium">
               Blogs
-            </a>
-            <a href="/events" className="uppercase tracking-wide font-medium">
+            </Link>
+            <Link href="/events" className="uppercase tracking-wide font-medium">
               Events
-            </a>
+            </Link>
             <button
               className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
               onClick={() => setSignOpen(true)}

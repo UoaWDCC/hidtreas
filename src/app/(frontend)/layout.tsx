@@ -1,7 +1,7 @@
 import React from 'react'
 import './global.css'
 
-import { K2D, Inter, Tajawal } from 'next/font/google'
+import { K2D, Inter } from 'next/font/google'
 
 const k2d = K2D({
   subsets: ['latin'],

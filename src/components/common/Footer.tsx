@@ -15,6 +15,7 @@ import { useState } from 'react'
 import footerLogo from '@/assets/footerLogo.png'
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
+import Link from 'next/link'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -136,15 +137,15 @@ export default function Footer() {
         <div className="w-50 hidden xl:block" />
         <p className="text-center">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
         <div className="flex flex-row gap-5">
-          <a href="/faq" className="text-center">
+          <Link href="/faq" className="text-center">
             FAQ
-          </a>
-          <a href="/privacy" className="text-center">
+          </Link>
+          <Link href="/privacy" className="text-center">
             Privacy Policy
-          </a>
-          <a href="/privacy" className="text-center">
+          </Link>
+          <Link href="/privacy" className="text-center">
             Terms of Service
-          </a>
+          </Link>
         </div>
       </div>
     </div>

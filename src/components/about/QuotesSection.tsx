@@ -39,8 +39,8 @@ export default function QuotesSection() {
             <blockquote
               className={`${laBelleAurore.className} text-[1.5rem] sm:text-[3rem] md:text-[4rem] text-black`}
             >
-              "A doloribus at rerum culpa est eligendi veniam. Aut quia ea assumenda cum pa nostrum
-              vel"
+              &quot;A doloribus at rerum culpa est eligendi veniam. Aut quia ea assumenda cum pa nostrum
+              vel&quot;
             </blockquote>
           </div>
         </div>
