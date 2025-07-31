@@ -76,7 +76,7 @@ export default async function ContactPage() {
                         </p>
 
                         <h3 className="text-xl font-medium mb-1">Office Hours</h3>
-                        <p className="italic text-sm mb-2">"We're here when you need us."</p>
+                        <p className="italic text-sm mb-2">&quot;We&apos;re here when you need us.&quot;</p>
                         <p className="text-sm">
                             🕓 Monday – Friday: 9:00 AM – 5:00 PM<br/>
                             <span className="text-xs text-gray-500">

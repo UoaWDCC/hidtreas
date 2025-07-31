@@ -102,8 +102,8 @@ export default function Modal({
   return (
     <div
       onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          onClose && !doNotCloseOnClickOutside ? onClose() : {}
+        if (e.target === e.currentTarget && onClose && !doNotCloseOnClickOutside) {
+          onClose()
         }
       }}
       className={`fixed inset-0 flex items-center justify-center z-50 ${superClassName} ${open ? '' : 'hidden'}`}

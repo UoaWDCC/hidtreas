@@ -8,6 +8,7 @@ import koruAndLeaf from '@/assets/koruAndLeaf.png'
 import blueWave from '@/assets/blue_wave.png'
 import leaf from '@/assets/leaf.svg'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const bgImages = [
   {
@@ -60,8 +61,8 @@ export default async function NotFound() {
 
         {/* Links out of page */}
         <div className="underline font-semibold text-sm mt-5 flex flex-col gap-4 justify-center mt-20 uppercase tracking-wider">
-          <a href="/">Return to Home</a>
-          <a href="/events">Explore our Stories and Events</a>
+          <Link href="/">Return to Home</Link>
+          <Link href="/events">Explore our Stories and Events</Link>
         </div>
 
         {/* All the extras in the background */}

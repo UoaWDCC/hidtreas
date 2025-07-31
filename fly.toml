@@ -5,10 +5,10 @@
 
 app = 'hidtreas'
 primary_region = 'syd'
+swap_size_mb = 512
 
 [build]
   dockerfile = "Dockerfile.prod"
-
 
 [http_service]
   internal_port = 3000

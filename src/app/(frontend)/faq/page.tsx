@@ -27,7 +27,7 @@ const items = [
   },
 ]
 
-export default async function FAQ() {
+export default async function FAQPage() {
   return (
     <div className="faq">
       <Header />
