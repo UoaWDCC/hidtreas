@@ -17,6 +17,11 @@ const inter = Inter({
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
   title: 'Hidden Treasure',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
