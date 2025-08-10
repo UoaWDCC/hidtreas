@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import waveBackground from '@/assets/waveBackground.png'
-import placeholder from '@/assets/placeholder.jpg'
+import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
@@ -18,13 +18,7 @@ export default function HeroSection() {
         <h1 className="text-6xl font-bold pt-10 pl-50">FAQ</h1>
         <div className="flex flex-col width-70%">
           <div className="relative h-90 rounded-lg overflow-hidden">
-            <Image
-              src={placeholder}
-              alt="Placeholder Image"
-              fill
-              priority
-              className="object-cover"
-            />
+            <Image src={heroImage} alt="Hero Image" fill priority className="object-cover" />
           </div>
           <div className="text-right">
             <p>
