@@ -16,7 +16,7 @@ const inter = Inter({
 
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
-  title: 'Hidden Treasures',
+  title: 'Hidden Treasure',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {

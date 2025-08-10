@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import groupPic from '@/assets/groupPic.png'
-import placeholder from '@/assets/placeholderGroupPic.png'
+import whoWeAreImage from '@/assets/hidtreas-who-we-are.jpg'
 import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
@@ -15,7 +15,7 @@ export default function WhoWeAre() {
       </div>
 
       <div className="relative flex justify-center">
-        <Image src={placeholder} alt="group placeholder" className="w-[65vw] h-auto" />
+        <Image src={whoWeAreImage} alt="Who We Are" className="w-[55vw] h-auto rounded-lg" />
 
         <Image
           src={koru1}
@@ -29,10 +29,10 @@ export default function WhoWeAre() {
       <div className="flex justify-end mt-[2vw] pr-[17.5%]">
         <div className="w-[50vw] text-right text-[1.3vw]">
           <p className="leading-tight">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
-            quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id.
-            Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo
-            eu aenean.
+            We are Hidden Treasure Trust, a charitable organization supporting families, women,
+            seniors, and youth in South Auckland. Our mission is to empower communities through
+            practical support, cultural engagement, and sustainability initiatives. We are
+            passionate about blending generations, knowledge, and compassion to uplift lives.
           </p>
           <button
             className=" bg-[#13384E] px-[2rem] py-[0.35rem] rounded-[0.4rem] text-white text-[1.3vw] mt-[2vw] hover:cursor-pointer"

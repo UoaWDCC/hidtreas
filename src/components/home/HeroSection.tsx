@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import elderlyImage from '@/assets/elderly.jpg'
+import heroImage from '@/assets/hidtreas-homepage-hero-img.jpg'
 import logoImage from '@/assets/sharpened_logo.png'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'
@@ -12,13 +12,13 @@ export default function HeroSection() {
     <section className="px-4 sm:px-6 md:px-8 lg:px-24 py-1">
       <div className="relative rounded-b-3xl md:rounded-b-[5.5rem] overflow-hidden w-full min-h-[34.375rem] md:min-h-[21.875rem] aspect-auto md:aspect-[16/7.5]">
         <Image
-          src={elderlyImage}
-          alt="Elderly"
+          src={heroImage}
+          alt="Hidden Treasure Hero"
           fill
           className="object-cover object-center rounded-b-3xl md:rounded-b-[5.5rem]"
           priority
         />
-        <div className="absolute inset-0 bg-white/50 z-10" />
+        <div className="absolute inset-0 bg-white/70 z-10" />
 
         {/* Content */}
         <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-32 md:pt-[8.75rem] px-4">

@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import rockCarving from '@/assets/rockCarving.png'
+import whatWeDoImage from '@/assets/hidtreas-what-we-do.jpg'
 import kiwiBird from '@/assets/kiwiBird.svg'
 import leaf from '@/assets/leaf.svg'
 import { useState } from 'react'
@@ -10,38 +10,37 @@ export default function WhatWeDo() {
   const [signOpen, setSignOpen] = useState(false)
   return (
     <div className={'bg-[#D9D9D9]'}>
-      <div className="p-16 flex flex-col md:flex-row items-center justify-center max-w-6xl mx-auto gap-x-12">
+      <div className="p-20 flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto gap-x-16">
         <div className="md:w-1/2 text-center md:text-left">
-          <div className="relative w-fit mx-auto mb-4">
+          <div className="relative w-fit mx-auto mb-6">
             <Image
               src={kiwiBird}
               alt="Kiwi Bird"
-              className="absolute w-10 md:w-14 -top-5 left-0.5 -translate-y-1 md:-top-10 md:left-0 md:translate-y-0"
+              className="absolute w-12 md:w-16 -top-6 left-0.5 -translate-y-1 md:-top-12 md:left-0 md:translate-y-0"
             />
-            <h2 className="text-5xl font-bold">WHAT WE DO</h2>
+            <h2 className="text-6xl font-bold">WHAT WE DO</h2>
           </div>
 
-          <p className="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
-            quisque faucibLorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur
-            adipiscing elit quisque faucibus ex sem.
+          <p className="mb-6 text-lg">
+            We provide support for older people, empower women through fitness and personal support,
+            and run donation drives for clothing, toys, and food.
           </p>
-          <p className="mb-4">
-            Ex sapien vitae pellentesque seLorem ipsum dolor sit amet consectetur adipiscing elit.
-            Consectetur adipiscing elit quisque faucibus ex sapien vitae. us ex sem.
+          <p className="mb-6 text-lg">
+            We also promote cultural participation, sustainability education, and community
+            workshops that reflect our commitment to long-term well-being.
           </p>
 
           <button
-            className="border-2 border-[#13384E] text-[#13384E] font-semibold px-6 py-2 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition"
+            className="border-2 border-[#13384E] text-[#13384E] font-semibold px-8 py-3 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition text-lg"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
           </button>
         </div>
 
-        <div className="md:w-1/2 mt-8 md:mt-0 relative">
-          <Image src={rockCarving} alt="Rock Carving" className="w-full rounded-md shadow-lg" />
-          <Image src={leaf} alt="Leaf" className="absolute w-32 md:w-40 -bottom-6 -left-15" />
+        <div className="md:w-1/2 mt-10 md:mt-0 relative">
+          <Image src={whatWeDoImage} alt="What We Do" className="w-full rounded-lg shadow-xl" />
+          <Image src={leaf} alt="Leaf" className="absolute w-40 md:w-48 -bottom-8 -left-20" />
         </div>
       </div>
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
