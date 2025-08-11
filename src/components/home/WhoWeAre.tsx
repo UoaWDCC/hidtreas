@@ -10,7 +10,7 @@ import AnimatedSection from '../common/AnimatedSection'
 export default function WhoWeAre() {
   const router = useRouter()
   return (
-    <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0">
+    <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-x-hidden overflow-y-visible">
       <AnimatedSection animationClass="animate-slide-in-top">
         <div className="flex justify-center">
           <h2 className="text-2xl sm:text-3xl md:text-[clamp(1.75rem,5vw,3.5rem)] font-bold text-glow">
@@ -24,7 +24,7 @@ export default function WhoWeAre() {
           <Image
             src={whoWeAreImage}
             alt="Who We Are"
-            className="w-full max-w-md sm:w-[52vw] h-auto rounded-lg"
+            className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
           />
 
           <Image
@@ -36,13 +36,13 @@ export default function WhoWeAre() {
           <Image
             src={koru2}
             alt="koru"
-            className="absolute top-[-25%] sm:top-[-35%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2"
+            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2"
           />
         </div>
       </AnimatedSection>
 
       <AnimatedSection animationClass="animate-slide-in-right" delay={0.4}>
-        <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[24%]">
+        <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
           <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-sm sm:text-base md:text-[1.2vw]">
             <p className="leading-relaxed sm:leading-tight text-glow">
               We are Hidden Treasure Trust, a charitable organization supporting families, women,

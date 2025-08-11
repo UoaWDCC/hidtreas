@@ -12,7 +12,7 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState, useRef, useEffect } from 'react'
-import footerLogo from '@/assets/footerLogo.png'
+import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
 
@@ -94,7 +94,7 @@ export default function Footer() {
     <div className="relative w-full" ref={footerRef}>
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} initialEmail={email} />
       <Image
-        src={footerLogo}
+        src={footerLogoSharpened}
         alt="Hidden Treasure Logo"
         className={`absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible transition-all duration-1000 ease-out ${
           isVisible ? 'animate-bounce' : ''
@@ -102,8 +102,9 @@ export default function Footer() {
         style={{
           animation: isVisible ? 'bob 4s ease-in-out infinite 0.5s' : 'none',
         }}
-        width={100}
-        height={90}
+        width={400}
+        height={360}
+        quality={100}
         priority
       />
       <div className="text-cyan-950 flex flex-wrap flex-row p-6 sm:p-10">
@@ -112,7 +113,7 @@ export default function Footer() {
             isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'
           }`}
         >
-          <p className="text-lg">SIGN UP NOW!</p>
+          <p className="text-lg text-glow">SIGN UP NOW!</p>
           <form
             onSubmit={(event) => {
               setSignOpen(true)
@@ -154,9 +155,9 @@ export default function Footer() {
                 transitionDelay: `${300 + index * 100}ms`,
               }}
             >
-              <p className="text-lg sm:text-xl font-bold mb-3">{link.label}</p>
+              <p className="text-lg sm:text-xl font-bold mb-3 text-glow">{link.label}</p>
               {link.items.map((item) => (
-                <p key={item.label} className="text-sm sm:text-base mb-1">
+                <p key={item.label} className="text-sm sm:text-base mb-1 text-glow">
                   {item.icon && <item.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 inline" />}
                   <a href={item.href} className={item.href ? 'hover:underline' : ''}>
                     {item.label}
@@ -167,7 +168,7 @@ export default function Footer() {
                 {link.extlinks?.map((item, iconIndex) => (
                   <div
                     key={item.href}
-                    className={`rounded-full bg-cyan-950 w-8 h-8 sm:w-7 sm:h-7 flex justify-center items-center mr-2 sm:mr-3 transition-all duration-1000 ease-out ${
+                    className={`rounded-full bg-cyan-950 w-8 h-8 sm:w-7 sm:h-7 md:w-9 md:h-9 flex justify-center items-center mr-2 sm:mr-3 transition-all duration-1000 ease-out hover:shadow-lg hover:shadow-cyan-950/50 hover:scale-110 ${
                       isVisible ? 'animate-bounce' : ''
                     }`}
                     style={{
@@ -177,7 +178,9 @@ export default function Footer() {
                     }}
                   >
                     <a href={item.href} className="flex justify-center items-center w-full h-full">
-                      {item.icon && <item.icon className="h-4 w-4 sm:h-3 sm:w-3 text-stone-50" />}
+                      {item.icon && (
+                        <item.icon className="h-4 w-4 sm:h-3 sm:w-3 md:h-5 md:w-5 text-stone-50" />
+                      )}
                     </a>
                   </div>
                 ))}
@@ -192,15 +195,15 @@ export default function Footer() {
         }`}
       >
         <div className="w-50 hidden xl:block" />
-        <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
+        <p className="text-center text-sm sm:text-base text-glow">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
         <div className="flex flex-row gap-3 sm:gap-5 text-sm sm:text-base">
-          <a href="/faq" className="text-center hover:underline">
+          <a href="/faq" className="text-center hover:underline text-glow">
             FAQ
           </a>
-          <a href="/privacy" className="text-center hover:underline">
+          <a href="/privacy" className="text-center hover:underline text-glow">
             Privacy Policy
           </a>
-          <a href="/privacy" className="text-center hover:underline">
+          <a href="/privacy" className="text-center hover:underline text-glow">
             Terms of Service
           </a>
         </div>

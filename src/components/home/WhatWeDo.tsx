@@ -47,20 +47,20 @@ export default function WhatWeDo() {
                 animation: isVisible ? 'bob 3s ease-in-out infinite' : 'none',
               }}
             />
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold">WHAT WE DO</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-glow">WHAT WE DO</h2>
           </div>
 
-          <p className="mb-4 sm:mb-6 text-base sm:text-lg">
+          <p className="mb-4 sm:mb-6 text-base sm:text-lg text-glow">
             We provide support for older people, empower women through fitness and personal support,
             and run donation drives for clothing, toys, and food.
           </p>
-          <p className="mb-6 text-base sm:text-lg">
+          <p className="mb-6 text-base sm:text-lg text-glow">
             We also promote cultural participation, sustainability education, and community
             workshops that reflect our commitment to long-term well-being.
           </p>
 
           <button
-            className={`border-2 border-[#13384E] text-[#13384E] font-semibold px-6 sm:px-8 py-3 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition text-base sm:text-lg ${
+            className={`border-2 border-[#13384E] text-[#13384E] font-semibold px-6 sm:px-8 py-3 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition text-base sm:text-lg shadow-lg shadow-[#13384E]/30 hover:shadow-xl hover:shadow-[#13384E]/60 ${
               isVisible ? 'animate-bounce' : ''
             }`}
             style={{
