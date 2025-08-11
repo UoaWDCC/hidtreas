@@ -2,7 +2,7 @@ import Accordion from './Accordion'
 
 export default function FAQ() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#fdf4ed] px-6 py-12">
+    <div className="flex items-center justify-center min-h-screen bg-[#fdf4ed] mb-23">
       {/* Content wrapper to control top alignment */}
       <div className="flex flex-col md:flex-row gap-12 max-w-6xl w-full">
         {/* LEFT SIDE */}
