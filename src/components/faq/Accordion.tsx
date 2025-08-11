@@ -1,38 +1,38 @@
 'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 interface AccordionItem {
-  title: string;
-  content: string;
+  title: string
+  content: string
 }
 
 const items: AccordionItem[] = [
   {
-    title: "What is Hidden Treasure?",
+    title: 'What is Hidden Treasure?',
     content:
-      "Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi veniam. Qui blanditiis N ut sint beatae.",
+      'Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi veniam. Qui blanditiis N ut sint beatae.',
   },
   {
-    title: "A very fascinating question?",
-    content: "Answer to a very fascinating question.",
+    title: 'A very fascinating question?',
+    content: 'Answer to a very fascinating question.',
   },
   {
-    title: "Another very fascinating question?",
-    content: "Answer to another very fascinating question.",
+    title: 'Another very fascinating question?',
+    content: 'Answer to another very fascinating question.',
   },
   {
-    title: "An extremely shocking question?",
-    content: "Answer to an extremely shocking question.",
+    title: 'An extremely shocking question?',
+    content: 'Answer to an extremely shocking question.',
   },
-];
+]
 
 const Accordion: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const toggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
+    setOpenIndex((prev) => (prev === index ? null : index))
+  }
 
   return (
     <div className="h-0 w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
@@ -43,9 +43,7 @@ const Accordion: React.FC = () => {
             className="w-full flex justify-between items-center py-4"
           >
             <span className="text-xl font-bold">{item.title}</span>
-            <span className="text-2xl font-bold shrink-0">
-              {openIndex === index ? "−" : "+"}
-            </span>
+            <span className="text-2xl font-bold shrink-0">{openIndex === index ? '−' : '+'}</span>
           </button>
           <div
             className={`transition-all duration-300 ease-in-out overflow-hidden text-m w-full break-words ${
@@ -57,7 +55,7 @@ const Accordion: React.FC = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Accordion;
+export default Accordion

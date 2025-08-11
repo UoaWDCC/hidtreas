@@ -2,7 +2,7 @@ import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import HeroSection from '@/components/faq/HeroSection'
 import SecondAccordion from '@/components/faq/SecondAccordion'
-import FAQ from '@/components/faq/FAQ'
+import FAQComponent from '@/components/faq/FAQ'
 
 const items = [
   {
@@ -27,12 +27,12 @@ const items = [
   },
 ]
 
-export default async function FAQ() {
+export default function FAQ() {
   return (
     <div className="faq">
       <Header />
       <HeroSection />
-      <FAQ />
+      <FAQComponent />
       <SecondAccordion items={items} />
       <Footer />
     </div>
