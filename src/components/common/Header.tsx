@@ -25,7 +25,7 @@ export default function Header() {
           height={48}
           className="w-[3rem] h-[3rem] md:w-[4rem] md:h-[4rem]"
         />
-        <h1 className="text-[1rem] md:text-[1.35rem] font-semibold tracking-wide antialiased text-glow">
+        <h1 className="text-[1rem] md:text-[1.35rem] font-semibold tracking-wide antialiased">
           HIDDEN TREASURE
         </h1>
       </Link>
@@ -50,20 +50,17 @@ export default function Header() {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center space-x-[2.5rem] font-medium text-[1.125rem] antialiased">
         <h1 className="animate-slide-in-right animate-stagger-1">
-          <a href="/about" className="hover:underline uppercase tracking-wide hover-lift text-glow">
+          <a href="/about" className="hover:underline uppercase tracking-wide hover-lift">
             About Us
           </a>
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-2">
-          <a href="/blogs" className="hover:underline uppercase tracking-wide hover-lift text-glow">
+          <a href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
           </a>
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-3">
-          <a
-            href="/events"
-            className="hover:underline uppercase tracking-wide hover-lift text-glow"
-          >
+          <a href="/events" className="hover:underline uppercase tracking-wide hover-lift">
             Events
           </a>
         </h1>
@@ -81,13 +78,13 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden animate-slide-in-top">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <a href="/about" className="uppercase tracking-wide font-medium hover-lift text-glow">
+            <a href="/about" className="uppercase tracking-wide font-medium hover-lift">
               About Us
             </a>
-            <a href="/blogs" className="uppercase tracking-wide font-medium hover-lift text-glow">
+            <a href="/blogs" className="uppercase tracking-wide font-medium hover-lift">
               Blogs
             </a>
-            <a href="/events" className="uppercase tracking-wide font-medium hover-lift text-glow">
+            <a href="/events" className="uppercase tracking-wide font-medium hover-lift">
               Events
             </a>
             <button

@@ -13,7 +13,7 @@ export default function WhoWeAre() {
     <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-x-hidden overflow-y-visible">
       <AnimatedSection animationClass="animate-slide-in-top">
         <div className="flex justify-center">
-          <h2 className="text-2xl sm:text-3xl md:text-[clamp(1.75rem,5vw,3.5rem)] font-bold text-glow">
+          <h2 className="text-2xl sm:text-3xl md:text-[clamp(1.75rem,5vw,3.5rem)] font-bold">
             WHO WE ARE
           </h2>
         </div>
@@ -44,7 +44,7 @@ export default function WhoWeAre() {
       <AnimatedSection animationClass="animate-slide-in-right" delay={0.4}>
         <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
           <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-sm sm:text-base md:text-[1.2vw]">
-            <p className="leading-relaxed sm:leading-tight text-glow">
+            <p className="leading-relaxed sm:leading-tight">
               We are Hidden Treasure Trust, a charitable organization supporting families, women,
               seniors, and youth in South Auckland. Our mission is to empower communities through
               practical support, cultural engagement, and sustainability initiatives. We are

@@ -35,7 +35,7 @@ export default function HeroSection() {
             <AnimatedSection animationClass="animate-slide-in-right" delay={0.2}>
               <div className="flex-1 text-center md:text-left">
                 <h1
-                  className="text-4xl sm:text-[6vw] md:text-[5vw] font-extrabold leading-tight tracking-wide text-glow animate-bob"
+                  className="text-4xl sm:text-[6vw] md:text-[5vw] font-extrabold leading-tight tracking-wide animate-bob"
                   style={{
                     animation: 'bob 3s ease-in-out infinite 0.3s',
                   }}
@@ -45,7 +45,7 @@ export default function HeroSection() {
                   TREASURE
                 </h1>
                 <p
-                  className="mt-2 sm:mt-[1.5vw] text-base sm:text-[2vw] md:text-[1.5vw] font-normal text-glow animate-bob"
+                  className="mt-2 sm:mt-[1.5vw] text-base sm:text-[2vw] md:text-[1.5vw] font-normal animate-bob"
                   style={{
                     animation: 'bob 3s ease-in-out infinite 0.6s',
                   }}

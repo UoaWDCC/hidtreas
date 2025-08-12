@@ -113,7 +113,7 @@ export default function Footer() {
             isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'
           }`}
         >
-          <p className="text-lg text-glow">SIGN UP NOW!</p>
+          <p className="text-lg">SIGN UP NOW!</p>
           <form
             onSubmit={(event) => {
               setSignOpen(true)
@@ -155,9 +155,9 @@ export default function Footer() {
                 transitionDelay: `${300 + index * 100}ms`,
               }}
             >
-              <p className="text-lg sm:text-xl font-bold mb-3 text-glow">{link.label}</p>
+              <p className="text-lg sm:text-xl font-bold mb-3">{link.label}</p>
               {link.items.map((item) => (
-                <p key={item.label} className="text-sm sm:text-base mb-1 text-glow">
+                <p key={item.label} className="text-sm sm:text-base mb-1">
                   {item.icon && <item.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 inline" />}
                   <a href={item.href} className={item.href ? 'hover:underline' : ''}>
                     {item.label}
@@ -195,15 +195,15 @@ export default function Footer() {
         }`}
       >
         <div className="w-50 hidden xl:block" />
-        <p className="text-center text-sm sm:text-base text-glow">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
+        <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
         <div className="flex flex-row gap-3 sm:gap-5 text-sm sm:text-base">
-          <a href="/faq" className="text-center hover:underline text-glow">
+          <a href="/faq" className="text-center hover:underline">
             FAQ
           </a>
-          <a href="/privacy" className="text-center hover:underline text-glow">
+          <a href="/privacy" className="text-center hover:underline">
             Privacy Policy
           </a>
-          <a href="/privacy" className="text-center hover:underline text-glow">
+          <a href="/privacy" className="text-center hover:underline">
             Terms of Service
           </a>
         </div>
