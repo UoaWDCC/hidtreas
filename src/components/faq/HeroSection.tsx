@@ -26,13 +26,15 @@ export default function HeroSection() {
               className="object-cover object-[center_35%]" // move image content down
             />
           </div>
-          <div className="text-right">
-            <p className="text-xl font-bold">
-              "Let the wisdom of the past guide the hope of the future—every person is a hidden
-              treasure waiting to shine."
-            </p>
-          </div>
         </div>
+      </div>
+      <div className="absolute bottom-0  left-20">
+        <p className="text-4xl font-bold text-center">
+          "Let the wisdom of the past guide the hope of the
+          <br />
+          future—every person is a hidden treasure <br />
+          waiting to shine."
+        </p>
       </div>
     </div>
   )
