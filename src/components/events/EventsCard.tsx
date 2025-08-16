@@ -1,7 +1,12 @@
 import Image from 'next/image'
 import EventPic from '@/assets/event-pic.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
+import PastEventsPopUpModal from './PastEventsPopUpModal'
+import { useState } from 'react'
+
 export default function EventsCard() {
+  const [signOpen, setSignOpen] = useState(false)
+
   return (
     <div className="flex flex-col justify-center items-center w-70 h-90 border-4 border-[#13384E] rounded-xl gap-y-2 px-4 bg-[#FFF8F3]">
       <div className="relative flex justify-center items-center">
@@ -17,9 +22,11 @@ export default function EventsCard() {
           </p>
         </div>
         <p className="text-xs">Aut quia assumenda eum nostrum velit the est quidem fac. </p>
-        <button className="font-bold border-2 rounded-md gap px-2 cursor-pointer">
+        <button onClick={() => setSignOpen(true)} className="font-bold border-2 rounded-md gap px-2 cursor-pointer">
           READ EVENT RECAP HERE
         </button>
+        <PastEventsPopUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
+              
       </div>
     </div>
   )
