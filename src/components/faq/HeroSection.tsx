@@ -18,13 +18,18 @@ export default function HeroSection() {
         <h1 className="text-6xl font-bold pt-10 pl-50">FAQ</h1>
         <div className="flex flex-col width-70%">
           <div className="relative h-90 rounded-lg overflow-hidden">
-            <Image src={heroImage} alt="Hero Image" fill priority className="object-cover" />
+            <Image
+              src={heroImage}
+              alt="Hero Image"
+              fill
+              priority
+              className="object-cover object-[center_35%]" // move image content down
+            />
           </div>
           <div className="text-right">
-            <p>
-              Pulvinar vivamus fringilla lacus nec metus bibendum egestas. <br />
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. <br />
-              Ut hendrerit semper vel.
+            <p className="text-xl font-bold">
+              "Let the wisdom of the past guide the hope of the future—every person is a hidden
+              treasure waiting to shine."
             </p>
           </div>
         </div>

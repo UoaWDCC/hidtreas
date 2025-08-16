@@ -13,8 +13,8 @@ export default function FAQ() {
             We got you.
           </h1>
           <p className="text-base">
-            Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum
-            culpa est eligendi veniam. Qui blanditiis N ut sint beatae.
+            Can't find what you're looking for? Email us or visit our contact page to send a
+            message. We'll get back to you as soon as possible.
           </p>
         </div>
 
