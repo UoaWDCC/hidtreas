@@ -1,29 +1,32 @@
 import Image from 'next/image'
-import peoplePlaceholder from '@/assets/people_placeholder.png'
-
+import heroImage from '@/assets/aboutUsHeroImage.jpg'
 export default function Hero() {
   return (
-    <div>
+    <div className="mb-[12rem]">
       {/* Hero */}
       <div className="relative flex justify-center">
-        <div className="w-full relative flex">
+        <div className="flex flex-col md:flex-row h-auto w-full ">
           {/* Image */}
-          <Image
-            src={peoplePlaceholder}
-            alt="Hidden Treasure People" // Actual image should be wider than placeholder
-            className="object-contain w-[auto] h-screen max-w-[50vw]"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-[0.125rem] -translate-y-8">
+
+          {/*className="object-cover object-left opacity-70"*/}
+          <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
+            <Image
+              src={heroImage}
+              alt="Hidden Treasure People" // Actual image should be wider than placeholder
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+
+          <div className="w-full md:w-1/2 flex flex-col items-start justify-center p-6 md:p-8">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight tracking-wide mt-0 -translate-y-2">
               ABOUT US
             </h1>
             {/* Descriptive text */}
-            <div className="w-[50vw]">
-              <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal text-center">
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
-                quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id.
-                Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus
-                leo eu aenean.
+            <div className="w-full md:w-[80%]">
+              <p className="mt-4 text-sm sm:text-base md:text-lg lg:text-xl font-normal text-left">
+                We operate with empathy, inclusion, and integrity. Our Trust fosters connections
+                across cultures and generations, values collaboration, and prioritises grassroots
+                community action. A vision of sustainability, unity, and resilience guides our work.
               </p>
             </div>
           </div>
