@@ -9,6 +9,23 @@ interface AccordionItem {
 
 const items: AccordionItem[] = [
   {
+    title: 'What is Hidden Treasure?',
+    content:
+      'Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi veniam. Qui blanditiis N ut sint beatae.',
+  },
+  {
+    title: 'A very fascinating question?',
+    content: 'Answer to a very fascinating question.',
+  },
+  {
+    title: 'Another very fascinating question?',
+    content: 'Answer to another very fascinating question.',
+  },
+  {
+    title: 'An extremely shocking question?',
+    content: 'Answer to an extremely shocking question.',
+  },
+  {
     title: 'How can I get involved?',
     content: 'You can volunteer, donate, or participate in events.',
   },
@@ -43,7 +60,7 @@ const Accordion: React.FC = () => {
   }
 
   return (
-    <div className=" w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
+    <div className="w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
       {items.map((item, index) => (
         <div key={index} className="border-t">
           <button

@@ -1,56 +1,68 @@
 'use client'
 import Image from 'next/image'
-import elderlyImage from '@/assets/elderly.jpg'
+import heroImage from '@/assets/hidtreas-homepage-hero-img.jpg'
 import logoImage from '@/assets/sharpened_logo.png'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'
+import AnimatedSection from '../common/AnimatedSection'
 
 export default function HeroSection() {
   const [signOpen, setSignOpen] = useState(false)
 
   return (
-    <section className="px-4 sm:px-6 md:px-8 lg:px-24 py-1">
-      <div className="relative rounded-b-3xl md:rounded-b-[5.5rem] overflow-hidden w-full min-h-[34.375rem] md:min-h-[21.875rem] aspect-auto md:aspect-[16/7.5]">
+    <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
+      <div className="relative rounded-b-[4vw] overflow-hidden w-full sm:w-[95%] mx-auto h-[70vh] sm:h-[40vw]">
         <Image
-          src={elderlyImage}
-          alt="Elderly"
+          src={heroImage}
+          alt="Hidden Treasure Hero"
           fill
-          className="object-cover object-center rounded-b-3xl md:rounded-b-[5.5rem]"
+          className="object-cover object-center rounded-b-[4vw]"
           priority
         />
-        <div className="absolute inset-0 bg-white/50 z-10" />
+        <div className="absolute inset-0 bg-white/70 z-10" />
 
         {/* Content */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-32 md:pt-[8.75rem] px-4">
-          <div className="flex flex-col items-center md:flex-row md:items-start md:gap-8 w-full max-w-xs sm:max-w-sm md:max-w-none">
+        <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-[12vw] md:pt-[11vw] px-4 sm:px-[3vw]">
+          <div className="flex flex-col items-center md:flex-row md:items-start md:gap-[2vw] w-full max-w-xs sm:max-w-sm md:max-w-none">
             {/* Logo */}
-            <div className="flex-shrink-0 mb-6 md:mb-0">
-              <Image
-                src={logoImage}
-                alt="Logo"
-                width={400}
-                height={400}
-                className="w-[9rem] sm:w-[10rem] md:w-[16rem] lg:w-[25rem] h-auto"
-              />
-            </div>
+            <AnimatedSection animationClass="animate-slide-in-left">
+              <div className="flex-shrink-0 mb-4 sm:mb-[2vw] md:mb-0 animate-bob">
+                <Image src={logoImage} alt="Logo" className="w-32 sm:w-[32vw] md:w-[24vw] h-auto" />
+              </div>
+            </AnimatedSection>
 
             {/* Text Content */}
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-[0.125rem]">
-                HIDDEN
-                <br />
-                TREASURE
-              </h1>
-              <p className="mt-4 text-[1rem] sm:text-[1.125rem] md:text-[1.25rem] lg:text-[1.6rem] font-normal">
-                Preserving the past, inspiring the future.
-              </p>
-              <button
-                className="mt-6 bg-[#13384E] text-white px-[2rem] py-[0.75rem] rounded-md text-[1.125rem] font-semibold hover:bg-[#0a2638] hover:cursor-pointer transition"
-                onClick={() => setSignOpen(true)}
-              >
-                JOIN US
-              </button>
-            </div>
+            <AnimatedSection animationClass="animate-slide-in-right" delay={0.2}>
+              <div className="flex-1 text-center md:text-left">
+                <h1
+                  className="text-4xl sm:text-[6vw] md:text-[5vw] font-extrabold leading-tight tracking-wide animate-bob"
+                  style={{
+                    animation: 'bob 3s ease-in-out infinite 0.3s',
+                  }}
+                >
+                  HIDDEN
+                  <br />
+                  TREASURE
+                </h1>
+                <p
+                  className="mt-2 sm:mt-[1.5vw] text-base sm:text-[2vw] md:text-[1.5vw] font-normal animate-bob"
+                  style={{
+                    animation: 'bob 3s ease-in-out infinite 0.6s',
+                  }}
+                >
+                  Preserving the past, inspiring the future.
+                </p>
+                <button
+                  className="mt-4 sm:mt-[2vw] bg-[#13384E] text-white px-6 sm:px-[2.5vw] py-3 sm:py-[1vw] rounded-lg sm:rounded-[1vw] text-lg sm:text-[1.6vw] md:text-[1.1vw] font-semibold hover:bg-[#0a2638] hover:cursor-pointer transition animate-bob hover-lift"
+                  style={{
+                    animation: 'bob 3s ease-in-out infinite 0.9s',
+                  }}
+                  onClick={() => setSignOpen(true)}
+                >
+                  JOIN US
+                </button>
+              </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>
