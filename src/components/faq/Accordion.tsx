@@ -1,41 +1,49 @@
 'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 interface AccordionItem {
-  title: string;
-  content: string;
+  title: string
+  content: string
 }
 
 const items: AccordionItem[] = [
   {
-    title: "What is Hidden Treasure?",
+    title: 'How can I get involved?',
+    content: 'You can volunteer, donate, or participate in events.',
+  },
+  {
+    title: 'What kind of support do you offer?',
+    content: 'Transport, food/clothing donations, workshops.',
+  },
+  {
+    title: 'Are your programs free?',
+    content: 'Yes, all programs are free and open to the public.',
+  },
+  {
+    title: 'How do I request assistance?',
+    content: 'Contact us by email or Facebook.',
+  },
+  {
+    title: 'Do you support people outside Auckland?',
+    content: 'At present, our focus is on South Auckland, but we welcome collaboration.',
+  },
+  {
+    title: 'Do you accept donations?',
     content:
-      "Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi veniam. Qui blanditiis N ut sint beatae.",
+      'Yes, we accept financial donations as well as items like clothes and toys. As per our activity needs.',
   },
-  {
-    title: "A very fascinating question?",
-    content: "Answer to a very fascinating question.",
-  },
-  {
-    title: "Another very fascinating question?",
-    content: "Answer to another very fascinating question.",
-  },
-  {
-    title: "An extremely shocking question?",
-    content: "Answer to an extremely shocking question.",
-  },
-];
+]
 
 const Accordion: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index));
-  };
+    setOpenIndex((prev) => (prev === index ? null : index))
+  }
 
   return (
-    <div className="h-0 w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
+    <div className=" w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
       {items.map((item, index) => (
         <div key={index} className="border-t">
           <button
@@ -43,9 +51,7 @@ const Accordion: React.FC = () => {
             className="w-full flex justify-between items-center py-4"
           >
             <span className="text-xl font-bold">{item.title}</span>
-            <span className="text-2xl font-bold shrink-0">
-              {openIndex === index ? "−" : "+"}
-            </span>
+            <span className="text-2xl font-bold shrink-0">{openIndex === index ? '−' : '+'}</span>
           </button>
           <div
             className={`transition-all duration-300 ease-in-out overflow-hidden text-m w-full break-words ${
@@ -57,7 +63,7 @@ const Accordion: React.FC = () => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Accordion;
+export default Accordion
