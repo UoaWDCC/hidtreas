@@ -55,7 +55,7 @@ export default function PastEventsPopUpModal({
             <button onClick={goPrev} className="px-2 py-1 hover:cursor-pointer">
               {'<'}
             </button>
-            <div className="relative w-60 h-36 rounded-xl overflow-hidden shadow-md md:w-70 md:h-46 lg:w-80 lg:h-56 xl:w-90 xl:h-66">
+            <div className="relative w-60 h-46 rounded-xl overflow-hidden shadow-md md:w-70 md:h-56 lg:w-80 lg:h-60 xl:w-90 xl:h-66">
               <Image
                 src={images[currentIdx]}
                 alt={`Image ${currentIdx + 1}`}
