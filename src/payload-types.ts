@@ -123,7 +123,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
-  roles: ('admin' | 'editor' | 'viewer')[];
+  role: 'admin' | 'editor' | 'viewer';
   firstName: string;
   lastName: string;
   updatedAt: string;
@@ -272,7 +272,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  roles?: T;
+  role?: T;
   firstName?: T;
   lastName?: T;
   updatedAt?: T;

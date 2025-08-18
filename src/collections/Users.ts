@@ -15,11 +15,10 @@ export const Users: CollectionConfig = {
   auth: true,
   fields: [
     {
-      name: 'roles',
+      name: 'role',
       saveToJWT: true,
       type: 'select',
-      hasMany: true,
-      defaultValue: ['viewer'],
+      defaultValue: 'viewer',
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
