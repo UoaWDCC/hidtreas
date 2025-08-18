@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     blogs: Blog;
+    events: Event;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -186,6 +188,22 @@ export interface Blog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  description?: string | null;
+  date?: string | null;
+  venue?: string | null;
+  image?: (string | null) | Media;
+  published?: boolean | null;
+  host: string[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -202,6 +220,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'blogs';
         value: string | Blog;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -293,6 +315,21 @@ export interface BlogsSelect<T extends boolean = true> {
   image?: T;
   published?: T;
   email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  date?: T;
+  venue?: T;
+  image?: T;
+  published?: T;
+  host?: T;
   updatedAt?: T;
   createdAt?: T;
 }
