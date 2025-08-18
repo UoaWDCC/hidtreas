@@ -6,50 +6,48 @@ import kiwi from '@/assets/kiwiBird.svg'
 export default function MeetTheTeam() {
   const peopleArray = [
     {
-      name: 'Alice',
-      role: 'Founder',
+      name: 'Esther Ho',
+      pronoun: '(she/her)',
+      role: 'Chairperson',
       image: profilePic,
     },
     {
-      name: 'Bob',
-      role: 'Founder',
+      name: 'Aman Gill',
+      pronoun: '(she/her)',
+      role: 'Trustees',
       image: profilePic,
     },
     {
-      name: 'Carol',
-      role: 'Founder',
+      name: 'Christine Knock',
+      pronoun: '(she/her)',
+      role: 'Trustees',
       image: profilePic,
     },
     {
-      name: 'David',
-      role: 'Founder',
+      name: 'Indu Bajwa',
+      pronoun: '(she/her)',
+      role: 'Manager',
       image: profilePic,
     },
     {
-      name: 'Eve',
-      role: 'Founder',
+      name: 'Divya Niyyar',
+      pronoun: '(she/her)',
+      role: 'Coordinator',
       image: profilePic,
     },
     {
-      name: 'Fred',
-      role: 'Founder',
-      image: profilePic,
-    },
-    {
-      name: 'Gaby',
-      role: 'Founder',
-      image: profilePic,
-    },
-    {
-      name: 'Hank Green',
-      role: 'Founder',
+      name: 'Summit Niyar',
+      pronoun: '(he/him)',
+      role: 'Events & Volunteer Coordinator',
       image: profilePic,
     },
   ]
 
   return (
-    <div className="relative pt-[6rem] pb-[6rem]  ">
+    <div className="relative  mb-[10rem]  ">
       {/* whole section */}
+
+      {/*background koru*/}
       <Image
         src={koru}
         alt="Koru"
@@ -76,6 +74,7 @@ export default function MeetTheTeam() {
             <TeamMember
               key={person.name}
               name={person.name}
+              pronoun={person.pronoun}
               role={person.role}
               image={person.image}
             />
@@ -86,7 +85,17 @@ export default function MeetTheTeam() {
   )
 }
 
-function TeamMember({ name, role, image }: { name: string; role: string; image: StaticImageData }) {
+function TeamMember({
+  name,
+  pronoun,
+  role,
+  image,
+}: {
+  name: string
+  pronoun: string
+  role: string
+  image: StaticImageData
+}) {
   return (
     <div className="flex flex-col items-center text-center">
       {/* image */}
@@ -95,7 +104,8 @@ function TeamMember({ name, role, image }: { name: string; role: string; image: 
 
       {/* text stuff */}
       <p className="text-[clamp(1rem,4vw,2rem)]">{name}</p>
-      <p className="text-[clamp(0.8rem,2.5vw,1.7rem)]">{role}</p>
+      <p className="text-[clamp(0.5rem,2vw,1rem)]">{pronoun}</p>
+      <p className="text-[clamp(0.8rem,2.5vw,1.6rem)]">{role}</p>
     </div>
   )
 }
