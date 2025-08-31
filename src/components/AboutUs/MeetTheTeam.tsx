@@ -51,7 +51,7 @@ export default function MeetTheTeam() {
       <Image
         src={koru}
         alt="Koru"
-        className="absolute left-[-2%] bottom-[-5rem] -translate-x-0 w-[35vw] h-auto rotate-90 z-[-10]"
+        className="absolute left-[-2%] bottom-[10rem] -translate-x-0 w-[25vw] h-auto rotate-90 z-[-10]"
       />
 
       <div className="flex justify-center ">

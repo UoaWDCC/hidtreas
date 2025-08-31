@@ -6,12 +6,12 @@ import blueKoru from '@/assets/blue_koru.png'
 
 export default function Descriptions() {
   return (
-    <section className="relative pb-[4rem] md:pb-[6rem]">
+    <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">
       {/* Blue koru decoration between hero and description */}
       <Image
         src={blueKoru}
         alt="Blue Koru"
-        className="absolute right-0 top-[-3rem] sm:top-[-4rem] w-20 sm:w-35 rotate-270 z-10"
+        className="absolute right-0 top-[-3rem] w-20 rotate-270 z-10 sm:hidden"
       />
 
       {/* Blue koru decoration on left side - flipped 180 degrees */}
@@ -51,17 +51,22 @@ export default function Descriptions() {
               className="absolute 
                 hidden
                 sm:block
-                sm:-top-[25vh] 
-                md:-top-[35vh] 
-                lg:-top-[45vh] 
-                xl:-top-[65vh]
+                sm:-top-[9rem] 
+                md:-top-[12rem] 
+                lg:-top-[14rem] 
+                xl:-top-[17rem]
                 sm:-right-[10vw] 
                 md:-right-[15vw]
-                w-[25vw] 
+                w-[14vw] 
                 aspect-square"
             >
               <div className="relative w-full h-full">
-                <Image src={rightImage} alt="Flag Bearer" fill className="object-contain" />
+                <Image
+                  src={rightImage}
+                  alt="Flag Bearer"
+                  fill
+                  className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
+                />
               </div>{' '}
             </div>
 
@@ -70,13 +75,13 @@ export default function Descriptions() {
               className="absolute 
                 hidden
                 sm:block
-                sm:-bottom-[20vh] 
-                md:-bottom-[25vh] 
-                lg:-bottom-[35vh] 
-                xl:-bottom-[45vh] 
+                sm:-bottom-[10vh] 
+                md:-bottom-[14vh] 
+                lg:-bottom-[21vh] 
+                xl:-bottom-[27vh] 
                 sm:-left-[10vw] 
                 md:-left-[15vw]
-                w-[20vw] 
+                w-[14vw] 
                 aspect-square"
             >
               <div className="relative w-full h-full">
@@ -84,7 +89,7 @@ export default function Descriptions() {
                   src={leftImage}
                   alt="People sitting on steps wearing traditional Indian clothing."
                   fill
-                  className="object-contain"
+                  className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
                 />
               </div>
             </div>
