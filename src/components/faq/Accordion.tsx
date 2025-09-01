@@ -9,23 +9,6 @@ interface AccordionItem {
 
 const items: AccordionItem[] = [
   {
-    title: 'What is Hidden Treasure?',
-    content:
-      'Aut quia assumenda eum nostrum velit est quidem facere aut impedit doloribus ut rerum culpa est eligendi veniam. Qui blanditiis N ut sint beatae.',
-  },
-  {
-    title: 'A very fascinating question?',
-    content: 'Answer to a very fascinating question.',
-  },
-  {
-    title: 'Another very fascinating question?',
-    content: 'Answer to another very fascinating question.',
-  },
-  {
-    title: 'An extremely shocking question?',
-    content: 'Answer to an extremely shocking question.',
-  },
-  {
     title: 'How can I get involved?',
     content: 'You can volunteer, donate, or participate in events.',
   },
@@ -60,14 +43,14 @@ const Accordion: React.FC = () => {
   }
 
   return (
-    <div className="w-full max-w-xl mx-auto bg-[#fdf4ed] border-0">
+    <div className="w-full max-w-xl mx-auto bg-[#fdf4ed] px-4 sm:px-lg">
       {items.map((item, index) => (
         <div key={index} className="border-t">
           <button
             onClick={() => toggle(index)}
             className="w-full flex justify-between items-center py-4"
           >
-            <span className="text-xl font-bold">{item.title}</span>
+            <span className="text-lg text-left font-bold lg:text-xl">{item.title}</span>
             <span className="text-2xl font-bold shrink-0">{openIndex === index ? '−' : '+'}</span>
           </button>
           <div

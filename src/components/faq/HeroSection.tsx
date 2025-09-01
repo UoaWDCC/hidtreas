@@ -4,8 +4,8 @@ import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-[80vh] mb-5">
-      <div className="absolute bottom-0 right-0 w-[100%] h-[100%] -m-30">
+    <div className="relative min-h-[80vh] overflow-x-clip">
+      <div className="absolute bottom-[-80px] right-[-80px] w-[100%] h-[70%] md:right-[-90px] md:bottom-[-120px] md:h-[100%] ">
         <Image
           src={waveBackground}
           alt="Blue Wave with white koru and leaves"
@@ -15,9 +15,9 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 container">
-        <h1 className="text-6xl font-bold pt-10 pl-50">FAQ</h1>
+        <h1 className="text-4xl md:text-6xl pl-18 font-bold pt-5 md:pl-34.5">FAQ</h1>
         <div className="flex flex-col width-70%">
-          <div className="relative h-90 rounded-lg overflow-hidden">
+          <div className="relative h-70 sm:h-80 md:h-90 rounded-lg overflow-hidden w-auto">
             <Image
               src={heroImage}
               alt="Hero Image"
@@ -28,12 +28,10 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0  left-20">
-        <p className="text-4xl font-bold text-center">
-          "Let the wisdom of the past guide the hope of the
-          <br />
-          future—every person is a hidden treasure <br />
-          waiting to shine."
+      <div className="absolute lg:left-30 lg:bottom-15">
+        <p className="text-xl font-bold text-center md:text-3xl sm:max-w-2xl w-auto">
+          "Let the wisdom of the past guide the hope of the future —every person is a hidden
+          treasure waiting to shine."
         </p>
       </div>
     </div>

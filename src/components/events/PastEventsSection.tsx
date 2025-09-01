@@ -5,7 +5,7 @@ import BlueKoru from '@/assets/blue_koru.png'
 
 export default function PastEventsSection() {
   return (
-    <div className="relative py-50">
+    <div className="relative py-50 overflow-x-clip">
       <Image
         src={BlueKoru}
         alt="Blue Koru decoration"
