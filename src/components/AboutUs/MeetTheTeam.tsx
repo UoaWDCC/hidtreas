@@ -44,7 +44,7 @@ export default function MeetTheTeam() {
   ]
 
   return (
-    <div className="relative  mb-[10rem]  ">
+    <div className="relative  mb-[12rem]  ">
       {/* whole section */}
 
       {/*background koru*/}
