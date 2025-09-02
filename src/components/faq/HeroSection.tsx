@@ -4,8 +4,8 @@ import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-[80vh] overflow-x-clip">
-      <div className="absolute bottom-[-80px] right-[-80px] w-[100%] h-[70%] md:right-[-90px] md:bottom-[-120px] md:h-[100%] ">
+    <div className="relative min-h-[80vh] overflow-x-clip ">
+      <div className="absolute bottom-[-90px] right-[-80px] w-[100%] h-[70%] md:right-[-90px] md:bottom-[-120px] md:h-[100%] ">
         <Image
           src={waveBackground}
           alt="Blue Wave with white koru and leaves"
@@ -28,7 +28,7 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-      <div className="absolute lg:left-30 lg:bottom-15">
+      <div className="absolute pt-2 lg:left-30 lg:bottom-15">
         <p className="text-xl font-bold text-center md:text-3xl sm:max-w-2xl w-auto px-2 md:px-0">
           "Let the wisdom of the past guide the hope of the future —every person is a hidden
           treasure waiting to shine."
