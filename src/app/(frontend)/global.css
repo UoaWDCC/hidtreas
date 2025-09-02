@@ -1,5 +1,15 @@
 @import 'tailwindcss';
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 :root {
   --font-default: var(--font-k2d);
   --font-header: var(--font-inter);
@@ -20,4 +30,23 @@ body {
 
 h1 {
   font-family: var(--font-header);
+}
+
+@theme {
+  --font-k2d: var(--font-k2d, 'K2D', sans-serif);
+  --font-inter: var(--font-inter, 'Inter', sans-serif);
+}
+
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
