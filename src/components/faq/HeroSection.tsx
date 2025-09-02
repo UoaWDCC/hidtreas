@@ -29,7 +29,7 @@ export default function HeroSection() {
         </div>
       </div>
       <div className="absolute lg:left-30 lg:bottom-15">
-        <p className="text-xl font-bold text-center md:text-3xl sm:max-w-2xl w-auto">
+        <p className="text-xl font-bold text-center md:text-3xl sm:max-w-2xl w-auto px-2 md:px-0">
           "Let the wisdom of the past guide the hope of the future —every person is a hidden
           treasure waiting to shine."
         </p>
