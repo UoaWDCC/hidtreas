@@ -43,7 +43,7 @@ export default function WhoWeAre() {
 
       <AnimatedSection animationClass="animate-slide-in-right" delay={0.4}>
         <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
-          <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-sm sm:text-base md:text-[1.2vw]">
+          <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-base sm:text-lg">
             <p className="leading-relaxed sm:leading-tight">
               We are Hidden Treasure Trust, a charitable organization supporting families, women,
               seniors, and youth in South Auckland. Our mission is to empower communities through
@@ -51,7 +51,7 @@ export default function WhoWeAre() {
               passionate about blending generations, knowledge, and compassion to uplift lives.
             </p>
             <button
-              className="bg-[#13384E] px-6 sm:px-[1.75rem] py-2 sm:py-[0.3rem] rounded-lg sm:rounded-[0.4rem] text-white text-sm sm:text-base md:text-[1.2vw] mt-4 sm:mt-[2vw] hover:cursor-pointer animate-bob hover-lift"
+              className="bg-[#13384E] px-6 sm:px-8 py-3 rounded-lg text-white text-base sm:text-lg mt-6 hover:cursor-pointer animate-bob hover-lift"
               onClick={() => router.push('/about')}
             >
               FIND OUT MORE

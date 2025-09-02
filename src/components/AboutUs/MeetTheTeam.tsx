@@ -44,19 +44,19 @@ export default function MeetTheTeam() {
   ]
 
   return (
-    <div className="relative  mb-[10rem]  ">
+    <div className="relative mb-[6rem] md:mb-[8rem]">
       {/* whole section */}
 
-      {/*background koru*/}
+      {/*background koru - positioned between sections*/}
       <Image
         src={koru}
         alt="Koru"
-        className="absolute left-[-2%] top-3/4 -translate-x-0 -translate-y-1/2 w-[35vw] h-auto rotate-90 z-[-10]"
+        className="absolute left-[-2%] bottom-[10rem] -translate-x-0 w-[25vw] h-auto rotate-90 z-[-10]"
       />
 
       <div className="flex justify-center ">
         {/* heading */}
-        <div className="mt-[9vw]">
+        <div className="mt-0">
           <h2 className="text-[clamp(2rem,6vw,4rem)] font-bold">Meet the Team!</h2>
         </div>
         <Image
@@ -69,7 +69,7 @@ export default function MeetTheTeam() {
       <div className="max-w-7xl mx-auto px-10 ">
         {/* whole grid */}
 
-        <div className="mt-[9vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
+        <div className="mt-[4vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
           {peopleArray.map((person) => (
             <TeamMember
               key={person.name}

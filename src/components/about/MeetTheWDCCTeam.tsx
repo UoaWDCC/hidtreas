@@ -8,14 +8,14 @@ import blueKoru from '@/assets/blue_koru.png'
 
 export default function MeetTheWDCCTeam() {
   return (
-    <section className="relative md:py-12">
+    <section className="relative">
       <Image
         src={blueKoru}
         alt="Koru"
-        className="absolute right-0 sm:bottom-[1/3] w-35 rotate-270 z-[-10]"
+        className="absolute right-0 top-[10%] sm:bottom-[1/3] w-20 sm:w-35 rotate-270 z-[-10]"
       />
 
-      <div className="px-[1rem] sm:px-[1.5rem] md:px-[2rem] lg:px-[6vw] py-8 md:py-16 mb-[10rem]">
+      <div className="px-[1rem] sm:px-[1.5rem] md:px-[2rem] lg:px-[6vw] py-4 md:py-8 mb-[4rem] md:mb-[6rem]">
         <div className="relative w-full max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1.5rem] md:gap-[2rem] lg:gap-[3rem] items-center">
             {/* Left side - Background image with decoration */}
