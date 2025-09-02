@@ -2,7 +2,7 @@ import Image, { StaticImageData } from 'next/image'
 
 import React, { FunctionComponent } from 'react'
 
-// TODO: Change `imageUrl` to `string` once all images come from CMS
+// TODO: StaticImageData is used for a placeholder image. Confirm later how we want to handle missing images.
 interface Props {
   title: string
   description: string
