@@ -3,7 +3,6 @@ import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import BlogCard from '@/components/blogs/BlogCard'
 import placeholderImage from '@/assets/groupPic.png'
-import {fetchMockBlogs} from '@/lib/fetchMockBlogs'
 import {getBlogs} from "@/lib/payload/blogs";
 import {Blog} from "@/payload-types";
 
