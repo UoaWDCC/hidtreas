@@ -66,7 +66,7 @@ export default function RecentEvents() {
                 alt={event.name}
                 width={400}
                 height={300}
-                className="w-full h-auto"
+                className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg"
               />
               <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
                 {new Date(event.date).toLocaleDateString('en-NZ')}

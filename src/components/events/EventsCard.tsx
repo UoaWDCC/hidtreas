@@ -30,7 +30,13 @@ export default function EventsCard({
 
       <div className="flex flex-col justify-center items-center gap-y-2">
         <div className="relative flex justify-center items-center">
-          <Image src={event.image || PlaceholderImg} alt={event.name} width={210} height={140} />
+          <Image
+            src={event.image || PlaceholderImg}
+            alt={event.name}
+            width={210}
+            height={140}
+            className="w-[210px] h-[140px] object-cover rounded-lg"
+          />
           <p className="absolute text-xs rotate-270 right-40 whitespace-nowrap">
             HOSTED BY: {event.hosted_by}
           </p>
