@@ -7,6 +7,7 @@ import Hero from '@/components/events/Hero'
 import EventsSignUpModal from '@/components/events/EventsSignUpModal'
 import RecentEvents from '@/components/events/RecentEvents'
 import PastEventsSection from '@/components/events/PastEventsSection'
+import PastEventsPopUpModal from '@/components/events/PastEventsPopUpModal'
 
 export default function EventsPage() {
   const [signOpen, setSignOpen] = useState(false)
@@ -19,6 +20,7 @@ export default function EventsPage() {
       <PastEventsSection />
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
+      <PastEventsPopUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </div>
   )
 }

@@ -10,8 +10,8 @@ export default async function HomePage() {
     <div className="home">
       <Header />
       <HeroSection />
-      <WhatWeDo />
       <WhoWeAre />
+      <WhatWeDo />
       <Footer />
     </div>
   )
