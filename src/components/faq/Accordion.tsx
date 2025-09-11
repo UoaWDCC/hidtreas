@@ -43,7 +43,7 @@ const Accordion: React.FC = () => {
   }
 
   return (
-    <div className="h-0 max-w-xl mx-auto bg-[#fdf4ed]">
+    <div className="h-0 mx-auto bg-[#fdf4ed]">
       {items.map((item, index) => (
         <div key={index} className="border-t">
           <button
