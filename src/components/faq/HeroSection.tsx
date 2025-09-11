@@ -4,8 +4,8 @@ import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-[10vh] md:h-[65vh] xl:h-[80vh] overflow-x-clip ">
-      <div className="absolute bottom-[-120px] right-[-90px] w-[50%] h-[100%] hidden xl:block ">
+    <div className="relative overflow-x-clip">
+      <div className="absolute bottom-[-250px] right-[-100px] w-[50vw] h-[40vw] hidden xl:block ">
         <Image
           src={waveBackground}
           alt="Blue Wave with white koru and leaves"
