@@ -44,6 +44,7 @@ export default function MeetTheTeam() {
   ]
 
   return (
+
     <div className="relative mb-[6rem] md:mb-[8rem]">
       {/* whole section */}
 
