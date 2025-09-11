@@ -13,11 +13,8 @@ export default async function BlogsPage() {
     <div className={'blogs'}>
       <Header />
 
-      {/* Search Bar */}
-      <Search />
-
       {/* Hero Section */}
-      <div className="px-[2.5rem] lg:px-[7rem] py-16 text-center">
+      <div className="px-[2.5rem] lg:px-[7rem] pt-16 pb-8 text-center">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold leading-tight tracking-wide ">
           BLOGS
         </h1>
@@ -25,6 +22,9 @@ export default async function BlogsPage() {
           A collection of insights, reflections, and voices from our community.
         </p>
       </div>
+
+      {/* Search Bar */}
+      <Search />
 
       {/* Blog Grid */}
       <div className="px-[2.5rem] lg:px-[7rem] mb-16 flex-1">
