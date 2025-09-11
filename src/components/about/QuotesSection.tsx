@@ -14,7 +14,7 @@ const coveredByYourGrace = Covered_By_Your_Grace({
 export default function QuotesSection() {
   return (
     <section className="py-8  md:py-12">
-      <div className="relative w-full min-h-[70vh] mb-[10rem]">
+      <div className="relative w-full min-h-[70vh] mb-[3rem]">
         <Image
           src={quotesBackgroundImage}
           alt="Henna Being Drawn"
