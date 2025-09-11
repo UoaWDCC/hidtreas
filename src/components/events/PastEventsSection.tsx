@@ -10,8 +10,7 @@ export default function PastEventsSection() {
         src={BlueKoru}
         alt="Blue Koru decoration"
         width={256}
-        className="absolute -right-10 top-20 rotate-180
-          "
+        className="absolute right-0 top-20 rotate-180"
       />
       <h3 className="bg-[#E6E1DE] inline text-5xl px-20 py-5 border-none rounded-t-xl font-bold">
         PREVIOUS EVENTS
