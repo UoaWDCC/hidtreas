@@ -96,7 +96,7 @@ export default function Footer() {
       <Image
         src={footerLogoSharpened}
         alt="Hidden Treasure Logo"
-        className={`absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible transition-all duration-1000 ease-out ${
+        className={`absolute bottom-0 left-0 z-0 hidden xl:block ${
           isVisible ? 'animate-bounce' : ''
         }`}
         style={{

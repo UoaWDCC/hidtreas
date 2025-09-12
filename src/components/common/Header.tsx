@@ -11,28 +11,28 @@ export default function Header() {
   const [signOpen, setSignOpen] = useState(false)
 
   return (
-    <header className="px-4 md:px-16 py-[0.6rem] flex items-center justify-between relative">
+    <header className="px-4 sm:px-6 md:px-12 lg:px-16 py-[0.6rem] flex items-center justify-between relative">
       {/* Logo + Brand */}
       {/* Logo + Brand — Wrapped in Link to home */}
       <Link
         href="/"
-        className="flex items-center space-x-2 md:space-x-3 animate-slide-in-left hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="flex items-center space-x-2 sm:space-x-2.5 md:space-x-3 animate-slide-in-left hover:scale-105 transition-transform duration-300 ease-in-out"
       >
         <Image
           src={nasz}
           alt="Hidden Treasure Logo"
           width={48}
           height={48}
-          className="w-[3rem] h-[3rem] md:w-[4rem] md:h-[4rem]"
+          className="w-[3rem] h-[3rem] sm:w-[3.25rem] sm:h-[3.25rem] md:w-[3.5rem] md:h-[3.5rem] lg:w-[4rem] lg:h-[4rem]"
         />
-        <h1 className="text-[1rem] md:text-[1.35rem] font-semibold tracking-wide antialiased">
+        <h1 className="text-[1rem] sm:text-[1.1rem] md:text-[1.2rem] lg:text-[1.35rem] font-semibold tracking-wide antialiased">
           HIDDEN TREASURE
         </h1>
       </Link>
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem] animate-slide-in-right"
+        className="lg:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem] animate-slide-in-right"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -48,7 +48,7 @@ export default function Header() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-[2rem] font-medium text-[1.125rem] antialiased">
+      <nav className="hidden lg:flex items-center space-x-[1.5rem] xl:space-x-[2rem] font-medium text-[1rem] md:text-[1.125rem] antialiased">
         <h1 className="animate-slide-in-right animate-stagger-1">
           <a href="/" className="hover:underline uppercase tracking-wide hover-lift">
             Home
@@ -71,7 +71,7 @@ export default function Header() {
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-5">
           <button
-            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
+            className="bg-[#13384E] text-white px-[1.25rem] md:px-[1.5rem] xl:px-[1.75rem] py-[0.6rem] md:py-[0.75rem] rounded-md text-[1rem] md:text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
@@ -81,7 +81,7 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Slide Down */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden animate-slide-in-top">
+        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden animate-slide-in-top">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
             <a href="/" className="uppercase tracking-wide font-medium hover-lift">
               Home
