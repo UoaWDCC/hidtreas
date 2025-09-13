@@ -183,7 +183,10 @@ export interface Blog {
     };
     [k: string]: unknown;
   };
-  author: string | User;
+  /**
+   * Displayed author name
+   */
+  authorName: string;
   image?: (string | null) | Media;
   published?: boolean | null;
   updatedAt: string;
@@ -315,7 +318,7 @@ export interface BlogsSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   content?: T;
-  author?: T;
+  authorName?: T;
   image?: T;
   published?: T;
   updatedAt?: T;

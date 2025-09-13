@@ -83,10 +83,12 @@ export const Blogs: CollectionConfig = {
       required: true,
     },
     {
-      name: 'author',
-      type: 'relationship',
-      relationTo: 'users',
+      name: 'authorName',
+      type: 'text',
       required: true,
+      admin: {
+        description: 'Displayed author name',
+      },
     },
     {
       name: 'image',
