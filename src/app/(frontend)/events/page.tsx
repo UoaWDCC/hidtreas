@@ -20,7 +20,12 @@ export default function EventsPage() {
       <PastEventsSection />
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
-      <PastEventsPopUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
+      <PastEventsPopUpModal
+        signOpen={signOpen}
+        setSignOpen={setSignOpen}
+        events={[]}
+        initialIdx={0}
+      />
     </div>
   )
 }

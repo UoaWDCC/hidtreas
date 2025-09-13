@@ -55,10 +55,12 @@
   from {
     opacity: 0;
     transform: translateX(100px);
+    visibility: visible;
   }
   to {
     opacity: 1;
     transform: translateX(0);
+    visibility: visible;
   }
 }
 
@@ -277,6 +279,8 @@ h1 {
 @theme {
   --font-k2d: var(--font-k2d, 'K2D', sans-serif);
   --font-inter: var(--font-inter, 'Inter', sans-serif);
+  --font-default: var(--font-inter, 'Inter', sans-serif);
+  --font-header: var(--font-k2d, 'K2D', sans-serif);
 }
 
 .clamp-2 {

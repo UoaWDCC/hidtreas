@@ -2,7 +2,7 @@ import Image from 'next/image'
 import heroImage from '@/assets/aboutUsHeroImage.jpg'
 export default function Hero() {
   return (
-    <div className="mb-[12rem]">
+    <div className="mb-[3rem] md:mb-[8rem]">
       {/* Hero */}
       <div className="relative flex justify-center">
         <div className="flex flex-col md:flex-row h-auto w-full ">

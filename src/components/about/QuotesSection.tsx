@@ -4,7 +4,6 @@ import { Covered_By_Your_Grace } from 'next/font/google'
 
 import blueWave from '@/assets/blue_wave.png'
 import bigFeather from '@/assets/big_feather.png'
-import quotesBackground from '@/assets/quotesbackground.png'
 import quotesBackgroundImage from '@/assets/hennaDrawing.svg'
 
 const coveredByYourGrace = Covered_By_Your_Grace({
@@ -15,7 +14,7 @@ const coveredByYourGrace = Covered_By_Your_Grace({
 export default function QuotesSection() {
   return (
     <section className="py-8  md:py-12">
-      <div className="relative w-full min-h-[70vh] mb-[10rem]">
+      <div className="relative w-full min-h-[70vh] mb-[3rem]">
         <Image
           src={quotesBackgroundImage}
           alt="Henna Being Drawn"
