@@ -1,8 +1,8 @@
 export default function YearFilter() {
   return (
-    <div className="flex flex-row gap-10">
+    <div className="px-12 w-full justify-left flex flex-row gap-10">
       <p className="font-bold text-2xl">YEAR</p>
-      <div className="flex flex-row overflow-x-auto w-200 no-scrollbar gap-5">
+      <div className="flex flex-row overflow-x-auto max-w-[80-vw] no-scrollbar gap-5">
         <button className="font-bold text-2xl text-[#13384E] border-2 rounded-2xl gap px-2 cursor-pointer bg-[#FFF8F3] border-[#13384E]">
           2025
         </button>

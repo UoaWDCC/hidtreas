@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import SignUpModal from '@/components/common/SignUpModal'
-
+import EventsFilter from '@/components/events/EventsFilter'
 import Koru from '@/assets/recent_events_koru.png'
 import PlaceholderImg from '@/assets/placeholder_img.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
@@ -33,6 +33,8 @@ export default function RecentEvents() {
           RECENT EVENTS
         </h2>
       </div>
+
+      <EventsFilter />
 
       {/* Main Content */}
       <section
