@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import waveBackground from '@/assets/waveBackground.png'
-import placeholder from '@/assets/placeholder.jpg'
+import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
@@ -19,21 +19,22 @@ export default function HeroSection() {
         <div className="flex flex-col width-70%">
           <div className="relative h-90 rounded-lg overflow-hidden">
             <Image
-              src={placeholder}
-              alt="Placeholder Image"
+              src={heroImage}
+              alt="Hero Image"
               fill
               priority
-              className="object-cover"
+              className="object-cover object-[center_35%]" // move image content down
             />
           </div>
-          <div className="text-right">
-            <p>
-              Pulvinar vivamus fringilla lacus nec metus bibendum egestas. <br />
-              Iaculis massa nisl malesuada lacinia integer nunc posuere. <br />
-              Ut hendrerit semper vel.
-            </p>
-          </div>
         </div>
+      </div>
+      <div className="absolute bottom-0  left-20">
+        <p className="text-4xl font-bold text-center">
+          "Let the wisdom of the past guide the hope of the
+          <br />
+          future—every person is a hidden treasure <br />
+          waiting to shine."
+        </p>
       </div>
     </div>
   )

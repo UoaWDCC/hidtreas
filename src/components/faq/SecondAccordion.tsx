@@ -26,7 +26,7 @@ export default function SecondAccordion({ items }: Props) {
             onClick={() => toggle(index)}
           >
             <div className="flex flex-row justify-between">
-              <h3 className="font-bold">{items.title}</h3>
+              <span className="text-xl font-bold">{items.title}</span>
               <span className="text-2xl font-bold">{openId === index ? '-' : '+'}</span>
             </div>
           </button>

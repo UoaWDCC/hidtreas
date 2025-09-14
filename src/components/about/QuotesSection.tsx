@@ -1,25 +1,25 @@
 'use client'
 import Image from 'next/image'
-import { La_Belle_Aurore } from 'next/font/google'
+import { Covered_By_Your_Grace } from 'next/font/google'
 
 import blueWave from '@/assets/blue_wave.png'
 import bigFeather from '@/assets/big_feather.png'
-import quotesBackground from '@/assets/quotesbackground.png'
+import quotesBackgroundImage from '@/assets/hennaDrawing.svg'
 
-const laBelleAurore = La_Belle_Aurore({
+const coveredByYourGrace = Covered_By_Your_Grace({
   subsets: ['latin'],
   weight: '400',
 })
 
 export default function QuotesSection() {
   return (
-    <section className="py-8 md:py-16">
-      <div className="relative w-full min-h-[70vh]">
+    <section className="py-8  md:py-12">
+      <div className="relative w-full min-h-[70vh] mb-[3rem]">
         <Image
-          src={quotesBackground}
-          alt="Quotes background"
+          src={quotesBackgroundImage}
+          alt="Henna Being Drawn"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center opacity"
         />
 
         {/* Blue wave decoration - top */}
@@ -37,10 +37,11 @@ export default function QuotesSection() {
         <div className="absolute inset-0 z-10 flex items-center justify-center px-[1rem] sm:px-[1.5rem] md:px-[2rem]">
           <div className="max-w-[60rem] w-[90%] text-center">
             <blockquote
-              className={`${laBelleAurore.className} text-[1.5rem] sm:text-[3rem] md:text-[4rem] text-black`}
+              className={`${coveredByYourGrace.className} text-white text-[2rem] sm:text-[3rem] md:text-[3.5rem]`}
             >
-              "A doloribus at rerum culpa est eligendi veniam. Aut quia ea assumenda cum pa nostrum
-              vel"
+              {/*make the text stand out a bit more from background*/}
+              "Let the wisdom of the past guide the hope of the future—every person is a hidden
+              treasure waiting to shine."
             </blockquote>
           </div>
         </div>

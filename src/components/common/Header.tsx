@@ -14,7 +14,10 @@ export default function Header() {
     <header className="px-4 md:px-16 py-[0.6rem] flex items-center justify-between relative">
       {/* Logo + Brand */}
       {/* Logo + Brand — Wrapped in Link to home */}
-      <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+      <Link
+        href="/"
+        className="flex items-center space-x-2 md:space-x-3 animate-slide-in-left hover:scale-105 transition-transform duration-300 ease-in-out"
+      >
         <Image
           src={nasz}
           alt="Hidden Treasure Logo"
@@ -29,7 +32,7 @@ export default function Header() {
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem]"
+        className="md:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem] animate-slide-in-right"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -45,25 +48,30 @@ export default function Header() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-[2.5rem] font-medium text-[1.125rem] antialiased">
-        <h1>
-          <a href="/about" className="hover:underline uppercase tracking-wide">
+      <nav className="hidden md:flex items-center space-x-[2rem] font-medium text-[1.125rem] antialiased">
+        <h1 className="animate-slide-in-right animate-stagger-1">
+          <a href="/" className="hover:underline uppercase tracking-wide hover-lift">
+            Home
+          </a>
+        </h1>
+        <h1 className="animate-slide-in-right animate-stagger-2">
+          <a href="/about" className="hover:underline uppercase tracking-wide hover-lift">
             About Us
           </a>
         </h1>
-        <h1>
-          <a href="/blogs" className="hover:underline uppercase tracking-wide">
+        <h1 className="animate-slide-in-right animate-stagger-3">
+          <a href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
           </a>
         </h1>
-        <h1>
-          <a href="/events" className="hover:underline uppercase tracking-wide">
+        <h1 className="animate-slide-in-right animate-stagger-4">
+          <a href="/events" className="hover:underline uppercase tracking-wide hover-lift">
             Events
           </a>
         </h1>
-        <h1>
+        <h1 className="animate-slide-in-right animate-stagger-5">
           <button
-            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
+            className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
@@ -73,19 +81,22 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Slide Down */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden">
+        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden animate-slide-in-top">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <a href="/about" className="uppercase tracking-wide font-medium">
+            <a href="/" className="uppercase tracking-wide font-medium hover-lift">
+              Home
+            </a>
+            <a href="/about" className="uppercase tracking-wide font-medium hover-lift">
               About Us
             </a>
-            <a href="/blogs" className="uppercase tracking-wide font-medium">
+            <a href="/blogs" className="uppercase tracking-wide font-medium hover-lift">
               Blogs
             </a>
-            <a href="/events" className="uppercase tracking-wide font-medium">
+            <a href="/events" className="uppercase tracking-wide font-medium hover-lift">
               Events
             </a>
             <button
-              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition"
+              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
               onClick={() => setSignOpen(true)}
             >
               SIGN UP
