@@ -8,7 +8,6 @@ import EventsSignUpModal from '@/components/events/EventsSignUpModal'
 import RecentEvents from '@/components/events/RecentEvents'
 import PastEventsSection from '@/components/events/PastEventsSection'
 import PastEventsPopUpModal from '@/components/events/PastEventsPopUpModal'
-import EventsFilter from '@/components/events/EventsFilter'
 
 export default function EventsPage() {
   const [signOpen, setSignOpen] = useState(false)
@@ -17,7 +16,6 @@ export default function EventsPage() {
     <div className="home">
       <Header />
       <Hero />
-      <EventsFilter />
       <RecentEvents />
       <PastEventsSection />
       <Footer />
