@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import groupPic from '@/assets/groupPic.png'
-import whoWeAreImage from '@/assets/hidtreas-who-we-are_upscaled.png'
+import whoWeAreImage from '@/assets/hidtreas-who-we-are.jpg'
 import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
@@ -24,25 +24,25 @@ export default function WhoWeAre() {
           <Image
             src={whoWeAreImage}
             alt="Who We Are"
-            className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg z-0"
+            className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
           />
 
           <Image
             src={koru1}
             alt="koru & leaf"
-            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] h-auto animate-gentle-rotate pointer-events-none z-10"
+            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] h-auto animate-gentle-rotate"
           />
 
           <Image
             src={koru2}
             alt="koru"
-            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2 pointer-events-none z-10"
+            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2"
           />
         </div>
       </AnimatedSection>
 
       <AnimatedSection animationClass="animate-slide-in-right" delay={0.4}>
-        <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%] relative z-20">
+        <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
           <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-base sm:text-lg">
             <p className="leading-relaxed sm:leading-tight">
               We are Hidden Treasure Trust, a charitable organization supporting families, women,

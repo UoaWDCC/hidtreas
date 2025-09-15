@@ -53,7 +53,7 @@ const links: {
     ],
     extlinks: [
       { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
-      { href: 'https://www.facebook.com/hiddentreasure', icon: IconBrandFacebook },
+      { href: 'https://www.facebook.com/profile.php?id=61574941850535', icon: IconBrandFacebook },
       { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
       {
         href: 'https://www.linkedin.com/company/hiddentreasure',
