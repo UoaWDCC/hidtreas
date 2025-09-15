@@ -163,6 +163,10 @@ export interface Media {
 export interface Blog {
   id: string;
   title: string;
+  /**
+   * Auto-generated from title; can be edited
+   */
+  slug?: string | null;
   description?: string | null;
   content: {
     root: {
@@ -179,10 +183,12 @@ export interface Blog {
     };
     [k: string]: unknown;
   };
-  author: string | User;
+  /**
+   * Displayed author name
+   */
+  authorName: string;
   image?: (string | null) | Media;
   published?: boolean | null;
-  email?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -309,12 +315,12 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface BlogsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   description?: T;
   content?: T;
-  author?: T;
+  authorName?: T;
   image?: T;
   published?: T;
-  email?: T;
   updatedAt?: T;
   createdAt?: T;
 }

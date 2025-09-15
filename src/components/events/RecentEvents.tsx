@@ -52,7 +52,7 @@ export default function RecentEvents() {
 
       {/* Main Content */}
       <section
-        className="relative w-full bg-[#13384E] px-6 pt-0 pb-12 overflow-x-hidden"
+        className="relative w-full bg-[#13384E] px-6 pt-0 pb-8 overflow-x-hidden"
         style={{ minHeight: '80rem' }}
       >
         {events.map((event, idx) => (
