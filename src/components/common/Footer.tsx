@@ -15,6 +15,7 @@ import { useState, useRef, useEffect } from 'react'
 import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
+import NotFound from '@/app/(frontend)/[...notFound]/page'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -25,10 +26,11 @@ const links: {
   {
     label: 'QUICK LINKS',
     items: [
+      // currenly linked events and blogs to 404 not found
       { label: 'Home', href: '/', icon: undefined },
       { label: 'About Us', href: '/about', icon: undefined },
-      { label: 'Events', href: '/events', icon: undefined },
-      { label: 'Blogs', href: '/blogs', icon: undefined },
+      { label: 'Events', href: '/NotFound', icon: undefined },
+      { label: 'Blogs', href: '/NotFound', icon: undefined },
       { label: 'Our Values', href: '/values', icon: undefined },
       { label: 'Contact Us', href: '/contact', icon: undefined },
     ],

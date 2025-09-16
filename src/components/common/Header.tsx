@@ -5,6 +5,7 @@ import { useState } from 'react'
 import nasz from '@/assets/sharpened_logo.png'
 import SignUpModal from './SignUpModal'
 import Link from 'next/link'
+import NotFound from '@/app/(frontend)/[...notFound]/page'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -59,13 +60,15 @@ export default function Header() {
             About Us
           </a>
         </h1>
+        {/* Blogs currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-3">
-          <a href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
+          <a href="/NotFound" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
           </a>
         </h1>
+        {/* Events currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-4">
-          <a href="/events" className="hover:underline uppercase tracking-wide hover-lift">
+          <a href="/NotFound" className="hover:underline uppercase tracking-wide hover-lift">
             Events
           </a>
         </h1>
