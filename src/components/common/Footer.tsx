@@ -31,8 +31,9 @@ const links: {
       { label: 'About Us', href: '/about', icon: undefined },
       { label: 'Events', href: '/NotFound', icon: undefined },
       { label: 'Blogs', href: '/NotFound', icon: undefined },
-      { label: 'Our Values', href: '/values', icon: undefined },
-      { label: 'Contact Us', href: '/contact', icon: undefined },
+      { label: 'FAQ', href: '/faq', icon: undefined },
+      //{ label: 'Our Values', href: '/values', icon: undefined },
+      //{ label: 'Contact Us', href: '/contact', icon: undefined },
     ],
     extlinks: undefined,
   },
@@ -50,17 +51,17 @@ const links: {
   {
     label: 'CONNECT WITH US',
     items: [
-      { label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
-      { label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
+      //{ label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
+      //{ label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
     ],
     extlinks: [
-      { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
+      //{ href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
       { href: 'https://www.facebook.com/hiddentreasure', icon: IconBrandFacebook },
-      { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
-      {
+      //{ href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
+      /*{
         href: 'https://www.linkedin.com/company/hiddentreasure',
         icon: IconBrandLinkedin,
-      },
+      }, */
     ],
   },
 ]
@@ -198,17 +199,6 @@ export default function Footer() {
       >
         <div className="w-50 hidden xl:block" />
         <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
-        <div className="flex flex-row gap-3 sm:gap-5 text-sm sm:text-base">
-          <a href="/faq" className="text-center hover:underline">
-            FAQ
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Privacy Policy
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Terms of Service
-          </a>
-        </div>
       </div>
 
       <style jsx>{`
