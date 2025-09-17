@@ -38,17 +38,6 @@ const links: {
     extlinks: undefined,
   },
   {
-    label: 'GET INVOLVED',
-    items: [
-      { label: 'Volunteer', href: '/volunteer', icon: undefined },
-      { label: 'Donate', href: '/donate', icon: undefined },
-      { label: 'Membership', href: '/membership', icon: undefined },
-      { label: 'Sponsorship', href: '/sponsorship', icon: undefined },
-      { label: 'Partnership', href: '/partnership', icon: undefined },
-    ],
-    extlinks: undefined,
-  },
-  {
     label: 'CONNECT WITH US',
     items: [
       //{ label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
