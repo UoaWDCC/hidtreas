@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import aboutUsLeaf from '@/assets/about_us_leaf.png'
-import meetTheTeamBackground from '@/assets/meettheteambackground.png'
+import hidtreasWdccTeam from '@/assets/hidtreas-wdcc-team.jpg'
 import blueKoru from '@/assets/blue_koru.png'
 
 export default function MeetTheWDCCTeam() {
@@ -20,17 +20,17 @@ export default function MeetTheWDCCTeam() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1.5rem] md:gap-[2rem] lg:gap-[3rem] items-center">
             {/* Left side - Background image with decoration */}
             <div className="relative order-2 lg:order-1">
-              <div className="relative overflow-hidden w-full h-[50vh]">
+              <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
                 <Image
-                  src={meetTheTeamBackground}
-                  alt="Meet the team background"
+                  src={hidtreasWdccTeam}
+                  alt="Hidtreas WDCC Team"
                   fill
                   className="object-contain object-center"
                 />
               </div>
 
               {/* Leaf decoration */}
-              <div className="absolute bottom-12 left-[2rem] z-10 translate-y-1/2">
+              <div className="absolute -bottom-16 -left-[6rem] sm:-left-[8rem] md:-left-[10rem] z-10">
                 <Image
                   src={aboutUsLeaf}
                   alt="Leaf decoration"
@@ -55,8 +55,10 @@ export default function MeetTheWDCCTeam() {
                   style={{ color: '#13384E' }}
                 >
                   The Web Development and Consulting Club (WDCC) helped design and create this very
-                  website! From left to right, here are the members who brought it to life: insert
-                  members’ names or roles here :)
+                  website! Here are the members who brought it to life: <br />
+                  Top row: Nathan Dalpatan, Andrew Chen, Jack Harken <br />
+                  Second Row: Daniel Kim, Ruby McNamee, Daniel Kim <br />
+                  Bottom Row: Toshiro Mendoza, Chris Kang, Atul Kodla, Bryanna Yeo
                 </p>
               </div>
             </div>
