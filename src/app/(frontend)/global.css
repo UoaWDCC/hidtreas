@@ -39,6 +39,35 @@
   }
 }
 
+/* iPad and tablet-specific improvements */
+@media (min-width: 641px) and (max-width: 1023px) {
+  /* Optimize touch targets for tablets */
+  button, a {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Better text spacing for tablet reading */
+  p {
+    line-height: 1.65;
+  }
+  
+  /* Tablet-optimized spacing */
+  .tablet-spacing {
+    margin-bottom: 2rem;
+  }
+  
+  /* Ensure proper header navigation spacing */
+  nav {
+    gap: 1.25rem;
+  }
+  
+  /* Better tablet shadows */
+  .tablet-shadow {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
 /* Animation Keyframes */
 @keyframes slideInFromLeft {
   from {

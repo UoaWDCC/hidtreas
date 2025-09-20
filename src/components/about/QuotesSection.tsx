@@ -4,7 +4,7 @@ import { Covered_By_Your_Grace } from 'next/font/google'
 
 import blueWave from '@/assets/blue_wave.png'
 import bigFeather from '@/assets/big_feather.png'
-import quotesBackgroundImage from '@/assets/hennaDrawing.svg'
+import quotesBackgroundImage from '@/assets/hennaDrawing_upscaled.png'
 
 const coveredByYourGrace = Covered_By_Your_Grace({
   subsets: ['latin'],

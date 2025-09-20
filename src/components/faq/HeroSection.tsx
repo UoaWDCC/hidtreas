@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import waveBackground from '@/assets/waveBackground.png'
-import heroImage from '@/assets/faqheroimage.jpg'
+import heroImage from '@/assets/faqheroimage_upscaled.png'
 
 export default function HeroSection() {
   return (
