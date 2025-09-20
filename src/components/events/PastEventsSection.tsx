@@ -26,7 +26,7 @@ export default function PastEventsSection() {
   }, [])
 
   return (
-    <div className="w-full max-w-full relative py-50">
+    <div className="relative py-50 overflow-x-clip">
       <Image
         src={BlueKoru}
         alt="Blue Koru decoration"
