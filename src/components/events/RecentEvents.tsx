@@ -14,10 +14,11 @@ export default function RecentEvents() {
 
   type EventType = {
     id: string | number
-    name: string
-    hosted_by: string
+    title: string
+    host: [string, ...string[]]
     description: string
     date: string
+    venue?: string
     image?: string
   }
 
@@ -27,7 +28,7 @@ export default function RecentEvents() {
       .then((data) => setEvents(data.events))
   }, [])
 
-  const eventNames = events.map((event) => event.name)
+  const eventNames = events.map((event) => event.title)
 
   return (
     <>
@@ -63,7 +64,7 @@ export default function RecentEvents() {
             <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
               <Image
                 src={event.image || PlaceholderImg}
-                alt={event.name}
+                alt={event.title}
                 width={400}
                 height={300}
                 className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg"
@@ -87,11 +88,9 @@ export default function RecentEvents() {
 
             <div className="text-white max-w-xl">
               <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
-                {event.name}
+                {event.title}
               </h2>
-              <h3 className="text-base md:text-lg font-medium mb-4">
-                HOSTED BY: {event.hosted_by}
-              </h3>
+              <h3 className="text-base md:text-lg font-medium mb-4">HOSTED BY: {event.host}</h3>
               <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
                 {event.description}
               </p>

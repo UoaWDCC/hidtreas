@@ -2,25 +2,21 @@
   "events": [
     {
       "id": "evt_002",
-      "name": "Cultural Event 1",
-      "hosted_by": "Community Arts Group",
+      "title": "Cultural Event 1",
+      "host": ["Local Cultural Center"],
       "description": "A cultural celebration with music, food, and performances.",
-      "date_range": {
-        "start": "2025-09-15T10:00:00Z",
-        "end": "2025-09-17T22:00:00Z"
-      },
-      "image": "/events/event1.jpg"
+      "date": "2025-09-10T18:00:00Z",
+      "image": "/events/event1.jpg",
+      "venue": "City Park Amphitheater"
     },
     {
       "id": "evt_004",
-      "name": "Cultural Event 2",
-      "hosted_by": "Local Cultural Center",
+      "title": "Cultural Event 2",
+      "host": ["Local Cultural Center"],
       "description": "Traditional dances, music, and art displays.",
-      "date_range": {
-        "start": "2025-11-01T09:00:00Z",
-        "end": "2025-11-03T17:00:00Z"
-      },
-      "image": "/events/event2.jpg"
+      "date": "2025-09-10T18:00:00Z",
+      "image": "/events/event2.jpg",
+      "venue": "City Park Amphitheater"
     }
   ]
 }
