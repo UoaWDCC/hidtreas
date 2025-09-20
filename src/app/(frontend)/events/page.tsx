@@ -17,7 +17,7 @@ export default function EventsPage() {
       <Header />
       <Hero />
       <RecentEvents />
-      <PastEventsSection />
+      {/*<PastEventsSection />*/}
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
       <PastEventsPopUpModal

@@ -200,7 +200,7 @@ export interface Event {
   id: string;
   title: string;
   description?: string | null;
-  date?: string | null;
+  date: string;
   venue?: string | null;
   image?: (string | null) | Media;
   published?: boolean | null;
