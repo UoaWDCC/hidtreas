@@ -2,17 +2,21 @@
   "events": [
     {
       "id": "evt_001",
-      "name": "Event 1",
+      "title": "Event 1",
+      "host": ["Local Cultural Center"],
       "description": "This is the description for Event 1.",
       "date": "2025-09-10T18:00:00Z",
-      "image": "/events/event3.jpg"
+      "image": "/events/event3.jpg",
+      "venue": "City Park Amphitheater"
     },
     {
       "id": "evt_003",
-      "name": "Event 2",
+      "title": "Event 2",
+      "host": ["Local Cultural Center"],
       "description": "This is the description for Event 2.",
       "date": "2025-10-05T12:00:00Z",
-      "image": "/events/event4.jpg"
+      "image": "/events/event4.jpg",
+      "venue": "City Park Amphitheater"
     }
   ]
 }

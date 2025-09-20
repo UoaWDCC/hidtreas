@@ -4,13 +4,11 @@ import { useState } from 'react'
 
 type EventType = {
   id: string
-  name: string
-  hosted_by: string
+  title: string
+  host: [string, ...string[]]
   description: string
-  date_range: {
-    start: string
-    end: string
-  }
+  date: string
+  venue?: string
   image?: string
 }
 

@@ -8,13 +8,11 @@ import { useState } from 'react'
 
 type EventType = {
   id: string
-  name: string
-  hosted_by: string
+  title: string
+  host: [string, ...string[]]
   description: string
-  date_range: {
-    start: string
-    end: string
-  }
+  date: string
+  venue?: string
   image?: string
 }
 
@@ -55,16 +53,12 @@ export default function PastEventsPopUpModal({
         <Image src={blurWave} alt="Blurred Wave" fill className="object-cover w-full h-full" />
         <div className="absolute top-10">
           <p className="text-lg text-black font-bold" style={{ fontFamily: 'var(--font-header)' }}>
-            {event?.name}
+            {event?.title}
           </p>
         </div>
         <div className="absolute top-17">
           <p className="text-xs text-black font-bold" style={{ fontFamily: 'var(--font-header)' }}>
-            {event
-              ? `${new Date(event.date_range.start).toLocaleDateString()} - ${new Date(
-                  event.date_range.end,
-                ).toLocaleDateString()}`
-              : ''}
+            {new Date(event.date).toLocaleDateString('en-NZ')}
           </p>
         </div>
         <div className="max-w-7xl relative rounded-3xl overflow-hidden z-20 pb-15 pt-20">
@@ -75,7 +69,7 @@ export default function PastEventsPopUpModal({
             <div className="relative w-60 h-46 rounded-xl overflow-hidden shadow-md md:w-70 md:h-56 lg:w-80 lg:h-60 xl:w-90 xl:h-66">
               <Image
                 src={imageSrc}
-                alt={event?.name || 'Event image'}
+                alt={event?.title || 'Event image'}
                 className="w-full h-full object-cover"
                 width={320}
                 height={224}
