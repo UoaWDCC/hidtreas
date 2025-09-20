@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import heroImage from '@/assets/aboutUsHeroImage.jpg'
+import heroImage from '@/assets/aboutUsHeroImage_upscaled.png'
 export default function Hero() {
   return (
     <div className="mb-[3rem] md:mb-[8rem]">

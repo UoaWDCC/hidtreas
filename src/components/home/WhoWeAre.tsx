@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import groupPic from '@/assets/groupPic.png'
-import whoWeAreImage from '@/assets/hidtreas-who-we-are.jpg'
+import whoWeAreImage from '@/assets/hidtreas-who-we-are_upscaled.png'
 import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'

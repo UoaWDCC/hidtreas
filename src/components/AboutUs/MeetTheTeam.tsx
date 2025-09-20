@@ -2,6 +2,8 @@ import Image, { StaticImageData } from 'next/image'
 import profilePic from '@/assets/personPicture.png'
 import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
+import induBajwaPic from '@/assets/indu-bajwa-upscaled-profile.png'
+import amanGillPic from '@/assets/aman-gill-upscaled-profile.jpeg'
 
 export default function MeetTheTeam() {
   const peopleArray = [
@@ -15,7 +17,7 @@ export default function MeetTheTeam() {
       name: 'Aman Gill',
       pronoun: '(she/her)',
       role: 'Trustees',
-      image: profilePic,
+      image: amanGillPic,
     },
     {
       name: 'Christine Knock',
@@ -27,7 +29,7 @@ export default function MeetTheTeam() {
       name: 'Indu Bajwa',
       pronoun: '(she/her)',
       role: 'Manager',
-      image: profilePic,
+      image: induBajwaPic,
     },
     {
       name: 'Divya Niyyar',
@@ -44,7 +46,6 @@ export default function MeetTheTeam() {
   ]
 
   return (
-
     <div className="relative mb-[6rem] md:mb-[8rem]">
       {/* whole section */}
 
@@ -101,7 +102,9 @@ function TeamMember({
     <div className="flex flex-col items-center text-center">
       {/* image */}
 
-      <Image src={image} alt={`${name}'s photo`} className="w-[clamp(4rem,20vw,10rem)] h-auto" />
+      <div className="relative w-[clamp(4rem,20vw,10rem)] aspect-[4/5] overflow-hidden border-2 border-current rounded-md">
+        <Image src={image} alt={`${name}'s photo`} fill className="object-cover object-top" />
+      </div>
 
       {/* text stuff */}
       <p className="text-[clamp(1rem,4vw,2rem)]">{name}</p>
