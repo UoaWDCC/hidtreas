@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import Hero from '@/components/events/Hero'
@@ -8,16 +5,18 @@ import EventsSignUpModal from '@/components/events/EventsSignUpModal'
 import RecentEvents from '@/components/events/RecentEvents'
 import PastEventsSection from '@/components/events/PastEventsSection'
 import PastEventsPopUpModal from '@/components/events/PastEventsPopUpModal'
+import {getPastEvents, getUpcomingEvents} from "@/lib/payload/events";
 
-export default function EventsPage() {
-  const [signOpen, setSignOpen] = useState(false)
+export default async function EventsPage() {
+  const upcoming = await getUpcomingEvents()
+  const past = await getPastEvents()
 
   return (
     <div className="home">
       <Header />
       <Hero />
-      <RecentEvents />
-      {/*<PastEventsSection />*/}
+      <RecentEvents initialEvents={upcoming}/>
+      <PastEventsSection initialEvents={past}/>
       <Footer />
       <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
       <PastEventsPopUpModal

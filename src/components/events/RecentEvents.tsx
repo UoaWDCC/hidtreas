@@ -3,23 +3,16 @@ import {useState, useEffect} from 'react'
 import Image from 'next/image'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/recent_events_koru.png'
-import placeholderImage from '@/assets/groupPic.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
 import {Kosugi_Maru} from 'next/font/google'
-import {getUpcomingEvents} from "@/lib/payload/events";
 import type { EventType } from '@/types/event'
 
 const kosugiMaru = Kosugi_Maru({subsets: ['latin'], weight: '400'})
 
-export default function RecentEvents() {
+export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
-  const [events, setEvents] = useState<EventType[]>([])
-
-  useEffect(() => {
-    getUpcomingEvents().then(setEvents)
-  }, [])
-
-  const eventNames = events.map((event) => event.title)
+  const events = initialEvents
+  const eventNames = events.map(e => e.title)
 
   return (
     <>
