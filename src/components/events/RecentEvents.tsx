@@ -7,17 +7,16 @@ import placeholderImage from '@/assets/groupPic.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
 import {Kosugi_Maru} from 'next/font/google'
 import {getUpcomingEvents} from "@/lib/payload/events";
-import type {Event} from '@/payload-types'
+import type { EventType } from '@/types/event'
 
 const kosugiMaru = Kosugi_Maru({subsets: ['latin'], weight: '400'})
 
 export default function RecentEvents() {
   const [signOpen, setSignOpen] = useState(false)
-  const [events, setEvents] = useState<Event[]>([])
+  const [events, setEvents] = useState<EventType[]>([])
 
   useEffect(() => {
-    getUpcomingEvents()
-      .then((data) => setEvents(data.docs))
+    getUpcomingEvents().then(setEvents)
   }, [])
 
   const eventNames = events.map((event) => event.title)
@@ -55,8 +54,7 @@ export default function RecentEvents() {
           >
             <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
               <Image
-                src={typeof event.image === 'object' && event.image?.url
-                  ? event.image.url : placeholderImage}
+                src={event.imageUrl}
                 alt={event.title}
                 width={400}
                 height={300}
@@ -64,7 +62,11 @@ export default function RecentEvents() {
               />
               <div
                 className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
-                {new Date(event.date).toLocaleDateString('en-NZ', {day: 'numeric', month: 'long', year: 'numeric'})}
+                {event.date.toLocaleDateString('en-NZ', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
               </div>
               {/* Decoration: red circle (first) or kiwi (second) */}
               {idx === 0 ? (
@@ -87,7 +89,7 @@ export default function RecentEvents() {
                 {event.title}
               </h2>
               <h3 className="text-base md:text-lg font-medium mb-4">
-                HOSTED BY: {Array.isArray(event.host) ? event.host.join(', ') : event.host}
+                HOSTED BY: {event.hostedBy}
               </h3>
               <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
                 {event.description}
