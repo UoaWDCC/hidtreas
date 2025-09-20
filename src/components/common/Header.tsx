@@ -48,23 +48,28 @@ export default function Header() {
       </button>
 
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center space-x-[2.5rem] font-medium text-[1.125rem] antialiased">
+      <nav className="hidden md:flex items-center space-x-[2rem] font-medium text-[1.125rem] antialiased">
         <h1 className="animate-slide-in-right animate-stagger-1">
+          <a href="/" className="hover:underline uppercase tracking-wide hover-lift">
+            Home
+          </a>
+        </h1>
+        <h1 className="animate-slide-in-right animate-stagger-2">
           <a href="/about" className="hover:underline uppercase tracking-wide hover-lift">
             About Us
           </a>
         </h1>
-        <h1 className="animate-slide-in-right animate-stagger-2">
+        <h1 className="animate-slide-in-right animate-stagger-3">
           <a href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
           </a>
         </h1>
-        <h1 className="animate-slide-in-right animate-stagger-3">
+        <h1 className="animate-slide-in-right animate-stagger-4">
           <a href="/events" className="hover:underline uppercase tracking-wide hover-lift">
             Events
           </a>
         </h1>
-        <h1 className="animate-slide-in-right animate-stagger-4">
+        <h1 className="animate-slide-in-right animate-stagger-5">
           <button
             className="bg-[#13384E] text-white px-[1.75rem] py-[0.75rem] rounded-md text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
             onClick={() => setSignOpen(true)}
@@ -78,6 +83,9 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden animate-slide-in-top">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
+            <a href="/" className="uppercase tracking-wide font-medium hover-lift">
+              Home
+            </a>
             <a href="/about" className="uppercase tracking-wide font-medium hover-lift">
               About Us
             </a>
