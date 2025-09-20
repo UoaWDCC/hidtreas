@@ -22,10 +22,12 @@ export default function EventsSignUpModal({
   signOpen,
   setSignOpen,
   initialEmail = '',
+  eventOptions = [],
 }: {
   signOpen: boolean
   setSignOpen: (open: boolean) => void
   initialEmail?: string
+  eventOptions?: string[]
 }) {
   const router = useRouter()
   const [answers, setAnswers] = useState(false)
@@ -112,13 +114,11 @@ export default function EventsSignUpModal({
                 <option value="SELECT EVENT" disabled>
                   SELECT EVENT
                 </option>
-                {fields
-                  .find((f) => f.name === 'event')
-                  ?.options?.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
+                {eventOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex justify-center mt-4">

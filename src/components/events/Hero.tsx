@@ -12,7 +12,7 @@ export default function Hero() {
           <Image
             src={landscapePlaceholder}
             alt="Events page main image"
-            className="h-[60vh] w-[80vw] rounded-4xl"
+            className="w-[80vw] md:h-[40vh] lg:h-[70vh] rounded-4xl object-cover"
           />
 
           {/* Decorative elements */}
