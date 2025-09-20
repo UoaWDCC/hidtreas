@@ -39,6 +39,6 @@ export default function PastEvents({ events }: { events: EventType[] }) {
         events={events}
         initialIdx={selectedIdx}
       />
-    </>
+    </div>
   )
 }
