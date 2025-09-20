@@ -92,10 +92,11 @@ export default function Header() {
             <a href="/about" className="uppercase tracking-wide font-medium hover-lift">
               About Us
             </a>
-            <a href="/blogs" className="uppercase tracking-wide font-medium hover-lift">
+            {/* Blogs and events currently link to 404 not found */}
+            <a href="/NotFound" className="uppercase tracking-wide font-medium hover-lift">
               Blogs
             </a>
-            <a href="/events" className="uppercase tracking-wide font-medium hover-lift">
+            <a href="/NotFound" className="uppercase tracking-wide font-medium hover-lift">
               Events
             </a>
             <button
