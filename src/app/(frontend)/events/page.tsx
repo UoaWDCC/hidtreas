@@ -18,13 +18,6 @@ export default async function EventsPage() {
       <RecentEvents initialEvents={upcoming}/>
       <PastEventsSection initialEvents={past}/>
       <Footer />
-      <EventsSignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
-      <PastEventsPopUpModal
-        signOpen={signOpen}
-        setSignOpen={setSignOpen}
-        events={[]}
-        initialIdx={0}
-      />
     </div>
   )
 }
