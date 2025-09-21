@@ -7,7 +7,7 @@ import type { EventType } from '@/types/event'
 export default function PastEventsSection({ initialEvents, }: { initialEvents: EventType[] }) {
 
   return (
-    <div className="w-full max-w-full relative py-50">
+    <div className="relative py-50 overflow-x-clip">
       <Image
         src={BlueKoru}
         alt="Blue Koru decoration"
