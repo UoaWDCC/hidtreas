@@ -7,8 +7,13 @@ import {getBlogs} from "@/lib/payload/blogs";
 import {Blog} from "@/payload-types";
 import Search from '@/components/blogs/Search'
 
+// This page is erroring.
+// force-dynamic is a temporary patch to prevent this page from being statically generated and failing the deployment build
+// Please remove when it's fixed
+export const dynamic = 'force-dynamic'
+
 export default async function BlogsPage() {
-    const data = await getBlogs({ page: 1, limit: 10 });
+  const data = await getBlogs({ page: 1, limit: 10 });
 
   return (
     <div className={'blogs'}>
