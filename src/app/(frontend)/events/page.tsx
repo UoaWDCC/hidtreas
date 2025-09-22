@@ -8,7 +8,7 @@ import PastEventsPopUpModal from '@/components/events/PastEventsPopUpModal'
 import {getPastEvents, getUpcomingEvents} from "@/lib/payload/events";
 
 export default async function EventsPage() {
-  const upcoming = await getUpcomingEvents()
+  const upcoming = await getUpcomingEvents(5)
   const past = await getPastEvents()
 
   return (

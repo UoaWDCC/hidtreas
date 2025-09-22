@@ -13,18 +13,32 @@ type Paginated<T> = {
     hasPrevPage: boolean;
 };
 
-export async function getUpcomingEvents(): Promise<EventType[]> {
+/**
+ * Fetch upcoming events (future-dated).
+ *
+ * @param limit - Maximum number of events to fetch. Defaults to 5
+ *  Events are sorted ascending by date
+ */
+export async function getUpcomingEvents(limit: number = 5): Promise<EventType[]> {
     const now = new Date().toISOString()
     const data = await fetchJSON<Paginated<Event>>(
-      `/api/events?where[date][greater_than]=${encodeURIComponent(now)}&sort=date&limit=5&depth=2`
+      `/api/events?where[date][greater_than]=${encodeURIComponent(now)}&sort=date&limit=${limit}&depth=2`
     )
     return data.docs.map(mapPayloadEvent)
 }
 
-export async function getPastEvents(): Promise<EventType[]> {
+/**
+ * Fetch past events
+ *
+ * @param limit - Maximum number of events to fetch.
+ *  Defaults to 0 (meaning all past events)
+ *  Pass a positive number to restrict to the N most recent events.
+ *  Events are sorted descending by date
+ */
+export async function getPastEvents(limit: number = 0): Promise<EventType[]> {
     const now = new Date().toISOString()
     const data = await fetchJSON<Paginated<Event>>(
-      `/api/events?where[date][less_than]=${encodeURIComponent(now)}&sort=date&limit=0&depth=2`
+      `/api/events?where[date][less_than]=${encodeURIComponent(now)}&sort=-date&limit=${limit}&depth=2`
     )
     return data.docs.map(mapPayloadEvent)
 }
