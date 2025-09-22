@@ -1,18 +1,10 @@
+'use client'
+
 import EventsCard from './EventsCard'
 import PastEventsPopUpModal from './PastEventsPopUpModal'
 import { useState } from 'react'
-
-type EventType = {
-  id: string
-  name: string
-  hosted_by: string
-  description: string
-  date_range: {
-    start: string
-    end: string
-  }
-  image?: string
-}
+import { EventType } from '@/types/event'
+import Image from 'next/image'
 
 export default function PastEvents({ events }: { events: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)

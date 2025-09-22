@@ -5,18 +5,7 @@ import blurWave from '@/assets/blur_blue_wave.png'
 import placeholder1 from '@/assets/landscape_placeholder.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
-type EventType = {
-  id: string
-  name: string
-  hosted_by: string
-  description: string
-  date_range: {
-    start: string
-    end: string
-  }
-  image?: string
-}
+import type { EventType } from '@/types/event'
 
 export default function PastEventsPopUpModal({
   signOpen,
@@ -40,7 +29,7 @@ export default function PastEventsPopUpModal({
   const goNext = () => setCurrentIdx((prev) => (prev === events.length - 1 ? 0 : prev + 1))
 
   const event = events[currentIdx]
-  const imageSrc = event?.image || placeholder1
+  const imageSrc = event?.imageUrl
 
   return (
     <Modal
@@ -55,16 +44,16 @@ export default function PastEventsPopUpModal({
         <Image src={blurWave} alt="Blurred Wave" fill className="object-cover w-full h-full" />
         <div className="absolute top-10">
           <p className="text-lg text-black font-bold" style={{ fontFamily: 'var(--font-header)' }}>
-            {event?.name}
+            {event?.title}
           </p>
         </div>
         <div className="absolute top-17">
           <p className="text-xs text-black font-bold" style={{ fontFamily: 'var(--font-header)' }}>
-            {event
-              ? `${new Date(event.date_range.start).toLocaleDateString()} - ${new Date(
-                  event.date_range.end,
-                ).toLocaleDateString()}`
-              : ''}
+            {event.date.toLocaleDateString('en-NZ', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}
           </p>
         </div>
         <div className="max-w-7xl relative rounded-3xl overflow-hidden z-20 pb-15 pt-20">
@@ -75,7 +64,7 @@ export default function PastEventsPopUpModal({
             <div className="relative w-60 h-46 rounded-xl overflow-hidden shadow-md md:w-70 md:h-56 lg:w-80 lg:h-60 xl:w-90 xl:h-66">
               <Image
                 src={imageSrc}
-                alt={event?.name || 'Event image'}
+                alt={event?.title || 'Event image'}
                 className="w-full h-full object-cover"
                 width={320}
                 height={224}
