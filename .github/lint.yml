@@ -1,0 +1,39 @@
+name: Check Linting
+
+on:
+  # Run on push to any branch except main
+  push:
+    branches:
+      - "*"
+      - "!main"
+  # Allow manual triggers
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Pnpm
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      # set up node, restoring pnpm cache
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Run Prettier & ESLint
+      - name: Run Prettier & ESLint
+        run: pnpm run lint:ci
