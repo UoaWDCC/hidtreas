@@ -123,11 +123,11 @@ export default async function DemoBlogPage({ searchParams }: Props) {
                   <Image src={blogImage} alt={blog.title} className="object-cover" layout="fill" />
                 </div>
                 {/* Decorative leaf in bottom right */}
-                <div className="absolute -bottom-[1.5rem] -right-[2.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
+                <div className="absolute -bottom-[0.75rem] -right-[1.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
                   <Image
                     src={leaf}
                     alt={'Decorative leaf'}
-                    className="w-full h-full scale-x-[-1]"
+                    className="w-full h-full scale-x-[-1] rotate-6"
                   />
                 </div>
               </div>
