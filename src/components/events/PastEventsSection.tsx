@@ -1,29 +1,10 @@
-import { useEffect, useState } from 'react'
 import YearFilter from '@/components/events/YearFilter'
 import PastEvents from '@/components/events/PastEventsGrid'
 import Image from 'next/image'
 import BlueKoru from '@/assets/blue_koru.png'
+import type { EventType } from '@/types/event'
 
-type EventType = {
-  id: string
-  name: string
-  hosted_by: string
-  description: string
-  date_range: {
-    start: string
-    end: string
-  }
-  image?: string
-}
-
-export default function PastEventsSection() {
-  const [events, setEvents] = useState<EventType[]>([])
-
-  useEffect(() => {
-    fetch('/api/events')
-      .then((res) => res.json())
-      .then((data) => setEvents(data.events))
-  }, [])
+export default function PastEventsSection({ initialEvents, }: { initialEvents: EventType[] }) {
 
   return (
     <div className="relative py-50 overflow-x-clip">
@@ -37,7 +18,7 @@ export default function PastEventsSection() {
       </h3>
       <div className="bg-[#E6E1DE] flex flex-col items-center gap-y-10 py-10">
         <YearFilter />
-        <PastEvents events={events} />
+        <PastEvents events={initialEvents} />
       </div>
     </div>
   )
