@@ -4,8 +4,18 @@ import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
 import induBajwaPic from '@/assets/indu-bajwa-upscaled-profile.png'
 import amanGillPic from '@/assets/aman-gill-upscaled-profile.jpeg'
+import { getMembers } from '@/lib/payload/members'
+import { profileEnd } from 'console'
 
-export default function MeetTheTeam() {
+interface MemberProp {
+  name: string
+  pronoun: string
+  role: string
+  imageUrl: string | StaticImageData | null | undefined
+  slug?: string
+}
+
+export default async function MeetTheTeam() {
   const peopleArray = [
     {
       name: 'Esther Ho',
@@ -45,6 +55,8 @@ export default function MeetTheTeam() {
     },
   ]
 
+  const members = await getMembers()
+
   return (
     <div className="relative mb-[6rem] md:mb-[8rem]">
       {/* whole section */}
@@ -72,13 +84,13 @@ export default function MeetTheTeam() {
         {/* whole grid */}
 
         <div className="mt-[4vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
-          {peopleArray.map((person) => (
+          {members.map((member) => (
             <TeamMember
-              key={person.name}
-              name={person.name}
-              pronoun={person.pronoun}
-              role={person.role}
-              image={person.image}
+              key={member.id}
+              name={member.name}
+              pronoun={member.pronoun ?? ''}
+              role={member.role}
+              imageUrl={profilePic}
             />
           ))}
         </div>
@@ -87,23 +99,13 @@ export default function MeetTheTeam() {
   )
 }
 
-function TeamMember({
-  name,
-  pronoun,
-  role,
-  image,
-}: {
-  name: string
-  pronoun: string
-  role: string
-  image: StaticImageData
-}) {
+function TeamMember({ name, pronoun, role, imageUrl }: MemberProp) {
   return (
     <div className="flex flex-col items-center text-center">
       {/* image */}
 
       <div className="relative w-[clamp(4rem,20vw,10rem)] aspect-[4/5] overflow-hidden border-2 border-current rounded-md">
-        <Image src={image} alt={`${name}'s photo`} fill className="object-cover object-top" />
+        <Image src={imageUrl} alt={`${name}'s photo`} fill className="object-cover object-top" />
       </div>
 
       {/* text stuff */}

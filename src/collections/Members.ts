@@ -2,7 +2,7 @@ import { isEditorOrAdmin } from '@/access/UserAccess'
 import type { CollectionConfig } from 'payload'
 
 export const Member: CollectionConfig = {
-  slug: 'member',
+  slug: 'members',
 
   admin: {
     useAsTitle: 'name',
@@ -30,12 +30,12 @@ export const Member: CollectionConfig = {
       required: true,
     },
     {
-      name: 'gender',
+      name: 'pronoun',
       type: 'select',
       defaultValue: 'other',
       options: [
-        { label: '(he/him)', value: 'male' },
-        { label: '(she/her)', value: 'female' },
+        { label: '(he/him)', value: '(he/him)' },
+        { label: '(she/her)', value: '(she/her)' },
         { label: 'Other', value: 'other' },
       ],
     },
