@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { createSubscriber } from '@/lib/payload/subscribers'
 
-const fields = [
+const fields: { name: string; placeholder: string }[] = [
   {
     name: 'firstname',
     placeholder: 'FIRST NAME',
@@ -21,6 +21,7 @@ const fields = [
     placeholder: 'EMAIL ADDRESS',
   },
 ]
+const emptyErrors = new Array(fields.length + 1).fill(false) as boolean[]
 
 export default function SignUpModal({
   signOpen,
@@ -33,6 +34,7 @@ export default function SignUpModal({
 }) {
   const router = useRouter()
   const [answers, setAnswers] = useState(false)
+  const [errors, setErrors] = useState(emptyErrors)
 
   return (
     <Modal
@@ -58,16 +60,7 @@ export default function SignUpModal({
         <form
           onSubmit={(event) => {
             const form = event.target as HTMLFormElement
-
-            if (form.firstname.value.trim().length <= 0) {
-              alert('Please enter a valid first name')
-            } else if (form.lastname.value.trim().length <= 0) {
-              alert('Please enter a valid last name')
-            } else if (form.email.value.trim().length <= 0) {
-              alert('Please enter a valid email address')
-            } else if (!form.agreeTnC.checked) {
-              alert('Please agree to the terms and conditions')
-            } else {
+            if (checkValid(form, setErrors)) {
               createSubscriber(
                 form.firstname.value.trim(),
                 form.lastname.value.trim(),
@@ -85,28 +78,42 @@ export default function SignUpModal({
             event.preventDefault()
           }}
         >
-          {fields.map((field) => {
+          {fields.map((field, index) => {
             const defaultValue = field.name === 'email' ? initialEmail : ''
             return (
-              <input
-                key={field.name}
-                type="text"
-                className="rounded-md px-2 w-[15rem] h-[2rem] bg-stone-300 mt-5"
-                placeholder={field.placeholder}
-                name={field.name}
-                defaultValue={defaultValue}
-                onChange={() => setAnswers(true)}
-              />
+              <div key={field.name}>
+                <input
+                  type="text"
+                  className="rounded-md px-2 w-[15rem] h-[2rem] bg-stone-300 mt-5"
+                  placeholder={field.placeholder}
+                  name={field.name}
+                  defaultValue={defaultValue}
+                  onChange={() => setAnswers(true)}
+                  style={{
+                    borderColor: errors[index] ? 'red' : 'black',
+                    borderWidth: errors[index] ? 1 : 0,
+                  }}
+                />
+              </div>
             )
           })}
           <div>
-            <input type="checkbox" name="agreeTnC" className="mt-5 mr-1 hover:cursor-pointer" />
-            <label className="text-xs">
+            <input
+              type="checkbox"
+              name="agreeTnC"
+              className="mt-5 mr-1 hover:cursor-pointer"
+              onChange={() => setAnswers(true)}
+            />
+            <label
+              className="text-xs"
+              style={{
+                color: errors[fields.length] ? 'red' : 'black',
+              }}
+            >
               I AGREE TO THE{' '}
               <a
                 onClick={() => {
                   router.push('/TermsAndConditions')
-                  setAnswers(true)
                 }}
                 className="underline hover:cursor-pointer"
               >
@@ -124,4 +131,27 @@ export default function SignUpModal({
       </div>
     </Modal>
   )
+}
+
+function checkValid(form: HTMLFormElement, setErrors: (errors: boolean[]) => void) {
+  let valid = true
+  let errors = [...emptyErrors]
+  if (form.firstname.value.trim().length <= 0) {
+    errors[0] = true
+    valid = false
+  }
+  if (form.lastname.value.trim().length <= 0) {
+    errors[1] = true
+    valid = false
+  }
+  if (form.email.value.trim().length <= 0) {
+    errors[2] = true
+    valid = false
+  }
+  if (!form.agreeTnC.checked) {
+    errors[3] = true
+    valid = false
+  }
+  setErrors(errors)
+  return valid
 }
