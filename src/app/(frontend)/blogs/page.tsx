@@ -31,7 +31,6 @@ export default async function BlogsPage() {
       <div className="px-[2.5rem] lg:px-[7rem] mb-16 flex-1">
         <div className=" grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[3rem] ">
           {data.docs.map((blog: Blog) => (
-            // TODO: Change placeholderImage to blog.ImageUrl once all images come from CMS
             <BlogCard
               key={blog.id}
               title={blog.title}
@@ -41,7 +40,8 @@ export default async function BlogsPage() {
                   ? blog.image.url
                   : placeholderImage
               }
-              slug={blog.slug ?? blog.id}
+              slug={blog.slug ?? undefined}
+              blogId={blog.id}
             />
           ))}
         </div>

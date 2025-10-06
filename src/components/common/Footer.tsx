@@ -53,7 +53,7 @@ const links: {
     ],
     extlinks: [
       { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
-      { href: 'https://www.facebook.com/hiddentreasure', icon: IconBrandFacebook },
+      { href: 'https://www.facebook.com/profile.php?id=61574941850535', icon: IconBrandFacebook },
       { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
       {
         href: 'https://www.linkedin.com/company/hiddentreasure',
@@ -96,7 +96,7 @@ export default function Footer() {
       <Image
         src={footerLogoSharpened}
         alt="Hidden Treasure Logo"
-        className={`absolute w-100 h-90 bottom-0 left-0 z-0 invisible xl:visible transition-all duration-1000 ease-out ${
+        className={`absolute bottom-0 left-0 z-0 hidden xl:block ${
           isVisible ? 'animate-bounce' : ''
         }`}
         style={{
@@ -177,7 +177,12 @@ export default function Footer() {
                         : 'none',
                     }}
                   >
-                    <a href={item.href} className="flex justify-center items-center w-full h-full">
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex justify-center items-center w-full h-full"
+                    >
                       {item.icon && (
                         <item.icon className="h-4 w-4 sm:h-3 sm:w-3 md:h-5 md:w-5 text-stone-50" />
                       )}
