@@ -35,11 +35,14 @@ export default function SignUpModal({
   const router = useRouter()
   const [answers, setAnswers] = useState(false)
   const [errors, setErrors] = useState(emptyErrors)
+  const [successful, setSuccessful] = useState(false)
 
   return (
     <Modal
       open={signOpen}
       onClose={() => {
+        setSuccessful(false)
+        setErrors(emptyErrors)
         setSignOpen(false)
       }}
       className="w-sm h-[30rem] flex flex-row xl:w-xl"
@@ -47,88 +50,108 @@ export default function SignUpModal({
       noHeader
       doNotCloseOnClickOutside={answers}
     >
-      <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
-        <Image src={BirdPNG} alt="Hidden Treasure Logo" className="w-sm h-full rounded-l-lg" />
-      </div>
-      <div className="relative w-sm p-6 h-full flex flex-col items-center justify-center text-center">
-        <IconX
-          className="absolute top-5 right-5 cursor-pointer"
-          onClick={() => setSignOpen(false)}
-        />
-        <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
-        <h1 className="text-3xl font-[1000]">SIGN UP WITH US TODAY!</h1>
-        <form
-          onSubmit={(event) => {
-            const form = event.target as HTMLFormElement
-            if (checkValid(form, setErrors)) {
-              createSubscriber(
-                form.firstname.value.trim(),
-                form.lastname.value.trim(),
-                form.email.value.trim(),
-              )
-                .then(() => {
-                  alert('Form submitted successfully!')
-                  form.reset()
-                  setSignOpen(false)
-                })
-                .catch(() => {
-                  alert('Error creating subscriber')
-                })
-            }
-            event.preventDefault()
-          }}
-        >
-          {fields.map((field, index) => {
-            const defaultValue = field.name === 'email' ? initialEmail : ''
-            return (
-              <div key={field.name}>
-                <input
-                  type="text"
-                  className="rounded-md px-2 w-[15rem] h-[2rem] bg-stone-300 mt-5"
-                  placeholder={field.placeholder}
-                  name={field.name}
-                  defaultValue={defaultValue}
-                  onChange={() => setAnswers(true)}
-                  style={{
-                    borderColor: errors[index] ? 'red' : 'black',
-                    borderWidth: errors[index] ? 1 : 0,
-                  }}
-                />
-              </div>
-            )
-          })}
-          <div>
-            <input
-              type="checkbox"
-              name="agreeTnC"
-              className="mt-5 mr-1 hover:cursor-pointer"
-              onChange={() => setAnswers(true)}
+      {successful ? (
+        <div className="relative p-6 h-full w-full flex flex-col items-center justify-center text-center">
+          <IconX
+            className="absolute top-5 right-5 cursor-pointer"
+            onClick={() => {
+              setSuccessful(false)
+              setSignOpen(false)
+            }}
+          />
+          <Image src={Logo} alt="Hidden Treasure Logo" width={100} height={100} />
+          <h1 className="text-6xl font-[1000] mt-10">THANK YOU FOR SIGNING UP!</h1>
+          <p className="mt-5">We can't wait to share our updates with you.</p>
+        </div>
+      ) : (
+        <>
+          <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
+            <Image src={BirdPNG} alt="Hidden Treasure Logo" className="w-sm h-full rounded-l-lg" />
+          </div>
+          <div className="relative w-sm p-6 h-full flex flex-col items-center justify-center text-center">
+            <IconX
+              className="absolute top-5 right-5 cursor-pointer"
+              onClick={() => {
+                setErrors(emptyErrors)
+                setSignOpen(false)
+              }}
             />
-            <label
-              className="text-xs"
-              style={{
-                color: errors[fields.length] ? 'red' : 'black',
+            <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
+            <h1 className="text-3xl font-[1000]">SIGN UP WITH US TODAY!</h1>
+            <form
+              onSubmit={(event) => {
+                const form = event.target as HTMLFormElement
+                if (checkValid(form, setErrors)) {
+                  createSubscriber(
+                    form.firstname.value.trim(),
+                    form.lastname.value.trim(),
+                    form.email.value.trim(),
+                  )
+                    .then(() => {
+                      alert('Form submitted successfully!')
+                      form.reset()
+                      setSuccessful(true)
+                    })
+                    .catch(() => {
+                      alert('Error creating subscriber')
+                    })
+                }
+                event.preventDefault()
               }}
             >
-              I AGREE TO THE{' '}
-              <a
-                onClick={() => {
-                  router.push('/TermsAndConditions')
-                }}
-                className="underline hover:cursor-pointer"
+              {fields.map((field, index) => {
+                const defaultValue = field.name === 'email' ? initialEmail : ''
+                return (
+                  <div key={field.name}>
+                    <input
+                      type="text"
+                      className="rounded-md px-2 w-[15rem] h-[2rem] bg-stone-300 mt-5"
+                      placeholder={field.placeholder}
+                      name={field.name}
+                      defaultValue={defaultValue}
+                      onChange={() => setAnswers(true)}
+                      style={{
+                        borderColor: errors[index] ? 'red' : 'black',
+                        borderWidth: errors[index] ? 1 : 0,
+                      }}
+                    />
+                  </div>
+                )
+              })}
+              <div>
+                <input
+                  type="checkbox"
+                  name="agreeTnC"
+                  className="mt-5 mr-1 hover:cursor-pointer"
+                  onChange={() => setAnswers(true)}
+                />
+                <label
+                  className="text-xs"
+                  style={{
+                    color: errors[fields.length] ? 'red' : 'black',
+                  }}
+                >
+                  I AGREE TO THE{' '}
+                  <a
+                    onClick={() => {
+                      router.push('/TermsAndConditions')
+                    }}
+                    className="underline hover:cursor-pointer"
+                  >
+                    TERMS AND CONDITIONS
+                  </a>
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-[#0a2638] transition"
               >
-                TERMS AND CONDITIONS
-              </a>
-            </label>
+                SIGN UP
+              </button>
+            </form>
           </div>
-          <button
-            type="submit"
-            className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-[#0a2638] transition"
-          >
-            SIGN UP
-          </button>
-        </form>
-      </div>
+        </>
+      )}
     </Modal>
   )
 }
