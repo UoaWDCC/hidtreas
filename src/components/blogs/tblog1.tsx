@@ -1,0 +1,76 @@
+import { notFound } from 'next/navigation'
+import Header from '@/components/common/Header'
+import Footer from '@/components/common/Footer'
+import BlogContent from '@/components/blogs/BlogContent'
+import RelatedBlogs from '@/components/blogs/RelatedBlogs'
+import { getBlogBySlug } from '@/lib/payload/blogs'
+
+interface BlogLayoutProps {
+  params: {
+    slug: string
+  }
+}
+
+export default async function BlogLayout({ params }: BlogLayoutProps) {
+  const { slug } = await params
+  const blog = await getBlogBySlug(slug)
+
+  if (!blog) {
+    notFound()
+  }
+
+  // Get the image URL from the blog
+  const heroImageUrl =
+    typeof blog.image === 'object' && blog.image?.url ? blog.image.url : '/events/event1.jpg' // fallback image
+
+  return (
+    <main className="min-h-screen">
+      {/* Header */}
+      <Header />
+
+      {/* Breadcrumb */}
+      <div className="px-6 py-4 max-w-6xl mx-auto">
+        <p className="text-sm text-gray-600">BLOGS &gt; {blog.title}</p>
+      </div>
+
+      {/* Hero Section */}
+      <section className="grid md:grid-cols-2 gap-8 px-6 py-8 items-end max-w-6xl mx-auto">
+        <div className="space-y-4">
+          <h2 className="uppercase text-sm tracking-wide text-gray-600 font-medium">
+            BEHIND THE SCENES
+          </h2>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-[#1a1a1a]">
+            {blog.title.split(' ').slice(0, -2).join(' ')}
+            <br />
+            {blog.title.split(' ').slice(-2).join(' ')}
+          </h1>
+          <p className="text-gray-700 leading-relaxed max-w-md">
+            {blog.description || 'Explore the story behind this blog post...'}
+          </p>
+          <p className="text-sm font-medium text-gray-800">By: {blog.authorName}</p>
+        </div>
+        <div className="relative max-w-sm ml-auto">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={heroImageUrl}
+            alt={typeof blog.image === 'object' && blog.image?.alt ? blog.image.alt : blog.title}
+            className="w-full h-auto rounded-lg shadow-lg object-cover"
+          />
+          {/* Decorative element - you can add a koru or leaf SVG here if needed */}
+          <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20">
+            {/* Placeholder for decorative element */}
+          </div>
+        </div>
+      </section>
+
+      {/* Content Body */}
+      <BlogContent blog={blog} />
+
+      {/* Related Blogs */}
+      <RelatedBlogs currentBlogId={blog.id} />
+
+      {/* Footer */}
+      <Footer />
+    </main>
+  )
+}
