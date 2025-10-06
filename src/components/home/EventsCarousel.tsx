@@ -10,7 +10,7 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
   const eventNames = events.map((e) => e.title)
 
   return (
-    <div className="w-screen max-w-full overflow-x-auto py-4">
+    <div className="w-screen max-w-full overflow-x-auto py-4 pt-10 md:pt-20 sm:pt-25">
       <div className="flex gap-8 lg:px-8 sm:px-8 snap-x snap-mandatory">
         {events.map((event, idx) => (
           <div

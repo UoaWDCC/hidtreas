@@ -9,9 +9,9 @@ import type { EventType } from '@/types/event'
 export default function Events({ initialEvents }: { initialEvents: EventType[] }) {
   const events = initialEvents
   return (
-    <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw] lg:pt-20">
+    <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
       <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[70vh] px-4">
-        <div className="relative w-full h-[100vh] flex items-center justify-center">
+        <div className="relative w-full flex items-center justify-center">
           <Image
             src={backgroundImage}
             alt="Background Image"
