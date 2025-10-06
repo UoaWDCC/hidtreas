@@ -88,12 +88,15 @@ export default function SignUpModal({
                     form.email.value.trim(),
                   )
                     .then(() => {
-                      alert('Form submitted successfully!')
                       form.reset()
                       setSuccessful(true)
                     })
-                    .catch(() => {
-                      alert('Error creating subscriber')
+                    .catch((e) => {
+                      if (e.message.includes('Value must be unique')) {
+                        setSuccessful(true)
+                      } else {
+                        alert('Error subscribing. Please try again later.')
+                      }
                     })
                 }
                 event.preventDefault()
