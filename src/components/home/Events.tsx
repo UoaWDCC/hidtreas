@@ -1,12 +1,13 @@
-'use client'
 import Image from 'next/image'
 import backgroundImage from '@/assets/blue_wave.png'
 import feather from '@/assets/big_feather.png'
 import { useState } from 'react'
 import EventsCarousel from './EventsCarousel'
 import AnimatedSection from '../common/AnimatedSection'
+import type { EventType } from '@/types/event'
 
-export default function Events() {
+export default function Events({ initialEvents }: { initialEvents: EventType[] }) {
+  const events = initialEvents
   return (
     <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw] lg:pt-20">
       <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[70vh] px-4">
@@ -43,7 +44,7 @@ export default function Events() {
                 EVENTS
               </h2>
             </div>
-            <EventsCarousel />
+            <EventsCarousel initialEvents={events} />
           </div>
         </div>
       </div>

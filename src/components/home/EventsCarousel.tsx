@@ -2,25 +2,12 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import SignUpModal from '../events/EventsSignUpModal'
+import type { EventType } from '@/types/event'
 
-type EventType = {
-  id: string
-  name: string
-  hosted_by?: string
-  description: string
-  date?: string
-  image?: string
-}
-
-export default function ImageCarousel() {
+export default function ImageCarousel({ initialEvents }: { initialEvents: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
-  const [events, setEvents] = useState<EventType[]>([])
-
-  useEffect(() => {
-    fetch('/api/events')
-      .then((res) => res.json())
-      .then((data) => setEvents(data.events))
-  }, [])
+  const events = initialEvents
+  const eventNames = events.map((e) => e.title)
 
   return (
     <div className="w-screen max-w-full overflow-x-auto py-4">
@@ -31,11 +18,11 @@ export default function ImageCarousel() {
             className="group flex-shrink-0 w-[40vw] sm:w-[40vw] md:w-[30vw] h-[30vh] sm:h-[50vh] md:wh-[30vh] snap-center relative rounded-xl overflow-hidden shadow-lg"
           >
             {/* Image */}
-            <Image src={event.image || ''} alt={event.name} fill className="object-cover" />
+            <Image src={event.imageUrl || ''} alt={event.title} fill className="object-cover" />
 
             {/* Info strip */}
             <div className=" absolute bottom-0 left-0 w-full overflow-y-auto max-w-full h-[60%] bg-[#fdf4ed] text-[#13384e] flex flex-col p-3 sm:p-5 overflow-x-auto justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">{event.name}</h1>
+              <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">{event.title}</h1>
               <h1 className="text-sm sm:text-lg pt-2 pb-2">{event.description}</h1>
               <button
                 onClick={() => setSignOpen(true)}
@@ -61,7 +48,7 @@ export default function ImageCarousel() {
           </button>
         </div>
       </div>
-      <SignUpModal setSignOpen={setSignOpen} signOpen={signOpen} />
+      <SignUpModal setSignOpen={setSignOpen} signOpen={signOpen} eventOptions={eventNames} />
     </div>
   )
 }
