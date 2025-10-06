@@ -3,6 +3,9 @@ import type { CollectionConfig } from 'payload'
 
 export const Subscribers: CollectionConfig = {
   slug: 'subscribers',
+  admin: {
+    useAsTitle: 'email',
+  },
   access: {
     read: isAdmin,
     create: () => true,
@@ -13,8 +16,8 @@ export const Subscribers: CollectionConfig = {
     {
       name: 'email',
       type: 'email',
-      required: true,
       unique: true,
+      required: true,
     },
     {
       name: 'firstName',

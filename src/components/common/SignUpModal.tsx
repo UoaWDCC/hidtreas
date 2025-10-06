@@ -5,6 +5,7 @@ import Logo from '@/assets/sharpened_logo.png'
 import BirdPNG from '@/assets/signUpBird.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { createSubscriber } from '@/lib/payload/subscribers'
 
 const fields = [
   {
@@ -57,6 +58,7 @@ export default function SignUpModal({
         <form
           onSubmit={(event) => {
             const form = event.target as HTMLFormElement
+
             if (form.firstname.value.trim().length <= 0) {
               alert('Please enter a valid first name')
             } else if (form.lastname.value.trim().length <= 0) {
@@ -66,10 +68,19 @@ export default function SignUpModal({
             } else if (!form.agreeTnC.checked) {
               alert('Please agree to the terms and conditions')
             } else {
-              alert('Form submitted successfully!')
-              form.reset()
-              setSignOpen(false)
-              return
+              createSubscriber(
+                form.firstname.value.trim(),
+                form.lastname.value.trim(),
+                form.email.value.trim(),
+              )
+                .then(() => {
+                  alert('Form submitted successfully!')
+                  form.reset()
+                  setSignOpen(false)
+                })
+                .catch(() => {
+                  alert('Error creating subscriber')
+                })
             }
             event.preventDefault()
           }}
