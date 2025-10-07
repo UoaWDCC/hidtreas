@@ -1,59 +1,60 @@
 import Image, { StaticImageData } from 'next/image'
-import profilePic from '@/assets/personPicture.png'
+import placeholderImage from '@/assets/personPicture.png'
 import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
 import induBajwaPic from '@/assets/indu-bajwa-upscaled-profile.png'
 import amanGillPic from '@/assets/aman-gill-upscaled-profile.jpeg'
 import { getMembers } from '@/lib/payload/members'
 import { profileEnd } from 'console'
+import { url } from 'inspector'
 
 interface MemberProp {
   name: string
   pronoun: string
   role: string
-  imageUrl: string | StaticImageData | null | undefined
+  imageUrl: string | StaticImageData
   slug?: string
 }
 
 export default async function MeetTheTeam() {
-  const peopleArray = [
-    {
-      name: 'Esther Ho',
-      pronoun: '(she/her)',
-      role: 'Chairperson',
-      image: profilePic,
-    },
-    {
-      name: 'Aman Gill',
-      pronoun: '(she/her)',
-      role: 'Trustees',
-      image: amanGillPic,
-    },
-    {
-      name: 'Christine Knock',
-      pronoun: '(she/her)',
-      role: 'Trustees',
-      image: profilePic,
-    },
-    {
-      name: 'Indu Bajwa',
-      pronoun: '(she/her)',
-      role: 'Manager',
-      image: induBajwaPic,
-    },
-    {
-      name: 'Divya Niyyar',
-      pronoun: '(she/her)',
-      role: 'Coordinator',
-      image: profilePic,
-    },
-    {
-      name: 'Summit Niyar',
-      pronoun: '(he/him)',
-      role: 'Events & Volunteer Coordinator',
-      image: profilePic,
-    },
-  ]
+  // const peopleArray = [
+  //   {
+  //     name: 'Esther Ho',
+  //     pronoun: '(she/her)',
+  //     role: 'Chairperson',
+  //     image: profilePic,
+  //   },
+  //   {
+  //     name: 'Aman Gill',
+  //     pronoun: '(she/her)',
+  //     role: 'Trustees',
+  //     image: amanGillPic,
+  //   },
+  //   {
+  //     name: 'Christine Knock',
+  //     pronoun: '(she/her)',
+  //     role: 'Trustees',
+  //     image: profilePic,
+  //   },
+  //   {
+  //     name: 'Indu Bajwa',
+  //     pronoun: '(she/her)',
+  //     role: 'Manager',
+  //     image: induBajwaPic,
+  //   },
+  //   {
+  //     name: 'Divya Niyyar',
+  //     pronoun: '(she/her)',
+  //     role: 'Coordinator',
+  //     image: profilePic,
+  //   },
+  //   {
+  //     name: 'Summit Niyar',
+  //     pronoun: '(he/him)',
+  //     role: 'Events & Volunteer Coordinator',
+  //     image: profilePic,
+  //   },
+  // ]
 
   const members = await getMembers()
 
@@ -90,7 +91,11 @@ export default async function MeetTheTeam() {
               name={member.name}
               pronoun={member.pronoun ?? ''}
               role={member.role}
-              imageUrl={profilePic}
+              imageUrl={
+                typeof member.image === 'object' && member.image?.url
+                  ? member.image.url
+                  : placeholderImage
+              }
             />
           ))}
         </div>

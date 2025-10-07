@@ -15,6 +15,6 @@ type PaginatedResponse = {
 }
 
 export async function getMembers() {
-  const data = await fetchJSON<PaginatedResponse>('/api/members?depth=2&sort=order&limit=100')
+  const data = await fetchJSON<PaginatedResponse>('/api/members?depth=2&sort=createdAt&limit=100')
   return data.docs
 }
