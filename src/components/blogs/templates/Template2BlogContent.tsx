@@ -8,7 +8,8 @@ interface BlogContentProps {
   blog: BlogType;
 }
 
-// TODO: Quotes are hard coded. Consider whether to make quotes configurable through payload, or get rid of them entirely
+// TODO: Quotes are hard coded. Consider whether to make quotes configurable through payload, or get rid of them entirely.
+// TODO: This template shows two images, but with the current payload configurations, only one image can be associated with a blog.
 export default function BlogContent({ blog }: BlogContentProps) {
   return (
     <section className="relative px-6 py-12 max-w-6xl mx-auto">
