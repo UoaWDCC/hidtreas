@@ -1,26 +1,21 @@
-// components/RelatedBlogs.tsx
 import Link from 'next/link'
 import { getBlogs } from '@/lib/payload/blogs'
-import { Blog } from '@/payload-types'
 
 interface RelatedBlogsProps {
   currentBlogId: string
 }
 
 export default async function RelatedBlogs({ currentBlogId }: RelatedBlogsProps) {
-  // Fetch related blogs (excluding the current one)
-  const data = await getBlogs({ page: 1, limit: 4 })
-  const relatedBlogs = data.docs.filter((blog: Blog) => blog.id !== currentBlogId).slice(0, 3)
+  const { docs: blogs } = await getBlogs({ page: 1, limit: 4 })
+  const relatedBlogs = blogs.filter(blog => blog.id !== currentBlogId).slice(0, 3)
 
-  if (relatedBlogs.length === 0) {
-    return null
-  }
+  if (relatedBlogs.length === 0) return null
 
   return (
     <section className="px-6 py-12 max-w-6xl mx-auto">
       <h3 className="text-xl mb-6">More blogs like this:</h3>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {relatedBlogs.map((blog: Blog) => (
+        {relatedBlogs.map(blog => (
           <Link
             key={blog.id}
             href={`/blogs/${blog.slug}`}
