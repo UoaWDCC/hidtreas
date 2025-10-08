@@ -1,33 +1,15 @@
-import { notFound } from 'next/navigation'
-import Header from '@/components/common/Header'
-import Footer from '@/components/common/Footer'
+import React from 'react'
+import Image from 'next/image'
 import BlogContent from '@/components/blogs/BlogContent'
 import RelatedBlogs from '@/components/blogs/RelatedBlogs'
-import { getBlogBySlug } from '@/lib/payload/blogs'
+import { Blog } from '@/payload-types'
 
-interface BlogLayoutProps {
-  params: {
-    slug: string
-  }
-}
-
-export default async function BlogLayout({ params }: BlogLayoutProps) {
-  const { slug } = await params
-  const blog = await getBlogBySlug(slug)
-
-  if (!blog) {
-    notFound()
-  }
-
-  // Get the image URL from the blog
+export default function Template2({ blog }: { blog: Blog }) {
   const heroImageUrl =
     typeof blog.image === 'object' && blog.image?.url ? blog.image.url : '/events/event1.jpg' // fallback image
 
   return (
-    <main className="min-h-screen">
-      {/* Header */}
-      <Header />
-
+    <>
       {/* Breadcrumb */}
       <div className="px-6 py-4 max-w-6xl mx-auto">
         <p className="text-sm text-gray-600">BLOGS &gt; {blog.title}</p>
@@ -50,16 +32,18 @@ export default async function BlogLayout({ params }: BlogLayoutProps) {
           <p className="text-sm font-medium text-gray-800">By: {blog.authorName}</p>
         </div>
         <div className="relative max-w-sm ml-auto">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={heroImageUrl}
-            alt={typeof blog.image === 'object' && blog.image?.alt ? blog.image.alt : blog.title}
-            className="w-full h-auto rounded-lg shadow-lg object-cover"
-          />
-          {/* Decorative element - you can add a koru or leaf SVG here if needed */}
-          <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20">
-            {/* Placeholder for decorative element */}
+          <div className="relative w-full h-[22rem] rounded-lg shadow-lg overflow-hidden">
+            <Image
+              src={heroImageUrl}
+              alt={
+                typeof blog.image === 'object' && blog.image?.alt ? blog.image.alt : blog.title
+              }
+              fill
+              className="object-cover"
+            />
           </div>
+          {/* Decorative element placeholder */}
+          <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20" />
         </div>
       </section>
 
@@ -68,9 +52,6 @@ export default async function BlogLayout({ params }: BlogLayoutProps) {
 
       {/* Related Blogs */}
       <RelatedBlogs currentBlogId={blog.id} />
-
-      {/* Footer */}
-      <Footer />
-    </main>
+    </>
   )
 }

@@ -1,59 +1,22 @@
+'use client'
+
 import React from 'react'
-import Header from '@/components/common/Header'
-import Footer from '@/components/common/Footer'
 import Image from 'next/image'
 import placeholderImage from '@/assets/landscape_placeholder.png'
 import bigGreenKoru from '@/assets/bigGreenKoru.png'
 import leaf from '@/assets/leaf.svg'
-import { getBlogs, getBlogById } from '@/lib/payload/blogs'
 import { Blog } from '@/payload-types'
 
-interface Props {
-  searchParams: { id?: string }
+interface Template1Props {
+  blog: Blog
 }
 
-export default async function DemoBlogPage({ searchParams }: Props) {
-  // Get the first blog if no ID is provided, or fetch specific blog by ID
-  let blog: Blog | null = null
-
-  if (searchParams.id) {
-    // Fetch specific blog by ID using the correct function
-    try {
-      blog = await getBlogById(searchParams.id)
-    } catch (error) {
-      console.error('Error fetching blog by ID:', error)
-      blog = null
-    }
-  }
-
-  if (!blog) {
-    // Fallback: get the first available blog
-    const data = await getBlogs({ page: 1, limit: 1 })
-    blog = data.docs[0] || null
-  }
-
-  // If still no blog, show error or placeholder
-  if (!blog) {
-    return (
-      <div className={'blog-detail overflow-x-hidden'}>
-        <Header />
-        <div className="text-center py-16">
-          <h1 className="text-4xl font-bold">No blog found</h1>
-          <p>Please check back later.</p>
-        </div>
-        <Footer />
-      </div>
-    )
-  }
-
-  // Get the blog image
+export default function Template1({ blog }: Template1Props) {
   const blogImage =
     typeof blog.image === 'object' && blog.image?.url ? blog.image.url : placeholderImage
 
   return (
     <div className={'blog-detail overflow-x-hidden'}>
-      <Header />
-
       <nav className="text-xs sm:text-sm text-black mt-4 mb-2 pl-[2rem] relative">
         <div className="md:flex md:justify-between md:items-start">
           <div>
@@ -61,7 +24,6 @@ export default async function DemoBlogPage({ searchParams }: Props) {
             <span className="text-black">{blog.title}</span>
           </div>
 
-          {/* Author card */}
           <div className="text-xs text-black mt-1 md:mt-0 md:absolute md:right-[2rem] md:top-0">
             <span className="text-gray-600">Written By: </span>
             <span className="font-semibold">{blog.authorName}</span>
@@ -103,7 +65,6 @@ export default async function DemoBlogPage({ searchParams }: Props) {
         <div className="mt-[3rem] flex justify-center px-[2rem] md:px-[4rem] lg:px-[6rem]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start max-w-5xl mx-auto w-full">
             <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
-              {/* Render rich text content - you may need to add a rich text renderer */}
               <div
                 dangerouslySetInnerHTML={{
                   __html:
@@ -117,6 +78,7 @@ export default async function DemoBlogPage({ searchParams }: Props) {
                 }}
               />
             </div>
+
             <div className="order-first md:order-none flex justify-center md:justify-start">
               <div className="relative w-[70vw] md:w-[95%] max-w-[25rem]">
                 <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
@@ -135,8 +97,6 @@ export default async function DemoBlogPage({ searchParams }: Props) {
           </div>
         </div>
       </article>
-
-      <Footer />
     </div>
   )
 }
