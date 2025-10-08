@@ -11,34 +11,30 @@ interface Props {
   blogId: string // Add blog ID prop
 }
 
-const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug, blogId }) => {
+const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug }) => {
   return (
-    <Link href={`/blogs/${slug}`} className="block">
-      <div
-        className="
-          group border-2 border-[#13384E] rounded-xl w-full h-full p-8 flex flex-col justify-between
-          shadow-md hover:shadow-xl hover:bg-[#13384E]/10 transition-all duration-300 cursor-pointer
-        "
-      >
-        {/* Image container */}
-        <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
-          <Image src={imageUrl} alt={title} className="object-cover" fill />
-        </div>
-
-        {/* Title & Blog Description */}
-        <h1 className="text-3xl font-black self-start mb-2 clamp-2">{title}</h1>
-
-        <p className="text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[2rem]">{description}</p>
-
-        {/* Always link to demo page with blog ID */}
-        <Link
-          href={`/blogs/demo?id=${blogId}`}
-          className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center"
-        >
-          READ MORE
-        </Link>
+    <div
+      className="
+        group border-2 border-[#13384E] rounded-xl w-full h-full p-8 flex flex-col justify-between
+        shadow-md hover:shadow-xl hover:bg-[#13384E]/10 transition-all duration-300
+      "
+    >
+      {/* Image container */}
+      <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
+        <Image src={imageUrl} alt={title} className="object-cover" fill />
       </div>
-    </Link>
+
+      <h1 className="text-3xl font-black self-start mb-2 clamp-2">{title}</h1>
+
+      <p className="text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[2rem]">{description}</p>
+
+      <Link
+        href={`/blogs/${slug}`}
+        className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center inline-block"
+      >
+        READ MORE
+      </Link>
+    </div>
   )
 }
 
