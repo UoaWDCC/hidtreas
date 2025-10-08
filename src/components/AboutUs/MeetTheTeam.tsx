@@ -3,14 +3,9 @@ import placeholderImage from '@/assets/personPicture.png'
 import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
 import { getMembers } from '@/lib/payload/members'
+import { MemberType } from '@/types/member'
 
-interface MemberProp {
-  name: string
-  pronoun: string
-  role: string
-  imageUrl: string | StaticImageData
-  slug?: string
-}
+type MemberProp = MemberType
 
 export default async function MeetTheTeam() {
   const members = await getMembers()
