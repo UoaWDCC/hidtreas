@@ -1,6 +1,6 @@
 import { StaticImageData } from 'next/image'
 
-export interface MemberType {
+export type MemberType = {
   name: string
   pronoun: string
   role: string

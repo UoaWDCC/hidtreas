@@ -5,8 +5,6 @@ import kiwi from '@/assets/kiwiBird.svg'
 import { getMembers } from '@/lib/payload/members'
 import { MemberType } from '@/types/member'
 
-type MemberProp = MemberType
-
 export default async function MeetTheTeam() {
   const members = await getMembers()
 
@@ -56,7 +54,7 @@ export default async function MeetTheTeam() {
   )
 }
 
-function TeamMember({ name, pronoun, role, imageUrl }: MemberProp) {
+function TeamMember({ name, pronoun, role, imageUrl }: MemberType) {
   return (
     <div className="flex flex-col items-center text-center">
       {/* image */}
