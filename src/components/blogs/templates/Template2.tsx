@@ -1,13 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
-import BlogContent from '@/components/blogs/BlogContent'
+import BlogContent from '@/components/blogs/templates/Template2BlogContent'
 import RelatedBlogs from '@/components/blogs/RelatedBlogs'
-import { Blog } from '@/payload-types'
+import { BlogType } from '@/types/blog'
 
-export default function Template2({ blog }: { blog: Blog }) {
-  const heroImageUrl =
-    typeof blog.image === 'object' && blog.image?.url ? blog.image.url : '/events/event1.jpg' // fallback image
+interface Template2Props {
+  blog: BlogType
+}
 
+export default function Template2({ blog }: Template2Props) {
   return (
     <>
       {/* Breadcrumb */}
@@ -31,18 +32,16 @@ export default function Template2({ blog }: { blog: Blog }) {
           </p>
           <p className="text-sm font-medium text-gray-800">By: {blog.authorName}</p>
         </div>
+
         <div className="relative max-w-sm ml-auto">
           <div className="relative w-full h-[22rem] rounded-lg shadow-lg overflow-hidden">
             <Image
-              src={heroImageUrl}
-              alt={
-                typeof blog.image === 'object' && blog.image?.alt ? blog.image.alt : blog.title
-              }
+              src={blog.imageUrl}
+              alt={blog.title}
               fill
               className="object-cover"
             />
           </div>
-          {/* Decorative element placeholder */}
           <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20" />
         </div>
       </section>
