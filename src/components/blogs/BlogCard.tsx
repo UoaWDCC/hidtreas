@@ -1,7 +1,6 @@
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React, { FunctionComponent } from 'react'
-import Link from 'next/link'
 
 // TODO: StaticImageData is used for a placeholder image. Confirm later how we want to handle missing images.
 interface Props {
@@ -23,7 +22,7 @@ const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug
       >
         {/* Image container */}
         <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
-          <Image src={imageUrl} alt={title} className="object-cover" layout="fill" />
+          <Image src={imageUrl} alt={title} className="object-cover" fill />
         </div>
 
         {/* Title & Blog Description */}
@@ -31,14 +30,15 @@ const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug
 
         <p className="text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[2rem]">{description}</p>
 
-      {/* Always link to demo page with blog ID */}
-      <Link
-        href={`/blogs/demo?id=${blogId}`}
-        className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center"
-      >
-        READ MORE
-      </Link>
-    </div>
+        {/* Always link to demo page with blog ID */}
+        <Link
+          href={`/blogs/demo?id=${blogId}`}
+          className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center"
+        >
+          READ MORE
+        </Link>
+      </div>
+    </Link>
   )
 }
 
