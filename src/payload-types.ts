@@ -198,6 +198,10 @@ export interface Blog {
    */
   authorName: string;
   image?: (string | null) | Media;
+  /**
+   * Select which layout template to use when rendering this blog.
+   */
+  template: 'template1' | 'template2';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -355,6 +359,7 @@ export interface BlogsSelect<T extends boolean = true> {
   content?: T;
   authorName?: T;
   image?: T;
+  template?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
