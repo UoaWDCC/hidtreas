@@ -6,7 +6,7 @@ import { getBlogBySlug } from '@/lib/payload/blogs'
 import placeholderImage from '@/assets/groupPic.png'
 
 type Params = {
-  params: { slug: string }
+  params: { slug: "a-super-cool-blog-title" }
 }
 
 export default async function BlogDetailPage({ params }: Params) {
