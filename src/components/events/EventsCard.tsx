@@ -11,10 +11,10 @@ export default function EventsCard({
   onOpenModal: () => void
 }) {
   return (
-    <div className="flex flex-col justify-center items-center w-70 h-90 border-4 border-[#13384E] rounded-xl gap-y-2 px-4 bg-[#FFF8F3]">
-      <div className="relative flex justify-center items-center">
-        <h3 className="text-2xl">{event.title}</h3>
-        <Image src={KiwiBird} alt="kiwi-bird" width={40} className="absolute top-0 left-35" />
+    <div className="flex flex-col items-center w-70 h-90 border-4 border-[#13384E] rounded-xl gap-y-3 px-4 pt-6 pb-6 bg-[#FFF8F3]">
+      <div className="flex flex-col items-center gap-1">
+        <Image src={KiwiBird} alt="kiwi-bird" width={36} />
+        <h3 className="text-2xl text-center">{event.title}</h3>
       </div>
 
       <div className="flex flex-col justify-center items-center gap-y-2">
@@ -30,7 +30,7 @@ export default function EventsCard({
             HOSTED BY: {event.hostedBy}
           </p>
         </div>
-        <p className="text-xs">{event.description}</p>
+        <p className="text-xs text-center">{event.description}</p>
         <button
           onClick={onOpenModal}
           className="font-bold border-2 rounded-md gap px-2 cursor-pointer"
