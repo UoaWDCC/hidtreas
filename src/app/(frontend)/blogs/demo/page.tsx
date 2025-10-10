@@ -79,7 +79,7 @@ export default async function DemoBlogPage({ searchParams }: Props) {
         </h1>
 
         {/* Hero block */}
-        <div className="mt-[2rem] md:mt-[-2rem] relative z-0">
+        <div className="mt-[2rem] md:mt-[2rem] relative z-0">
           <div className="flex justify-center">
             <div className="w-[80vw] md:w-[50vw] aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300">
               <Image src={blogImage} alt={blog.title} className="object-cover" layout="fill" />
