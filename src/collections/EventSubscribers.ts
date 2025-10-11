@@ -23,4 +23,10 @@ export const EventSubscribers: CollectionConfig = {
       required: true,
     },
   ],
+  indexes: [
+    {
+      fields: ['event', 'subscriber'],
+      unique: true,
+    },
+  ],
 }
