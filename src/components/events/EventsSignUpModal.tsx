@@ -53,151 +53,168 @@ export default function EventsSignUpModal({
       doNotCloseOnClickOutside={answers}
     >
       <div className="relative h-full w-full bg-[#fdf4ed]">
-        <Image
-          src={BackgroundImage}
-          alt="Background"
-          fill
-          className="object-cover object-center z-0 scale-x-[-1] rotate-180"
-          style={{
-            objectFit: 'contain', // Zooms out (shows full image)
-            transform: 'scale(1)', // Optional: Further zoom out
-            objectPosition: '200% center', // Shifts right (+20% offset)
-          }}
-        />
-        <div className="relative z-10 p-5">
-          <IconX
-            className="absolute top-5 right-5 cursor-pointer z-20"
-            onClick={() => {
-              setSuccessful(false)
-              setErrors(emptyErrors)
-              setSignOpen(false)
-            }}
-          />
-          <div className="flex flex-col items-center">
-            <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
-            <h1 className="text-3xl font-[1000] mt-4">EVENT SIGN-UP</h1>
+        {successful ? (
+          <div className="relative p-6 h-full w-full flex flex-col items-center justify-center text-center">
+            <IconX
+              className="absolute top-5 right-5 cursor-pointer"
+              onClick={() => {
+                setSuccessful(false)
+                setSignOpen(false)
+              }}
+            />
+            <Image src={Logo} alt="Hidden Treasure Logo" width={100} height={100} />
+            <h1 className="text-6xl font-[1000] mt-10">THANK YOU FOR SIGNING UP!</h1>
+            <p className="mt-5">We can't wait to share our updates with you.</p>
           </div>
-          <form
-            onSubmit={(event) => {
-              event.preventDefault()
-              const form = event.target as HTMLFormElement
-              if (!checkValid(form, setErrors)) return
-              if (!eventToSignUp && form.event.value === 'SELECT EVENT') {
-                setErrors((prev) => {
-                  const newErrors = [...prev]
-                  newErrors[3] = true
-                  return newErrors
-                })
-                return
-              }
-              createEventSubscriber(
-                eventToSignUp ? eventToSignUp.id : form.event.value.id,
-                form.email.value.trim(),
-                form.firstname.value.trim(),
-                form.lastname.value.trim(),
-              )
-                .then(() => {
-                  setSuccessful(true)
-                  setAnswers(false)
-                  form.reset()
-                })
-                .catch((e) => {
-                  if (e.message.includes('Value must be unique')) {
-                    setSuccessful(true)
-                  } else {
-                    alert('Error subscribing. Please try again later.')
-                  }
-                })
-            }}
-            className="mt-8"
-          >
-            <div className="flex justify-center gap-[5rem]">
-              {fields.slice(0, 2).map((field, index) => (
-                <input
-                  key={field.name}
-                  type="text"
-                  className="block rounded-md px-2 w-[10rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
-                  placeholder={field.placeholder}
-                  name={field.name}
-                  defaultValue={field.name === 'email' ? initialEmail : ''}
-                  onChange={() => setAnswers(true)}
-                  style={{
-                    borderColor: errors[index] ? 'red' : 'black',
-                  }}
-                />
-              ))}
-            </div>
-            <div className="flex justify-center mt-8">
-              <input
-                key="email"
-                type="text"
-                className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
-                placeholder="EMAIL ADDRESS"
-                name="email"
-                defaultValue={initialEmail}
-                onChange={() => setAnswers(true)}
-                style={{
-                  borderColor: errors[2] ? 'red' : 'black',
+        ) : (
+          <>
+            <Image
+              src={BackgroundImage}
+              alt="Background"
+              fill
+              className="object-cover object-center z-0 scale-x-[-1] rotate-180"
+              style={{
+                objectFit: 'contain', // Zooms out (shows full image)
+                transform: 'scale(1)', // Optional: Further zoom out
+                objectPosition: '200% center', // Shifts right (+20% offset)
+              }}
+            />
+            <div className="relative z-10 p-5">
+              <IconX
+                className="absolute top-5 right-5 cursor-pointer z-20"
+                onClick={() => {
+                  setSuccessful(false)
+                  setErrors(emptyErrors)
+                  setSignOpen(false)
                 }}
               />
-            </div>
-
-            <div className="flex justify-center mt-8">
-              {eventToSignUp ? (
-                // If event is preselected, show title instead of dropdown
-                // Only show the first 30 characters of the title
-                // (to avoid overflow)
-                <p className="text-2xl font-semibold">
-                  {eventToSignUp.title.length > 30
-                    ? eventToSignUp.title.slice(0, 30) + '...'
-                    : eventToSignUp.title}
-                </p>
-              ) : (
-                <select
-                  name="event"
-                  className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
-                  onChange={() => setAnswers(true)}
-                  defaultValue="SELECT EVENT"
-                  style={{
-                    borderColor: errors[3] ? 'red' : 'black',
-                  }}
-                >
-                  <option value="SELECT EVENT" disabled>
-                    SELECT EVENT
-                  </option>
-                  {eventOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            <div className="flex justify-center mt-4">
-              <input type="checkbox" name="agreeTnC" className="mr-1 hover:cursor-pointer" />
-              <label className="text-sm" style={{ color: errors[4] ? 'red' : 'black' }}>
-                I AGREE TO THE{' '}
-                <a
-                  onClick={() => {
-                    router.push('/TermsAndConditions')
-                    setAnswers(true)
-                  }}
-                  className="underline hover:cursor-pointer"
-                >
-                  TERMS AND CONDITIONS
-                </a>
-              </label>
-            </div>
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-[#0a2638] transition"
+              <div className="flex flex-col items-center">
+                <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
+                <h1 className="text-3xl font-[1000] mt-4">EVENT SIGN-UP</h1>
+              </div>
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  const form = event.target as HTMLFormElement
+                  if (!checkValid(form, setErrors)) return
+                  if (!eventToSignUp && form.event.value === 'SELECT EVENT') {
+                    setErrors((prev) => {
+                      const newErrors = [...prev]
+                      newErrors[3] = true
+                      return newErrors
+                    })
+                    return
+                  }
+                  createEventSubscriber(
+                    eventToSignUp ? eventToSignUp.id : form.event.value.id,
+                    form.email.value.trim(),
+                    form.firstname.value.trim(),
+                    form.lastname.value.trim(),
+                  )
+                    .then(() => {
+                      setSuccessful(true)
+                      setAnswers(false)
+                      form.reset()
+                    })
+                    .catch((e) => {
+                      if (e.message.includes('Value must be unique')) {
+                        setSuccessful(true)
+                      } else {
+                        alert('Error subscribing. Please try again later.')
+                      }
+                    })
+                }}
+                className="mt-8"
               >
-                SIGN UP
-              </button>
+                <div className="flex justify-center gap-[5rem]">
+                  {fields.slice(0, 2).map((field, index) => (
+                    <input
+                      key={field.name}
+                      type="text"
+                      className="block rounded-md px-2 w-[10rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                      placeholder={field.placeholder}
+                      name={field.name}
+                      defaultValue={field.name === 'email' ? initialEmail : ''}
+                      onChange={() => setAnswers(true)}
+                      style={{
+                        borderColor: errors[index] ? 'red' : 'black',
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-center mt-8">
+                  <input
+                    key="email"
+                    type="text"
+                    className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                    placeholder="EMAIL ADDRESS"
+                    name="email"
+                    defaultValue={initialEmail}
+                    onChange={() => setAnswers(true)}
+                    style={{
+                      borderColor: errors[2] ? 'red' : 'black',
+                    }}
+                  />
+                </div>
+
+                <div className="flex justify-center mt-8">
+                  {eventToSignUp ? (
+                    // If event is preselected, show title instead of dropdown
+                    // Only show the first 30 characters of the title
+                    // (to avoid overflow)
+                    <p className="text-2xl font-semibold">
+                      {eventToSignUp.title.length > 30
+                        ? eventToSignUp.title.slice(0, 30) + '...'
+                        : eventToSignUp.title}
+                    </p>
+                  ) : (
+                    <select
+                      name="event"
+                      className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                      onChange={() => setAnswers(true)}
+                      defaultValue="SELECT EVENT"
+                      style={{
+                        borderColor: errors[3] ? 'red' : 'black',
+                      }}
+                    >
+                      <option value="SELECT EVENT" disabled>
+                        SELECT EVENT
+                      </option>
+                      {eventOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+                <div className="flex justify-center mt-4">
+                  <input type="checkbox" name="agreeTnC" className="mr-1 hover:cursor-pointer" />
+                  <label className="text-sm" style={{ color: errors[4] ? 'red' : 'black' }}>
+                    I AGREE TO THE{' '}
+                    <a
+                      onClick={() => {
+                        router.push('/TermsAndConditions')
+                        setAnswers(true)
+                      }}
+                      className="underline hover:cursor-pointer"
+                    >
+                      TERMS AND CONDITIONS
+                    </a>
+                  </label>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-[#0a2638] transition"
+                  >
+                    SIGN UP
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
+          </>
+        )}
       </div>
     </Modal>
   )
