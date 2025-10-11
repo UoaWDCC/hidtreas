@@ -15,9 +15,7 @@ export function mapPayloadEvent(e: Event): EventType {
     description: e.description ?? '',
     date: new Date(e.date),
     hostedBy: e.host?.join(', ') ?? 'Unknown host',
-    imageUrl:
-      typeof e.image === 'object' && e.image?.url
-        ? e.image.url
-        : PlaceholderImg,
+    venue: e.venue ?? undefined,
+    imageUrl: typeof e.image === 'object' && e.image?.url ? e.image.url : PlaceholderImg,
   }
 }

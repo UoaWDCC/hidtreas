@@ -18,25 +18,29 @@ import React from 'react'
  * @param rest - Additional props to pass to the modal header.
  * @returns
  */
-const Header = ({
+interface ModalHeaderProps {
+  children?: React.ReactNode
+  className?: string
+  noDefaultClose?: boolean
+  onClose?: () => void
+  [key: string]: unknown
+}
+
+const Header: React.FC<ModalHeaderProps> = ({
   children,
   className,
   noDefaultClose = false,
   onClose,
   ...rest
-}: {
-  children?: React.ReactNode
-  className?: string
-  noDefaultClose?: boolean
-  onClose?: () => void
-  [key: string]: any
 }) => {
   return (
     <div className={`p-3 relative ${className}`} {...rest}>
       {children}
       <IconX
         className={`absolute top-2 right-2 cursor-pointer ${noDefaultClose ? 'hidden' : ''}`}
-        onClick={() => (onClose ? onClose() : {})}
+        onClick={() => {
+          onClose?.()
+        }}
       />
     </div>
   )
@@ -52,15 +56,13 @@ Modal.Header = Header
  * @param rest - Additional props to pass to the modal body.
  * @returns
  */
-const Body = ({
-  children,
-  className,
-  ...rest
-}: {
+interface ModalBodyProps {
   children?: React.ReactNode
   className?: string
-  [key: string]: any
-}) => {
+  [key: string]: unknown
+}
+
+const Body: React.FC<ModalBodyProps> = ({ children, className, ...rest }) => {
   return (
     <div className={`p-6 ${className}`} {...rest}>
       {children}
@@ -79,6 +81,17 @@ Modal.Body = Body
  * @param rest - Additional props to pass to the modal.
  * @returns
  */
+interface ModalProps {
+  children: React.ReactNode
+  className?: string
+  superClassName?: string
+  open?: boolean
+  onClose?: () => void
+  noHeader?: boolean
+  doNotCloseOnClickOutside?: boolean
+  [key: string]: unknown
+}
+
 export default function Modal({
   children,
   className,
@@ -88,27 +101,24 @@ export default function Modal({
   noHeader = false,
   doNotCloseOnClickOutside = false,
   ...rest
-}: {
-  children: React.ReactNode
-  className?: string
-  superClassName?: string
-  open?: boolean
-  onClose?: () => void
-  noHeader?: boolean
-  doNotCloseOnClickOutside?: boolean
-  [key: string]: any
-}) {
-  const { head, body } = moveHeader(children, onClose ? onClose : () => {})
+}: ModalProps) {
+  const safeOnClose = onClose ?? (() => {})
+  const { head, body } = moveHeader(children, safeOnClose)
   return (
     <div
       onClick={(e) => {
         if (e.target === e.currentTarget) {
-          onClose && !doNotCloseOnClickOutside ? onClose() : {}
+          if (onClose && !doNotCloseOnClickOutside) {
+            onClose()
+          }
         }
       }}
-      className={`fixed inset-0 flex items-center justify-center z-50 ${superClassName} ${open ? '' : 'hidden'}`}
+      className={`fixed inset-0 flex items-center justify-center z-50 ${superClassName ?? ''} ${open ? '' : 'hidden'}`}
     >
-      <div className={`bg-white rounded-lg w-lg ${className}`} {...rest}>
+      <div
+        className={className ? `rounded-lg bg-white ${className}` : 'rounded-lg w-lg bg-white'}
+        {...rest}
+      >
         {!noHeader && head}
         {body}
       </div>

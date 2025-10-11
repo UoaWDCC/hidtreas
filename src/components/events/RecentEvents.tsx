@@ -1,18 +1,18 @@
 'use client'
-import {useState, useEffect} from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/recent_events_koru.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
-import {Kosugi_Maru} from 'next/font/google'
+import { Kosugi_Maru } from 'next/font/google'
 import type { EventType } from '@/types/event'
 
-const kosugiMaru = Kosugi_Maru({subsets: ['latin'], weight: '400'})
+const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400' })
 
 export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
   const events = initialEvents
-  const eventNames = events.map(e => e.title)
+  const eventNames = events.map((e) => e.title)
 
   return (
     <>
@@ -28,7 +28,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
       {/* Header Bar */}
       <div
         className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center"
-        style={{height: '5rem'}}
+        style={{ height: '5rem' }}
       >
         <h2 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
           UPCOMING EVENTS
@@ -50,8 +50,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                 height={300}
                 className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg"
               />
-              <div
-                className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
+              <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
                 {event.date.toLocaleDateString('en-NZ', {
                   day: 'numeric',
                   month: 'long',
@@ -60,11 +59,9 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
               </div>
               {/* Decoration: red circle (first) or kiwi (second) */}
               {idx === 0 ? (
-                <div
-                  className="absolute rounded-full bg-[#eb5454] w-8 h-8 bottom-[-16px] left-[-16px] md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px] lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px]"/>
+                <div className="absolute rounded-full bg-[#eb5454] w-8 h-8 bottom-[-16px] left-[-16px] md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px] lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px]" />
               ) : (
-                <div
-                  className="absolute bottom-[-16px] right-[-16px] md:bottom-[-20px] md:right-[-20px] lg:bottom-[-24px] lg:right-[-24px] w-8 h-8 md:w-15 md:h-15 lg:w-20 lg:h-20 flex items-center justify-center">
+                <div className="absolute bottom-[-16px] right-[-16px] md:bottom-[-20px] md:right-[-20px] lg:bottom-[-24px] lg:right-[-24px] w-8 h-8 md:w-15 md:h-15 lg:w-20 lg:h-20 flex items-center justify-center">
                   <Image
                     src={KiwiBird}
                     alt="Kiwi decoration"
@@ -78,9 +75,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
               <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
                 {event.title}
               </h2>
-              <h3 className="text-base md:text-lg font-medium mb-4">
-                HOSTED BY: {event.hostedBy}
-              </h3>
+              <h3 className="text-base md:text-lg font-medium mb-4">HOSTED BY: {event.hostedBy}</h3>
               <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
                 {event.description}
               </p>
@@ -95,7 +90,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
         ))}
       </section>
 
-      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} eventOptions={eventNames}/>
+      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} eventOptions={eventNames} />
     </>
   )
 }
