@@ -5,6 +5,7 @@ import Logo from '@/assets/sharpened_logo.png'
 import BackgroundImage from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { createEventSubscriber } from '@/lib/payload/eventSubscribers'
 
 const fields = [
   { name: 'firstname', placeholder: 'FIRST NAME' },
@@ -23,11 +24,13 @@ export default function EventsSignUpModal({
   setSignOpen,
   initialEmail = '',
   eventOptions = [],
+  eventToSignUp = null,
 }: {
   signOpen: boolean
   setSignOpen: (open: boolean) => void
   initialEmail?: string
   eventOptions?: string[]
+  eventToSignUp?: { title: string; id: string } | null
 }) {
   const router = useRouter()
   const [answers, setAnswers] = useState(false)
@@ -71,9 +74,20 @@ export default function EventsSignUpModal({
               else if (form.event.value === 'SELECT EVENT') alert('Please select an event')
               else if (!form.agreeTnC.checked) alert('Agree to terms')
               else {
-                alert('Success!')
-                form.reset()
-                setSignOpen(false)
+                createEventSubscriber(
+                  eventToSignUp ? eventToSignUp.id : form.event.value.id,
+                  form.email.value.trim(),
+                  form.firstname.value.trim(),
+                  form.lastname.value.trim(),
+                )
+                  .then(() => {
+                    alert('Success!')
+                    form.reset()
+                    setSignOpen(false)
+                  })
+                  .catch(() => {
+                    alert('There was an error. Please try again later.')
+                  })
               }
               event.preventDefault()
             }}
@@ -105,21 +119,32 @@ export default function EventsSignUpModal({
             </div>
 
             <div className="flex justify-center mt-8">
-              <select
-                name="event"
-                className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
-                onChange={() => setAnswers(true)}
-                defaultValue="SELECT EVENT"
-              >
-                <option value="SELECT EVENT" disabled>
-                  SELECT EVENT
-                </option>
-                {eventOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+              {eventToSignUp ? (
+                // If event is preselected, show title instead of dropdown
+                // Only show the first 30 characters of the title
+                // (to avoid overflow)
+                <p className="text-2xl font-semibold">
+                  {eventToSignUp.title.length > 30
+                    ? eventToSignUp.title.slice(0, 30) + '...'
+                    : eventToSignUp.title}
+                </p>
+              ) : (
+                <select
+                  name="event"
+                  className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                  onChange={() => setAnswers(true)}
+                  defaultValue="SELECT EVENT"
+                >
+                  <option value="SELECT EVENT" disabled>
+                    SELECT EVENT
                   </option>
-                ))}
-              </select>
+                  {eventOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="flex justify-center mt-4">
               <input type="checkbox" name="agreeTnC" className="mr-1 hover:cursor-pointer" />

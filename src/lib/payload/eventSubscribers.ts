@@ -11,11 +11,16 @@ type Paginated<T> = {
   hasPrevPage: boolean
 }
 
-export async function createEventSubscriber(eventId: string, subscriberId: string) {
+export async function createEventSubscriber(
+  eventId: string,
+  email: string,
+  firstName: string,
+  lastName: string,
+) {
   return fetchJSON<EventSubscriber>('/api/event-subscribers', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event: eventId, subscriber: subscriberId }),
+    body: JSON.stringify({ event: eventId, email, firstName, lastName }),
   })
 }
 
@@ -29,13 +34,13 @@ export async function getEventSubscribersByEventId(
   )
 }
 
-export async function getEventSubscribersBySubscriberId(
-  subscriberId: string,
+export async function getEventSubscribersByEmail(
+  email: string,
   opts: { page?: number; limit?: number } = {},
 ) {
   const { page = 1, limit = 10 } = opts
   return fetchJSON<Paginated<EventSubscriber>>(
-    `/api/event-subscribers?subscriber=${subscriberId}&sort=-createdAt&page=${page}&limit=${limit}&depth=0`,
+    `/api/event-subscribers?email=${email}&sort=-createdAt&page=${page}&limit=${limit}&depth=2`,
   )
 }
 

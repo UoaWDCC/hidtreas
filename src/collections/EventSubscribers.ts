@@ -17,15 +17,24 @@ export const EventSubscribers: CollectionConfig = {
       required: true,
     },
     {
-      name: 'subscriber',
-      type: 'relationship',
-      relationTo: 'subscribers',
+      name: 'email',
+      type: 'email',
+      required: true,
+    },
+    {
+      name: 'firstName',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'lastName',
+      type: 'text',
       required: true,
     },
   ],
   indexes: [
     {
-      fields: ['event', 'subscriber'],
+      fields: ['event', 'email'],
       unique: true,
     },
   ],
