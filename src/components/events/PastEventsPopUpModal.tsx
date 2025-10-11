@@ -1,4 +1,4 @@
-import { IconX } from '@tabler/icons-react'
+import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
 import Modal from '../common/Modal'
 import Image, { type StaticImageData } from 'next/image'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -399,14 +399,24 @@ export default function PastEventsPopUpModal({
       return
     }
 
-    if (modalBody.scrollHeight <= modalBody.clientHeight) {
-      return
-    }
-
-    descriptionContainer.scrollIntoView({
+    const targetNode = descriptionContainer
+    const scrollOptions: ScrollIntoViewOptions = {
       behavior: 'smooth',
       block: 'nearest',
-    })
+    }
+
+    if ('scrollTo' in modalBody) {
+      const modalRect = modalBody.getBoundingClientRect()
+      const targetRect = targetNode.getBoundingClientRect()
+      const offset = targetRect.top - modalRect.top - modalRect.height * 0.1
+
+      modalBody.scrollTo({
+        top: modalBody.scrollTop + offset,
+        behavior: 'smooth',
+      })
+    } else {
+      targetNode.scrollIntoView(scrollOptions)
+    }
   }, [currentIdx, expandedDescriptions, slides])
 
   const slide = slides[currentIdx]
@@ -447,7 +457,7 @@ export default function PastEventsPopUpModal({
         <button
           type="button"
           onClick={() => setSignOpen(false)}
-          className="absolute right-6 top-6 text-[#13384E]"
+          className="absolute right-2 top-1 text-[#13384E] md:right-6 md:top-6"
           aria-label="Close"
         >
           <IconX size={28} />
@@ -459,22 +469,32 @@ export default function PastEventsPopUpModal({
             title={slide.originalTitle ?? slide.event.title}
           >
             {displayTitleText}
-            {!isTitleExpanded && slide.isTitleTruncated && (
-              <button
-                type="button"
-                onClick={() =>
-                  setExpandedTitles((prev) => ({
+          </h2>
+          {slide.isTitleTruncated && (
+            <button
+              type="button"
+              onClick={() =>
+                setExpandedTitles((prev) => {
+                  const nextExpanded = !isTitleExpanded
+
+                  if (!nextExpanded) {
+                    const updated = { ...prev }
+                    delete updated[slideId]
+                    return updated
+                  }
+
+                  return {
                     ...prev,
                     [slideId]: true,
-                  }))
-                }
-                className="ml-3 inline-flex cursor-pointer align-baseline text-xs uppercase tracking-wide text-[#13384E]/80"
-                aria-label="Show full event title"
-              >
-                SHOW MORE
-              </button>
-            )}
-          </h2>
+                  }
+                })
+              }
+              className="inline-flex cursor-pointer align-baseline text-xs uppercase tracking-wide text-[#13384E]/80"
+              aria-label={isTitleExpanded ? 'Show less event title' : 'Show full event title'}
+            >
+              {isTitleExpanded ? 'SHOW LESS' : 'SHOW MORE'}
+            </button>
+          )}
           <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#13384E]/70 md:text-sm">
             <span>
               {slide.event.date.toLocaleDateString('en-NZ', {
@@ -493,7 +513,24 @@ export default function PastEventsPopUpModal({
         </div>
 
         <div className="w-full">
-          <div className="-mx-6 md:-mx-12">
+          <div className="relative -mx-6 md:-mx-12">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 md:hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  const nextIdx = Math.max(0, currentIdx - 1)
+                  setCurrentIdx(nextIdx)
+                  scrollToIndex(nextIdx)
+                }}
+                className="pointer-events-auto flex items-center justify-center p-1 transition disabled:opacity-40"
+                aria-label="Previous event"
+                disabled={currentIdx === 0}
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
+                  <IconChevronLeft size={12} />
+                </span>
+              </button>
+            </div>
             <div
               ref={scrollRef}
               onScroll={handleScroll}
@@ -553,6 +590,23 @@ export default function PastEventsPopUpModal({
               {edgeSpacer > 0 && (
                 <div aria-hidden className="flex-shrink-0" style={{ width: `${edgeSpacer}px` }} />
               )}
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 md:hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  const nextIdx = Math.min(slides.length - 1, currentIdx + 1)
+                  setCurrentIdx(nextIdx)
+                  scrollToIndex(nextIdx)
+                }}
+                className="pointer-events-auto flex items-center justify-center p-1 transition disabled:opacity-40"
+                aria-label="Next event"
+                disabled={currentIdx >= slides.length - 1}
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
+                  <IconChevronRight size={12} />
+                </span>
+              </button>
             </div>
           </div>
         </div>
