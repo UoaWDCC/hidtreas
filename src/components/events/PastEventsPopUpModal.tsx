@@ -514,7 +514,7 @@ export default function PastEventsPopUpModal({
 
         <div className="w-full">
           <div className="relative -mx-6 md:-mx-12">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2 md:hidden">
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-20 flex items-center pl-2 md:hidden">
               <button
                 type="button"
                 onClick={() => {
@@ -534,7 +534,7 @@ export default function PastEventsPopUpModal({
             <div
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex w-full snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-6 pt-2 md:pl-16 md:pr-12 no-scrollbar"
+              className="flex w-full snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-smooth px-6 pb-6 pt-2 md:pl-16 md:pr-12 no-scrollbar"
             >
               {edgeSpacer > 0 && (
                 <div aria-hidden className="flex-shrink-0" style={{ width: `${edgeSpacer}px` }} />
@@ -553,10 +553,10 @@ export default function PastEventsPopUpModal({
                       setCurrentIdx(index)
                       scrollToIndex(index)
                     }}
-                    className={`flex-shrink-0 snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 ${
+                    className={`flex-shrink-0 snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 w-full mx-auto md:mx-0 ${
                       isActive
-                        ? 'pointer-events-none w-[min(22rem,88vw)] md:w-[24rem]'
-                        : 'w-[min(19rem,78vw)] md:w-[22rem]'
+                        ? 'pointer-events-none max-w-[23rem] md:max-w-none md:w-[23rem]'
+                        : 'max-w-[20rem] md:max-w-none md:w-[21rem]'
                     }`}
                     aria-label={`View event ${entry.event.title}`}
                     aria-current={isActive}
@@ -564,7 +564,9 @@ export default function PastEventsPopUpModal({
                     <div className="flex items-center justify-center transition-all duration-300">
                       <div
                         className={`relative mx-auto aspect-[4/3] overflow-hidden transition-all duration-300 ${
-                          isActive ? 'w-full' : 'w-[86%]'
+                          isActive
+                            ? 'w-full max-w-[22rem] md:max-w-none'
+                            : 'w-[86%] max-w-[19rem] md:max-w-none'
                         }`}
                       >
                         <Image
