@@ -23,17 +23,8 @@ export default async function BlogsPage() {
         </p>
       </div>
 
-      {/* Search Bar */}
-      <Search />
-
-      {/* Blog Grid */}
-      <div className="px-[2.5rem] lg:px-[7rem] mb-16 flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[3rem]">
-          {blogs.map((blog: BlogType) => (
-            <BlogCard key={blog.id} blog={blog} />
-          ))}
-        </div>
-      </div>
+      {/* Search Bar Filter + Blog Grid */}
+      <Search blogs={blogs} />
 
       <Footer />
     </div>
