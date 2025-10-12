@@ -1,49 +1,12 @@
 import Image, { StaticImageData } from 'next/image'
-import profilePic from '@/assets/personPicture.png'
+import placeholderImage from '@/assets/personPicture.png'
 import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
-import induBajwaPic from '@/assets/indu-bajwa-upscaled-profile.png'
-import amanGillPic from '@/assets/aman-gill-upscaled-profile.jpeg'
+import { getMembers } from '@/lib/payload/members'
+import { MemberType } from '@/types/member'
 
-export default function MeetTheTeam() {
-  const peopleArray = [
-    {
-      name: 'Esther Ho',
-      pronoun: '(she/her)',
-      role: 'Chairperson',
-      image: profilePic,
-    },
-    {
-      name: 'Aman Gill',
-      pronoun: '(she/her)',
-      role: 'Trustees',
-      image: amanGillPic,
-    },
-    {
-      name: 'Christine Knock',
-      pronoun: '(she/her)',
-      role: 'Trustees',
-      image: profilePic,
-    },
-    {
-      name: 'Indu Bajwa',
-      pronoun: '(she/her)',
-      role: 'Manager',
-      image: induBajwaPic,
-    },
-    {
-      name: 'Divya Niyyar',
-      pronoun: '(she/her)',
-      role: 'Coordinator',
-      image: profilePic,
-    },
-    {
-      name: 'Summit Niyar',
-      pronoun: '(he/him)',
-      role: 'Events & Volunteer Coordinator',
-      image: profilePic,
-    },
-  ]
+export default async function MeetTheTeam() {
+  const members = await getMembers()
 
   return (
     <div className="relative mb-[6rem] md:mb-[8rem]">
@@ -72,13 +35,17 @@ export default function MeetTheTeam() {
         {/* whole grid */}
 
         <div className="mt-[4vw] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
-          {peopleArray.map((person) => (
+          {members.map((member) => (
             <TeamMember
-              key={person.name}
-              name={person.name}
-              pronoun={person.pronoun}
-              role={person.role}
-              image={person.image}
+              key={member.id}
+              name={member.name}
+              pronoun={member.pronoun ?? ''}
+              role={member.role}
+              imageUrl={
+                typeof member.image === 'object' && member.image?.url
+                  ? member.image.url
+                  : placeholderImage
+              }
             />
           ))}
         </div>
@@ -87,23 +54,13 @@ export default function MeetTheTeam() {
   )
 }
 
-function TeamMember({
-  name,
-  pronoun,
-  role,
-  image,
-}: {
-  name: string
-  pronoun: string
-  role: string
-  image: StaticImageData
-}) {
+function TeamMember({ name, pronoun, role, imageUrl }: MemberType) {
   return (
     <div className="flex flex-col items-center text-center">
       {/* image */}
 
       <div className="relative w-[clamp(4rem,20vw,10rem)] aspect-[4/5] overflow-hidden border-2 border-current rounded-md">
-        <Image src={image} alt={`${name}'s photo`} fill className="object-cover object-top" />
+        <Image src={imageUrl} alt={`${name}'s photo`} fill className="object-cover object-top" />
       </div>
 
       {/* text stuff */}

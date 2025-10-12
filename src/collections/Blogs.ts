@@ -96,6 +96,19 @@ export const Blogs: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'template',
+      type: 'select',
+      required: true,
+      defaultValue: 'template1',
+      options: [
+        { label: 'Template 1', value: 'template1' },
+        { label: 'Template 2', value: 'template2' },
+      ],
+      admin: {
+        description: 'Select which layout template to use when rendering this blog.',
+      },
+    },
+    {
       name: 'published',
       type: 'checkbox',
       defaultValue: false,

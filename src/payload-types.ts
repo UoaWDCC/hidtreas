@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     blogs: Blog;
     events: Event;
+    members: Member;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    members: MembersSelect<false> | MembersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -196,6 +198,10 @@ export interface Blog {
    */
   authorName: string;
   image?: (string | null) | Media;
+  /**
+   * Select which layout template to use when rendering this blog.
+   */
+  template: 'template1' | 'template2';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -213,6 +219,19 @@ export interface Event {
   image?: (string | null) | Media;
   published?: boolean | null;
   host: string[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members".
+ */
+export interface Member {
+  id: string;
+  name: string;
+  image?: (string | null) | Media;
+  role: string;
+  pronoun?: ('(he/him)' | '(she/her)' | 'other') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -238,6 +257,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'members';
+        value: string | Member;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -336,6 +359,7 @@ export interface BlogsSelect<T extends boolean = true> {
   content?: T;
   authorName?: T;
   image?: T;
+  template?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -352,6 +376,18 @@ export interface EventsSelect<T extends boolean = true> {
   image?: T;
   published?: T;
   host?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members_select".
+ */
+export interface MembersSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  role?: T;
+  pronoun?: T;
   updatedAt?: T;
   createdAt?: T;
 }
