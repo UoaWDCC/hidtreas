@@ -457,7 +457,7 @@ export default function PastEventsPopUpModal({
         <button
           type="button"
           onClick={() => setSignOpen(false)}
-          className="absolute right-2 top-1 text-[#13384E] md:right-6 md:top-6"
+          className="absolute right-2 top-1 cursor-pointer text-[#13384E] md:right-6 md:top-6"
           aria-label="Close"
         >
           <IconX size={28} />
@@ -553,16 +553,18 @@ export default function PastEventsPopUpModal({
                       setCurrentIdx(index)
                       scrollToIndex(index)
                     }}
-                    className={`flex-shrink-0 snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] w-[min(18rem,75vw)] md:w-[20rem] ${
-                      isActive ? 'pointer-events-none' : ''
+                    className={`flex-shrink-0 snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 ${
+                      isActive
+                        ? 'pointer-events-none w-[min(22rem,88vw)] md:w-[24rem]'
+                        : 'w-[min(19rem,78vw)] md:w-[22rem]'
                     }`}
                     aria-label={`View event ${entry.event.title}`}
                     aria-current={isActive}
                   >
-                    <div className="flex items-center justify-center h-60 md:h-64">
+                    <div className="flex items-center justify-center transition-all duration-300">
                       <div
-                        className={`relative overflow-hidden transition-all duration-300 ${
-                          isActive ? 'h-full w-full' : 'h-[78%] w-[78%] md:h-[80%] md:w-[80%]'
+                        className={`relative mx-auto aspect-[4/3] overflow-hidden transition-all duration-300 ${
+                          isActive ? 'w-full' : 'w-[86%]'
                         }`}
                       >
                         <Image
