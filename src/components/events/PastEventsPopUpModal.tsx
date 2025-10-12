@@ -259,6 +259,23 @@ export default function PastEventsPopUpModal({
         return
       }
 
+      const { scrollLeft, scrollWidth, clientWidth } = container
+      const maxScroll = scrollWidth - clientWidth
+      const edgeThreshold = Math.max(12, clientWidth * 0.05)
+
+      if (scrollLeft <= edgeThreshold) {
+        setCurrentIdx((prev) => (prev === 0 ? prev : 0))
+        updateThumbMetrics()
+        return
+      }
+
+      if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
+        const lastIdx = nodes.length - 1
+        setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
+        updateThumbMetrics()
+        return
+      }
+
       const containerRect = container.getBoundingClientRect()
       const containerCenter = containerRect.left + containerRect.width / 2
 
