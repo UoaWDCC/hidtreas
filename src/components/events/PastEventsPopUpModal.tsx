@@ -32,20 +32,34 @@ export default function PastEventsPopUpModal({
   events: EventType[]
   initialIdx: number
 }) {
+  // Index of the slide currently focused in the carousel
   const [currentIdx, setCurrentIdx] = useState(initialIdx)
+  // Horizontal scroll container for the slide carousel
   const scrollRef = useRef<HTMLDivElement>(null)
+  // Range track element for the custom scrollbar UI
   const trackRef = useRef<HTMLDivElement>(null)
+  // Stores the latest animation frame id while we debounce scroll updates
   const rafRef = useRef<number | null>(null)
+  // Tracks pointer drag state for the scrollbar thumb so drag can continue across events
   const dragStateRef = useRef<DragState | null>(null)
+  // Reference to the modal body for managing scroll positioning
   const modalBodyRef = useRef<HTMLDivElement>(null)
+  // Reference to the description area to center it when expanding text
   const descriptionContainerRef = useRef<HTMLDivElement>(null)
+  // Remember if the current slide's description is expanded to avoid redundant scrolling
   const prevDescriptionExpandedRef = useRef(false)
+  // Keep the slide id for which the description was last expanded
   const prevDescriptionSlideRef = useRef<string | null>(null)
+  // Current size and position of the custom scrollbar thumb
   const [thumbMetrics, setThumbMetrics] = useState<ThumbMetrics>({ width: 0, left: 0 })
+  // Spacer width added at carousel edges to center the active card on small screens
   const [edgeSpacer, setEdgeSpacer] = useState(0)
+  // Track per-slide title expansion state so toggles persist while browsing
   const [expandedTitles, setExpandedTitles] = useState<Record<string, boolean>>({})
+  // Track per-slide description expansion state so toggles persist while browsing
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
 
+  // Helper that cuts text to a maximum length and appends an ellipsis
   const truncate = useCallback((value: string | undefined | null, maxChars: number) => {
     if (!value) {
       return ''
@@ -57,6 +71,7 @@ export default function PastEventsPopUpModal({
     return `${value.slice(0, maxChars - 1).trimEnd()}…`
   }, [])
 
+  // Normalize incoming events data into lightweight slide objects consumed by the carousel
   const slides = useMemo(() => {
     if (!events || events.length === 0) {
       return []
@@ -92,6 +107,7 @@ export default function PastEventsPopUpModal({
     })
   }, [events, truncate])
 
+  // Keeps scroll padding symmetrical so the active card sits centered within the viewport
   const updateScrollPadding = useCallback(() => {
     const container = scrollRef.current
     if (!container) {
@@ -120,6 +136,7 @@ export default function PastEventsPopUpModal({
     setEdgeSpacer((prev) => (Math.abs(prev - padding) > 1 ? padding : prev))
   }, [])
 
+  // Recalculate thumb width/offset so the scrollbar reflects current carousel scroll
   const updateThumbMetrics = useCallback(() => {
     const container = scrollRef.current
     const track = trackRef.current
@@ -147,6 +164,7 @@ export default function PastEventsPopUpModal({
     setThumbMetrics({ width, left })
   }, [])
 
+  // Centers the carousel on a given slide index; used when clicking arrows or cards
   const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const container = scrollRef.current
     if (!container) {
@@ -173,10 +191,12 @@ export default function PastEventsPopUpModal({
     container.scrollTo({ left: clampedTarget, behavior })
   }, [])
 
+  // Recompute scroll padding whenever layout-affecting inputs change
   useEffect(() => {
     updateScrollPadding()
   }, [updateScrollPadding, slides.length, signOpen, currentIdx])
 
+  // Attach resize listener so padding and thumb sizing stay in sync with viewport changes
   useEffect(() => {
     const handleResize = () => {
       updateScrollPadding()
@@ -194,6 +214,7 @@ export default function PastEventsPopUpModal({
     }
   }, [updateScrollPadding, updateThumbMetrics])
 
+  // Cleanup any pending raf or drag state when component unmounts
   useEffect(() => {
     return () => {
       if (rafRef.current !== null && typeof window !== 'undefined') {
@@ -203,6 +224,7 @@ export default function PastEventsPopUpModal({
     }
   }, [])
 
+  // When modal closes, reset expanded title/description state to avoid stale UI next open
   useEffect(() => {
     if (!signOpen) {
       setExpandedTitles({})
@@ -210,6 +232,7 @@ export default function PastEventsPopUpModal({
     }
   }, [signOpen])
 
+  // When modal opens or the initial index changes, clamp and scroll to that slide
   useEffect(() => {
     updateScrollPadding()
 
@@ -228,6 +251,7 @@ export default function PastEventsPopUpModal({
     }
   }, [initialIdx, scrollToIndex, signOpen, slides.length])
 
+  // When slides array length changes, ensure current index stays within bounds
   useEffect(() => {
     if (!slides.length) {
       return
@@ -243,6 +267,7 @@ export default function PastEventsPopUpModal({
     })
   }, [slides.length, updateScrollPadding])
 
+  // Debounced scroll handler that keeps currentIdx aligned with the card closest to center
   const handleScroll = useCallback(() => {
     const container = scrollRef.current
     if (!container) {
@@ -263,12 +288,14 @@ export default function PastEventsPopUpModal({
       const maxScroll = scrollWidth - clientWidth
       const edgeThreshold = Math.max(12, clientWidth * 0.05)
 
+      // Close to the left edge: lock index to the first slide to avoid center mis-detection
       if (scrollLeft <= edgeThreshold) {
         setCurrentIdx((prev) => (prev === 0 ? prev : 0))
         updateThumbMetrics()
         return
       }
 
+      // Close to the right edge: lock index to the final slide
       if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
         const lastIdx = nodes.length - 1
         setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
@@ -303,6 +330,7 @@ export default function PastEventsPopUpModal({
     }
   }, [updateThumbMetrics])
 
+  // Begin drag gesture on scrollbar thumb and cache starting metrics
   const handleThumbPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLDivElement>) => {
       const container = scrollRef.current
@@ -342,6 +370,7 @@ export default function PastEventsPopUpModal({
     [thumbMetrics.left, thumbMetrics.width],
   )
 
+  // Update carousel scroll position while thumb is dragged
   const handleThumbPointerMove = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
     const container = scrollRef.current
     if (!container) {
@@ -364,6 +393,7 @@ export default function PastEventsPopUpModal({
     setThumbMetrics((prev) => ({ ...prev, left: nextThumbLeft }))
   }, [])
 
+  // Release pointer capture and clear drag state at gesture end/cancel
   const handleThumbPointerUp = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
     const dragState = dragStateRef.current
     if (!dragState || dragState.pointerId !== event.pointerId) {
@@ -376,10 +406,12 @@ export default function PastEventsPopUpModal({
     target.releasePointerCapture(event.pointerId)
   }, [])
 
+  // Sync thumb metrics whenever slide count or modal visibility changes
   useEffect(() => {
     updateThumbMetrics()
   }, [slides.length, signOpen, updateThumbMetrics])
 
+  // If the current slide's description is expanded, ensure it remains in view when switching slides
   useEffect(() => {
     const slide = slides[currentIdx]
 
@@ -467,10 +499,12 @@ export default function PastEventsPopUpModal({
       superClassName="bg-black/40 px-4"
       noHeader
     >
+      {/* Scrollable modal body containing slide content and metadata */}
       <div
         ref={modalBodyRef}
         className="relative flex w-full flex-col items-center gap-8 px-6 py-10 md:gap-10 md:px-12 max-h-[85vh] overflow-y-auto"
       >
+        {/* Dismiss modal button */}
         <button
           type="button"
           onClick={() => setSignOpen(false)}
@@ -480,6 +514,7 @@ export default function PastEventsPopUpModal({
           <IconX size={28} />
         </button>
 
+        {/* Headline section: title, date, venue */}
         <div className="flex w-full max-w-3xl flex-col items-center gap-2 text-center">
           <h2
             className={`${!isTitleExpanded ? 'clamp-2' : ''} text-3xl font-black text-[#13384E] md:text-4xl`}
@@ -529,6 +564,7 @@ export default function PastEventsPopUpModal({
           </div>
         </div>
 
+        {/* Carousel of past events with horizontal scroll */}
         <div className="w-full">
           <div className="relative -mx-6 md:-mx-12">
             <div className="pointer-events-none absolute inset-y-0 left-0 z-20 flex items-center pl-2 md:hidden">
@@ -632,6 +668,7 @@ export default function PastEventsPopUpModal({
           </div>
         </div>
 
+        {/* Custom scrollbar control for the carousel (hidden on single slide) */}
         {slides.length > 1 && (
           <div className="flex w-full max-w-3xl items-center">
             <div
@@ -711,6 +748,7 @@ export default function PastEventsPopUpModal({
           </div>
         )}
 
+        {/* Event description with expandable "show more" toggle */}
         <div
           className={`w-full max-w-3xl ${isDescriptionExpanded ? 'text-left' : 'text-center'}`}
           ref={descriptionContainerRef}
