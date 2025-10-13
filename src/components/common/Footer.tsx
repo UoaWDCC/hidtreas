@@ -63,7 +63,7 @@ const links: {
   },
 ]
 
-export default function Footer() {
+export default function Footer({ payloadVersion = false }: { payloadVersion?: boolean }) {
   const [email, setEmail] = useState('')
   const [signOpen, setSignOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
@@ -116,8 +116,10 @@ export default function Footer() {
           <p className="text-lg">SIGN UP NOW!</p>
           <form
             onSubmit={(event) => {
-              setSignOpen(true)
               event.preventDefault()
+              if (!payloadVersion) {
+                setSignOpen(true)
+              }
             }}
           >
             <div
@@ -159,7 +161,10 @@ export default function Footer() {
               {link.items.map((item) => (
                 <p key={item.label} className="text-sm sm:text-base mb-1">
                   {item.icon && <item.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 inline" />}
-                  <a href={item.href} className={item.href ? 'hover:underline' : ''}>
+                  <a
+                    href={payloadVersion ? undefined : item.href}
+                    className={item.href ? 'hover:underline' : ''}
+                  >
                     {item.label}
                   </a>
                 </p>
@@ -178,7 +183,7 @@ export default function Footer() {
                     }}
                   >
                     <a
-                      href={item.href}
+                      href={payloadVersion ? undefined : item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex justify-center items-center w-full h-full"

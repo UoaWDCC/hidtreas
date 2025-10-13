@@ -305,6 +305,14 @@ h1 {
   font-family: var(--font-header);
 }
 
+.payload-preview {
+  --font-k2d: var(--font-k2d, 'K2D', sans-serif);
+  --font-inter: var(--font-inter, 'Inter', sans-serif);
+  --font-default: var(--font-k2d, 'K2D', sans-serif);
+  --font-header: var(--font-inter, 'Inter', sans-serif);
+  font-family: var(--font-default);
+}
+
 @theme {
   --font-k2d: var(--font-k2d, 'K2D', sans-serif);
   --font-inter: var(--font-inter, 'Inter', sans-serif);
