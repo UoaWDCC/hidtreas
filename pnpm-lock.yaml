@@ -23,6 +23,9 @@ importers:
       '@payloadcms/storage-s3':
         specifier: 3.57.0
         version: 3.57.0(@types/react@19.0.12)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.57.0(graphql@16.10.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
+      '@payloadcms/ui':
+        specifier: link:3.57.0
+        version: link:3.57.0
       '@tabler/icons-react':
         specifier: ^3.31.0
         version: 3.31.0(react@19.0.0)

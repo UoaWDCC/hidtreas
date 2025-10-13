@@ -22,6 +22,14 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      views: {
+        PreviewBlog: {
+          Component: 'src/components/blogs/PreviewBlog',
+          path: '/blog-preview/:slug',
+        },
+      },
+    },
   },
   collections: [Users, Media, Blogs, Events, Member],
   editor: lexicalEditor(),
