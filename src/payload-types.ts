@@ -239,7 +239,9 @@ export interface Subscriber {
 export interface EventSubscriber {
   id: string;
   event: string | Event;
-  subscriber: string | Subscriber;
+  email: string;
+  firstName: string;
+  lastName: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -407,7 +409,9 @@ export interface SubscribersSelect<T extends boolean = true> {
  */
 export interface EventSubscribersSelect<T extends boolean = true> {
   event?: T;
-  subscriber?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
   updatedAt?: T;
   createdAt?: T;
 }
