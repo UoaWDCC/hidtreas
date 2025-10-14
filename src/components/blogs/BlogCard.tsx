@@ -1,17 +1,13 @@
 import Image, { StaticImageData } from 'next/image'
-import React, { FunctionComponent } from 'react'
 import Link from 'next/link'
+import React, { FunctionComponent } from 'react'
+import { BlogType } from '@/types/blog'
 
-// TODO: StaticImageData is used for a placeholder image. Confirm later how we want to handle missing images.
 interface Props {
-  title: string
-  description: string
-  imageUrl: string | StaticImageData
-  slug?: string
-  blogId: string // Add blog ID prop
+  blog: BlogType
 }
 
-const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug, blogId }) => {
+const BlogCard: FunctionComponent<Props> = ({ blog }) => {
   return (
     <div
       className="
@@ -21,18 +17,23 @@ const BlogCard: FunctionComponent<Props> = ({ title, description, imageUrl, slug
     >
       {/* Image container */}
       <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
-        <Image src={imageUrl} alt={title} className="object-cover" layout="fill" />
+        <Image
+          src={blog.imageUrl}
+          alt={blog.title}
+          className="object-cover"
+          fill
+        />
       </div>
 
-      {/* Title & Blog Description */}
-      <h1 className="text-3xl font-black self-start mb-2 clamp-2">{title}</h1>
+      <h1 className="text-3xl font-black self-start mb-2 clamp-2">{blog.title}</h1>
 
-      <p className="text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[2rem]">{description}</p>
+      <p className="text-sm text-gray-800 self-start mb-4 clamp-5 min-h-[2rem]">
+        {blog.description}
+      </p>
 
-      {/* Always link to demo page with blog ID */}
       <Link
-        href={`/blogs/demo?id=${blogId}`}
-        className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center"
+        href={`/blogs/${blog.slug}`}
+        className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center inline-block"
       >
         READ MORE
       </Link>

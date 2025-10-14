@@ -73,6 +73,7 @@ export interface Config {
     events: Event;
     subscribers: Subscriber;
     'event-subscribers': EventSubscriber;
+    members: Member;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,6 +86,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>;
+    members: MembersSelect<false> | MembersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -200,6 +202,10 @@ export interface Blog {
    */
   authorName: string;
   image?: (string | null) | Media;
+  /**
+   * Select which layout template to use when rendering this blog.
+   */
+  template: 'template1' | 'template2';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -242,6 +248,14 @@ export interface EventSubscriber {
   email: string;
   firstName: string;
   lastName: string;
+ * via the `definition` "members".
+ */
+export interface Member {
+  id: string;
+  name: string;
+  image?: (string | null) | Media;
+  role: string;
+  pronoun?: ('(he/him)' | '(she/her)' | 'other') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -275,6 +289,8 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'event-subscribers';
         value: string | EventSubscriber;
+        relationTo: 'members';
+        value: string | Member;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -373,6 +389,7 @@ export interface BlogsSelect<T extends boolean = true> {
   content?: T;
   authorName?: T;
   image?: T;
+  template?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -412,6 +429,13 @@ export interface EventSubscribersSelect<T extends boolean = true> {
   email?: T;
   firstName?: T;
   lastName?: T;
+ * via the `definition` "members_select".
+ */
+export interface MembersSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  role?: T;
+  pronoun?: T;
   updatedAt?: T;
   createdAt?: T;
 }

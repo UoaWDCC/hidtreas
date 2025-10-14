@@ -1,41 +1,32 @@
 import React from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
-import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import { getBlogBySlug } from '@/lib/payload/blogs'
-import placeholderImage from '@/assets/groupPic.png'
+import Template1 from '@/components/blogs/templates/Template1'
+import Template2 from '@/components/blogs/templates/Template2'
 
-type Params = {
-  params: { slug: string }
-}
+const templates = {
+  template1: Template1,
+  template2: Template2,
+} as const
 
-export default async function BlogDetailPage({ params }: Params) {
-  const { slug } = params
+export default async function BlogPage({
+                                         params,
+                                       }: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
   const blog = await getBlogBySlug(slug)
+  if (!blog) return notFound()
 
-  // Demo fallback if no blog found
-  const title = blog?.title ?? 'Demo Blog Title'
-  const description = blog?.description ?? 'This is a demo blog description.'
-  const authorName = blog?.authorName ?? 'Hidden Treasure Team'
-  const imageUrl =
-    typeof blog?.image === 'object' && blog?.image?.url ? blog.image.url : placeholderImage
+  const Template = templates[blog.template]
 
   return (
-    <div className={'blog-detail'}>
+    <>
       <Header />
-
-      <article className="px-[2.5rem] lg:px-[7rem] pt-16 pb-16 max-w-5xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">{title}</h1>
-        <p className="text-gray-600 mb-8">By {authorName}</p>
-
-        <div className="w-full h-72 sm:h-96 relative rounded-xl overflow-hidden mb-8">
-          <Image src={imageUrl} alt={title} className="object-cover" layout="fill" />
-        </div>
-
-        <p className="text-lg leading-8">{description}</p>
-      </article>
-
+      <Template blog={blog} />
       <Footer />
-    </div>
+    </>
   )
 }
