@@ -5,17 +5,15 @@ import { notFound } from 'next/navigation'
 import { getBlogBySlug } from '@/lib/payload/blogs'
 import Template1 from '@/components/blogs/templates/Template1'
 import Template2 from '@/components/blogs/templates/Template2'
+import Template3 from '@/components/blogs/templates/Template3'
 
 const templates = {
   template1: Template1,
   template2: Template2,
+  template3: Template3,
 } as const
 
-export default async function BlogPage({
-                                         params,
-                                       }: {
-  params: Promise<{ slug: string }>
-}) {
+export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const blog = await getBlogBySlug(slug)
   if (!blog) return notFound()
