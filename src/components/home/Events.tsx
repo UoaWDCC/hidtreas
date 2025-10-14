@@ -9,17 +9,14 @@ import type { EventType } from '@/types/event'
 export default function Events({ initialEvents }: { initialEvents: EventType[] }) {
   const events = initialEvents
   return (
-    <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
-      <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[70vh] px-4">
+    <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw] overflow-hidden">
+      <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[70vh] px-4 overflow-hidden">
         <div className="relative w-full flex items-center justify-center">
           <Image
             src={backgroundImage}
             alt="Background Image"
             className="w-[90vw] min-w-[500px] h-auto max-w-none"
             priority
-            style={{
-              animation: 'bob 3s ease-in-out infinite 0.3s',
-            }}
           />
         </div>
         {/* Content */}
