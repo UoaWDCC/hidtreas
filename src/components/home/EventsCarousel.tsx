@@ -29,6 +29,13 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
           const overlayVisibilityClasses = isActive
             ? 'opacity-100 pointer-events-auto overflow-y-auto touch-pan-y'
             : 'opacity-0 pointer-events-none'
+          const openResponsiveModal = () => {
+            if (typeof window !== 'undefined' && window.innerWidth < 768) {
+              setGeneralSignOpen(true)
+            } else {
+              setEventSignOpen(true)
+            }
+          }
 
           return (
             <div
@@ -63,7 +70,7 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
                 <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">{event.title}</h1>
                 <h1 className="text-sm sm:text-lg pt-2 pb-2">{event.description}</h1>
                 <button
-                  onClick={() => setEventSignOpen(true)}
+                  onClick={openResponsiveModal}
                   className="px-4 py-2 sm:px-6 sm:py-3 outline-solid font-semibold rounded-lg hover:bg-gray-100 transition hover:cursor-pointer text-sm sm:text-base md:text-lg"
                 >
                   Join Us
