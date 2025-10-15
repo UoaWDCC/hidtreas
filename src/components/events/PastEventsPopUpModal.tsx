@@ -32,8 +32,10 @@ export default function PastEventsPopUpModal({
   events: EventType[]
   initialIdx: number
 }) {
-  // Index of the slide currently focused in the carousel
-  const [currentIdx, setCurrentIdx] = useState(initialIdx)
+  // Index of the event selected when the modal opens
+  const [selectedEventIdx, setSelectedEventIdx] = useState(initialIdx)
+  // Index of the slide currently focused in the carousel (image within the selected event)
+  const [currentIdx, setCurrentIdx] = useState(0)
   // Horizontal scroll container for the slide carousel
   const scrollRef = useRef<HTMLDivElement>(null)
   // Range track element for the custom scrollbar UI
@@ -42,6 +44,8 @@ export default function PastEventsPopUpModal({
   const rafRef = useRef<number | null>(null)
   // Tracks pointer drag state for the scrollbar thumb so drag can continue across events
   const dragStateRef = useRef<DragState | null>(null)
+  // Tracks whether a programmatic scroll is targeting a specific index
+  const programmaticTargetIdxRef = useRef<number | null>(null)
   // Reference to the modal body for managing scroll positioning
   const modalBodyRef = useRef<HTMLDivElement>(null)
   // Reference to the description area to center it when expanding text
@@ -72,42 +76,64 @@ export default function PastEventsPopUpModal({
   }, [])
 
   // Normalize incoming events data into lightweight slide objects consumed by the carousel
+  const selectedEvent = events[selectedEventIdx] ?? null
+
+  useEffect(() => {
+    if (!events.length) {
+      if (selectedEventIdx !== 0) {
+        setSelectedEventIdx(0)
+      }
+      return
+    }
+
+    const clampedIdx = Math.max(0, Math.min(initialIdx, events.length - 1))
+    if (clampedIdx !== selectedEventIdx) {
+      setSelectedEventIdx(clampedIdx)
+    }
+  }, [events.length, initialIdx, selectedEventIdx])
+
   const slides = useMemo(() => {
-    if (!events || events.length === 0) {
+    if (!selectedEvent) {
       return []
     }
 
-    return events.map(({ galleryImages = [], venue, ...event }) => {
-      const gallery = [event.imageUrl, ...galleryImages].filter(Boolean) as (
-        | string
-        | StaticImageData
-      )[]
-      const originalTitle = event.title ?? ''
-      const originalDescription = event.description ?? ''
-      const titleNeedsTruncation = originalTitle.length > 72
-      const descriptionNeedsTruncation = originalDescription.length > 420
+    const { galleryImages = [], venue, ...event } = selectedEvent
+    const primaryImage = selectedEvent.imageUrl || PlaceholderImage
+    const gallery = [primaryImage, ...galleryImages].filter(Boolean) as (string | StaticImageData)[]
+    const originalTitle = event.title ?? ''
+    const originalDescription = event.description ?? ''
+    const titleNeedsTruncation = originalTitle.length > 72
+    const descriptionNeedsTruncation = originalDescription.length > 420
 
-      const truncatedTitle = titleNeedsTruncation ? truncate(originalTitle, 72) : originalTitle
-      const truncatedDescription = descriptionNeedsTruncation
-        ? truncate(originalDescription, 420)
-        : originalDescription
+    const truncatedTitle = titleNeedsTruncation ? truncate(originalTitle, 72) : originalTitle
+    const truncatedDescription = descriptionNeedsTruncation
+      ? truncate(originalDescription, 420)
+      : originalDescription
 
-      return {
-        event: {
-          ...event,
-          venue,
-        },
-        gallery,
-        originalTitle,
-        originalDescription,
-        truncatedTitle,
-        truncatedDescription,
+    return gallery.map((image, index) => ({
+      event: {
+        ...event,
         venue,
-        isTitleTruncated: titleNeedsTruncation,
-        isDescriptionTruncated: descriptionNeedsTruncation,
-      }
-    })
-  }, [events, truncate])
+      },
+      image,
+      originalTitle,
+      originalDescription,
+      truncatedTitle,
+      truncatedDescription,
+      venue,
+      isTitleTruncated: titleNeedsTruncation,
+      isDescriptionTruncated: descriptionNeedsTruncation,
+      imageIndex: index,
+    }))
+  }, [selectedEvent, truncate])
+
+  useEffect(() => {
+    if (!signOpen) {
+      return
+    }
+
+    setCurrentIdx(0)
+  }, [selectedEventIdx, signOpen])
 
   // Keeps scroll padding symmetrical so the active card sits centered within the viewport
   const updateScrollPadding = useCallback(() => {
@@ -166,6 +192,71 @@ export default function PastEventsPopUpModal({
     setThumbMetrics({ width, left })
   }, [])
 
+  const updateCurrentIndexFromScroll = useCallback(
+    (container: HTMLDivElement) => {
+      const programmaticTarget = programmaticTargetIdxRef.current
+      if (programmaticTarget !== null) {
+        const slidesEls = container.querySelectorAll<HTMLElement>('[data-slide-item="true"]')
+        const targetSlide = slidesEls[programmaticTarget]
+        if (targetSlide) {
+          const containerRect = container.getBoundingClientRect()
+          const containerCenter = containerRect.left + containerRect.width / 2
+          const rect = targetSlide.getBoundingClientRect()
+          const nodeCenter = rect.left + rect.width / 2
+
+          if (Math.abs(containerCenter - nodeCenter) <= Math.max(1, rect.width * 0.05)) {
+            programmaticTargetIdxRef.current = null
+            setCurrentIdx(programmaticTarget)
+            updateThumbMetrics()
+          }
+          return
+        }
+      }
+
+      const nodes = Array.from(container.querySelectorAll<HTMLElement>('[data-slide-item="true"]'))
+      if (!nodes.length) {
+        return
+      }
+
+      const { scrollLeft, scrollWidth, clientWidth } = container
+      const maxScroll = scrollWidth - clientWidth
+      const edgeThreshold = Math.max(12, clientWidth * 0.05)
+
+      if (scrollLeft <= edgeThreshold) {
+        setCurrentIdx((prev) => (prev === 0 ? prev : 0))
+        updateThumbMetrics()
+        return
+      }
+
+      if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
+        const lastIdx = nodes.length - 1
+        setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
+        updateThumbMetrics()
+        return
+      }
+
+      const containerRect = container.getBoundingClientRect()
+      const containerCenter = containerRect.left + containerRect.width / 2
+
+      let closestIdx = 0
+      let closestDistance = Number.POSITIVE_INFINITY
+
+      nodes.forEach((node, index) => {
+        const rect = node.getBoundingClientRect()
+        const nodeCenter = rect.left + rect.width / 2
+        const distance = Math.abs(containerCenter - nodeCenter)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestIdx = index
+        }
+      })
+
+      setCurrentIdx((prev) => (prev === closestIdx ? prev : closestIdx))
+      updateThumbMetrics()
+    },
+    [updateThumbMetrics],
+  )
+
   // Centers the carousel on a given slide index; used when clicking arrows or cards
   const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
     const container = scrollRef.current
@@ -190,6 +281,7 @@ export default function PastEventsPopUpModal({
     const targetLeft = child.offsetLeft - (container.clientWidth - childWidth) / 2
     const clampedTarget = Math.min(Math.max(targetLeft, 0), scrollRange)
 
+    programmaticTargetIdxRef.current = index
     container.scrollTo({ left: clampedTarget, behavior })
   }, [])
 
@@ -242,16 +334,13 @@ export default function PastEventsPopUpModal({
       return
     }
 
-    const clampedIdx = Math.max(0, Math.min(initialIdx, slides.length - 1))
-    setCurrentIdx(clampedIdx)
-
-    const scheduleScroll = () => scrollToIndex(clampedIdx, 'auto')
+    const scheduleScroll = () => scrollToIndex(currentIdx, 'auto')
     if (typeof window !== 'undefined') {
       window.requestAnimationFrame(scheduleScroll)
     } else {
       scheduleScroll()
     }
-  }, [initialIdx, scrollToIndex, signOpen, slides.length])
+  }, [currentIdx, scrollToIndex, signOpen, slides.length, updateScrollPadding])
 
   // When slides array length changes, ensure current index stays within bounds
   useEffect(() => {
@@ -280,57 +369,14 @@ export default function PastEventsPopUpModal({
       window.cancelAnimationFrame(rafRef.current)
     }
 
-    const updateCurrentIndex = () => {
-      const nodes = Array.from(container.querySelectorAll<HTMLElement>('[data-slide-item="true"]'))
-      if (!nodes.length) {
-        return
-      }
-
-      const { scrollLeft, scrollWidth, clientWidth } = container
-      const maxScroll = scrollWidth - clientWidth
-      const edgeThreshold = Math.max(12, clientWidth * 0.05)
-
-      // Close to the left edge: lock index to the first slide to avoid center mis-detection
-      if (scrollLeft <= edgeThreshold) {
-        setCurrentIdx((prev) => (prev === 0 ? prev : 0))
-        updateThumbMetrics()
-        return
-      }
-
-      // Close to the right edge: lock index to the final slide
-      if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
-        const lastIdx = nodes.length - 1
-        setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
-        updateThumbMetrics()
-        return
-      }
-
-      const containerRect = container.getBoundingClientRect()
-      const containerCenter = containerRect.left + containerRect.width / 2
-
-      let closestIdx = 0
-      let closestDistance = Number.POSITIVE_INFINITY
-
-      nodes.forEach((node, index) => {
-        const rect = node.getBoundingClientRect()
-        const nodeCenter = rect.left + rect.width / 2
-        const distance = Math.abs(containerCenter - nodeCenter)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          closestIdx = index
-        }
-      })
-
-      setCurrentIdx((prev) => (prev === closestIdx ? prev : closestIdx))
-      updateThumbMetrics()
-    }
-
     if (typeof window !== 'undefined') {
-      rafRef.current = window.requestAnimationFrame(updateCurrentIndex)
+      rafRef.current = window.requestAnimationFrame(() => {
+        updateCurrentIndexFromScroll(container)
+      })
     } else {
-      updateCurrentIndex()
+      updateCurrentIndexFromScroll(container)
     }
-  }, [updateThumbMetrics])
+  }, [updateCurrentIndexFromScroll])
 
   // Begin drag gesture on scrollbar thumb and cache starting metrics
   const handleThumbPointerDown = useCallback(
@@ -557,10 +603,10 @@ export default function PastEventsPopUpModal({
                 year: 'numeric',
               })}
             </span>
-            {slide.event.venue && (
+            {selectedEvent?.venue && (
               <span className="flex items-center gap-2">
                 <span className="h-1 w-1 rounded-full bg-[#13384E]/40" />
-                VENUE: {slide.event.venue}
+                VENUE: {selectedEvent.venue}
               </span>
             )}
           </div>
@@ -578,7 +624,7 @@ export default function PastEventsPopUpModal({
                   scrollToIndex(nextIdx)
                 }}
                 className="pointer-events-auto flex items-center justify-center p-1 transition disabled:opacity-40"
-                aria-label="Previous event"
+                aria-label="Previous image"
                 disabled={currentIdx === 0}
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
@@ -596,13 +642,13 @@ export default function PastEventsPopUpModal({
               )}
 
               {slides.map((entry, index) => {
-                const image = entry.gallery[0] ?? PlaceholderImage
+                const image = entry.image ?? PlaceholderImage
                 const isActive = index === currentIdx
 
                 return (
                   <button
                     data-slide-item="true"
-                    key={entry.event.id}
+                    key={`${entry.event.id}-${entry.imageIndex}`}
                     type="button"
                     onClick={() => {
                       setCurrentIdx(index)
@@ -613,7 +659,7 @@ export default function PastEventsPopUpModal({
                         ? 'pointer-events-none max-w-[23rem] md:max-w-none md:w-[23rem]'
                         : 'max-w-[20rem] md:max-w-none md:w-[21rem]'
                     }`}
-                    aria-label={`View event ${entry.event.title}`}
+                    aria-label={`View image ${index + 1} for ${entry.event.title}`}
                     aria-current={isActive}
                   >
                     <div className="flex items-center justify-center transition-all duration-300">
@@ -633,15 +679,7 @@ export default function PastEventsPopUpModal({
                         />
                       </div>
                     </div>
-                    <span
-                      className={`mt-3 block text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#13384E]/70 md:text-sm ${
-                        isActive ? 'text-[#13384E]' : ''
-                      }`}
-                    >
-                      {(entry.venue ?? entry.event.venue)
-                        ? `VENUE: ${entry.venue ?? entry.event.venue}`
-                        : 'VENUE: TBA'}
-                    </span>
+                    <span className="mt-3 block h-2" />
                   </button>
                 )
               })}
@@ -659,7 +697,7 @@ export default function PastEventsPopUpModal({
                   scrollToIndex(nextIdx)
                 }}
                 className="pointer-events-auto flex items-center justify-center p-1 transition disabled:opacity-40"
-                aria-label="Next event"
+                aria-label="Next image"
                 disabled={currentIdx >= slides.length - 1}
               >
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
