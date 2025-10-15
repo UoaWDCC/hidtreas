@@ -72,6 +72,8 @@ export interface Config {
     blogs: Blog;
     events: Event;
     members: Member;
+    homePageImages: HomePageImage;
+    aboutPageImages: AboutPageImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +85,8 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
+    homePageImages: HomePageImagesSelect<false> | HomePageImagesSelect<true>;
+    aboutPageImages: AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -237,6 +241,28 @@ export interface Member {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homePageImages".
+ */
+export interface HomePageImage {
+  id: string;
+  title: string;
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageImages".
+ */
+export interface AboutPageImage {
+  id: string;
+  title: string;
+  image?: (string | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -261,6 +287,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'members';
         value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'homePageImages';
+        value: string | HomePageImage;
+      } | null)
+    | ({
+        relationTo: 'aboutPageImages';
+        value: string | AboutPageImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -388,6 +422,26 @@ export interface MembersSelect<T extends boolean = true> {
   image?: T;
   role?: T;
   pronoun?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homePageImages_select".
+ */
+export interface HomePageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "aboutPageImages_select".
+ */
+export interface AboutPageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
