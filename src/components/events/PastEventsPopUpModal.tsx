@@ -77,9 +77,11 @@ export default function PastEventsPopUpModal({
       return []
     }
 
-    return events.map(({ galleryImages, venue, ...event }) => {
-      const additionalImages = (galleryImages ?? []).filter(Boolean) as (string | StaticImageData)[]
-      const gallery = [event.imageUrl, ...additionalImages]
+    return events.map(({ galleryImages = [], venue, ...event }) => {
+      const gallery = [event.imageUrl, ...galleryImages].filter(Boolean) as (
+        | string
+        | StaticImageData
+      )[]
       const originalTitle = event.title ?? ''
       const originalDescription = event.description ?? ''
       const titleNeedsTruncation = originalTitle.length > 72

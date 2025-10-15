@@ -1,18 +1,55 @@
 'use client'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/recent_events_koru.png'
 import KiwiBird from '@/assets/kiwiBird.svg'
 import { Kosugi_Maru } from 'next/font/google'
 import type { EventType } from '@/types/event'
+import Modal from '@/components/common/Modal'
+import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
 
 const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400' })
 
 export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
+  const [galleryOpen, setGalleryOpen] = useState(false)
+  const [activeEventId, setActiveEventId] = useState<string | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
   const events = initialEvents
   const eventNames = events.map((e) => e.title)
+
+  const activeEvent = useMemo(
+    () => events.find((event) => event.id === activeEventId) ?? null,
+    [activeEventId, events],
+  )
+
+  const activeGallery = activeEvent
+    ? [activeEvent.imageUrl, ...activeEvent.galleryImages].filter(Boolean)
+    : []
+
+  const openGallery = (eventId: string, index = 0) => {
+    setActiveEventId(eventId)
+    setActiveIndex(index)
+    setGalleryOpen(true)
+  }
+
+  const closeGallery = () => {
+    setGalleryOpen(false)
+    setActiveEventId(null)
+    setActiveIndex(0)
+  }
+
+  const goToNext = () => {
+    if (!activeGallery.length) return
+    setActiveIndex((prev) => (prev + 1) % activeGallery.length)
+  }
+
+  const goToPrev = () => {
+    if (!activeGallery.length) return
+    setActiveIndex((prev) => (prev - 1 + activeGallery.length) % activeGallery.length)
+  }
 
   return (
     <>
@@ -48,7 +85,16 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                 alt={event.title}
                 width={400}
                 height={300}
-                className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg"
+                className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg cursor-pointer"
+                onClick={() => openGallery(event.id)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    openGallery(event.id)
+                  }
+                }}
               />
               <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
                 {event.date.toLocaleDateString('en-NZ', {
@@ -57,6 +103,16 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                   year: 'numeric',
                 })}
               </div>
+              <button
+                type="button"
+                onClick={() => openGallery(event.id)}
+                className="absolute bottom-[0.45rem] left-1/2 -translate-x-1/2 inline-flex items-center justify-center cursor-pointer sm:bottom-3"
+                aria-label={`Open image gallery for ${event.title}`}
+              >
+                <span className="rounded-full bg-white/85 px-[0.36rem] py-[0.16rem] text-center text-[0.48rem] font-semibold uppercase tracking-[0.1em] text-[#13384E] shadow-sm transition hover:bg-white leading-[0.52rem] sm:px-2.5 sm:py-[0.2rem] sm:text-[0.65rem] sm:tracking-[0.2em] sm:leading-tight">
+                  Tap to see images
+                </span>
+              </button>
               {/* Decoration: red circle (first) or kiwi (second) */}
               {idx === 0 ? (
                 <div className="absolute rounded-full bg-[#eb5454] w-8 h-8 bottom-[-16px] left-[-16px] md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px] lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px]" />
@@ -91,6 +147,94 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
       </section>
 
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} eventOptions={eventNames} />
+
+      <Modal
+        open={galleryOpen}
+        onClose={closeGallery}
+        noHeader
+        className="w-full max-w-3xl !bg-[#FFF8F3] p-6 rounded-3xl shadow-2xl"
+        superClassName="bg-black/60"
+      >
+        <Modal.Body className="p-0">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={closeGallery}
+              className="absolute text-[#13384E] transition hover:text-[#0b2433]"
+              style={{ top: '-0.75rem', right: '-0.75rem' }}
+              aria-label="Close gallery"
+            >
+              <IconX size={28} />
+            </button>
+
+            {activeEvent && (
+              <h3 className="mb-6 text-center text-2xl font-semibold text-[#13384E]">
+                {activeEvent.title}
+              </h3>
+            )}
+
+            <div className="relative">
+              <div className="relative mx-auto aspect-[4/3] w-full max-w-2xl overflow-hidden rounded-2xl bg-black/5">
+                {activeGallery.length > 0 && (
+                  <Image
+                    src={activeGallery[activeIndex] || ''}
+                    alt={activeEvent?.title ?? 'Event image'}
+                    fill
+                    sizes="(max-width: 768px) 90vw, 640px"
+                    className="object-cover"
+                  />
+                )}
+              </div>
+
+              {activeGallery.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={goToPrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-[#13384E] shadow transition hover:bg-white"
+                    aria-label="Previous image"
+                  >
+                    <IconChevronLeft size={28} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goToNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-[#13384E] shadow transition hover:bg-white"
+                    aria-label="Next image"
+                  >
+                    <IconChevronRight size={28} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {activeGallery.length > 1 && (
+              <div className="mt-6 flex justify-center gap-1 md:gap-1.5">
+                {activeGallery.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setActiveIndex(index)}
+                    className="inline-flex h-7 w-7 items-center justify-center p-0"
+                    aria-label={`Go to image ${index + 1}`}
+                    style={{ backgroundColor: 'transparent' }}
+                  >
+                    <span
+                      className="block rounded-full transition"
+                      style={{
+                        width: index === activeIndex ? '0.7rem' : '0.5rem',
+                        height: index === activeIndex ? '0.7rem' : '0.5rem',
+                        backgroundColor:
+                          index === activeIndex ? '#13384E' : 'rgba(19, 56, 78, 0.35)',
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
