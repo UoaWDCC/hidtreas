@@ -72,8 +72,8 @@ export interface Config {
     blogs: Blog;
     events: Event;
     members: Member;
-    homePageImages: HomePageImage;
-    aboutPageImages: AboutPageImage;
+    'home-page-images': HomePageImage;
+    'about-page-images': AboutPageImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -85,8 +85,8 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
-    homePageImages: HomePageImagesSelect<false> | HomePageImagesSelect<true>;
-    aboutPageImages: AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
+    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>;
+    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -241,23 +241,32 @@ export interface Member {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "homePageImages".
+ * via the `definition` "home-page-images".
  */
 export interface HomePageImage {
   id: string;
   title: string;
-  image?: (string | null) | Media;
+  image: string | Media;
+  /**
+   * Where should this image appear on the home page?
+   */
+  placement: 'hero' | 'whoWeAre' | 'whatWeDo';
+  alt: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "aboutPageImages".
+ * via the `definition` "about-page-images".
  */
 export interface AboutPageImage {
   id: string;
-  title: string;
-  image?: (string | null) | Media;
+  image: string | Media;
+  /**
+   * Where should this image appear on the about page?
+   */
+  placement: 'hero' | 'description-1' | 'description-2' | 'quote';
+  alt: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -289,11 +298,11 @@ export interface PayloadLockedDocument {
         value: string | Member;
       } | null)
     | ({
-        relationTo: 'homePageImages';
+        relationTo: 'home-page-images';
         value: string | HomePageImage;
       } | null)
     | ({
-        relationTo: 'aboutPageImages';
+        relationTo: 'about-page-images';
         value: string | AboutPageImage;
       } | null);
   globalSlug?: string | null;
@@ -427,21 +436,24 @@ export interface MembersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "homePageImages_select".
+ * via the `definition` "home-page-images_select".
  */
 export interface HomePageImagesSelect<T extends boolean = true> {
   title?: T;
   image?: T;
+  placement?: T;
+  alt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "aboutPageImages_select".
+ * via the `definition` "about-page-images_select".
  */
 export interface AboutPageImagesSelect<T extends boolean = true> {
-  title?: T;
   image?: T;
+  placement?: T;
+  alt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

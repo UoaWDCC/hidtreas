@@ -2,7 +2,7 @@ import { isEditorOrAdmin } from '@/access/UserAccess'
 import type { CollectionConfig } from 'payload'
 
 export const HomePageImages: CollectionConfig = {
-  slug: 'homePageImages',
+  slug: 'home-page-images',
   admin: {
     useAsTitle: 'title',
   },
@@ -20,8 +20,27 @@ export const HomePageImages: CollectionConfig = {
     },
     {
       name: 'image',
-      type: 'relationship',
+      type: 'upload',
       relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'placement',
+      type: 'select',
+      options: [
+        { label: 'Hero Section', value: 'hero' },
+        { label: 'Who We Are', value: 'whoWeAre' },
+        { label: 'What we do', value: 'whatWeDo' },
+      ],
+      required: true,
+      admin: {
+        description: 'Where should this image appear on the home page?',
+      },
+    },
+    {
+      name: 'alt',
+      type: 'text',
+      required: true,
     },
   ],
 }
