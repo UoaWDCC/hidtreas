@@ -19,6 +19,7 @@ type DragState = {
   thumbWidth: number
   maxThumbOffset: number
   scrollRange: number
+  scrollMin: number
 }
 
 export default function PastEventsPopUpModal({
@@ -36,6 +37,7 @@ export default function PastEventsPopUpModal({
   const [selectedEventIdx, setSelectedEventIdx] = useState(initialIdx)
   // Index of the slide currently focused in the carousel (image within the selected event)
   const [currentIdx, setCurrentIdx] = useState(0)
+  const currentIdxRef = useRef(currentIdx)
   // Horizontal scroll container for the slide carousel
   const scrollRef = useRef<HTMLDivElement>(null)
   // Range track element for the custom scrollbar UI
@@ -56,12 +58,14 @@ export default function PastEventsPopUpModal({
   const prevDescriptionSlideRef = useRef<string | null>(null)
   // Current size and position of the custom scrollbar thumb
   const [thumbMetrics, setThumbMetrics] = useState<ThumbMetrics>({ width: 0, left: 0 })
+  const [isThumbDragging, setIsThumbDragging] = useState(false)
   // Spacer width added at carousel edges to center the active card on small screens
   const [edgeSpacer, setEdgeSpacer] = useState(0)
   // Track per-slide title expansion state so toggles persist while browsing
   const [expandedTitles, setExpandedTitles] = useState<Record<string, boolean>>({})
   // Track per-slide description expansion state so toggles persist while browsing
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
+  const scrollBoundsRef = useRef<{ min: number; max: number }>({ min: 0, max: 0 })
 
   // Helper that cuts text to a maximum length and appends an ellipsis
   const truncate = useCallback((value: string | undefined | null, maxChars: number) => {
@@ -128,6 +132,10 @@ export default function PastEventsPopUpModal({
   }, [selectedEvent, truncate])
 
   useEffect(() => {
+    currentIdxRef.current = currentIdx
+  }, [currentIdx])
+
+  useEffect(() => {
     if (!signOpen) {
       return
     }
@@ -136,7 +144,43 @@ export default function PastEventsPopUpModal({
   }, [selectedEventIdx, signOpen])
 
   // Keeps scroll padding symmetrical so the active card sits centered within the viewport
+  const computeScrollBounds = useCallback(() => {
+    const container = scrollRef.current
+    if (!container) {
+      scrollBoundsRef.current = { min: 0, max: 0 }
+      return
+    }
+
+    const slidesEls = container.querySelectorAll<HTMLElement>('[data-slide-item="true"]')
+    if (!slidesEls.length) {
+      scrollBoundsRef.current = { min: 0, max: 0 }
+      return
+    }
+
+    const scrollableWidth = container.scrollWidth - container.clientWidth
+    if (scrollableWidth <= 0) {
+      scrollBoundsRef.current = { min: 0, max: 0 }
+      return
+    }
+
+    const computeTarget = (slide: HTMLElement) => {
+      const slideWidth = slide.offsetWidth
+      const targetLeft = slide.offsetLeft - (container.clientWidth - slideWidth) / 2
+      return Math.min(Math.max(targetLeft, 0), scrollableWidth)
+    }
+
+    const firstTarget = computeTarget(slidesEls[0])
+    const lastTarget = computeTarget(slidesEls[slidesEls.length - 1])
+
+    scrollBoundsRef.current = {
+      min: Math.min(firstTarget, lastTarget),
+      max: Math.max(firstTarget, lastTarget),
+    }
+  }, [])
+
   const updateScrollPadding = useCallback(() => {
+    computeScrollBounds()
+
     const container = scrollRef.current
     if (!container) {
       return
@@ -162,10 +206,12 @@ export default function PastEventsPopUpModal({
     container.style.scrollPaddingRight = `${padding}px`
 
     setEdgeSpacer((prev) => (Math.abs(prev - padding) > 1 ? padding : prev))
-  }, [])
+  }, [computeScrollBounds])
 
   // Recalculate thumb width/offset so the scrollbar reflects current carousel scroll
   const updateThumbMetrics = useCallback(() => {
+    computeScrollBounds()
+
     const container = scrollRef.current
     const track = trackRef.current
     if (!container || !track) {
@@ -186,11 +232,24 @@ export default function PastEventsPopUpModal({
 
     const ratio = clientWidth / scrollWidth
     const width = Math.max(Math.min(ratio * trackWidth, trackWidth * 0.5), 16)
-    const maxThumbOffset = trackWidth - width
-    const left = (scrollLeft / maxScroll) * maxThumbOffset
+    const maxThumbOffset = Math.max(trackWidth - width, 0)
 
-    setThumbMetrics({ width, left })
-  }, [])
+    const { min, max } = scrollBoundsRef.current
+    const effectiveRange = Math.max(max - min, 0)
+
+    if (maxThumbOffset === 0 || effectiveRange <= 0) {
+      setThumbMetrics({ width: trackWidth, left: 0 })
+      return
+    }
+
+    const rawProgress = (scrollLeft - min) / effectiveRange
+    const clampedProgress = Math.min(Math.max(rawProgress, 0), 1)
+    const left = clampedProgress * maxThumbOffset
+    const snappedLeft =
+      clampedProgress <= 0.02 ? 0 : clampedProgress >= 0.98 ? maxThumbOffset : left
+
+    setThumbMetrics({ width, left: Math.round(snappedLeft) })
+  }, [computeScrollBounds])
 
   const updateCurrentIndexFromScroll = useCallback(
     (container: HTMLDivElement) => {
@@ -328,19 +387,23 @@ export default function PastEventsPopUpModal({
 
   // When modal opens or the initial index changes, clamp and scroll to that slide
   useEffect(() => {
-    updateScrollPadding()
-
-    if (!slides.length || !signOpen) {
+    if (!signOpen) {
       return
     }
 
-    const scheduleScroll = () => scrollToIndex(currentIdx, 'auto')
+    updateScrollPadding()
+
+    if (!slides.length) {
+      return
+    }
+
+    const scheduleScroll = () => scrollToIndex(currentIdxRef.current, 'auto')
     if (typeof window !== 'undefined') {
       window.requestAnimationFrame(scheduleScroll)
     } else {
       scheduleScroll()
     }
-  }, [currentIdx, scrollToIndex, signOpen, slides.length, updateScrollPadding])
+  }, [scrollToIndex, signOpen, slides.length, selectedEventIdx, updateScrollPadding])
 
   // When slides array length changes, ensure current index stays within bounds
   useEffect(() => {
@@ -392,15 +455,19 @@ export default function PastEventsPopUpModal({
       const pointerId = event.pointerId
       const startX = event.clientX
 
-      const { scrollWidth, clientWidth } = container
-      const maxScroll = scrollWidth - clientWidth
-      if (maxScroll <= 0) {
+      const { min, max } = scrollBoundsRef.current
+      const effectiveRange = Math.max(max - min, 0)
+      if (effectiveRange <= 0) {
         return
       }
 
       const trackWidth = track.clientWidth
       const thumbWidth = thumbMetrics.width
-      const maxThumbOffset = trackWidth - thumbWidth
+      const maxThumbOffset = Math.max(trackWidth - thumbWidth, 0)
+
+      if (maxThumbOffset <= 0) {
+        return
+      }
 
       dragStateRef.current = {
         pointerId,
@@ -409,11 +476,13 @@ export default function PastEventsPopUpModal({
         trackWidth,
         thumbWidth,
         maxThumbOffset,
-        scrollRange: maxScroll,
+        scrollRange: effectiveRange,
+        scrollMin: min,
       }
 
       const target = event.currentTarget
       target.setPointerCapture(pointerId)
+      setIsThumbDragging(true)
     },
     [thumbMetrics.left, thumbMetrics.width],
   )
@@ -437,7 +506,7 @@ export default function PastEventsPopUpModal({
     )
 
     const ratio = nextThumbLeft / dragState.maxThumbOffset
-    container.scrollLeft = ratio * dragState.scrollRange
+    container.scrollLeft = dragState.scrollMin + ratio * dragState.scrollRange
     setThumbMetrics((prev) => ({ ...prev, left: nextThumbLeft }))
   }, [])
 
@@ -452,6 +521,7 @@ export default function PastEventsPopUpModal({
 
     const target = event.currentTarget
     target.releasePointerCapture(event.pointerId)
+    setIsThumbDragging(false)
   }, [])
 
   // Sync thumb metrics whenever slide count or modal visibility changes
@@ -635,7 +705,9 @@ export default function PastEventsPopUpModal({
             <div
               ref={scrollRef}
               onScroll={handleScroll}
-              className="flex w-full snap-x snap-mandatory items-center gap-6 overflow-x-auto scroll-smooth px-6 pb-6 pt-2 md:pl-16 md:pr-12 no-scrollbar"
+              className={`flex w-full items-center gap-6 overflow-x-auto px-6 pb-6 pt-2 md:pl-16 md:pr-12 no-scrollbar ${
+                isThumbDragging ? 'snap-none scroll-auto' : 'snap-x snap-mandatory scroll-smooth'
+              }`}
             >
               {edgeSpacer > 0 && (
                 <div aria-hidden className="flex-shrink-0" style={{ width: `${edgeSpacer}px` }} />
