@@ -53,7 +53,17 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
                   toggleActive()
                 }
               }}
-              className="group flex-shrink-0 w-[60vw] sm:w-[44vw] md:w-[28vw] lg:w-[24vw] max-w-[360px] md:max-w-none md:min-w-[280px] lg:min-w-[320px] h-auto min-h-[28vh] sm:min-h-[50vh] md:min-h-[32vh] snap-center relative rounded-xl overflow-hidden shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#13384e]"
+              onMouseLeave={() => {
+                if (activeCard === event.id) {
+                  setActiveCard(null)
+                }
+              }}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                  setActiveCard(null)
+                }
+              }}
+              className="group flex-shrink-0 w-[60vw] sm:w-[44vw] md:w-[28vw] lg:w-[24vw] max-w-[360px] md:max-w-none md|min-w-[280px] lg:min-w-[320px] h-auto min-h-[28vh] sm:min-h-[50vh] md:min-h-[32vh] snap-center relative rounded-xl overflow-hidden shadow-lg cursor-default focus:outline-none"
             >
               {/* Image */}
               <Image src={event.imageUrl || ''} alt={event.title} fill className="object-cover" />
