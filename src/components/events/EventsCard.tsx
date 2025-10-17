@@ -47,7 +47,12 @@ export default function EventsCard({
       </div>
 
       <div className="flex flex-col justify-center items-center gap-y-2">
-        <div className="relative flex justify-center items-center">
+        <button
+          type="button"
+          onClick={onOpenModal}
+          className="relative flex justify-center items-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#13384E]"
+          aria-label={`Open event recap for ${event.title}`}
+        >
           <Image
             src={event.imageUrl}
             alt={event.title}
@@ -55,10 +60,10 @@ export default function EventsCard({
             height={140}
             className="w-[210px] h-[140px] object-cover rounded-lg"
           />
-          <p className="absolute text-xs rotate-270 origin-left -left-[8px] top-32 whitespace-nowrap">
+          <p className="absolute text-xs rotate-270 origin-left -left-[8px] top-32 whitespace-nowrap pointer-events-none">
             HOSTED BY: {event.hostedBy}
           </p>
-        </div>
+        </button>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#13384E]">
           VENUE: {event.venue ?? 'TBA'}
         </p>

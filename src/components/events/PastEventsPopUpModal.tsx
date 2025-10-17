@@ -66,6 +66,14 @@ export default function PastEventsPopUpModal({
   // Track per-slide description expansion state so toggles persist while browsing
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
   const scrollBoundsRef = useRef<{ min: number; max: number }>({ min: 0, max: 0 })
+  const touchSwipeRef = useRef<{
+    pointerId: number | null
+    startX: number
+    lastX: number
+    startScrollLeft: number
+    startIdx: number
+    isActive: boolean
+  }>({ pointerId: null, startX: 0, lastX: 0, startScrollLeft: 0, startIdx: 0, isActive: false })
 
   // Helper that cuts text to a maximum length and appends an ellipsis
   const truncate = useCallback((value: string | undefined | null, maxChars: number) => {
@@ -344,6 +352,41 @@ export default function PastEventsPopUpModal({
     container.scrollTo({ left: clampedTarget, behavior })
   }, [])
 
+  const snapToNearestSlide = useCallback(() => {
+    const container = scrollRef.current
+    if (!container) {
+      return
+    }
+
+    const slidesEls = container.querySelectorAll<HTMLElement>('[data-slide-item="true"]')
+    if (!slidesEls.length) {
+      return
+    }
+
+    const containerRect = container.getBoundingClientRect()
+    const containerCenter = containerRect.left + containerRect.width / 2
+
+    let closestIdx = 0
+    let closestDistance = Number.POSITIVE_INFINITY
+
+    slidesEls.forEach((slide, index) => {
+      const rect = slide.getBoundingClientRect()
+      const nodeCenter = rect.left + rect.width / 2
+      const distance = Math.abs(containerCenter - nodeCenter)
+
+      if (distance < closestDistance) {
+        closestDistance = distance
+        closestIdx = index
+      }
+    })
+
+    if (currentIdxRef.current !== closestIdx) {
+      setCurrentIdx(closestIdx)
+    }
+
+    scrollToIndex(closestIdx)
+  }, [scrollToIndex])
+
   // Recompute scroll padding whenever layout-affecting inputs change
   useEffect(() => {
     updateScrollPadding()
@@ -382,6 +425,31 @@ export default function PastEventsPopUpModal({
     if (!signOpen) {
       setExpandedTitles({})
       setExpandedDescriptions({})
+    }
+  }, [signOpen])
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return
+    }
+
+    if (!signOpen) {
+      return
+    }
+
+    const body = document.body
+    const originalOverflow = body.style.overflow
+    const originalPaddingRight = body.style.paddingRight
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
+
+    body.style.overflow = 'hidden'
+    if (scrollBarWidth > 0) {
+      body.style.paddingRight = `${scrollBarWidth}px`
+    }
+
+    return () => {
+      body.style.overflow = originalOverflow
+      body.style.paddingRight = originalPaddingRight
     }
   }, [signOpen])
 
@@ -705,6 +773,112 @@ export default function PastEventsPopUpModal({
             <div
               ref={scrollRef}
               onScroll={handleScroll}
+              onTouchStart={(event) => {
+                const touch = event.touches[0]
+                if (!touch) {
+                  return
+                }
+
+                touchSwipeRef.current = {
+                  pointerId: null,
+                  startX: touch.clientX,
+                  lastX: touch.clientX,
+                  startScrollLeft: scrollRef.current ? scrollRef.current.scrollLeft : 0,
+                  startIdx: currentIdx,
+                  isActive: true,
+                }
+              }}
+              onTouchMove={(event) => {
+                const swipeState = touchSwipeRef.current
+                if (!swipeState.isActive) {
+                  return
+                }
+
+                const touch = event.touches[0]
+                if (!touch) {
+                  return
+                }
+
+                swipeState.lastX = touch.clientX
+              }}
+              onTouchEnd={(event) => {
+                const swipeState = touchSwipeRef.current
+                if (!swipeState.isActive) {
+                  return
+                }
+
+                const container = scrollRef.current
+                if (!container) {
+                  touchSwipeRef.current = {
+                    pointerId: null,
+                    startX: 0,
+                    lastX: 0,
+                    startScrollLeft: 0,
+                    startIdx: 0,
+                    isActive: false,
+                  }
+                  return
+                }
+
+                const touch = event.changedTouches[0]
+                const endX = touch ? touch.clientX : swipeState.lastX
+
+                const deltaX = endX - swipeState.startX
+                const deltaScroll = container.scrollLeft - swipeState.startScrollLeft
+
+                touchSwipeRef.current = {
+                  pointerId: null,
+                  startX: 0,
+                  lastX: 0,
+                  startScrollLeft: 0,
+                  startIdx: 0,
+                  isActive: false,
+                }
+
+                if (Math.abs(deltaScroll) < 15) {
+                  snapToNearestSlide()
+                  return
+                }
+
+                let targetIdx = swipeState.startIdx
+
+                if (deltaX <= -40) {
+                  targetIdx = Math.min(swipeState.startIdx + 1, slides.length - 1)
+                } else if (deltaX >= 40) {
+                  targetIdx = Math.max(swipeState.startIdx - 1, 0)
+                } else {
+                  snapToNearestSlide()
+                  return
+                }
+
+                if (currentIdxRef.current !== targetIdx) {
+                  setCurrentIdx(targetIdx)
+                }
+
+                scrollToIndex(targetIdx)
+              }}
+              onTouchCancel={(event) => {
+                const swipeState = touchSwipeRef.current
+                if (!swipeState.isActive) {
+                  return
+                }
+
+                const touch = event.changedTouches ? event.changedTouches[0] : null
+                if (touch) {
+                  swipeState.lastX = touch.clientX
+                }
+
+                touchSwipeRef.current = {
+                  pointerId: null,
+                  startX: 0,
+                  lastX: 0,
+                  startScrollLeft: 0,
+                  startIdx: 0,
+                  isActive: false,
+                }
+
+                snapToNearestSlide()
+              }}
               className={`flex w-full items-center gap-6 overflow-x-auto px-6 pb-6 pt-2 md:pl-16 md:pr-12 no-scrollbar ${
                 isThumbDragging ? 'snap-none scroll-auto' : 'snap-x snap-mandatory scroll-smooth'
               }`}
@@ -822,10 +996,27 @@ export default function PastEventsPopUpModal({
 
                   targetLeft = Math.min(Math.max(targetLeft, 0), maxThumbOffset)
                   const ratio = targetLeft / maxThumbOffset
-                  container.scrollTo({
-                    left: ratio * (container.scrollWidth - container.clientWidth),
-                    behavior: 'smooth',
-                  })
+
+                  const slidesEls = container.querySelectorAll<HTMLElement>(
+                    '[data-slide-item="true"]',
+                  )
+                  if (slidesEls.length > 0) {
+                    const targetIdx = Math.min(
+                      slidesEls.length - 1,
+                      Math.max(0, Math.round(ratio * (slidesEls.length - 1))),
+                    )
+
+                    if (currentIdxRef.current !== targetIdx) {
+                      setCurrentIdx(targetIdx)
+                    }
+
+                    scrollToIndex(targetIdx)
+                  } else {
+                    container.scrollTo({
+                      left: ratio * (container.scrollWidth - container.clientWidth),
+                      behavior: 'smooth',
+                    })
+                  }
 
                   setThumbMetrics((prev) => ({ ...prev, left: targetLeft }))
                 }}
