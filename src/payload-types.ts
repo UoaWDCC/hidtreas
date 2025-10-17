@@ -250,7 +250,7 @@ export interface HomePageImage {
   /**
    * Where should this image appear on the home page?
    */
-  placement: 'hero' | 'whoWeAre' | 'whatWeDo';
+  placement: 'hero' | 'who-we-are' | 'what-we-do';
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -261,6 +261,7 @@ export interface HomePageImage {
  */
 export interface AboutPageImage {
   id: string;
+  title: string;
   image: string | Media;
   /**
    * Where should this image appear on the about page?
@@ -451,6 +452,7 @@ export interface HomePageImagesSelect<T extends boolean = true> {
  * via the `definition` "about-page-images_select".
  */
 export interface AboutPageImagesSelect<T extends boolean = true> {
+  title?: T;
   image?: T;
   placement?: T;
   alt?: T;

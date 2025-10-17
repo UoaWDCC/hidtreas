@@ -6,17 +6,26 @@ import WhatWeDo from '@/components/home/WhatWeDo'
 import WhoWeAre from '@/components/home/WhoWeAre'
 import Events from '@/components/home/Events'
 import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
+import { getHomePageImages } from '@/lib/payload/images'
 
 export default async function HomePage() {
   const upcoming = await getUpcomingEvents(5)
   const past = await getPastEvents()
 
+  const [heroImage, whatWeDoImage, whoWeAreImage] = await Promise.all([
+    getHomePageImages('hero'),
+    getHomePageImages('what-we-do'),
+    getHomePageImages('who-we-are'),
+  ])
+
+  console.log(whatWeDoImage)
+  ///whatWeDoImage={whatWeDoImage}
   return (
     <div className="home">
       <Header />
-      <HeroSection />
-      <WhoWeAre />
-      <WhatWeDo />
+      <HeroSection heroImage={heroImage} />
+      <WhoWeAre whoWeAreImage={whoWeAreImage} />
+      <WhatWeDo whatWeDoImage={whatWeDoImage} />
       <Events initialEvents={upcoming} />
       <Footer />
     </div>

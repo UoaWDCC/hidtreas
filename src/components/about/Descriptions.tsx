@@ -3,8 +3,24 @@ import leftImage from '@/assets/peopleOnSteps.jpg'
 import rightImage from '@/assets/flagBearer_upscaled.png'
 import logo from '@/assets/sharpened_logo.png'
 import blueKoru from '@/assets/blue_koru.png'
+import { AboutPageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
-export default function Descriptions() {
+interface DescriptionImageProps {
+  descriptionImage1: AboutPageImage[]
+  descriptionImage2: AboutPageImage[]
+}
+
+export default function Descriptions({
+  descriptionImage1,
+  descriptionImage2,
+}: DescriptionImageProps) {
+  const image = descriptionImage1[0].image
+  const rightimageUrl = getPayloadImageUrl(image) ?? ''
+
+  const image2 = descriptionImage2[0].image
+  const leftimageUrl = getPayloadImageUrl(image2) ?? ''
+
   return (
     <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">
       {/* Blue koru decoration between hero and description */}
@@ -48,21 +64,21 @@ export default function Descriptions() {
 
             {/* Small top right frame - hidden on mobile */}
             <div
-              className="absolute 
+              className="absolute
                 hidden
                 sm:block
-                sm:-top-[9rem] 
-                md:-top-[12rem] 
-                lg:-top-[14rem] 
+                sm:-top-[9rem]
+                md:-top-[12rem]
+                lg:-top-[14rem]
                 xl:-top-[17rem]
-                sm:-right-[10vw] 
+                sm:-right-[10vw]
                 md:-right-[15vw]
-                w-[14vw] 
+                w-[14vw]
                 aspect-square"
             >
               <div className="relative w-full h-full">
                 <Image
-                  src={rightImage}
+                  src={rightimageUrl}
                   alt="Flag Bearer"
                   fill
                   className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
@@ -72,21 +88,21 @@ export default function Descriptions() {
 
             {/* Small bottom left image - hidden on mobile */}
             <div
-              className="absolute 
+              className="absolute
                 hidden
                 sm:block
-                sm:-bottom-[10vh] 
-                md:-bottom-[14vh] 
-                lg:-bottom-[21vh] 
-                xl:-bottom-[27vh] 
-                sm:-left-[10vw] 
+                sm:-bottom-[10vh]
+                md:-bottom-[14vh]
+                lg:-bottom-[21vh]
+                xl:-bottom-[27vh]
+                sm:-left-[10vw]
                 md:-left-[15vw]
-                w-[14vw] 
+                w-[14vw]
                 aspect-square"
             >
               <div className="relative w-full h-full">
                 <Image
-                  src={leftImage}
+                  src={leftimageUrl}
                   alt="People sitting on steps wearing traditional Indian clothing."
                   fill
                   className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"

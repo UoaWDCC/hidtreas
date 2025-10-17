@@ -5,11 +5,22 @@ import kiwiBird from '@/assets/kiwiBird.svg'
 import leaf from '@/assets/leaf.svg'
 import { useState, useRef, useEffect } from 'react'
 import SignUpModal from '../common/SignUpModal'
+import { HomePageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
-export default function WhatWeDo() {
+interface WhatWeDoProps {
+  whatWeDoImage: HomePageImage[]
+}
+
+export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
   const [signOpen, setSignOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  // ensures it always uses the first image in the list
+  const image = whatWeDoImage[0]?.image
+
+  // due to payloads type definition, image.url can be null so we replace it with empty string
+  const imageUrl = getPayloadImageUrl(image) ?? ''
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -77,7 +88,13 @@ export default function WhatWeDo() {
             isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'
           }`}
         >
-          <Image src={whatWeDoImage} alt="What We Do" className="w-full rounded-lg shadow-xl" />
+          <Image
+            src={imageUrl}
+            alt="What We Do"
+            width={200}
+            height={200}
+            className="w-full rounded-lg shadow-xl"
+          />
           <Image
             src={leaf}
             alt="Leaf"

@@ -5,15 +5,26 @@ import logoImage from '@/assets/sharpened_logo.png'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'
 import AnimatedSection from '../common/AnimatedSection'
+import { HomePageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  heroImage: HomePageImage[]
+}
+
+export default function HeroSection({ heroImage }: HeroSectionProps) {
   const [signOpen, setSignOpen] = useState(false)
+  // ensures it always uses the first image in the list
+  const image = heroImage[0].image
+
+  // due to payload's type definition, image.url can be null so we replace it with empty string
+  const imageUrl = getPayloadImageUrl(image) ?? ''
 
   return (
     <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
       <div className="relative rounded-b-[4vw] overflow-hidden w-full sm:w-[95%] mx-auto h-[70vh] sm:h-[85vh] md:h-[40vw]">
         <Image
-          src={heroImage}
+          src={imageUrl}
           alt="Hidden Treasure Hero"
           fill
           className="object-cover object-center rounded-b-[4vw]"

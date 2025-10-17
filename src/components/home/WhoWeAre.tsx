@@ -6,9 +6,18 @@ import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
 import AnimatedSection from '../common/AnimatedSection'
+import { HomePageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
-export default function WhoWeAre() {
+interface WhoWeAreProps {
+  whoWeAreImage: HomePageImage[]
+}
+
+export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
   const router = useRouter()
+  const image = whoWeAreImage[0].image
+  const imageUrl = getPayloadImageUrl(image) ?? ''
+
   return (
     <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-x-hidden overflow-y-visible">
       <AnimatedSection animationClass="animate-slide-in-top">
@@ -22,8 +31,10 @@ export default function WhoWeAre() {
       <AnimatedSection animationClass="animate-slide-in-left" delay={0.2}>
         <div className="relative flex justify-center mt-8 sm:mt-12 md:mt-0">
           <Image
-            src={whoWeAreImage}
+            src={imageUrl}
             alt="Who We Are"
+            width={200}
+            height={200}
             className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
           />
 

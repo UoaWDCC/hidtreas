@@ -29,8 +29,8 @@ export const HomePageImages: CollectionConfig = {
       type: 'select',
       options: [
         { label: 'Hero Section', value: 'hero' },
-        { label: 'Who We Are', value: 'whoWeAre' },
-        { label: 'What we do', value: 'whatWeDo' },
+        { label: 'Who We Are', value: 'who-we-are' },
+        { label: 'What we do', value: 'what-we-do' },
       ],
       required: true,
       admin: {
