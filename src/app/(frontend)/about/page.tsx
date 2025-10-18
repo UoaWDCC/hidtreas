@@ -7,6 +7,8 @@ import MeetTheWDCCTeam from '@/components/about/MeetTheWDCCTeam'
 import QuotesSection from '@/components/about/QuotesSection'
 import { getAboutPageImages } from '@/lib/payload/images'
 
+export const dynamic = 'force-dynamic'
+
 export default async function AboutPage() {
   const [heroImage, descriptionImage1, descriptionImage2, quoteImage] = await Promise.all([
     getAboutPageImages('hero'),
