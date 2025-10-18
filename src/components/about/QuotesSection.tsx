@@ -4,19 +4,27 @@ import { Covered_By_Your_Grace } from 'next/font/google'
 
 import blueWave from '@/assets/blue_wave.png'
 import bigFeather from '@/assets/big_feather.png'
-import quotesBackgroundImage from '@/assets/hennaDrawing_upscaled.png'
+
+import { AboutPageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
 const coveredByYourGrace = Covered_By_Your_Grace({
   subsets: ['latin'],
   weight: '400',
 })
 
-export default function QuotesSection() {
+interface QuoteSectionProps {
+  quoteImage: AboutPageImage[]
+}
+
+export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
+  const image = quoteImage[0].image
+  const imageUrl = getPayloadImageUrl(image) ?? ''
   return (
     <section className="py-8  md:py-12">
       <div className="relative w-full min-h-[70vh] mb-[3rem]">
         <Image
-          src={quotesBackgroundImage}
+          src={imageUrl}
           alt="Henna Being Drawn"
           fill
           className="object-cover object-center opacity"

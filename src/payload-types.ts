@@ -74,6 +74,8 @@ export interface Config {
     members: Member;
     subscribers: Subscriber;
     'event-subscribers': EventSubscriber;
+    'home-page-images': HomePageImage;
+    'about-page-images': AboutPageImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,6 +89,8 @@ export interface Config {
     members: MembersSelect<false> | MembersSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>;
+    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>;
+    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -266,6 +270,38 @@ export interface EventSubscriber {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images".
+ */
+export interface HomePageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the home page?
+   */
+  placement: 'hero' | 'who-we-are' | 'what-we-do';
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images".
+ */
+export interface AboutPageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the about page?
+   */
+  placement: 'hero' | 'description-1' | 'description-2' | 'quote';
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -298,6 +334,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'event-subscribers';
         value: string | EventSubscriber;
+      } | null)
+    | ({
+        relationTo: 'home-page-images';
+        value: string | HomePageImage;
+      } | null)
+    | ({
+        relationTo: 'about-page-images';
+        value: string | AboutPageImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -448,6 +492,30 @@ export interface EventSubscribersSelect<T extends boolean = true> {
   email?: T;
   firstName?: T;
   lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images_select".
+ */
+export interface HomePageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images_select".
+ */
+export interface AboutPageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
