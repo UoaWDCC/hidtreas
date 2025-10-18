@@ -1,6 +1,15 @@
 import Image from 'next/image'
-import heroImage from '@/assets/aboutUsHeroImage_upscaled.png'
-export default function Hero() {
+import { AboutPageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
+
+interface HeroSectionProps {
+  heroImage: AboutPageImage[]
+}
+
+export default function Hero({ heroImage }: HeroSectionProps) {
+  const image = heroImage[0].image
+  const imageUrl = getPayloadImageUrl(image) ?? ''
+
   return (
     <div className="mb-[3rem] md:mb-[8rem]">
       {/* Hero */}
@@ -11,7 +20,9 @@ export default function Hero() {
           {/*className="object-cover object-left opacity-70"*/}
           <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
             <Image
-              src={heroImage}
+              src={imageUrl}
+              width={1000}
+              height={1000}
               alt="Hidden Treasure People" // Actual image should be wider than placeholder
               className="w-full h-full object-cover object-center"
             />

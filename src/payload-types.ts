@@ -71,6 +71,11 @@ export interface Config {
     media: Media;
     blogs: Blog;
     events: Event;
+    members: Member;
+    subscribers: Subscriber;
+    'event-subscribers': EventSubscriber;
+    'home-page-images': HomePageImage;
+    'about-page-images': AboutPageImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +86,11 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    members: MembersSelect<false> | MembersSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>;
+    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>;
+    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -135,6 +145,13 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -144,6 +161,7 @@ export interface User {
 export interface Media {
   id: string;
   alt: string;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -172,7 +190,7 @@ export interface Blog {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -188,6 +206,10 @@ export interface Blog {
    */
   authorName: string;
   image?: (string | null) | Media;
+  /**
+   * Select which layout template to use when rendering this blog.
+   */
+  template: 'template1' | 'template2' | 'template3' | 'template4';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -200,11 +222,81 @@ export interface Event {
   id: string;
   title: string;
   description?: string | null;
-  date?: string | null;
+  date: string;
   venue?: string | null;
-  image?: (string | null) | Media;
+  image?: (string | Media)[] | null;
   published?: boolean | null;
   host: string[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members".
+ */
+export interface Member {
+  id: string;
+  name: string;
+  image?: (string | null) | Media;
+  role: string;
+  pronoun?: ('(he/him)' | '(she/her)' | 'other') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers".
+ */
+export interface EventSubscriber {
+  id: string;
+  event: string | Event;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images".
+ */
+export interface HomePageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the home page?
+   */
+  placement: 'hero' | 'who-we-are' | 'what-we-do';
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images".
+ */
+export interface AboutPageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the about page?
+   */
+  placement: 'hero' | 'description-1' | 'description-2' | 'quote';
+  alt: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -230,6 +322,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'members';
+        value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: string | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'event-subscribers';
+        value: string | EventSubscriber;
+      } | null)
+    | ({
+        relationTo: 'home-page-images';
+        value: string | HomePageImage;
+      } | null)
+    | ({
+        relationTo: 'about-page-images';
+        value: string | AboutPageImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -290,6 +402,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -297,6 +416,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -320,6 +440,7 @@ export interface BlogsSelect<T extends boolean = true> {
   content?: T;
   authorName?: T;
   image?: T;
+  template?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -336,6 +457,65 @@ export interface EventsSelect<T extends boolean = true> {
   image?: T;
   published?: T;
   host?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members_select".
+ */
+export interface MembersSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  role?: T;
+  pronoun?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers_select".
+ */
+export interface EventSubscribersSelect<T extends boolean = true> {
+  event?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images_select".
+ */
+export interface HomePageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images_select".
+ */
+export interface AboutPageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -33,9 +33,7 @@ export const Blogs: CollectionConfig = {
         beforeValidate: [
           async ({ data = {}, originalDoc, req, operation }) => {
             const baseSource =
-                data.slug ||
-                data.title ||
-                (operation === 'update' ? originalDoc?.title : '')
+              data.slug || data.title || (operation === 'update' ? originalDoc?.title : '')
 
             const base = slugify((baseSource || '').toString(), {
               lower: true,
@@ -94,6 +92,21 @@ export const Blogs: CollectionConfig = {
       name: 'image',
       type: 'relationship',
       relationTo: 'media',
+    },
+    {
+      name: 'template',
+      type: 'select',
+      required: true,
+      defaultValue: 'template1',
+      options: [
+        { label: 'Template 1', value: 'template1' },
+        { label: 'Template 2', value: 'template2' },
+        { label: 'Template 3', value: 'template3' },
+        { label: 'Template 4', value: 'template4' },
+      ],
+      admin: {
+        description: 'Select which layout template to use when rendering this blog.',
+      },
     },
     {
       name: 'published',

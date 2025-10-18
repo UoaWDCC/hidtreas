@@ -186,51 +186,93 @@
   }
 }
 
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(19, 56, 78, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(19, 56, 78, 0.6), 0 0 30px rgba(19, 56, 78, 0.4);
+  }
+}
+
 /* Animation Utility Classes */
 .animate-slide-in-left {
-  animation: slideInFromLeft 0.8s ease-out forwards;
+  animation: slideInFromLeft 0.5s ease-out forwards;
 }
 
 .animate-slide-in-right {
-  animation: slideInFromRight 0.8s ease-out forwards;
+  animation: slideInFromRight 0.5s ease-out forwards;
 }
 
 .animate-slide-in-bottom {
-  animation: slideInFromBottom 0.8s ease-out forwards;
+  animation: slideInFromBottom 0.5s ease-out forwards;
 }
 
 .animate-slide-in-top {
-  animation: slideInFromTop 0.8s ease-out forwards;
+  animation: slideInFromTop 0.5s ease-out forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 1s ease-out forwards;
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
 .animate-bob {
-  animation: bobUpDown 4s ease-in-out infinite;
+  animation: bobUpDown 3s ease-in-out infinite;
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.6s ease-out forwards;
+  animation: scaleIn 0.4s ease-out forwards;
 }
 
 .animate-gentle-rotate {
-  animation: gentleRotate 8s ease-in-out infinite;
+  animation: gentleRotate 6s ease-in-out infinite;
 }
 
 .animate-breathe {
-  animation: breathe 5s ease-in-out infinite;
+  animation: breathe 3s ease-in-out infinite;
 }
 
 .animate-shimmer {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
 }
 
 /* Staggered animations for multiple elements */
