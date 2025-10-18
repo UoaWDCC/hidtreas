@@ -1,4 +1,5 @@
 import { isEditorOrAdmin } from '@/access/UserAccess'
+import { getClientSideURL } from '@/utils/GetURL'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
@@ -8,7 +9,7 @@ export const Blogs: CollectionConfig = {
     useAsTitle: 'title',
     livePreview: {
       url: ({ data }) => {
-        return `${process.env.PAYLOAD_URL || 'http://localhost:3000'}/blogs/${data.slug}`
+        return `${getClientSideURL()}/blogs/${data.slug}`
       },
     },
   },
