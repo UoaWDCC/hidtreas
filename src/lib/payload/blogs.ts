@@ -2,16 +2,7 @@ import { fetchJSON } from './client';
 import type { Blog } from '@/payload-types';
 import {mapPayloadBlog} from "@/lib/mapBlog";
 import {BlogType} from "@/types/blog";
-
-type Paginated<T> = {
-    docs: T[];
-    totalDocs: number;
-    limit: number;
-    page: number;
-    totalPages: number;
-    hasNextPage: boolean;
-    hasPrevPage: boolean;
-};
+import type {Paginated} from "@/types/pagination";
 
 
 export async function getBlogs(opts: { page?: number; limit?: number } = {}) {
