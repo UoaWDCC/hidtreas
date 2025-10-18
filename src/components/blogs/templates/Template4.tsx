@@ -8,7 +8,7 @@ interface Template3Props {
   blog: BlogType
 }
 
-export default function Template3({ blog }: Template3Props) {
+export default function Template4({ blog }: Template3Props) {
   // Split content into different sections
   const getContentSections = () => {
     const paragraphs =
