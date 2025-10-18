@@ -1,20 +1,9 @@
-import { fetchJSON } from './client'
-import type { Member } from '@/payload-types'
+import {fetchJSON} from './client'
+import type {Member} from '@/payload-types'
+import type {Paginated} from "@/types/pagination";
 
-type PaginatedResponse = {
-  docs: Member[]
-  totalDocs: number
-  limit: number
-  totalPages: number
-  page: number
-  pagingCounter: number
-  hasPrevPage: boolean
-  hasNextPage: boolean
-  prevPage: number | null
-  nextPage: number | null
-}
 
 export async function getMembers() {
-  const data = await fetchJSON<PaginatedResponse>('/api/members?depth=2&sort=createdAt&limit=100')
+  const data = await fetchJSON<Paginated<Member>>('/api/members?depth=2&sort=createdAt&limit=100')
   return data.docs
 }

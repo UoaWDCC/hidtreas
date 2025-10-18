@@ -205,7 +205,7 @@ export interface Blog {
   /**
    * Select which layout template to use when rendering this blog.
    */
-  template: 'template1' | 'template2';
+  template: 'template1' | 'template2' | 'template3' | 'template4';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
