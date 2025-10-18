@@ -44,6 +44,7 @@ function TruncatedDescription({
 }
 
 export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
+  const [eventToSignUp, setEventToSignUp] = useState({ title: '', id: '' })
   const [signOpen, setSignOpen] = useState(false)
   const [galleryOpen, setGalleryOpen] = useState(false)
   const [activeEventId, setActiveEventId] = useState<string | null>(null)
@@ -183,7 +184,10 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                   <TruncatedDescription description={event.description} maxLength={275} />
                 </div>
                 <button
-                  onClick={() => setSignOpen(true)}
+                  onClick={() => {
+                    setEventToSignUp({ title: event.title, id: event.id })
+                    setSignOpen(true)
+                  }}
                   className="mt-auto mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start"
                   style={{ marginTop: '1.5rem' }}
                 >
@@ -195,7 +199,12 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
         </section>
       </AnimatedSection>
 
-      <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} eventOptions={eventNames} />
+      <SignUpModal
+        signOpen={signOpen}
+        setSignOpen={setSignOpen}
+        eventOptions={eventNames}
+        eventToSignUp={eventToSignUp}
+      />
 
       <Modal
         open={galleryOpen}

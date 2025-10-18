@@ -72,6 +72,8 @@ export interface Config {
     blogs: Blog;
     events: Event;
     members: Member;
+    subscribers: Subscriber;
+    'event-subscribers': EventSubscriber;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +85,8 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -237,6 +241,31 @@ export interface Member {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers".
+ */
+export interface EventSubscriber {
+  id: string;
+  event: string | Event;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -261,6 +290,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'members';
         value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: string | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'event-subscribers';
+        value: string | EventSubscriber;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -388,6 +425,29 @@ export interface MembersSelect<T extends boolean = true> {
   image?: T;
   role?: T;
   pronoun?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers_select".
+ */
+export interface EventSubscribersSelect<T extends boolean = true> {
+  event?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
   updatedAt?: T;
   createdAt?: T;
 }
