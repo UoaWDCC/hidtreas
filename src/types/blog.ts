@@ -1,7 +1,5 @@
 import { StaticImageData } from 'next/image'
-
-export const TEMPLATE_KEYS = ['template1', 'template2', 'template3'] as const
-export type TemplateKey = (typeof TEMPLATE_KEYS)[number]
+import type {TemplateKey} from '@/lib/blog-templates'
 
 export type BlogType = {
   id: string
