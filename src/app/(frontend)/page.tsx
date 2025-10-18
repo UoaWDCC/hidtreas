@@ -17,9 +17,6 @@ export default async function HomePage() {
     getHomePageImages('what-we-do'),
     getHomePageImages('who-we-are'),
   ])
-
-  console.log(whatWeDoImage)
-  ///whatWeDoImage={whatWeDoImage}
   return (
     <div className="home">
       <Header />

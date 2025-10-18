@@ -1,6 +1,4 @@
 import Image from 'next/image'
-import leftImage from '@/assets/peopleOnSteps.jpg'
-import rightImage from '@/assets/flagBearer_upscaled.png'
 import logo from '@/assets/sharpened_logo.png'
 import blueKoru from '@/assets/blue_koru.png'
 import { AboutPageImage } from '@/payload-types'

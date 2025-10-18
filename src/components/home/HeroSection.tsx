@@ -1,6 +1,5 @@
 'use client'
 import Image from 'next/image'
-import heroImage from '@/assets/hidtreas-homepage-hero-img_upscaled.png'
 import logoImage from '@/assets/sharpened_logo.png'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'

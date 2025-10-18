@@ -1,7 +1,5 @@
 'use client'
 import Image from 'next/image'
-import groupPic from '@/assets/groupPic.png'
-import whoWeAreImage from '@/assets/hidtreas-who-we-are_upscaled.png'
 import koru1 from '@/assets/koruAndLeaf.png'
 import koru2 from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
@@ -33,8 +31,8 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
           <Image
             src={imageUrl}
             alt="Who We Are"
-            width={200}
-            height={200}
+            width={1000}
+            height={1000}
             className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
           />
 

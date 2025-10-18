@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import heroImage from '@/assets/aboutUsHeroImage_upscaled.png'
 import { AboutPageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
 
@@ -22,8 +21,8 @@ export default function Hero({ heroImage }: HeroSectionProps) {
           <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
             <Image
               src={imageUrl}
-              width={500}
-              height={500}
+              width={1000}
+              height={1000}
               alt="Hidden Treasure People" // Actual image should be wider than placeholder
               className="w-full h-full object-cover object-center"
             />
