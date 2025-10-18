@@ -6,10 +6,26 @@ import Image from 'next/image'
 import BlueKoru from '@/assets/blue_koru.png'
 import type { EventType } from '@/types/event'
 import AnimatedSection from '@/components/common/AnimatedSection'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import { getEventYear } from '@/lib/getEventYear'
 
 export default function PastEventsSection({ initialEvents }: { initialEvents: EventType[] }) {
   const [isKoruVisible, setIsKoruVisible] = useState(false)
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
+
+  const years = useMemo(() => {
+    const set = new Set<number>()
+    initialEvents.forEach((e) => {
+      const y = getEventYear(e.date)
+      if (y) set.add(y)
+    })
+    return Array.from(set).sort((a, b) => b - a)
+  }, [initialEvents])
+
+  const filtered = useMemo(() => {
+    if (!selectedYear) return initialEvents
+    return initialEvents.filter((e) => getEventYear(e.date) === selectedYear)
+  }, [initialEvents, selectedYear])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,8 +55,8 @@ export default function PastEventsSection({ initialEvents }: { initialEvents: Ev
           className="bg-[#E6E1DE] flex flex-col items-center gap-y-10 py-10"
           style={{ marginTop: '-1px' }}
         >
-          <YearFilter />
-          <PastEvents events={initialEvents} />
+          <YearFilter years={years} selectedYear={selectedYear} onSelectYear={setSelectedYear} />
+          <PastEvents events={filtered} />
         </div>
       </AnimatedSection>
     </div>
