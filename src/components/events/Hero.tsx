@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import landscapePlaceholder from '@/assets/landscape_placeholder.png'
+import runImage from '@/assets/hidtreas-run-img.png'
 import blueKoru from '@/assets/blue_koru_crop.png'
 
 export default function Hero() {
@@ -10,9 +10,9 @@ export default function Hero() {
         <div className="w-full relative flex justify-center">
           {/* Image */}
           <Image
-            src={landscapePlaceholder}
+            src={runImage}
             alt="Events page main image"
-            className="w-[80vw] md:h-[40vh] lg:h-[70vh] rounded-4xl object-cover"
+            className="w-[80vw] md:h-[45vh] lg:h-[75vh] rounded-4xl object-cover"
           />
 
           {/* Decorative elements */}
@@ -26,23 +26,23 @@ export default function Hero() {
 
       <div className="flex flex-col">
         <div className="flex justify-center">
-          <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-[0.125rem] -translate-y-8">
+          <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-6">
             EVENTS
           </h1>
           {/* Descriptive text */}
         </div>
 
         <div className="flex justify-end w-[89vw]">
-        <div className="w-full flex justify-end text-right ">
-          <div className="w-[50vw]">
-            <p className="mt-4 text-[0.75rem rem] sm:text-[0.875remrem] md:text-[1rem] lg:text-[1.125rem] font-normal ">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
-              quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id.
-              Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo
-              eu aenean.
-            </p>
+          <div className="w-full flex justify-end text-right ">
+            <div className="w-[50vw]">
+              <p className="mt-4 text-[0.75rem rem] sm:text-[0.875remrem] md:text-[1rem] lg:text-[1.125rem] font-normal ">
+                Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing elit
+                quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat in id.
+                Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus
+                leo eu aenean.
+              </p>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
