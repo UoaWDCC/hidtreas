@@ -33,25 +33,25 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
             alt="Who We Are"
             width={1000}
             height={1000}
-            className="w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
+            className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
           />
 
           <Image
             src={koru1}
             alt="koru & leaf"
-            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] h-auto animate-gentle-rotate"
+            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] h-auto animate-gentle-rotate z-10"
           />
 
           <Image
             src={koru2}
             alt="koru"
-            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2"
+            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2 z-10"
           />
         </div>
       </AnimatedSection>
 
       <AnimatedSection animationClass="animate-slide-in-right" delay={0.4}>
-        <div className="flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
+        <div className="relative z-20 flex justify-center md:justify-end mt-8 sm:mt-12 md:mt-[2vw] md:pr-[22.5%]">
           <div className="w-full max-w-2xl md:w-[52vw] text-center md:text-right text-base sm:text-lg">
             <p className="leading-relaxed sm:leading-tight">
               We are Hidden Treasure Trust, a charitable organization supporting families, women,

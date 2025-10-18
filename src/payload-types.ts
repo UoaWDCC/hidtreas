@@ -59,446 +59,492 @@ export type SupportedTimezones =
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
   | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | 'Pacific/Fiji'
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
+    users: UserAuthOperations
+  }
+  blocks: {}
   collections: {
-    users: User;
-    media: Media;
-    blogs: Blog;
-    events: Event;
-    members: Member;
-    'home-page-images': HomePageImage;
-    'about-page-images': AboutPageImage;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {};
+    users: User
+    media: Media
+    blogs: Blog
+    events: Event
+    members: Member
+    subscribers: Subscriber
+
+    'home-page-images': HomePageImage
+    'about-page-images': AboutPageImage
+    'event-subscribers': EventSubscriber
+    'payload-locked-documents': PayloadLockedDocument
+    'payload-preferences': PayloadPreference
+    'payload-migrations': PayloadMigration
+  }
+  collectionsJoins: {}
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    blogs: BlogsSelect<false> | BlogsSelect<true>;
-    events: EventsSelect<false> | EventsSelect<true>;
-    members: MembersSelect<false> | MembersSelect<true>;
-    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>;
-    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
+    users: UsersSelect<false> | UsersSelect<true>
+    media: MediaSelect<false> | MediaSelect<true>
+    blogs: BlogsSelect<false> | BlogsSelect<true>
+    events: EventsSelect<false> | EventsSelect<true>
+    members: MembersSelect<false> | MembersSelect<true>
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>
+    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>
+    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>
+    'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>
+    'payload-locked-documents':
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
+  }
   db: {
-    defaultIDType: string;
-  };
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+    defaultIDType: string
+  }
+  globals: {}
+  globalsSelect: {}
+  locale: null
   user: User & {
-    collection: 'users';
-  };
+    collection: 'users'
+  }
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+    tasks: unknown
+    workflows: unknown
+  }
 }
 export interface UserAuthOperations {
   forgotPassword: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   login: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   registerFirstUser: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
   unlock: {
-    email: string;
-    password: string;
-  };
+    email: string
+    password: string
+  }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
-  role: 'admin' | 'editor' | 'viewer';
-  firstName: string;
-  lastName: string;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
+  id: string
+  role: 'admin' | 'editor' | 'viewer'
+  firstName: string
+  lastName: string
+  updatedAt: string
+  createdAt: string
+  email: string
+  resetPasswordToken?: string | null
+  resetPasswordExpiration?: string | null
+  salt?: string | null
+  hash?: string | null
+  loginAttempts?: number | null
+  lockUntil?: string | null
   sessions?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
+        id: string
+        createdAt?: string | null
+        expiresAt: string
       }[]
-    | null;
-  password?: string | null;
+    | null
+  password?: string | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
-  alt: string;
-  prefix?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  id: string
+  alt: string
+  prefix?: string | null
+  updatedAt: string
+  createdAt: string
+  url?: string | null
+  thumbnailURL?: string | null
+  filename?: string | null
+  mimeType?: string | null
+  filesize?: number | null
+  width?: number | null
+  height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blogs".
  */
 export interface Blog {
-  id: string;
-  title: string;
+  id: string
+  title: string
   /**
    * Auto-generated from title; can be edited
    */
-  slug?: string | null;
-  description?: string | null;
+  slug?: string | null
+  description?: string | null
   content: {
     root: {
-      type: string;
+      type: string
       children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+        type: any
+        version: number
+        [k: string]: unknown
+      }[]
+      direction: ('ltr' | 'rtl') | null
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | ''
+      indent: number
+      version: number
+    }
+    [k: string]: unknown
+  }
   /**
    * Displayed author name
    */
-  authorName: string;
-  image?: (string | null) | Media;
+  authorName: string
+  image?: (string | null) | Media
   /**
    * Select which layout template to use when rendering this blog.
    */
-  template: 'template1' | 'template2';
-  published?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+  template: 'template1' | 'template2' | 'template3' | 'template4'
+  published?: boolean | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
-  id: string;
-  title: string;
-  description?: string | null;
-  date: string;
-  venue?: string | null;
-  image?: (string | null) | Media;
-  published?: boolean | null;
-  host: string[];
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  title: string
+  description?: string | null
+  date: string
+  venue?: string | null
+  image?: (string | Media)[] | null
+  published?: boolean | null
+  host: string[]
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "members".
  */
 export interface Member {
-  id: string;
-  name: string;
-  image?: (string | null) | Media;
-  role: string;
-  pronoun?: ('(he/him)' | '(she/her)' | 'other') | null;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  name: string
+  image?: (string | null) | Media
+  role: string
+  pronoun?: ('(he/him)' | '(she/her)' | 'other') | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page-images".
  */
 export interface HomePageImage {
-  id: string;
-  title: string;
-  image: string | Media;
+  id: string
+  title: string
+  image: string | Media
   /**
    * Where should this image appear on the home page?
    */
-  placement: 'hero' | 'who-we-are' | 'what-we-do';
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
+  placement: 'hero' | 'who-we-are' | 'what-we-do'
+  alt: string
+}
+/* via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string
+  email: string
+  firstName: string
+  lastName: string
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-page-images".
  */
 export interface AboutPageImage {
-  id: string;
-  title: string;
-  image: string | Media;
+  id: string
+  title: string
+  image: string | Media
   /**
    * Where should this image appear on the about page?
    */
-  placement: 'hero' | 'description-1' | 'description-2' | 'quote';
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
+  placement: 'hero' | 'description-1' | 'description-2' | 'quote'
+  alt: string
+}
+/* via the `definition` "event-subscribers".
+ */
+export interface EventSubscriber {
+  id: string
+  event: string | Event
+  email: string
+  firstName: string
+  lastName: string
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: string
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'users'
+        value: string | User
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'media'
+        value: string | Media
       } | null)
     | ({
-        relationTo: 'blogs';
-        value: string | Blog;
+        relationTo: 'blogs'
+        value: string | Blog
       } | null)
     | ({
-        relationTo: 'events';
-        value: string | Event;
+        relationTo: 'events'
+        value: string | Event
       } | null)
     | ({
-        relationTo: 'members';
-        value: string | Member;
+        relationTo: 'members'
+        value: string | Member
       } | null)
     | ({
-        relationTo: 'home-page-images';
-        value: string | HomePageImage;
+        relationTo: 'home-page-images'
+        value: string | HomePageImage
       } | null)
     | ({
-        relationTo: 'about-page-images';
-        value: string | AboutPageImage;
-      } | null);
-  globalSlug?: string | null;
+        relationTo: 'about-page-images'
+        value: string | AboutPageImage
+      } | null)
+    | ({
+        relationTo: 'subscribers'
+        value: string | Subscriber
+      } | null)
+    | ({
+        relationTo: 'event-subscribers'
+        value: string | EventSubscriber
+      } | null)
+  globalSlug?: string | null
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+    relationTo: 'users'
+    value: string | User
+  }
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: string
   user: {
-    relationTo: 'users';
-    value: string | User;
-  };
-  key?: string | null;
+    relationTo: 'users'
+    value: string | User
+  }
+  key?: string | null
   value?:
     | {
-        [k: string]: unknown;
+        [k: string]: unknown
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+    | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+  id: string
+  name?: string | null
+  batch?: number | null
+  updatedAt: string
+  createdAt: string
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  role?: T;
-  firstName?: T;
-  lastName?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
+  role?: T
+  firstName?: T
+  lastName?: T
+  updatedAt?: T
+  createdAt?: T
+  email?: T
+  resetPasswordToken?: T
+  resetPasswordExpiration?: T
+  salt?: T
+  hash?: T
+  loginAttempts?: T
+  lockUntil?: T
   sessions?:
     | T
     | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+        id?: T
+        createdAt?: T
+        expiresAt?: T
+      }
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  prefix?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
+  alt?: T
+  prefix?: T
+  updatedAt?: T
+  createdAt?: T
+  url?: T
+  thumbnailURL?: T
+  filename?: T
+  mimeType?: T
+  filesize?: T
+  width?: T
+  height?: T
+  focalX?: T
+  focalY?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blogs_select".
  */
 export interface BlogsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  description?: T;
-  content?: T;
-  authorName?: T;
-  image?: T;
-  template?: T;
-  published?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  slug?: T
+  description?: T
+  content?: T
+  authorName?: T
+  image?: T
+  template?: T
+  published?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  date?: T;
-  venue?: T;
-  image?: T;
-  published?: T;
-  host?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  description?: T
+  date?: T
+  venue?: T
+  image?: T
+  published?: T
+  host?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "members_select".
  */
 export interface MembersSelect<T extends boolean = true> {
-  name?: T;
-  image?: T;
-  role?: T;
-  pronoun?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  image?: T
+  role?: T
+  pronoun?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home-page-images_select".
  */
 export interface HomePageImagesSelect<T extends boolean = true> {
-  title?: T;
-  image?: T;
-  placement?: T;
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  image?: T
+  placement?: T
+  alt?: T
+}
+/* via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T
+  firstName?: T
+  lastName?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about-page-images_select".
  */
 export interface AboutPageImagesSelect<T extends boolean = true> {
-  title?: T;
-  image?: T;
-  placement?: T;
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  title?: T
+  image?: T
+  placement?: T
+  alt?: T
+}
+/* via the `definition` "event-subscribers_select".
+ */
+export interface EventSubscribersSelect<T extends boolean = true> {
+  event?: T
+  email?: T
+  firstName?: T
+  lastName?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  document?: T
+  globalSlug?: T
+  user?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  user?: T
+  key?: T
+  value?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  name?: T
+  batch?: T
+  updatedAt?: T
+  createdAt?: T
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+  [k: string]: unknown
 }
-
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

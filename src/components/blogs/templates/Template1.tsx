@@ -32,9 +32,18 @@ export default function Template1({ blog }: Template1Props) {
           {blog.title}
         </h1>
 
-        <div className="mt-[2rem] md:mt-[-2rem] flex justify-center relative z-0">
-          <div className="w-[80vw] md:w-[50vw] aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300">
-            <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+        <div className="mt-[2rem] md:mt-[2rem] flex justify-center relative z-0">
+          <div className="w-[80vw] md:w-[50vw] relative">
+            <div className="aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300">
+              <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+            </div>
+            <div className="absolute -bottom-[0.75rem] -right-[1.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
+              <Image
+                src={leaf}
+                alt="Decorative leaf"
+                className="w-full h-full scale-x-[-1] rotate-6"
+              />
+            </div>
           </div>
         </div>
 
@@ -63,12 +72,9 @@ export default function Template1({ blog }: Template1Props) {
                     .join('') || 'Content coming soon...',
               }}
             />
-            <div className="order-first md:order-none flex justify-center md:justify-start relative w-[70vw] md:w-[95%] max-w-[25rem]">
+            <div className="order-first md:order-none flex justify-center md:justify-start w-[70vw] md:w-[95%] max-w-[25rem]">
               <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
                 <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
-              </div>
-              <div className="absolute -bottom-[0.75rem] -right-[1.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
-                <Image src={leaf} alt="Decorative leaf" className="w-full h-full scale-x-[-1] rotate-6" />
               </div>
             </div>
           </div>

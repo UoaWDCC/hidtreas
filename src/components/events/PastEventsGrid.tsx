@@ -4,7 +4,6 @@ import EventsCard from './EventsCard'
 import PastEventsPopUpModal from './PastEventsPopUpModal'
 import { useState } from 'react'
 import { EventType } from '@/types/event'
-import Image from 'next/image'
 
 export default function PastEvents({ events }: { events: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
