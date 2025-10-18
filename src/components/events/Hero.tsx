@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <div className="relative pt-32 pb-16">
       {/* Hero */}
-      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.2}>
+      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.1}>
         <div className="relative flex justify-center">
           <div className="w-full relative flex justify-center">
             {/* Image */}
@@ -27,7 +27,7 @@ export default function Hero() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.4}>
+      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.2}>
         <div className="flex flex-col">
           <div className="flex justify-center">
             <h1 className="text-[1.875rem] sm:text-[2.25rem] md:text-[3rem] lg:text-[5.2rem] font-extrabold leading-tight tracking-wide mt-6 animate-breathe">

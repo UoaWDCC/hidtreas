@@ -27,8 +27,8 @@ export default function EventsCard({
     isDescriptionExpanded || !descriptionNeedsTruncation ? event.description : truncatedDescription
 
   return (
-    <AnimatedSection animationClass="animate-scale-in" delay={0.2}>
-      <div className="flex flex-col items-center w-70 min-h-[28rem] border-4 border-[#13384E] rounded-xl gap-y-3 px-4 pt-6 pb-6 bg-[#FFF8F3] transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-[#0b2433]">
+    <AnimatedSection animationClass="animate-scale-in" delay={0.1}>
+      <div className="flex flex-col items-center w-70 min-h-[28rem] border-4 border-[#13384E] rounded-xl gap-y-3 px-4 pt-6 pb-6 bg-[#FFF8F3] transition-all duration-200 hover:scale-105 hover:shadow-xl hover:border-[#0b2433]">
         <div className="flex flex-col items-center gap-1">
           <Image src={KiwiBird} alt="kiwi-bird" width={36} className="animate-bob" />
           <h3 className="text-2xl text-center">

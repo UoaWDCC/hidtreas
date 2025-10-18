@@ -90,13 +90,18 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
         <Image
           src={Koru}
           alt="Koru decoration"
-          className="absolute -left-10 -top-12 w-[15%] max-w-[160px] h-auto pointer-events-none rotate-[20deg] animate-float z-[9999] animate-slide-in-left"
-          style={{ animationDelay: '0.2s' }}
+          className="absolute -left-10 -top-12 w-[15%] max-w-[160px] h-auto pointer-events-none z-[9999] animate-fade-in"
+          style={{
+            animationDelay: '0.1s',
+            animationDuration: '1.2s',
+            animation: 'bobUpDown 3s ease-in-out infinite, fadeIn 1.2s ease-out 0.1s forwards',
+            transform: 'rotate(20deg)',
+          }}
         />
       </div>
 
       {/* Upcoming Events Section - Header and Content together */}
-      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.4}>
+      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.2}>
         {/* Header Bar */}
         <div
           className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center relative z-10"
@@ -116,7 +121,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
             <AnimatedSection
               key={event.id}
               animationClass="animate-slide-in-bottom"
-              delay={0.8 + idx * 0.2}
+              delay={0.4 + idx * 0.1}
               className="flex flex-col md:flex-row items-start pt-10 pl-4 sm:pl-8 md:pl-12 lg:pl-20 gap-6 md:gap-10 lg:gap-20 mb-10"
             >
               <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto group">
