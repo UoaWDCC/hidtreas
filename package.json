@@ -20,7 +20,7 @@
     "@payloadcms/payload-cloud": "3.57.0",
     "@payloadcms/richtext-lexical": "3.57.0",
     "@payloadcms/storage-s3": "3.57.0",
-    "@payloadcms/ui": "link:3.57.0",
+    "@payloadcms/live-preview-react": "3.57.0",
     "@tabler/icons-react": "^3.31.0",
     "@tailwindcss/postcss": "^4.1.4",
     "cross-env": "^7.0.3",

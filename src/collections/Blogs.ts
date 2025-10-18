@@ -6,12 +6,31 @@ export const Blogs: CollectionConfig = {
   slug: 'blogs',
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      url: ({ data }) => {
+        return `${process.env.PAYLOAD_URL || 'http://localhost:3000'}/blogs/${data.slug}`
+      },
+    },
   },
   access: {
-    read: () => true,
+    read: ({ req }) => {
+      if (isEditorOrAdmin({ req })) {
+        return true
+      } else {
+        return { _status: { equals: 'published' }, published: { equals: true } }
+      }
+    },
     create: isEditorOrAdmin,
     update: isEditorOrAdmin,
     delete: isEditorOrAdmin,
+    readVersions: isEditorOrAdmin,
+  },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 100,
+      },
+    },
   },
   fields: [
     {
@@ -33,9 +52,7 @@ export const Blogs: CollectionConfig = {
         beforeValidate: [
           async ({ data = {}, originalDoc, req, operation }) => {
             const baseSource =
-                data.slug ||
-                data.title ||
-                (operation === 'update' ? originalDoc?.title : '')
+              data.slug || data.title || (operation === 'update' ? originalDoc?.title : '')
 
             const base = slugify((baseSource || '').toString(), {
               lower: true,
@@ -103,6 +120,8 @@ export const Blogs: CollectionConfig = {
       options: [
         { label: 'Template 1', value: 'template1' },
         { label: 'Template 2', value: 'template2' },
+        { label: 'Template 3', value: 'template3' },
+        { label: 'Template 4', value: 'template4' },
       ],
       admin: {
         description: 'Select which layout template to use when rendering this blog.',

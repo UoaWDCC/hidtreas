@@ -11,6 +11,9 @@ importers:
       '@payloadcms/db-mongodb':
         specifier: 3.57.0
         version: 3.57.0(@aws-sdk/credential-providers@3.787.0)(payload@3.57.0(graphql@16.10.0)(typescript@5.7.3))
+      '@payloadcms/live-preview-react':
+        specifier: 3.57.0
+        version: 3.57.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@payloadcms/next':
         specifier: 3.57.0
         version: 3.57.0(@types/react@19.0.12)(graphql@16.10.0)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.57.0(graphql@16.10.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
@@ -23,9 +26,6 @@ importers:
       '@payloadcms/storage-s3':
         specifier: 3.57.0
         version: 3.57.0(@types/react@19.0.12)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.57.0(graphql@16.10.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
-      '@payloadcms/ui':
-        specifier: link:3.57.0
-        version: link:3.57.0
       '@tabler/icons-react':
         specifier: ^3.31.0
         version: 3.31.0(react@19.0.0)
@@ -1256,6 +1256,15 @@ packages:
     peerDependencies:
       graphql: ^16.8.1
       payload: 3.57.0
+
+  '@payloadcms/live-preview-react@3.57.0':
+    resolution: {integrity: sha512-aTPHprBIGBkXYXlnl/WgRlVBaqfVeBbV2fooQ2xC0u5t5olmslzQRbIIvcyG3lJokJxnZNzH7m3BA9O+ths8Dw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc-65a56d0e-20241020
+
+  '@payloadcms/live-preview@3.57.0':
+    resolution: {integrity: sha512-QkHH6IMiqmigiLxZRW9I4K1Tahdkw2EIob2Xqfcw6hRMrx++NWVut/0qN+ef42BzqeLsU/22J8lV9GTG4xtyNg==}
 
   '@payloadcms/next@3.57.0':
     resolution: {integrity: sha512-WHhtOZzeOUe+e6bPmRN0qAXQl6At91P7H7wNzdMF/3mEqrzsNNHTOEl+WQRJMAPdDCfvhazCVL+YLCPbOvQo8Q==}
@@ -5714,6 +5723,14 @@ snapshots:
       tsx: 4.19.2
     transitivePeerDependencies:
       - typescript
+
+  '@payloadcms/live-preview-react@3.57.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@payloadcms/live-preview': 3.57.0
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
+  '@payloadcms/live-preview@3.57.0': {}
 
   '@payloadcms/next@3.57.0(@types/react@19.0.12)(graphql@16.10.0)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.57.0(graphql@16.10.0)(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)':
     dependencies:

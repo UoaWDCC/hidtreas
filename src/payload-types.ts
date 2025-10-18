@@ -201,10 +201,11 @@ export interface Blog {
   /**
    * Select which layout template to use when rendering this blog.
    */
-  template: 'template1' | 'template2';
+  template: 'template1' | 'template2' | 'template3' | 'template4';
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -363,6 +364,7 @@ export interface BlogsSelect<T extends boolean = true> {
   published?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
