@@ -59,6 +59,9 @@ export default function PastEventsPopUpModal({
   // Current size and position of the custom scrollbar thumb
   const [thumbMetrics, setThumbMetrics] = useState<ThumbMetrics>({ width: 0, left: 0 })
   const [isThumbDragging, setIsThumbDragging] = useState(false)
+  const lastThumbLeftRef = useRef<number>(0)
+  const userScrollingRef = useRef<boolean>(false)
+  const scrollStopTimerRef = useRef<number | null>(null)
   // Spacer width added at carousel edges to center the active card on small screens
   const [edgeSpacer, setEdgeSpacer] = useState(0)
   // Track per-slide title expansion state so toggles persist while browsing
@@ -252,77 +255,94 @@ export default function PastEventsPopUpModal({
 
     const rawProgress = (scrollLeft - min) / effectiveRange
     const clampedProgress = Math.min(Math.max(rawProgress, 0), 1)
-    const left = clampedProgress * maxThumbOffset
-    const snappedLeft =
-      clampedProgress <= 0.02 ? 0 : clampedProgress >= 0.98 ? maxThumbOffset : left
+    const targetLeft = clampedProgress * maxThumbOffset
 
-    setThumbMetrics({ width, left: Math.round(snappedLeft) })
-  }, [computeScrollBounds])
+    // Use exact subpixel positioning for smooth updates without jitter
+    lastThumbLeftRef.current = targetLeft
+    setThumbMetrics({ width, left: targetLeft })
+  }, [computeScrollBounds, isThumbDragging])
 
-  const updateCurrentIndexFromScroll = useCallback(
-    (container: HTMLDivElement) => {
-      const programmaticTarget = programmaticTargetIdxRef.current
-      if (programmaticTarget !== null) {
-        const slidesEls = container.querySelectorAll<HTMLElement>('[data-slide-item="true"]')
-        const targetSlide = slidesEls[programmaticTarget]
-        if (targetSlide) {
-          const containerRect = container.getBoundingClientRect()
-          const containerCenter = containerRect.left + containerRect.width / 2
-          const rect = targetSlide.getBoundingClientRect()
-          const nodeCenter = rect.left + rect.width / 2
-
-          if (Math.abs(containerCenter - nodeCenter) <= Math.max(1, rect.width * 0.05)) {
-            programmaticTargetIdxRef.current = null
-            setCurrentIdx(programmaticTarget)
-            updateThumbMetrics()
-          }
-          return
-        }
-      }
-
-      const nodes = Array.from(container.querySelectorAll<HTMLElement>('[data-slide-item="true"]'))
-      if (!nodes.length) {
-        return
-      }
-
-      const { scrollLeft, scrollWidth, clientWidth } = container
-      const maxScroll = scrollWidth - clientWidth
-      const edgeThreshold = Math.max(12, clientWidth * 0.05)
-
-      if (scrollLeft <= edgeThreshold) {
-        setCurrentIdx((prev) => (prev === 0 ? prev : 0))
-        updateThumbMetrics()
-        return
-      }
-
-      if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
-        const lastIdx = nodes.length - 1
-        setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
-        updateThumbMetrics()
-        return
-      }
-
-      const containerRect = container.getBoundingClientRect()
-      const containerCenter = containerRect.left + containerRect.width / 2
-
-      let closestIdx = 0
-      let closestDistance = Number.POSITIVE_INFINITY
-
-      nodes.forEach((node, index) => {
-        const rect = node.getBoundingClientRect()
+  const updateCurrentIndexFromScroll = useCallback((container: HTMLDivElement) => {
+    // Avoid changing active index while dragging the custom thumb to prevent layout shifts
+    if (dragStateRef.current) {
+      return
+    }
+    const programmaticTarget = programmaticTargetIdxRef.current
+    if (programmaticTarget !== null) {
+      const slidesEls = container.querySelectorAll<HTMLElement>('[data-slide-item="true"]')
+      const targetSlide = slidesEls[programmaticTarget]
+      if (targetSlide) {
+        const containerRect = container.getBoundingClientRect()
+        const containerCenter = containerRect.left + containerRect.width / 2
+        const rect = targetSlide.getBoundingClientRect()
         const nodeCenter = rect.left + rect.width / 2
-        const distance = Math.abs(containerCenter - nodeCenter)
-        if (distance < closestDistance) {
-          closestDistance = distance
-          closestIdx = index
-        }
-      })
 
-      setCurrentIdx((prev) => (prev === closestIdx ? prev : closestIdx))
-      updateThumbMetrics()
-    },
-    [updateThumbMetrics],
-  )
+        if (Math.abs(containerCenter - nodeCenter) <= Math.max(1, rect.width * 0.05)) {
+          programmaticTargetIdxRef.current = null
+          setCurrentIdx(programmaticTarget)
+        }
+        return
+      }
+    }
+
+    const nodes = Array.from(container.querySelectorAll<HTMLElement>('[data-slide-item="true"]'))
+    if (!nodes.length) {
+      return
+    }
+
+    const { scrollLeft, scrollWidth, clientWidth } = container
+    const maxScroll = scrollWidth - clientWidth
+    const edgeThreshold = Math.max(12, clientWidth * 0.05)
+
+    if (scrollLeft <= edgeThreshold) {
+      setCurrentIdx((prev) => (prev === 0 ? prev : 0))
+      return
+    }
+
+    if (maxScroll > 0 && maxScroll - scrollLeft <= edgeThreshold) {
+      const lastIdx = nodes.length - 1
+      setCurrentIdx((prev) => (prev === lastIdx ? prev : lastIdx))
+      return
+    }
+
+    const containerRect = container.getBoundingClientRect()
+    const containerCenter = containerRect.left + containerRect.width / 2
+
+    let closestIdx = 0
+    let closestDistance = Number.POSITIVE_INFINITY
+
+    nodes.forEach((node, index) => {
+      const rect = node.getBoundingClientRect()
+      const nodeCenter = rect.left + rect.width / 2
+      const distance = Math.abs(containerCenter - nodeCenter)
+      if (distance < closestDistance) {
+        closestDistance = distance
+        closestIdx = index
+      }
+    })
+
+    // Hysteresis: only switch when crossing midpoint with margin to avoid rapid flip-flop
+    const current = currentIdxRef.current
+    if (closestIdx !== current && current >= 0 && current < nodes.length) {
+      const currentRect = nodes[current].getBoundingClientRect()
+      const targetRect = nodes[closestIdx].getBoundingClientRect()
+      const currentCenter = currentRect.left + currentRect.width / 2
+      const targetCenter = targetRect.left + targetRect.width / 2
+      const midpoint = (currentCenter + targetCenter) / 2
+      const margin = Math.max(8, Math.min(currentRect.width, targetRect.width) * 0.06)
+
+      const movingRight = closestIdx > current
+      const allowSwitch = movingRight
+        ? containerCenter > midpoint + margin
+        : containerCenter < midpoint - margin
+
+      if (!allowSwitch) {
+        return
+      }
+    }
+
+    setCurrentIdx((prev) => (prev === closestIdx ? prev : closestIdx))
+  }, [])
 
   // Centers the carousel on a given slide index; used when clicking arrows or cards
   const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior = 'smooth') => {
@@ -337,15 +357,20 @@ export default function PastEventsPopUpModal({
       return
     }
 
-    const childWidth = child.offsetWidth
     const scrollRange = container.scrollWidth - container.clientWidth
-
     if (scrollRange <= 0) {
       container.scrollTo({ left: 0, behavior })
       return
     }
 
-    const targetLeft = child.offsetLeft - (container.clientWidth - childWidth) / 2
+    // Center based on actual on-screen geometry for maximum accuracy
+    const containerRect = container.getBoundingClientRect()
+    const childRect = child.getBoundingClientRect()
+    const containerCenter = containerRect.left + containerRect.width / 2
+    const childCenter = childRect.left + childRect.width / 2
+
+    const delta = childCenter - containerCenter
+    const targetLeft = container.scrollLeft + delta
     const clampedTarget = Math.min(Math.max(targetLeft, 0), scrollRange)
 
     programmaticTargetIdxRef.current = index
@@ -390,7 +415,7 @@ export default function PastEventsPopUpModal({
   // Recompute scroll padding whenever layout-affecting inputs change
   useEffect(() => {
     updateScrollPadding()
-  }, [updateScrollPadding, slides.length, signOpen, currentIdx])
+  }, [updateScrollPadding, slides.length, signOpen])
 
   // Attach resize listener so padding and thumb sizing stay in sync with viewport changes
   useEffect(() => {
@@ -496,18 +521,31 @@ export default function PastEventsPopUpModal({
       return
     }
 
+    userScrollingRef.current = true
+    if (scrollStopTimerRef.current !== null && typeof window !== 'undefined') {
+      window.clearTimeout(scrollStopTimerRef.current)
+    }
+
     if (rafRef.current !== null && typeof window !== 'undefined') {
       window.cancelAnimationFrame(rafRef.current)
     }
 
-    if (typeof window !== 'undefined') {
-      rafRef.current = window.requestAnimationFrame(() => {
-        updateCurrentIndexFromScroll(container)
-      })
-    } else {
+    const schedule = () => {
       updateCurrentIndexFromScroll(container)
+      updateThumbMetrics()
+      if (typeof window !== 'undefined') {
+        scrollStopTimerRef.current = window.setTimeout(() => {
+          userScrollingRef.current = false
+        }, 80)
+      }
     }
-  }, [updateCurrentIndexFromScroll])
+
+    if (typeof window !== 'undefined') {
+      rafRef.current = window.requestAnimationFrame(schedule)
+    } else {
+      schedule()
+    }
+  }, [updateCurrentIndexFromScroll, updateThumbMetrics])
 
   // Begin drag gesture on scrollbar thumb and cache starting metrics
   const handleThumbPointerDown = useCallback(
@@ -575,22 +613,25 @@ export default function PastEventsPopUpModal({
 
     const ratio = nextThumbLeft / dragState.maxThumbOffset
     container.scrollLeft = dragState.scrollMin + ratio * dragState.scrollRange
-    setThumbMetrics((prev) => ({ ...prev, left: nextThumbLeft }))
   }, [])
 
   // Release pointer capture and clear drag state at gesture end/cancel
-  const handleThumbPointerUp = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
-    const dragState = dragStateRef.current
-    if (!dragState || dragState.pointerId !== event.pointerId) {
-      return
-    }
+  const handleThumbPointerUp = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      const dragState = dragStateRef.current
+      if (!dragState || dragState.pointerId !== event.pointerId) {
+        return
+      }
 
-    dragStateRef.current = null
+      dragStateRef.current = null
 
-    const target = event.currentTarget
-    target.releasePointerCapture(event.pointerId)
-    setIsThumbDragging(false)
-  }, [])
+      const target = event.currentTarget
+      target.releasePointerCapture(event.pointerId)
+      snapToNearestSlide()
+      setIsThumbDragging(false)
+    },
+    [snapToNearestSlide],
+  )
 
   // Sync thumb metrics whenever slide count or modal visibility changes
   useEffect(() => {
@@ -1039,11 +1080,12 @@ export default function PastEventsPopUpModal({
                       handleThumbPointerUp(event as unknown as ReactPointerEvent<HTMLDivElement>)
                     }
                   }}
-                  className="absolute top-1/2 -translate-y-1/2 touch-none rounded-full bg-[#13384E]"
+                  className="absolute top-1/2 touch-none rounded-full bg-[#13384E]"
                   style={{
                     width: `${thumbMetrics.width}px`,
-                    left: `${thumbMetrics.left}px`,
                     height: '0.75rem',
+                    transform: `translate3d(${thumbMetrics.left}px, -50%, 0)`,
+                    willChange: 'transform',
                   }}
                 />
               </div>
