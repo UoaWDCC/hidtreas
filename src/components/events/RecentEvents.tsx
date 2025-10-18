@@ -173,14 +173,14 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                 )}
               </div>
 
-              <div className="text-white max-w-xl flex flex-col min-h-[300px]">
+              <div className="text-white max-w-xl flex flex-col md:min-h-[300px]">
                 <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
                   {event.title}
                 </h2>
                 <h3 className="text-base md:text-lg font-medium mb-4">
                   HOSTED BY: {event.hostedBy}
                 </h3>
-                <div className="flex-grow">
+                <div className="md:flex-grow">
                   <TruncatedDescription description={event.description} maxLength={275} />
                 </div>
                 <button
@@ -188,8 +188,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                     setEventToSignUp({ title: event.title, id: event.id })
                     setSignOpen(true)
                   }}
-                  className="mt-auto mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start"
-                  style={{ marginTop: '1.5rem' }}
+                  className="mt-6 mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start md:mt-auto"
                 >
                   SIGN UP HERE
                 </button>
