@@ -15,6 +15,7 @@ import { useState, useRef, useEffect } from 'react'
 import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
+import NotFound from '@/app/(frontend)/[...notFound]/page'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -25,40 +26,34 @@ const links: {
   {
     label: 'QUICK LINKS',
     items: [
+      // currenly linked events and blogs to 404 not found
       { label: 'Home', href: '/', icon: undefined },
       { label: 'About Us', href: '/about', icon: undefined },
-      { label: 'Events', href: '/events', icon: undefined },
-      { label: 'Blogs', href: '/blogs', icon: undefined },
-      { label: 'Our Values', href: '/values', icon: undefined },
-      { label: 'Contact Us', href: '/contact', icon: undefined },
-    ],
-    extlinks: undefined,
-  },
-  {
-    label: 'GET INVOLVED',
-    items: [
-      { label: 'Volunteer', href: '/volunteer', icon: undefined },
-      { label: 'Donate', href: '/donate', icon: undefined },
-      { label: 'Membership', href: '/membership', icon: undefined },
-      { label: 'Sponsorship', href: '/sponsorship', icon: undefined },
-      { label: 'Partnership', href: '/partnership', icon: undefined },
+      { label: 'Events', href: '/NotFound', icon: undefined },
+      { label: 'Blogs', href: '/NotFound', icon: undefined },
+      { label: 'FAQ', href: '/faq', icon: undefined },
+      //{ label: 'Our Values', href: '/values', icon: undefined },
+      //{ label: 'Contact Us', href: '/contact', icon: undefined },
     ],
     extlinks: undefined,
   },
   {
     label: 'CONNECT WITH US',
     items: [
-      { label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
-      { label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
+      //{ label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
+      //{ label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
     ],
     extlinks: [
-      { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
-      { href: 'https://www.facebook.com/profile.php?id=61574941850535', icon: IconBrandFacebook },
-      { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
+      //{ href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
       {
+        href: 'https://www.facebook.com/people/Hidden-Treasure/61574941850535/',
+        icon: IconBrandFacebook,
+      },
+      //{ href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
+      /*{
         href: 'https://www.linkedin.com/company/hiddentreasure',
         icon: IconBrandLinkedin,
-      },
+      }, */
     ],
   },
 ]
@@ -201,17 +196,6 @@ export default function Footer() {
       >
         <div className="w-50 hidden xl:block" />
         <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
-        <div className="flex flex-row gap-3 sm:gap-5 text-sm sm:text-base">
-          <a href="/faq" className="text-center hover:underline">
-            FAQ
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Privacy Policy
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Terms of Service
-          </a>
-        </div>
       </div>
 
       <style jsx>{`
