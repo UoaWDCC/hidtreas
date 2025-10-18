@@ -11,6 +11,37 @@ import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
 
 const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400' })
 
+// Component for truncated description with see more/see less functionality
+function TruncatedDescription({
+  description,
+  maxLength = 200,
+}: {
+  description: string
+  maxLength?: number
+}) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const shouldTruncate = description.length > maxLength
+  const displayText =
+    isExpanded || !shouldTruncate ? description : description.slice(0, maxLength) + '...'
+
+  return (
+    <div>
+      <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
+        {displayText}
+      </p>
+      {shouldTruncate && (
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-2 text-sm text-white/80 hover:text-white underline transition-colors"
+        >
+          {isExpanded ? 'See less' : 'See more'}
+        </button>
+      )}
+    </div>
+  )
+}
+
 export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
   const [signOpen, setSignOpen] = useState(false)
   const [galleryOpen, setGalleryOpen] = useState(false)
@@ -127,17 +158,18 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
               )}
             </div>
 
-            <div className="text-white max-w-xl">
+            <div className="text-white max-w-xl flex flex-col min-h-[300px]">
               <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
                 {event.title}
               </h2>
               <h3 className="text-base md:text-lg font-medium mb-4">HOSTED BY: {event.hostedBy}</h3>
-              <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
-                {event.description}
-              </p>
+              <div className="flex-grow">
+                <TruncatedDescription description={event.description} maxLength={275} />
+              </div>
               <button
                 onClick={() => setSignOpen(true)}
-                className="mt-10 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer"
+                className="mt-auto mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer self-start"
+                style={{ marginTop: '1.5rem' }}
               >
                 SIGN UP HERE
               </button>
