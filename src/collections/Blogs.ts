@@ -102,6 +102,7 @@ export const Blogs: CollectionConfig = {
         { label: 'Template 1', value: 'template1' },
         { label: 'Template 2', value: 'template2' },
         { label: 'Template 3', value: 'template3' },
+        { label: 'Template 4', value: 'template4' },
       ],
       admin: {
         description: 'Select which layout template to use when rendering this blog.',

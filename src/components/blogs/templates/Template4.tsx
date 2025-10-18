@@ -127,6 +127,7 @@ export default function Template4({ blog }: Template3Props) {
 
             {/* Quote Section */}
             <div className="text-center my-[4rem]">
+              {/* TODO: Remove the placeholder quote once the field is added to Payload blog collection */}
               <blockquote className="text-[clamp(1.2rem,2.5vw,1.8rem)] italic font-light text-black leading-relaxed mb-4">
                 "it doloribus ut rerum culpa est eligendi veniam Aut quia en assumenda eum pa
                 nostrum vel"
