@@ -47,7 +47,7 @@ export default function EventsSignUpModal({
         setErrors(emptyErrors)
         setSignOpen(false)
       }}
-      className="w-sm h-[30rem] bg-[#fdf4ed] flex flex-col xl:w-xl"
+      className="h-[30rem] bg-[#fdf4ed] flex flex-col w-[85vw] max-w-[28rem] sm:max-w-[30rem] md:max-w-[32rem] lg:max-w-[34rem] xl:w-xl"
       superClassName="bg-stone-200/75"
       noHeader
       doNotCloseOnClickOutside={answers}

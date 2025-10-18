@@ -9,15 +9,21 @@ import { EventType } from '@/types/event'
  * @returns Normalised 'EventType' for use in the frontend.
  */
 export function mapPayloadEvent(e: Event): EventType {
+  const mediaItems = Array.isArray(e.image) ? e.image : e.image ? [e.image] : []
+  const mediaUrls = mediaItems
+    .map((item) => (typeof item === 'object' && item?.url ? item.url : null))
+    .filter((url): url is string => Boolean(url))
+
+  const [primaryImage, ...additionalImages] = mediaUrls
+
   return {
     id: e.id,
     title: e.title,
     description: e.description ?? '',
     date: new Date(e.date),
     hostedBy: e.host?.join(', ') ?? 'Unknown host',
-    imageUrl:
-      typeof e.image === 'object' && e.image?.url
-        ? e.image.url
-        : PlaceholderImg,
+    venue: e.venue ?? undefined,
+    imageUrl: primaryImage ?? PlaceholderImg,
+    galleryImages: additionalImages,
   }
 }

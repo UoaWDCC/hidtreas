@@ -45,7 +45,7 @@ export default function SignUpModal({
         setErrors(emptyErrors)
         setSignOpen(false)
       }}
-      className="w-sm h-[30rem] flex flex-row xl:w-xl"
+      className="relative w-full sm:w-auto max-w-[calc(100vw-3rem)] sm:max-w-[24rem] md:max-w-[30rem] lg:max-w-[34rem] xl:max-w-[36rem] 2xl:max-w-[38rem] max-h-[calc(100vh-2rem)] overflow-hidden flex flex-col xl:flex-row xl:w-[36rem]"
       superClassName="bg-stone-200/75"
       noHeader
       doNotCloseOnClickOutside={answers}
@@ -65,17 +65,19 @@ export default function SignUpModal({
         </div>
       ) : (
         <>
-          <div className="w-sm h-full bg-cyan-500 rounded-l-lg hidden xl:block">
-            <Image src={BirdPNG} alt="Hidden Treasure Logo" className="w-sm h-full rounded-l-lg" />
-          </div>
-          <div className="relative w-sm p-6 h-full flex flex-col items-center justify-center text-center">
-            <IconX
-              className="absolute top-5 right-5 cursor-pointer"
-              onClick={() => {
-                setErrors(emptyErrors)
-                setSignOpen(false)
-              }}
+          <IconX
+            aria-label="Close sign up modal"
+            className="absolute top-3 right-3 z-30 h-7 w-7 cursor-pointer text-[#13384e] transition hover:text-[#0a2638]"
+            onClick={() => setSignOpen(false)}
+          />
+          <div className="hidden xl:block xl:w-[16rem] h-full bg-cyan-500 rounded-l-lg">
+            <Image
+              src={BirdPNG}
+              alt="Hidden Treasure Logo"
+              className="w-full h-full rounded-l-lg object-cover"
             />
+          </div>
+          <div className="relative flex-1 w-full p-6 h-full flex flex-col items-center justify-center text-center overflow-y-auto pt-8">
             <Image src={Logo} alt="Hidden Treasure Logo" width={50} height={50} />
             <h1 className="text-3xl font-[1000]">SIGN UP WITH US TODAY!</h1>
             <form

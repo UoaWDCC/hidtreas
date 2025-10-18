@@ -220,7 +220,7 @@ export interface Event {
   description?: string | null;
   date: string;
   venue?: string | null;
-  image?: (string | null) | Media;
+  image?: (string | Media)[] | null;
   published?: boolean | null;
   host: string[];
   updatedAt: string;

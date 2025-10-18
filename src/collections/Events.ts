@@ -39,8 +39,10 @@ export const Events: CollectionConfig = {
     },
     {
       name: 'image',
+      label: 'Images',
       type: 'relationship',
       relationTo: 'media',
+      hasMany: true,
     },
     {
       name: 'published',
