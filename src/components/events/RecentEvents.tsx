@@ -8,6 +8,7 @@ import { Kosugi_Maru } from 'next/font/google'
 import type { EventType } from '@/types/event'
 import Modal from '@/components/common/Modal'
 import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
+import AnimatedSection from '@/components/common/AnimatedSection'
 
 const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400' })
 
@@ -84,99 +85,110 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
 
   return (
     <>
-      {/* Koru decoration */}
+      {/* Koru decoration - outside AnimatedSection to avoid stacking context issues */}
       <div className="pt-15 relative overflow-visible hidden md:block">
         <Image
           src={Koru}
           alt="Koru decoration"
-          className="absolute -left-10 -top-12 w-[15%] max-w-[160px] h-auto pointer-events-none rotate-[20deg]"
+          className="absolute -left-10 -top-12 w-[15%] max-w-[160px] h-auto pointer-events-none rotate-[20deg] animate-float z-[9999] animate-slide-in-left"
+          style={{ animationDelay: '0.2s' }}
         />
       </div>
 
-      {/* Header Bar */}
-      <div
-        className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center"
-        style={{ height: '5rem' }}
-      >
-        <h2 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
-          UPCOMING EVENTS
-        </h2>
-      </div>
+      {/* Upcoming Events Section - Header and Content together */}
+      <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.4}>
+        {/* Header Bar */}
+        <div
+          className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center relative z-10"
+          style={{ height: '5rem' }}
+        >
+          <h2 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
+            UPCOMING EVENTS
+          </h2>
+        </div>
 
-      {/* Main Content */}
-      <section className="relative w-full bg-[#13384E] px-6 pt-0 pb-12 overflow-x-hidden">
-        {events.map((event, idx) => (
-          <div
-            key={event.id}
-            className="flex flex-col md:flex-row items-start pt-10 pl-4 sm:pl-8 md:pl-12 lg:pl-20 gap-6 md:gap-10 lg:gap-20 mb-10"
-          >
-            <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto">
-              <Image
-                src={event.imageUrl}
-                alt={event.title}
-                width={400}
-                height={300}
-                className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg cursor-pointer"
-                onClick={() => openGallery(event.id)}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    openGallery(event.id)
-                  }
-                }}
-              />
-              <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl">
-                {event.date.toLocaleDateString('en-NZ', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </div>
-              <button
-                type="button"
-                onClick={() => openGallery(event.id)}
-                className="absolute bottom-[0.45rem] left-1/2 -translate-x-1/2 inline-flex items-center justify-center cursor-pointer sm:bottom-3"
-                aria-label={`Open image gallery for ${event.title}`}
-              >
-                <span className="rounded-full bg-white/85 px-[0.36rem] py-[0.16rem] text-center text-[0.48rem] font-semibold uppercase tracking-[0.1em] text-[#13384E] shadow-sm transition hover:bg-white leading-[0.52rem] sm:px-2.5 sm:py-[0.2rem] sm:text-[0.65rem] sm:tracking-[0.2em] sm:leading-tight">
-                  Tap to see images
-                </span>
-              </button>
-              {/* Decoration: red circle (first) or kiwi (second) */}
-              {idx === 0 ? (
-                <div className="absolute rounded-full bg-[#eb5454] w-8 h-8 bottom-[-16px] left-[-16px] md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px] lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px]" />
-              ) : (
-                <div className="absolute bottom-[-16px] right-[-16px] md:bottom-[-20px] md:right-[-20px] lg:bottom-[-24px] lg:right-[-24px] w-8 h-8 md:w-15 md:h-15 lg:w-20 lg:h-20 flex items-center justify-center">
-                  <Image
-                    src={KiwiBird}
-                    alt="Kiwi decoration"
-                    className="w-full h-full object-contain"
-                  />
+        {/* Main Content */}
+        <section
+          className="relative w-full bg-[#13384E] px-6 pb-12 overflow-x-hidden"
+          style={{ marginTop: '-1px' }}
+        >
+          {events.map((event, idx) => (
+            <AnimatedSection
+              key={event.id}
+              animationClass="animate-slide-in-bottom"
+              delay={0.8 + idx * 0.2}
+              className="flex flex-col md:flex-row items-start pt-10 pl-4 sm:pl-8 md:pl-12 lg:pl-20 gap-6 md:gap-10 lg:gap-20 mb-10"
+            >
+              <div className="relative w-full max-w-[70%] md:max-w-[400px] h-auto group">
+                <Image
+                  src={event.imageUrl}
+                  alt={event.title}
+                  width={400}
+                  height={300}
+                  className="w-[400px] h-[300px] object-cover rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                  onClick={() => openGallery(event.id)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      openGallery(event.id)
+                    }
+                  }}
+                />
+                <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl transition-all duration-300 group-hover:rounded-xl">
+                  {event.date.toLocaleDateString('en-NZ', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
                 </div>
-              )}
-            </div>
-
-            <div className="text-white max-w-xl flex flex-col min-h-[300px]">
-              <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
-                {event.title}
-              </h2>
-              <h3 className="text-base md:text-lg font-medium mb-4">HOSTED BY: {event.hostedBy}</h3>
-              <div className="flex-grow">
-                <TruncatedDescription description={event.description} maxLength={275} />
+                <button
+                  type="button"
+                  onClick={() => openGallery(event.id)}
+                  className="absolute bottom-[0.45rem] left-1/2 -translate-x-1/2 inline-flex items-center justify-center cursor-pointer sm:bottom-3"
+                  aria-label={`Open image gallery for ${event.title}`}
+                >
+                  <span className="rounded-full bg-white/85 px-[0.36rem] py-[0.16rem] text-center text-[0.48rem] font-semibold uppercase tracking-[0.1em] text-[#13384E] shadow-sm transition-all duration-300 hover:bg-white hover:scale-110 hover:animate-pulse leading-[0.52rem] sm:px-2.5 sm:py-[0.2rem] sm:text-[0.65rem] sm:tracking-[0.2em] sm:leading-tight">
+                    Tap to see images
+                  </span>
+                </button>
+                {/* Decoration: red circle (first) or kiwi (second) */}
+                {idx === 0 ? (
+                  <div className="absolute rounded-full bg-[#eb5454] w-8 h-8 bottom-[-16px] left-[-16px] md:w-15 md:h-15 md:bottom-[-20px] md:left-[-20px] lg:w-20 lg:h-20 lg:bottom-[-24px] lg:left-[-24px] animate-bob" />
+                ) : (
+                  <div className="absolute bottom-[-16px] right-[-16px] md:bottom-[-20px] md:right-[-20px] lg:bottom-[-24px] lg:right-[-24px] w-8 h-8 md:w-15 md:h-15 lg:w-20 lg:h-20 flex items-center justify-center">
+                    <Image
+                      src={KiwiBird}
+                      alt="Kiwi decoration"
+                      className="w-full h-full object-contain animate-float"
+                    />
+                  </div>
+                )}
               </div>
-              <button
-                onClick={() => setSignOpen(true)}
-                className="mt-auto mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition hover:cursor-pointer self-start"
-                style={{ marginTop: '1.5rem' }}
-              >
-                SIGN UP HERE
-              </button>
-            </div>
-          </div>
-        ))}
-      </section>
+
+              <div className="text-white max-w-xl flex flex-col min-h-[300px]">
+                <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
+                  {event.title}
+                </h2>
+                <h3 className="text-base md:text-lg font-medium mb-4">
+                  HOSTED BY: {event.hostedBy}
+                </h3>
+                <div className="flex-grow">
+                  <TruncatedDescription description={event.description} maxLength={275} />
+                </div>
+                <button
+                  onClick={() => setSignOpen(true)}
+                  className="mt-auto mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start"
+                  style={{ marginTop: '1.5rem' }}
+                >
+                  SIGN UP HERE
+                </button>
+              </div>
+            </AnimatedSection>
+          ))}
+        </section>
+      </AnimatedSection>
 
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} eventOptions={eventNames} />
 
@@ -213,7 +225,8 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                     alt={activeEvent?.title ?? 'Event image'}
                     fill
                     sizes="(max-width: 768px) 90vw, 640px"
-                    className="object-cover"
+                    className="object-cover transition-all duration-500 ease-in-out"
+                    key={activeIndex}
                   />
                 )}
               </div>

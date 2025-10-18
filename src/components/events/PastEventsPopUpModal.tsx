@@ -68,6 +68,7 @@ export default function PastEventsPopUpModal({
   const [expandedTitles, setExpandedTitles] = useState<Record<string, boolean>>({})
   // Track per-slide description expansion state so toggles persist while browsing
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({})
+  const [isContentVisible, setIsContentVisible] = useState(false)
   const scrollBoundsRef = useRef<{ min: number; max: number }>({ min: 0, max: 0 })
   const touchSwipeRef = useRef<{
     pointerId: number | null
@@ -481,21 +482,33 @@ export default function PastEventsPopUpModal({
   // When modal opens or the initial index changes, clamp and scroll to that slide
   useEffect(() => {
     if (!signOpen) {
+      setIsContentVisible(false)
       return
     }
-
-    updateScrollPadding()
 
     if (!slides.length) {
+      setIsContentVisible(false)
       return
     }
 
-    const scheduleScroll = () => scrollToIndex(currentIdxRef.current, 'auto')
-    if (typeof window !== 'undefined') {
-      window.requestAnimationFrame(scheduleScroll)
-    } else {
-      scheduleScroll()
+    // Hide content initially, then center and show
+    setIsContentVisible(false)
+
+    // Use a more reliable approach: wait for the next frame after DOM is ready
+    const centerSlide = () => {
+      updateScrollPadding()
+
+      // Use scrollToIndex but with 'auto' behavior to avoid animation
+      scrollToIndex(currentIdxRef.current, 'auto')
+
+      // Now show the content after centering is complete
+      setIsContentVisible(true)
     }
+
+    // Use setTimeout to ensure DOM is fully rendered
+    const timeoutId = setTimeout(centerSlide, 0)
+
+    return () => clearTimeout(timeoutId)
   }, [scrollToIndex, signOpen, slides.length, selectedEventIdx, updateScrollPadding])
 
   // When slides array length changes, ensure current index stays within bounds
@@ -729,7 +742,9 @@ export default function PastEventsPopUpModal({
       {/* Scrollable modal body containing slide content and metadata */}
       <div
         ref={modalBodyRef}
-        className="relative flex w-full flex-col items-center gap-8 px-6 py-10 md:gap-10 md:px-12 max-h-[85vh] overflow-y-auto"
+        className={`relative flex w-full flex-col items-center gap-8 px-6 py-10 md:gap-10 md:px-12 max-h-[85vh] overflow-y-auto transition-opacity duration-200 ${
+          isContentVisible ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         {/* Dismiss modal button */}
         <button
