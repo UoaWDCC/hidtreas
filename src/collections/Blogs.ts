@@ -14,24 +14,14 @@ export const Blogs: CollectionConfig = {
     },
   },
   access: {
-    read: ({ req }) => {
-      if (isEditorOrAdmin({ req })) {
-        return true
-      } else {
-        return { _status: { equals: 'published' }, published: { equals: true } }
-      }
-    },
+    read: () => true,
     create: isEditorOrAdmin,
     update: isEditorOrAdmin,
     delete: isEditorOrAdmin,
     readVersions: isEditorOrAdmin,
   },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 100,
-      },
-    },
+    drafts: true,
   },
   fields: [
     {

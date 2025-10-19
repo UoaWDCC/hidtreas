@@ -29,16 +29,25 @@ export async function getBlogBySlug(slug: string) {
 }
 
 export const getLatestBlogVersion = async (slug: string, authToken: ReadonlyRequestCookies) => {
-  console.log(`Bearer ${authToken.get('payload-token')?.value}`)
-  const data = await fetchJSON<Paginated<Blog>>(
-    `/api/blogs/versions?depth=2&limit=1&where[version.slug][equals]=${encodeURIComponent(slug)}`,
+  let versioned = true
+  const data = await fetchJSON<{ docs: Array<{ version: Blog }> }>(
+    `/api/blogs/versions?where[version[slug]][equals]=${encodeURIComponent(slug)}&depth=5&limit=1&sort=-createdAt`,
     {
       headers: {
         Authorization: `Bearer ${authToken.get('payload-token')?.value}`,
       },
     },
-  ).catch(() => getBlogBySlug(slug))
-
-  const blog = data?.docs[0]
-  return blog ? mapPayloadBlog(blog) : null
+  ).catch(() => {
+    versioned = false
+    getBlogBySlug(slug)
+  })
+  if (versioned) {
+    const blog = data?.docs[0].version
+    console.log('Fetched latest blog version:', blog)
+    return blog ? mapPayloadBlog(blog) : null
+  } else {
+    const data = await getBlogBySlug(slug)
+    const blog = data?.docs[0]
+    return blog ? mapPayloadBlog(blog) : null
+  }
 }

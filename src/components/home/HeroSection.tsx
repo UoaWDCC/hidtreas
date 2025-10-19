@@ -29,7 +29,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
       <div className="relative rounded-b-[4vw] overflow-hidden w-full sm:w-[95%] mx-auto h-[70vh] sm:h-[85vh] md:h-[40vw]">
         {imageUrl ? (
           <Image
-            src={imageUrl}
+            src={heroImage ? imageUrl : ''}
             alt="Hidden Treasure Hero"
             fill
             className="object-cover object-center rounded-b-[4vw]"
