@@ -29,25 +29,25 @@ export async function getBlogBySlug(slug: string) {
 }
 
 export const getLatestBlogVersion = async (slug: string, authToken: ReadonlyRequestCookies) => {
-  let versioned = true
-  const data = await fetchJSON<{ docs: Array<{ version: Blog }> }>(
-    `/api/blogs/versions?where[version[slug]][equals]=${encodeURIComponent(slug)}&depth=5&limit=1&sort=-createdAt`,
+  return await fetchJSON<{ docs: Array<{ version: BlogType }> }>(
+    `/api/blogs/versions?where[version[slug]][equals]=${encodeURIComponent(slug)}&depth=5&limit=10&sort=-createdAt`,
     {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${authToken.get('payload-token')?.value}`,
+        'Content-Type': 'application/json',
       },
     },
-  ).catch(() => {
-    versioned = false
-    getBlogBySlug(slug)
-  })
-  if (versioned) {
-    const blog = data?.docs[0].version
-    console.log('Fetched latest blog version:', blog)
-    return blog ? mapPayloadBlog(blog) : null
-  } else {
-    const data = await getBlogBySlug(slug)
-    const blog = data?.docs[0]
-    return blog ? mapPayloadBlog(blog) : null
-  }
+  )
+    .catch(async () => {
+      const data = await getBlogBySlug(slug)
+      const blog = data?.docs[0]
+      console.log('Fetched blog published, coz unauthorized:', blog)
+      return blog ? mapPayloadBlog(blog) : null
+    })
+    .then((data) => {
+      const blog = data?.docs[0].version
+      console.log('Fetched blog draft:', blog)
+      return blog ? mapPayloadBlog(blog) : null
+    })
 }

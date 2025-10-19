@@ -19,7 +19,6 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
   if (!blog) return notFound()
 
   const Template = BLOG_TEMPLATES[blog.template]
-  console.log('Rendering blog:', blog)
 
   return (
     <>
