@@ -14,4 +14,8 @@ export type BlogType = {
   published: boolean
   createdAt?: string
   updatedAt?: string
+  category?: string
+  quote?: string
+  quoteAuthor?: string
+  authorBio?: string
 }

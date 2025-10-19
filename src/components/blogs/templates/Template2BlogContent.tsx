@@ -8,7 +8,6 @@ interface BlogContentProps {
   blog: BlogType;
 }
 
-// TODO: Quotes are hard coded. Consider whether to make quotes configurable through payload, or get rid of them entirely.
 // TODO: This template shows two images, but with the current payload configurations, only one image can be associated with a blog.
 export default function BlogContent({ blog }: BlogContentProps) {
   return (
@@ -32,9 +31,9 @@ export default function BlogContent({ blog }: BlogContentProps) {
           {/* Quote block */}
           <div className="mt-32 md:mt-48">
             <blockquote className="text-3xl md:text-4xl italic font-light text-gray-800 leading-relaxed mb-4 text-left">
-              "it doloribus ut rerum culpa est eligendi veniam Aut quia en assumenda eum pa nostrum vel"
+              {blog.quote}
             </blockquote>
-            <footer className="text-sm text-gray-600 font-medium text-left">- Pauline Smith</footer>
+            <footer className="text-sm text-gray-600 font-medium text-left">- {blog.authorName}</footer>
           </div>
         </div>
 

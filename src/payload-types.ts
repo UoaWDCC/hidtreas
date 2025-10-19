@@ -210,6 +210,22 @@ export interface Blog {
    * Select which layout template to use when rendering this blog.
    */
   template: 'template1' | 'template2' | 'template3' | 'template4';
+  /**
+   * ⚠️ Required when using this template – category displayed in header (e.g. “Stories”, “Behind the Scenes”)
+   */
+  category?: string | null;
+  /**
+   * ⚠️ Required when using this template – main quote in layout
+   */
+  quote?: string | null;
+  /**
+   * ⚠️ Required when using this template – name of the person being quoted
+   */
+  quoteAuthor?: string | null;
+  /**
+   * ⚠️ Required when using this template – short bio of the author
+   */
+  authorBio?: string | null;
   published?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -441,6 +457,10 @@ export interface BlogsSelect<T extends boolean = true> {
   authorName?: T;
   image?: T;
   template?: T;
+  category?: T;
+  quote?: T;
+  quoteAuthor?: T;
+  authorBio?: T;
   published?: T;
   updatedAt?: T;
   createdAt?: T;
