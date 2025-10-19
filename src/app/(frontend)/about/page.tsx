@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import MeetTheTeam from '@/components/AboutUs/MeetTheTeam'
@@ -11,21 +12,55 @@ import { getAboutPageImages } from '@/lib/payload/images'
 export const dynamic = 'force-dynamic'
 export const revalidate = 300
 
-export default async function AboutPage() {
-  const [heroImage, descriptionImage1, descriptionImage2, quoteImage] = await Promise.all([
-    getAboutPageImages('hero'),
+// ✅ Loading fallback
+function SectionSkeleton() {
+  return (
+    <div className="py-12 px-4">
+      <div className="max-w-7xl mx-auto h-64 bg-gray-200 rounded-lg animate-pulse" />
+    </div>
+  )
+}
+
+// ✅ Independent async components
+async function HeroContent() {
+  const heroImage = await getAboutPageImages('hero')
+  return <Hero heroImage={heroImage} />
+}
+
+async function DescriptionsContent() {
+  const [descriptionImage1, descriptionImage2] = await Promise.all([
     getAboutPageImages('description-1'),
     getAboutPageImages('description-2'),
-    getAboutPageImages('quote'),
   ])
+  return (
+    <Descriptions descriptionImage1={descriptionImage1} descriptionImage2={descriptionImage2} />
+  )
+}
 
+async function QuotesContent() {
+  const quoteImage = await getAboutPageImages('quote')
+  return <QuotesSection quoteImage={quoteImage} />
+}
+
+export default function AboutPage() {
   return (
     <div className="home">
       <Header />
-      <Hero heroImage={heroImage} />
-      <Descriptions descriptionImage1={descriptionImage1} descriptionImage2={descriptionImage2} />
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <HeroContent />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <DescriptionsContent />
+      </Suspense>
+
       <MeetTheTeam />
-      <QuotesSection quoteImage={quoteImage} />
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <QuotesContent />
+      </Suspense>
+
       <MeetTheWDCCTeam />
       <Footer />
     </div>

@@ -18,8 +18,8 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
   // ensures it always uses the first image in the list
   const image = whatWeDoImage?.[0]?.image
 
-  // due to payloads type definition, image.url can be null so we replace it with empty string
-  const imageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'card' size (768px) for section images - perfect for this display size
+  const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
   // If no image URL, show error in console
   if (!imageUrl) {

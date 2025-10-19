@@ -9,7 +9,8 @@ interface HeroSectionProps {
 export default function Hero({ heroImage }: HeroSectionProps) {
   // Fixed: Added optional chaining to prevent crashes if array is empty
   const image = heroImage?.[0]?.image
-  const imageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'hero' size (1920px) for hero section
+  const imageUrl = getPayloadImageUrl(image, 'hero') ?? ''
 
   // Log error if no image
   if (!imageUrl) {

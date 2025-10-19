@@ -1,7 +1,7 @@
 import { IconX } from '@tabler/icons-react'
 import Modal from './Modal'
 import Image from 'next/image'
-import Logo from '@/assets/sharpened_logo.png'
+import Logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
 import BirdPNG from '@/assets/signUpBird.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'

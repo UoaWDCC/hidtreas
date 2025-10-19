@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import logo from '@/assets/sharpened_logo.png'
+import logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
 import blueKoru from '@/assets/blue_koru.png'
 import { AboutPageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
@@ -15,10 +15,12 @@ export default function Descriptions({
 }: DescriptionImageProps) {
   // Fixed: Added optional chaining to prevent crashes if arrays are empty
   const image = descriptionImage1?.[0]?.image
-  const rightimageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'card' size (768px) for description images
+  const rightimageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
   const image2 = descriptionImage2?.[0]?.image
-  const leftimageUrl = getPayloadImageUrl(image2) ?? ''
+  // ✅ Use 'card' size (768px) for description images
+  const leftimageUrl = getPayloadImageUrl(image2, 'card') ?? ''
 
   // Log errors if images not found
   if (!rightimageUrl) {
