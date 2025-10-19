@@ -93,6 +93,8 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
             width={200}
             height={200}
             className="w-full rounded-lg shadow-xl"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={75}
           />
           <Image
             src={leaf}

@@ -26,6 +26,7 @@ export default function Descriptions({
         src={blueKoru}
         alt="Blue Koru"
         className="absolute right-0 top-[-3rem] w-20 rotate-270 z-10 sm:hidden"
+        quality={80}
       />
 
       {/* Blue koru decoration on left side - flipped 180 degrees */}
@@ -34,6 +35,7 @@ export default function Descriptions({
         alt="Blue Koru"
         className="absolute left-0 top-[-3rem] sm:top-[-4rem] w-20 sm:w-35 z-10"
         style={{ transform: 'rotate(90deg) scaleX(-1)' }}
+        quality={80}
       />
 
       <div className="md:mb-[12rem]">
@@ -42,7 +44,12 @@ export default function Descriptions({
           {/* logo */}
           <div className="relative w-full flex justify-center">
             <div className="relative w-[20vw] sm:w-[15vw] md:w-[10vw] mb-[3vh]">
-              <Image src={logo} alt="Hidden Treasure logo" className="object-contain" />
+              <Image
+                src={logo}
+                alt="Hidden Treasure logo"
+                className="object-contain"
+                quality={90}
+              />
             </div>
           </div>
 
@@ -80,6 +87,8 @@ export default function Descriptions({
                   alt="Flag Bearer"
                   fill
                   className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
+                  sizes="14vw"
+                  quality={75}
                 />
               </div>{' '}
             </div>
@@ -104,6 +113,8 @@ export default function Descriptions({
                   alt="People sitting on steps wearing traditional Indian clothing."
                   fill
                   className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
+                  sizes="14vw"
+                  quality={75}
                 />
               </div>
             </div>

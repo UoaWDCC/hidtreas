@@ -13,6 +13,7 @@ export default function MeetTheWDCCTeam() {
         src={blueKoru}
         alt="Koru"
         className="absolute right-0 top-[10%] sm:bottom-[1/3] w-20 sm:w-35 rotate-270 z-[-10]"
+        quality={80}
       />
 
       <div className="px-[1rem] sm:px-[1.5rem] md:px-[2rem] lg:px-[6vw] py-4 md:py-8 mb-[4rem] md:mb-[6rem]">
@@ -26,6 +27,8 @@ export default function MeetTheWDCCTeam() {
                   alt="Hidtreas WDCC Team"
                   fill
                   className="object-contain object-center"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  quality={85}
                 />
               </div>
 
@@ -37,6 +40,7 @@ export default function MeetTheWDCCTeam() {
                   width={160}
                   height={200}
                   className="w-[6rem] sm:w-[8rem] md:w-[10rem] h-auto"
+                  quality={80}
                 />
               </div>
             </div>

@@ -25,6 +25,9 @@ export default function Hero({ heroImage }: HeroSectionProps) {
               height={1000}
               alt="Hidden Treasure People" // Actual image should be wider than placeholder
               className="w-full h-full object-cover object-center"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={85}
+              priority
             />
           </div>
 

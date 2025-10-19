@@ -17,6 +17,8 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
             alt="Background Image"
             className="w-[90vw] min-w-[500px] h-auto max-w-none"
             priority
+            sizes="90vw"
+            quality={80}
           />
         </div>
         {/* Content */}
@@ -32,6 +34,7 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
                 src={feather}
                 alt="Feather Icon"
                 className="w-[12vw] max-w-[80px] h-auto scale-x-[-1] animate-bob"
+                quality={85}
               />
               {/* Text */}
               <h2
