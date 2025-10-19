@@ -22,6 +22,9 @@ const BlogCard: FunctionComponent<Props> = ({ blog }) => {
           alt={blog.title}
           className="object-cover"
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          quality={75}
+          loading="lazy"
         />
       </div>
 

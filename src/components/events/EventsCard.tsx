@@ -61,6 +61,9 @@ export default function EventsCard({
               width={210}
               height={140}
               className="w-[210px] h-[140px] object-cover rounded-lg transition-all duration-300 hover:scale-110 hover:shadow-lg"
+              sizes="210px"
+              quality={75}
+              loading="lazy"
             />
             <p className="absolute text-xs rotate-270 origin-left -left-[8px] top-32 whitespace-nowrap pointer-events-none transition-all duration-300 group-hover:scale-110 group-hover:-translate-x-2">
               HOSTED BY: {event.hostedBy}

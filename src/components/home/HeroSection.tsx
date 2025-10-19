@@ -28,6 +28,8 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
           fill
           className="object-cover object-center rounded-b-[4vw]"
           priority
+          sizes="95vw"
+          quality={85}
         />
         <div className="absolute inset-0 bg-white/70 z-10" />
 
