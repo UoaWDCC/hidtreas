@@ -28,6 +28,9 @@ export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
           alt="Henna Being Drawn"
           fill
           className="object-cover object-center opacity"
+          sizes="100vw"
+          quality={75}
+          priority={false}
         />
 
         {/* Blue wave decoration - top */}
@@ -38,6 +41,7 @@ export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
             width={110}
             height={80}
             className="w-[7.5rem] sm:w-[8rem] md:w-[9rem] h-auto"
+            quality={80}
           />
         </div>
 
@@ -62,6 +66,7 @@ export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
             width={150}
             height={190}
             className="w-[6rem] sm:w-[7rem] md:w-[8rem] lg:w-[9rem] h-auto -scale-x-100 -rotate-20 opacity-100"
+            quality={80}
           />
         </div>
       </div>

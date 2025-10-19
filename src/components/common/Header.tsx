@@ -25,6 +25,8 @@ export default function Header() {
           width={48}
           height={48}
           className="w-[3rem] h-[3rem] sm:w-[3.25rem] sm:h-[3.25rem] md:w-[3.5rem] md:h-[3.5rem] lg:w-[4rem] lg:h-[4rem]"
+          priority
+          quality={90}
         />
         <h1 className="text-[1rem] sm:text-[1.1rem] md:text-[1.2rem] lg:text-[1.35rem] font-semibold tracking-wide antialiased">
           HIDDEN TREASURE

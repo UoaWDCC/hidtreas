@@ -36,7 +36,6 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
             className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 52vw, 55vw"
             quality={75}
-            loading="lazy"
           />
 
           <Image

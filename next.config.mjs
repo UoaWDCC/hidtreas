@@ -6,7 +6,6 @@ const AWS_REGION = process.env.AWS_REGION || 'ap-southeast-2'
 
 const remotePatterns = []
 
-// Only add S3 remote patterns if bucket is configured
 if (AWS_BUCKET) {
   remotePatterns.push(
     {

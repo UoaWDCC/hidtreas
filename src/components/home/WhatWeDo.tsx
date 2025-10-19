@@ -95,7 +95,6 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
             className="w-full rounded-lg shadow-xl"
             sizes="(max-width: 768px) 100vw, 50vw"
             quality={75}
-            loading="lazy"
           />
           <Image
             src={leaf}

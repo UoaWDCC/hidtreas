@@ -99,8 +99,7 @@ export default function Footer() {
         }}
         width={400}
         height={360}
-        quality={100}
-        priority
+        quality={85}
       />
       <div className="text-cyan-950 flex flex-wrap flex-row p-6 sm:p-10">
         <div
