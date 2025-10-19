@@ -13,8 +13,13 @@ interface WhoWeAreProps {
 
 export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
   const router = useRouter()
-  const image = whoWeAreImage[0].image
+  const image = whoWeAreImage?.[0]?.image
   const imageUrl = getPayloadImageUrl(image) ?? ''
+
+  // If no image URL, show error in console
+  if (!imageUrl) {
+    console.error('Who We Are image not loaded from Payload CMS')
+  }
 
   return (
     <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-x-hidden overflow-y-visible">
@@ -28,15 +33,21 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
 
       <AnimatedSection animationClass="animate-slide-in-left" delay={0.2}>
         <div className="relative flex justify-center mt-8 sm:mt-12 md:mt-0">
-          <Image
-            src={imageUrl}
-            alt="Who We Are"
-            width={1000}
-            height={1000}
-            className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 52vw, 55vw"
-            quality={75}
-          />
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt="Who We Are"
+              width={1000}
+              height={1000}
+              className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 52vw, 55vw"
+              quality={75}
+            />
+          ) : (
+            <div className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] aspect-square rounded-lg bg-gradient-to-br from-[#13384E] to-[#0a2638] flex items-center justify-center">
+              <p className="text-white">Loading image...</p>
+            </div>
+          )}
 
           <Image
             src={koru1}

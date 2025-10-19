@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import nasz from '@/assets/sharpened_logo.png'
+import nasz from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
 import SignUpModal from './SignUpModal'
 import Link from 'next/link'
 

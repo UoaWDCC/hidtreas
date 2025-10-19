@@ -13,11 +13,20 @@ export default function Descriptions({
   descriptionImage1,
   descriptionImage2,
 }: DescriptionImageProps) {
-  const image = descriptionImage1[0].image
+  // Fixed: Added optional chaining to prevent crashes if arrays are empty
+  const image = descriptionImage1?.[0]?.image
   const rightimageUrl = getPayloadImageUrl(image) ?? ''
 
-  const image2 = descriptionImage2[0].image
+  const image2 = descriptionImage2?.[0]?.image
   const leftimageUrl = getPayloadImageUrl(image2) ?? ''
+
+  // Log errors if images not found
+  if (!rightimageUrl) {
+    console.error('Description image 1 not loaded from Payload CMS')
+  }
+  if (!leftimageUrl) {
+    console.error('Description image 2 not loaded from Payload CMS')
+  }
 
   return (
     <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">

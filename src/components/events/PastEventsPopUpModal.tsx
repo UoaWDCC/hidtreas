@@ -956,7 +956,7 @@ export default function PastEventsPopUpModal({
                       setCurrentIdx(index)
                       scrollToIndex(index)
                     }}
-                    className={`flex-shrink-0 snap-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 w-full mx-auto md:mx-0 ${
+                    className={`flex-shrink-0 snap-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 w-full mx-auto md:mx-0 ${
                       isActive
                         ? 'pointer-events-none max-w-[23rem] md:max-w-none md:w-[23rem]'
                         : 'max-w-[20rem] md:max-w-none md:w-[21rem]'

@@ -7,8 +7,14 @@ interface HeroSectionProps {
 }
 
 export default function Hero({ heroImage }: HeroSectionProps) {
-  const image = heroImage[0].image
+  // Fixed: Added optional chaining to prevent crashes if array is empty
+  const image = heroImage?.[0]?.image
   const imageUrl = getPayloadImageUrl(image) ?? ''
+
+  // Log error if no image
+  if (!imageUrl) {
+    console.error('About Hero image not loaded from Payload CMS')
+  }
 
   return (
     <div className="mb-[3rem] md:mb-[8rem]">
@@ -19,16 +25,22 @@ export default function Hero({ heroImage }: HeroSectionProps) {
 
           {/*className="object-cover object-left opacity-70"*/}
           <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
-            <Image
-              src={imageUrl}
-              width={1000}
-              height={1000}
-              alt="Hidden Treasure People" // Actual image should be wider than placeholder
-              className="w-full h-full object-cover object-center"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              quality={85}
-              priority
-            />
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                width={1000}
+                height={1000}
+                alt="Hidden Treasure People"
+                className="w-full h-full object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={85}
+                priority
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-[#13384E] to-[#0a2638] flex items-center justify-center">
+                <p className="text-white text-xl">Loading image...</p>
+              </div>
+            )}
           </div>
 
           <div className="w-full md:w-1/2 flex flex-col items-start justify-center p-6 md:p-8">
