@@ -8,6 +8,8 @@ import Events from '@/components/home/Events'
 import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
 import { getHomePageImages } from '@/lib/payload/images'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
   const upcoming = await getUpcomingEvents(5)
   const past = await getPastEvents()
