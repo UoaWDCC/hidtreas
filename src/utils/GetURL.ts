@@ -11,9 +11,10 @@ export const getClientSideURL = () => {
       return `${protocol}//${host}${port ? `:${port}` : ''}`
     }
   } catch (e) {
-    if (process.env.PAYLOAD_SERVER_URL) {
-      return process.env.PAYLOAD_SERVER_URL
-    }
-    return ''
+    // Do nothing
   }
+  if (process.env.NEXT_PUBLIC_PAYLOAD_SERVER_URL) {
+    return process.env.NEXT_PUBLIC_PAYLOAD_SERVER_URL
+  }
+  return ''
 }
