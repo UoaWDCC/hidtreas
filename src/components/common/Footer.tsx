@@ -12,7 +12,7 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
-import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
+import footerLogoSharpened from '@/assets/footer-logo-sharpened.webp' // Changed from .png to .webp for 90% smaller file
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
 

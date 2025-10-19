@@ -18,20 +18,30 @@ interface QuoteSectionProps {
 }
 
 export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
-  const image = quoteImage[0].image
+  // Fixed: Added optional chaining to prevent crashes if array is empty
+  const image = quoteImage?.[0]?.image
   const imageUrl = getPayloadImageUrl(image) ?? ''
+
+  // Log error if no image
+  if (!imageUrl) {
+    console.error('Quote section image not loaded from Payload CMS')
+  }
   return (
     <section className="py-8  md:py-12">
       <div className="relative w-full min-h-[70vh] mb-[3rem]">
-        <Image
-          src={imageUrl}
-          alt="Henna Being Drawn"
-          fill
-          className="object-cover object-center opacity"
-          sizes="100vw"
-          quality={75}
-          priority={false}
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="Henna Being Drawn"
+            fill
+            className="object-cover object-center opacity"
+            sizes="100vw"
+            quality={75}
+            priority={false}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#13384E] to-[#0a2638]" />
+        )}
 
         {/* Blue wave decoration - top */}
         <div className="absolute -top-[10vh] right-[20%] z-20">
