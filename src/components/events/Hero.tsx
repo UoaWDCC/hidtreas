@@ -40,10 +40,9 @@ export default function Hero() {
             <div className="w-full flex justify-end text-right ">
               <div className="w-[50vw]">
                 <p className="mt-4 text-[0.75rem rem] sm:text-[0.875remrem] md:text-[1rem] lg:text-[1.125rem] font-normal animate-fade-in">
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit. Consectetur adipiscing
-                  elit quisque faucibus ex sapien vitae. Ex sapien vitae pellentesque sem placerat
-                  in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis
-                  tempus leo eu aenean.
+                  Hidden Treasure hosts events that build community and connect generations. It
+                  supports seniors, runs women's groups and donation drives, promotes culture
+                  through libraries and radio, and partners with schools.
                 </p>
               </div>
             </div>

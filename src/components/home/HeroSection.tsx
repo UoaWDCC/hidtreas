@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
-import logoImage from '@/assets/sharpened_logo.png'
+import logoImage from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
+import backgroundImage from '@/assets/blur_blue_wave.webp' // Changed from .png to .webp for 76% smaller file
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'
 import AnimatedSection from '../common/AnimatedSection'
@@ -16,8 +17,8 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
   // ensures it always uses the first image in the list
   const image = heroImage?.[0]?.image
 
-  // due to payload's type definition, image.url can be null so we replace it with empty string
-  const imageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'hero' size (1920px) for hero section - much smaller than original!
+  const imageUrl = getPayloadImageUrl(image, 'hero') ?? ''
 
   // If no image URL, show error in console and use fallback
   if (!imageUrl) {

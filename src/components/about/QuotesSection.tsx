@@ -20,7 +20,8 @@ interface QuoteSectionProps {
 export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
   // Fixed: Added optional chaining to prevent crashes if array is empty
   const image = quoteImage?.[0]?.image
-  const imageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'card' size (768px) for quote section image
+  const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
   // Log error if no image
   if (!imageUrl) {

@@ -14,7 +14,8 @@ interface WhoWeAreProps {
 export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
   const router = useRouter()
   const image = whoWeAreImage?.[0]?.image
-  const imageUrl = getPayloadImageUrl(image) ?? ''
+  // ✅ Use 'card' size (768px) for section images - perfect for this display size
+  const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
   // If no image URL, show error in console
   if (!imageUrl) {
