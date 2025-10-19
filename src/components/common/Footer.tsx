@@ -10,9 +10,9 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
-import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
+import footerLogoSharpened from '@/assets/footer-logo-sharpened.webp' // Changed from .png to .webp for 90% smaller file
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
 
@@ -29,36 +29,29 @@ const links: {
       { label: 'About Us', href: '/about', icon: undefined },
       { label: 'Events', href: '/events', icon: undefined },
       { label: 'Blogs', href: '/blogs', icon: undefined },
-      { label: 'Our Values', href: '/values', icon: undefined },
-      { label: 'Contact Us', href: '/contact', icon: undefined },
-    ],
-    extlinks: undefined,
-  },
-  {
-    label: 'GET INVOLVED',
-    items: [
-      { label: 'Volunteer', href: '/volunteer', icon: undefined },
-      { label: 'Donate', href: '/donate', icon: undefined },
-      { label: 'Membership', href: '/membership', icon: undefined },
-      { label: 'Sponsorship', href: '/sponsorship', icon: undefined },
-      { label: 'Partnership', href: '/partnership', icon: undefined },
+      { label: 'FAQ', href: '/faq', icon: undefined },
+      //{ label: 'Our Values', href: '/values', icon: undefined },
+      //{ label: 'Contact Us', href: '/contact', icon: undefined },
     ],
     extlinks: undefined,
   },
   {
     label: 'CONNECT WITH US',
     items: [
-      { label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
-      { label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
+      //{ label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
+      //{ label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
     ],
     extlinks: [
-      { href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
-      { href: 'https://www.facebook.com/profile.php?id=61574941850535', icon: IconBrandFacebook },
-      { href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
+      //{ href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
       {
+        href: 'https://www.facebook.com/people/Hidden-Treasure/61574941850535/',
+        icon: IconBrandFacebook,
+      },
+      //{ href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
+      /*{
         href: 'https://www.linkedin.com/company/hiddentreasure',
         icon: IconBrandLinkedin,
-      },
+      }, */
     ],
   },
 ]
@@ -104,8 +97,7 @@ export default function Footer({ payloadVersion = false }: { payloadVersion?: bo
         }}
         width={400}
         height={360}
-        quality={100}
-        priority
+        quality={85}
       />
       <div className="text-cyan-950 flex flex-wrap flex-row p-6 sm:p-10">
         <div
@@ -161,12 +153,13 @@ export default function Footer({ payloadVersion = false }: { payloadVersion?: bo
               {link.items.map((item) => (
                 <p key={item.label} className="text-sm sm:text-base mb-1">
                   {item.icon && <item.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 inline" />}
-                  <a
-                    href={payloadVersion ? undefined : item.href}
-                    className={item.href ? 'hover:underline' : ''}
-                  >
-                    {item.label}
-                  </a>
+                  {item.href ? (
+                    <Link href={item.href} className="hover:underline">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
                 </p>
               ))}
               <div className="flex flex-row mt-4 sm:mt-5">
@@ -206,17 +199,6 @@ export default function Footer({ payloadVersion = false }: { payloadVersion?: bo
       >
         <div className="w-50 hidden xl:block" />
         <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
-        <div className="flex flex-row gap-3 sm:gap-5 text-sm sm:text-base">
-          <a href="/faq" className="text-center hover:underline">
-            FAQ
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Privacy Policy
-          </a>
-          <a href="/privacy" className="text-center hover:underline">
-            Terms of Service
-          </a>
-        </div>
       </div>
 
       <style jsx>{`

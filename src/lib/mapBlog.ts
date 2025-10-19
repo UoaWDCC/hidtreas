@@ -1,6 +1,7 @@
 import type { Blog } from '@/payload-types'
 import placeholderImage from '@/assets/landscape_placeholder.png'
-import { TEMPLATE_KEYS, type TemplateKey, type BlogType } from '@/types/blog'
+import { type BlogType } from '@/types/blog'
+import { TEMPLATE_KEYS, type TemplateKey } from "@/lib/blog-templates";
 
 export function mapPayloadBlog(b: Blog): BlogType {
   const template: TemplateKey = TEMPLATE_KEYS.includes(b.template as TemplateKey)

@@ -2,16 +2,8 @@ import { mapPayloadEvent } from '@/lib/mapEvent'
 import { EventType } from '@/types/event'
 import type { Event } from '@/payload-types'
 import {fetchJSON} from "@/lib/payload/client";
+import type {Paginated} from "@/types/pagination";
 
-type Paginated<T> = {
-    docs: T[];
-    totalDocs: number;
-    limit: number;
-    page: number;
-    totalPages: number;
-    hasNextPage: boolean;
-    hasPrevPage: boolean;
-};
 
 /**
  * Fetch upcoming events (future-dated).

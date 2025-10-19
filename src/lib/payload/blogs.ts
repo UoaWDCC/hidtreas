@@ -3,16 +3,7 @@ import type { Blog } from '@/payload-types'
 import { mapPayloadBlog } from '@/lib/mapBlog'
 import { BlogType } from '@/types/blog'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
-
-type Paginated<T> = {
-  docs: T[]
-  totalDocs: number
-  limit: number
-  page: number
-  totalPages: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-}
+import type { Paginated } from '@/types/pagination'
 
 export async function getBlogs(opts: { page?: number; limit?: number } = {}) {
   const { page = 1, limit = 10 } = opts

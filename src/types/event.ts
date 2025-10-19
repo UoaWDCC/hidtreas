@@ -8,4 +8,5 @@ export type EventType = {
   date: Date
   venue?: string
   imageUrl: string | StaticImageData
+  galleryImages: Array<string | StaticImageData>
 }

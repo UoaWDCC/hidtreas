@@ -6,6 +6,10 @@ import Search from '@/components/blogs/Search'
 import { getBlogs } from '@/lib/payload/blogs'
 import type { BlogType } from '@/types/blog'
 
+// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
+export const dynamic = 'force-dynamic'
+export const revalidate = 300
+
 export default async function BlogsPage() {
   const { docs: blogs } = await getBlogs({ page: 1, limit: 10 })
 
@@ -23,17 +27,8 @@ export default async function BlogsPage() {
         </p>
       </div>
 
-      {/* Search Bar */}
-      <Search />
-
-      {/* Blog Grid */}
-      <div className="px-[2.5rem] lg:px-[7rem] mb-16 flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[3rem]">
-          {blogs.map((blog: BlogType) => (
-            <BlogCard key={blog.id} blog={blog} />
-          ))}
-        </div>
-      </div>
+      {/* Search Bar Filter + Blog Grid */}
+      <Search blogs={blogs} />
 
       <Footer />
     </div>

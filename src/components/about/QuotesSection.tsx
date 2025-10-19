@@ -4,23 +4,44 @@ import { Covered_By_Your_Grace } from 'next/font/google'
 
 import blueWave from '@/assets/blue_wave.png'
 import bigFeather from '@/assets/big_feather.png'
-import quotesBackgroundImage from '@/assets/hennaDrawing_upscaled.png'
+
+import { AboutPageImage } from '@/payload-types'
+import { getPayloadImageUrl } from '@/utils/image'
 
 const coveredByYourGrace = Covered_By_Your_Grace({
   subsets: ['latin'],
   weight: '400',
 })
 
-export default function QuotesSection() {
+interface QuoteSectionProps {
+  quoteImage: AboutPageImage[]
+}
+
+export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
+  // Fixed: Added optional chaining to prevent crashes if array is empty
+  const image = quoteImage?.[0]?.image
+  const imageUrl = getPayloadImageUrl(image) ?? ''
+
+  // Log error if no image
+  if (!imageUrl) {
+    console.error('Quote section image not loaded from Payload CMS')
+  }
   return (
     <section className="py-8  md:py-12">
       <div className="relative w-full min-h-[70vh] mb-[3rem]">
-        <Image
-          src={quotesBackgroundImage}
-          alt="Henna Being Drawn"
-          fill
-          className="object-cover object-center opacity"
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="Henna Being Drawn"
+            fill
+            className="object-cover object-center opacity"
+            sizes="100vw"
+            quality={75}
+            priority={false}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#13384E] to-[#0a2638]" />
+        )}
 
         {/* Blue wave decoration - top */}
         <div className="absolute -top-[10vh] right-[20%] z-20">
@@ -30,6 +51,7 @@ export default function QuotesSection() {
             width={110}
             height={80}
             className="w-[7.5rem] sm:w-[8rem] md:w-[9rem] h-auto"
+            quality={80}
           />
         </div>
 
@@ -54,6 +76,7 @@ export default function QuotesSection() {
             width={150}
             height={190}
             className="w-[6rem] sm:w-[7rem] md:w-[8rem] lg:w-[9rem] h-auto -scale-x-100 -rotate-20 opacity-100"
+            quality={80}
           />
         </div>
       </div>

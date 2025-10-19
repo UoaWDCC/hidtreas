@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import nasz from '@/assets/sharpened_logo.png'
+import nasz from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
 import SignUpModal from './SignUpModal'
 import Link from 'next/link'
 
@@ -24,6 +24,8 @@ export default function Header({ payloadVersion = false }: { payloadVersion?: bo
           width={48}
           height={48}
           className="w-[3rem] h-[3rem] sm:w-[3.25rem] sm:h-[3.25rem] md:w-[3.5rem] md:h-[3.5rem] lg:w-[4rem] lg:h-[4rem]"
+          priority
+          quality={90}
         />
         <h1 className="text-[1rem] sm:text-[1.1rem] md:text-[1.2rem] lg:text-[1.35rem] font-semibold tracking-wide antialiased">
           HIDDEN TREASURE
@@ -50,36 +52,26 @@ export default function Header({ payloadVersion = false }: { payloadVersion?: bo
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center space-x-[1.5rem] xl:space-x-[2rem] font-medium text-[1rem] md:text-[1.125rem] antialiased">
         <h1 className="animate-slide-in-right animate-stagger-1">
-          <a
-            href={payloadVersion ? undefined : '/'}
-            className="hover:underline uppercase tracking-wide hover-lift"
-          >
+          <Link href="/" className="hover:underline uppercase tracking-wide hover-lift">
             Home
-          </a>
+          </Link>
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-2">
-          <a
-            href={payloadVersion ? undefined : '/about'}
-            className="hover:underline uppercase tracking-wide hover-lift"
-          >
+          <Link href="/about" className="hover:underline uppercase tracking-wide hover-lift">
             About Us
-          </a>
+          </Link>
         </h1>
+        {/* Blogs currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-3">
-          <a
-            href={payloadVersion ? undefined : '/blogs'}
-            className="hover:underline uppercase tracking-wide hover-lift"
-          >
+          <Link href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
-          </a>
+          </Link>
         </h1>
+        {/* Events currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-4">
-          <a
-            href={payloadVersion ? undefined : '/events'}
-            className="hover:underline uppercase tracking-wide hover-lift"
-          >
+          <Link href="/events" className="hover:underline uppercase tracking-wide hover-lift">
             Events
-          </a>
+          </Link>
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-5">
           <button
@@ -95,30 +87,18 @@ export default function Header({ payloadVersion = false }: { payloadVersion?: bo
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden animate-slide-in-top">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <a
-              href={payloadVersion ? undefined : '/'}
-              className="uppercase tracking-wide font-medium hover-lift"
-            >
+            <Link href="/" className="uppercase tracking-wide font-medium hover-lift">
               Home
-            </a>
-            <a
-              href={payloadVersion ? undefined : '/about'}
-              className="uppercase tracking-wide font-medium hover-lift"
-            >
+            </Link>
+            <Link href="/about" className="uppercase tracking-wide font-medium hover-lift">
               About Us
-            </a>
-            <a
-              href={payloadVersion ? undefined : '/blogs'}
-              className="uppercase tracking-wide font-medium hover-lift"
-            >
+            </Link>
+            <Link href="/blogs" className="uppercase tracking-wide font-medium hover-lift">
               Blogs
-            </a>
-            <a
-              href={payloadVersion ? undefined : '/events'}
-              className="uppercase tracking-wide font-medium hover-lift"
-            >
+            </Link>
+            <Link href="/events" className="uppercase tracking-wide font-medium hover-lift">
               Events
-            </a>
+            </Link>
             <button
               className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
               onClick={() => {

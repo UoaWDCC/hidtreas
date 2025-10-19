@@ -72,6 +72,10 @@ export interface Config {
     blogs: Blog;
     events: Event;
     members: Member;
+    subscribers: Subscriber;
+    'event-subscribers': EventSubscriber;
+    'home-page-images': HomePageImage;
+    'about-page-images': AboutPageImage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +87,10 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'event-subscribers': EventSubscribersSelect<false> | EventSubscribersSelect<true>;
+    'home-page-images': HomePageImagesSelect<false> | HomePageImagesSelect<true>;
+    'about-page-images': AboutPageImagesSelect<false> | AboutPageImagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -217,7 +225,7 @@ export interface Event {
   description?: string | null;
   date: string;
   venue?: string | null;
-  image?: (string | null) | Media;
+  image?: (string | Media)[] | null;
   published?: boolean | null;
   host: string[];
   updatedAt: string;
@@ -233,6 +241,63 @@ export interface Member {
   image?: (string | null) | Media;
   role: string;
   pronoun?: ('(he/him)' | '(she/her)' | 'other') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers".
+ */
+export interface EventSubscriber {
+  id: string;
+  event: string | Event;
+  email: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images".
+ */
+export interface HomePageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the home page?
+   */
+  placement: 'hero' | 'who-we-are' | 'what-we-do';
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images".
+ */
+export interface AboutPageImage {
+  id: string;
+  title: string;
+  image: string | Media;
+  /**
+   * Where should this image appear on the about page?
+   */
+  placement: 'hero' | 'description-1' | 'description-2' | 'quote';
+  alt: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -262,6 +327,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'members';
         value: string | Member;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: string | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'event-subscribers';
+        value: string | EventSubscriber;
+      } | null)
+    | ({
+        relationTo: 'home-page-images';
+        value: string | HomePageImage;
+      } | null)
+    | ({
+        relationTo: 'about-page-images';
+        value: string | AboutPageImage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -390,6 +471,53 @@ export interface MembersSelect<T extends boolean = true> {
   image?: T;
   role?: T;
   pronoun?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-subscribers_select".
+ */
+export interface EventSubscribersSelect<T extends boolean = true> {
+  event?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page-images_select".
+ */
+export interface HomePageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page-images_select".
+ */
+export interface AboutPageImagesSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  placement?: T;
+  alt?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -58,10 +58,10 @@ export default async function NotFound() {
           <h1>This Treasure Does Not Exist.</h1>
         </div>
 
-        {/* Links out of page */}
+        {/* Links out of page - currently links back to 404 not found*/}
         <div className="underline font-semibold text-sm mt-5 flex flex-col gap-4 justify-center mt-20 uppercase tracking-wider">
           <a href="/">Return to Home</a>
-          <a href="/events">Explore our Stories and Events</a>
+          <a href="/NotFound">Explore our Stories and Events</a>
         </div>
 
         {/* All the extras in the background */}

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import waveBackground from '@/assets/waveBackground.png'
-import heroImage from '@/assets/faqheroimage_upscaled.png'
+import heroImage from '@/assets/faqheroimage.jpg'
 
 export default function HeroSection() {
   return (
@@ -24,6 +24,8 @@ export default function HeroSection() {
               fill
               priority
               className="object-cover object-[center_35%]" // move image content down
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              quality={85}
             />
           </div>
         </div>
