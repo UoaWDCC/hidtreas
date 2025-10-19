@@ -10,12 +10,11 @@ import {
   IconX,
 } from '@tabler/icons-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import footerLogoSharpened from '@/assets/footer-logo-sharpened.png'
 import Modal from './Modal'
 import SignUpModal from './SignUpModal'
-import NotFound from '@/app/(frontend)/[...notFound]/page'
 
 // TODO: Make sure that the links are correct
 const links: {
@@ -26,11 +25,10 @@ const links: {
   {
     label: 'QUICK LINKS',
     items: [
-      // currenly linked events and blogs to 404 not found
       { label: 'Home', href: '/', icon: undefined },
       { label: 'About Us', href: '/about', icon: undefined },
-      { label: 'Events', href: '/NotFound', icon: undefined },
-      { label: 'Blogs', href: '/NotFound', icon: undefined },
+      { label: 'Events', href: '/events', icon: undefined },
+      { label: 'Blogs', href: '/blogs', icon: undefined },
       { label: 'FAQ', href: '/faq', icon: undefined },
       //{ label: 'Our Values', href: '/values', icon: undefined },
       //{ label: 'Contact Us', href: '/contact', icon: undefined },
@@ -153,9 +151,13 @@ export default function Footer() {
               {link.items.map((item) => (
                 <p key={item.label} className="text-sm sm:text-base mb-1">
                   {item.icon && <item.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-2 inline" />}
-                  <a href={item.href} className={item.href ? 'hover:underline' : ''}>
-                    {item.label}
-                  </a>
+                  {item.href ? (
+                    <Link href={item.href} className="hover:underline">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
                 </p>
               ))}
               <div className="flex flex-row mt-4 sm:mt-5">
