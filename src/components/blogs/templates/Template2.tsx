@@ -19,16 +19,13 @@ export default function Template2({ blog }: Template2Props) {
       {/* Hero Section */}
       <section className="grid md:grid-cols-2 gap-8 px-6 py-8 items-end max-w-6xl mx-auto">
         <div className="space-y-4">
-          {/*
-          TODO: Replace this with a dynamic category/tag field from Payload, or get rid of it.
+
           <h2 className="uppercase text-sm tracking-wide text-gray-600 font-medium">
-            BEHIND THE SCENES
+            {blog.category}
           </h2>
-          */}
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-[#1a1a1a]">
-            {blog.title.split(' ').slice(0, -2).join(' ')}
-            <br />
-            {blog.title.split(' ').slice(-2).join(' ')}
+
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-[#1a1a1a] text-balance">
+            {blog.title}
           </h1>
           <p className="text-gray-700 leading-relaxed max-w-md">
             {blog.description || 'Explore the story behind this blog post...'}

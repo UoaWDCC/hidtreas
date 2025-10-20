@@ -27,5 +27,9 @@ export function mapPayloadBlog(b: Blog): BlogType {
     published: !!b.published,
     createdAt: (b as any)?.createdAt,
     updatedAt: (b as any)?.updatedAt,
+    category: (b as any).category ?? '',
+    quote: (b as any).quote ?? '',
+    quoteAuthor: (b as any).quoteAuthor ?? '',
+    authorBio: (b as any).authorBio ?? '',
   }
 }

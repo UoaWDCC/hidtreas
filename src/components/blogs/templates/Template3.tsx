@@ -16,10 +16,7 @@ export default function Template3({ blog }: Template3Props) {
         <div className="md:flex md:justify-between md:items-start">
           <div>
             BLOGS {'>'}{' '}
-            {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
-            <span className="uppercase">{
-              // blog.category ||
-              'Behind the Scenes'}</span>:{' '}
+            <span className="uppercase">{blog.category}</span>:{' '}
             <span className="text-black">{blog.title}</span>
           </div>
         </div>
@@ -36,10 +33,7 @@ export default function Template3({ blog }: Template3Props) {
 
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
           <p className="uppercase tracking-widest text-[0.8rem] text-white/60">
-            {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
-            {
-              // blog.category ||
-              'Behind the Scenes'}
+            {blog.category}
           </p>
           <h1 className="mt-2 text-[clamp(2rem,4vw,4rem)] font-bold leading-tight text-white">
             {blog.title}
@@ -82,15 +76,10 @@ export default function Template3({ blog }: Template3Props) {
               />
               <div className="absolute -bottom-6 -left-6 bg-[#13384E] text-white p-4 rounded-md shadow-lg max-w-[60%] text-center">
                 <p className="text-sm md:text-base font-semibold">
-                  {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
-                  {
-                    // blog.quote ||
-                    `"Insert an inspirational quote here!"`}
+                  {blog.quote}
                 </p>
                 {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
-                <p className="text-xs mt-2">{
-                  // blog.quoteAuthor ||
-                  '- Author'}</p>
+                <p className="text-xs mt-2">- {blog.quoteAuthor}</p>
               </div>
             </div>
           </div>
@@ -113,10 +102,7 @@ export default function Template3({ blog }: Template3Props) {
             <div className="md:col-span-2 text-center md:text-left space-y-3">
               <h2 className="text-2xl font-bold text-[#13384E]">About the Author</h2>
               <p className="text-sm text-gray-700 leading-relaxed">
-                {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
-                {
-                  // blog.authorBio ||
-                  'This is a short bio about the author. They share stories, insights, and moments that inspire others.'}
+                {blog.authorBio}
               </p>
             </div>
           </div>

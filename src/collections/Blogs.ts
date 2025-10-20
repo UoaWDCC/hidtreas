@@ -108,6 +108,86 @@ export const Blogs: CollectionConfig = {
         description: 'Select which layout template to use when rendering this blog.',
       },
     },
+
+    {
+      name: 'category',
+      type: 'text',
+      admin: {
+        condition: (data) =>
+          data.template === 'template2' || data.template === 'template3',
+        description: '⚠️ Required when using this template – category displayed in header (e.g. “Stories”, “Behind the Scenes”)',
+      },
+      validate: (value: unknown, { data }: { data: any }) => {
+        if (data.published && (data.template === 'template2' || data.template === 'template3') && !value) {
+          return 'This field is required for this template';
+        }
+        return true;
+      },
+    },
+
+    {
+      name: 'quote',
+      type: 'text',
+      admin: {
+        condition: (data) =>
+          data.template === 'template2' ||
+          data.template === 'template3' ||
+          data.template === 'template4',
+        description: '⚠️ Required when using this template – main quote in layout',
+      },
+      validate: (value: unknown, { data }: { data: any }) => {
+        if (
+          data.published &&
+          (data.template === 'template2' ||
+            data.template === 'template3' ||
+            data.template === 'template4') &&
+          !value
+        ) {
+          return 'This field is required for this template';
+        }
+        return true;
+      },
+    },
+
+    {
+      name: 'quoteAuthor',
+      type: 'text',
+      admin: {
+        condition: (data) =>
+          data.template === 'template2' ||
+          data.template === 'template3' ||
+          data.template === 'template4',
+        description: '⚠️ Required when using this template – name of the person being quoted',
+      },
+      validate: (value: unknown, { data }: { data: any }) => {
+        if (
+          data.published &&
+          (data.template === 'template2' ||
+            data.template === 'template3' ||
+            data.template === 'template4') &&
+          !value
+        ) {
+          return 'This field is required for this template';
+        }
+        return true;
+      },
+    },
+
+    {
+      name: 'authorBio',
+      type: 'textarea',
+      admin: {
+        condition: (data) => data.template === 'template3',
+        description: '⚠️ Required when using this template – short bio of the author',
+      },
+      validate: (value: unknown, { data }: { data: any }) => {
+        if (data.published && data.template === 'template3' && !value) {
+          return 'This field is required for this template';
+        }
+        return true;
+      },
+    },
+
     {
       name: 'published',
       type: 'checkbox',

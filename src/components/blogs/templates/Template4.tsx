@@ -4,11 +4,11 @@ import bigGreenKoru from '@/assets/bigGreenKoru.png'
 import leaf from '@/assets/leaf.svg'
 import type { BlogType } from '@/types/blog'
 
-interface Template3Props {
+interface Template4Props {
   blog: BlogType
 }
 
-export default function Template4({ blog }: Template3Props) {
+export default function Template4({ blog }: Template4Props) {
   // Split content into different sections
   const getContentSections = () => {
     const paragraphs =
@@ -127,12 +127,10 @@ export default function Template4({ blog }: Template3Props) {
 
             {/* Quote Section */}
             <div className="text-center my-[4rem]">
-              {/* TODO: Remove the placeholder quote once the field is added to Payload blog collection */}
               <blockquote className="text-[clamp(1.2rem,2.5vw,1.8rem)] italic font-light text-black leading-relaxed mb-4">
-                "it doloribus ut rerum culpa est eligendi veniam Aut quia en assumenda eum pa
-                nostrum vel"
+                {blog.quote}
               </blockquote>
-              <footer className="text-sm text-gray-600 font-medium">- Pauline Smith</footer>
+              <footer className="text-sm text-gray-600 font-medium">- {blog.quoteAuthor}</footer>
             </div>
 
             {/* Third Row - Image Left, Text Right */}
