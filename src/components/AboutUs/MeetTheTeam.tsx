@@ -2,12 +2,14 @@ import Image, { StaticImageData } from 'next/image'
 import placeholderImage from '@/assets/personPicture.png'
 import koru from '@/assets/bigGreenKoru.png'
 import kiwi from '@/assets/kiwiBird.svg'
-import { getMembers } from '@/lib/payload/members'
 import { MemberType } from '@/types/member'
+import type { Member } from '@/payload-types'
 
-export default async function MeetTheTeam() {
-  const members = await getMembers()
+interface MeetTheTeamProps {
+  members: Member[]
+}
 
+export default function MeetTheTeam({ members }: MeetTheTeamProps) {
   return (
     <div className="relative mb-[6rem] md:mb-[8rem]">
       {/* whole section */}

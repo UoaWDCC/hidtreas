@@ -5,7 +5,7 @@ import Logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp fo
 import BackgroundImage from '@/assets/otherKoru.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { createEventSubscriber } from '@/lib/payload/eventSubscribers'
+import { createEventSubscriberAction } from '@/lib/payload/actions'
 
 const fields = [
   { name: 'firstname', placeholder: 'FIRST NAME' },
@@ -105,16 +105,22 @@ export default function EventsSignUpModal({
                     })
                     return
                   }
-                  createEventSubscriber(
+                  createEventSubscriberAction(
                     eventToSignUp ? eventToSignUp.id : form.event.value.id,
                     form.email.value.trim(),
                     form.firstname.value.trim(),
                     form.lastname.value.trim(),
                   )
-                    .then(() => {
-                      setSuccessful(true)
-                      setAnswers(false)
-                      form.reset()
+                    .then((result) => {
+                      if (result.success) {
+                        setSuccessful(true)
+                        setAnswers(false)
+                        form.reset()
+                      } else if (result.error?.includes('unique')) {
+                        setSuccessful(true)
+                      } else {
+                        alert('Error subscribing. Please try again later.')
+                      }
                     })
                     .catch((e) => {
                       if (e.message.includes('Value must be unique')) {

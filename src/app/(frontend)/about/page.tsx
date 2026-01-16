@@ -7,9 +7,9 @@ import Descriptions from '@/components/about/Descriptions'
 import MeetTheWDCCTeam from '@/components/about/MeetTheWDCCTeam'
 import QuotesSection from '@/components/about/QuotesSection'
 import { getAboutPageImages } from '@/lib/payload/images'
+import { getMembers } from '@/lib/payload/members'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
+// ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300
 
 // ✅ Loading fallback
@@ -21,25 +21,24 @@ function SectionSkeleton() {
   )
 }
 
-// ✅ Independent async components
-async function HeroContent() {
-  const heroImage = await getAboutPageImages('hero')
-  return <Hero heroImage={heroImage} />
-}
-
-async function DescriptionsContent() {
-  const [descriptionImage1, descriptionImage2] = await Promise.all([
+// ✅ Parallel data fetching - all requests start simultaneously
+async function AboutContent() {
+  const [heroImage, descriptionImage1, descriptionImage2, quoteImage, members] = await Promise.all([
+    getAboutPageImages('hero'),
     getAboutPageImages('description-1'),
     getAboutPageImages('description-2'),
+    getAboutPageImages('quote'),
+    getMembers(),
   ])
-  return (
-    <Descriptions descriptionImage1={descriptionImage1} descriptionImage2={descriptionImage2} />
-  )
-}
 
-async function QuotesContent() {
-  const quoteImage = await getAboutPageImages('quote')
-  return <QuotesSection quoteImage={quoteImage} />
+  return (
+    <>
+      <Hero heroImage={heroImage} />
+      <Descriptions descriptionImage1={descriptionImage1} descriptionImage2={descriptionImage2} />
+      <MeetTheTeam members={members} />
+      <QuotesSection quoteImage={quoteImage} />
+    </>
+  )
 }
 
 export default function AboutPage() {
@@ -47,18 +46,17 @@ export default function AboutPage() {
     <div className="home">
       <Header />
 
-      <Suspense fallback={<SectionSkeleton />}>
-        <HeroContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <DescriptionsContent />
-      </Suspense>
-
-      <MeetTheTeam />
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <QuotesContent />
+      <Suspense
+        fallback={
+          <>
+            <SectionSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+          </>
+        }
+      >
+        <AboutContent />
       </Suspense>
 
       <MeetTheWDCCTeam />

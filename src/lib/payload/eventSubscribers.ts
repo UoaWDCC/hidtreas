@@ -1,49 +1,59 @@
-import { fetchJSON } from './client'
-import type { Subscriber, Event, EventSubscriber } from '@/payload-types'
+import { getPayload } from './getPayload'
+import type { EventSubscriber } from '@/payload-types'
 
-type Paginated<T> = {
-  docs: T[]
-  totalDocs: number
-  limit: number
-  page: number
-  totalPages: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-}
-
-export async function createEventSubscriber(
-  eventId: string,
-  email: string,
-  firstName: string,
-  lastName: string,
-) {
-  return fetchJSON<EventSubscriber>('/api/event-subscribers', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ event: eventId, email, firstName, lastName }),
-  })
-}
-
+/**
+ * Fetch event subscribers by event ID using Payload Local API (server-side only)
+ */
 export async function getEventSubscribersByEventId(
   eventId: string,
   opts: { page?: number; limit?: number } = {},
 ) {
   const { page = 1, limit = 10 } = opts
-  return fetchJSON<Paginated<EventSubscriber>>(
-    `/api/event-subscribers?event=${eventId}&sort=-createdAt&page=${page}&limit=${limit}&depth=0`,
-  )
+  const payload = await getPayload()
+
+  return payload.find({
+    collection: 'event-subscribers',
+    sort: '-createdAt',
+    page,
+    limit,
+    depth: 0,
+    where: {
+      event: { equals: eventId },
+    },
+  })
 }
 
+/**
+ * Fetch event subscribers by email using Payload Local API (server-side only)
+ */
 export async function getEventSubscribersByEmail(
   email: string,
   opts: { page?: number; limit?: number } = {},
 ) {
   const { page = 1, limit = 10 } = opts
-  return fetchJSON<Paginated<EventSubscriber>>(
-    `/api/event-subscribers?email=${email}&sort=-createdAt&page=${page}&limit=${limit}&depth=2`,
-  )
+  const payload = await getPayload()
+
+  return payload.find({
+    collection: 'event-subscribers',
+    sort: '-createdAt',
+    page,
+    limit,
+    depth: 2,
+    where: {
+      email: { equals: email },
+    },
+  })
 }
 
+/**
+ * Fetch an event subscriber by ID using Payload Local API (server-side only)
+ */
 export async function getEventSubscriberById(id: string) {
-  return fetchJSON<EventSubscriber>(`/api/event-subscribers/${id}?depth=2`)
+  const payload = await getPayload()
+
+  return payload.findByID({
+    collection: 'event-subscribers',
+    id,
+    depth: 2,
+  })
 }

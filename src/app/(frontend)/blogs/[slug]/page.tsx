@@ -4,10 +4,20 @@ import Footer from '@/components/common/Footer'
 import { notFound } from 'next/navigation'
 import { getBlogBySlug } from '@/lib/payload/blogs'
 import { BLOG_TEMPLATES } from '@/lib/blog-templates'
+import { getBlogs } from '@/lib/payload/blogs'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 10 minutes in production
-export const dynamic = 'force-dynamic'
+// ISR: Revalidate every 10 minutes for fresh content while keeping pages static
 export const revalidate = 600
+
+// Generate static pages for all published blogs at build time
+export async function generateStaticParams() {
+  try {
+    const { docs } = await getBlogs({ limit: 100 })
+    return docs.map((blog) => ({ slug: blog.slug }))
+  } catch {
+    return []
+  }
+}
 
 export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

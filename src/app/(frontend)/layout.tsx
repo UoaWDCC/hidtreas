@@ -29,10 +29,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en" className={`${k2d.variable} ${inter.variable}`}>
-      <head>
-        <link rel="preload" href="/_next/static/media/k2d-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/_next/static/media/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      </head>
       <body>
         <main>{children}</main>
       </body>

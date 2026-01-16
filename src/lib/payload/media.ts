@@ -1,21 +1,19 @@
+import { getPayload } from './getPayload'
 import type { Media } from '@/payload-types'
-import { fetchJSON } from '@/lib/payload/client'
 
-type Paginated<T> = {
-  docs: T[]
-  totalDocs: number
-  limit: number
-  page: number
-  totalPages: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-}
-
+/**
+ * Fetch media by alt text using Payload Local API
+ */
 export async function getMediaByAlt(alt: string): Promise<Media | null> {
-  const data = await fetchJSON<Paginated<Media>>(
-    `/api/media?where[alt][equals]=${encodeURIComponent(alt)}&limit=1`
-  )
+  const payload = await getPayload()
+
+  const data = await payload.find({
+    collection: 'media',
+    limit: 1,
+    where: {
+      alt: { equals: alt },
+    },
+  })
 
   return data.docs[0] ?? null
 }
-

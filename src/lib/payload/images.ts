@@ -1,37 +1,36 @@
-import { fetchJSON } from './client'
+import { getPayload } from './getPayload'
 import type { HomePageImage, AboutPageImage } from '@/payload-types'
 
-type PaginatedResponse<T> = {
-  docs: T[]
-  totalDocs: number
-  limit: number
-  totalPages: number
-  page: number
-  pagingCounter: number
-  hasPrevPage: boolean
-  hasNextPage: boolean
-  prevPage: number | null
-  nextPage: number | null
-}
+/**
+ * Fetch home page images using Payload Local API (no HTTP overhead)
+ */
+export async function getHomePageImages(placement?: string): Promise<HomePageImage[]> {
+  const payload = await getPayload()
 
-export async function getHomePageImages(placement?: string) {
-  let url = '/api/home-page-images?depth=2&sort=createdAt&limit=100'
+  const data = await payload.find({
+    collection: 'home-page-images',
+    depth: 2,
+    sort: 'createdAt',
+    limit: 100,
+    where: placement ? { placement: { equals: placement } } : undefined,
+  })
 
-  if (placement) {
-    url += `&where[placement][equals]=${placement}`
-  }
-
-  const data = await fetchJSON<PaginatedResponse<HomePageImage>>(url)
   return data.docs
 }
 
-export async function getAboutPageImages(placement?: string) {
-  let url = '/api/about-page-images?depth=2&sort=createdAt&limit=100'
+/**
+ * Fetch about page images using Payload Local API (no HTTP overhead)
+ */
+export async function getAboutPageImages(placement?: string): Promise<AboutPageImage[]> {
+  const payload = await getPayload()
 
-  if (placement) {
-    url += `&where[placement][equals]=${placement}`
-  }
+  const data = await payload.find({
+    collection: 'about-page-images',
+    depth: 2,
+    sort: 'createdAt',
+    limit: 100,
+    where: placement ? { placement: { equals: placement } } : undefined,
+  })
 
-  const data = await fetchJSON<PaginatedResponse<AboutPageImage>>(url)
   return data.docs
 }

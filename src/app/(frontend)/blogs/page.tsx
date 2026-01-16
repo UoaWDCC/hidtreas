@@ -6,8 +6,7 @@ import Search from '@/components/blogs/Search'
 import { getBlogs } from '@/lib/payload/blogs'
 import type { BlogType } from '@/types/blog'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
+// ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300
 
 export default async function BlogsPage() {

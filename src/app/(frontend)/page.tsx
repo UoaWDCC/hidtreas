@@ -9,8 +9,7 @@ import Events from '@/components/home/Events'
 import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
 import { getHomePageImages } from '@/lib/payload/images'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
+// ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300
 
 // ✅ Loading fallbacks for each section
@@ -33,47 +32,42 @@ function SectionSkeleton() {
   )
 }
 
-// ✅ Async Server Components - Each fetches independently!
-async function HeroContent() {
-  const heroImage = await getHomePageImages('hero')
-  return <HeroSection heroImage={heroImage} />
-}
+// ✅ Parallel data fetching - all requests start simultaneously
+async function HomeContent() {
+  // Fetch all data in parallel for faster page load
+  const [heroImage, whoWeAreImage, whatWeDoImage, upcoming] = await Promise.all([
+    getHomePageImages('hero'),
+    getHomePageImages('who-we-are'),
+    getHomePageImages('what-we-do'),
+    getUpcomingEvents(5),
+  ])
 
-async function WhoWeAreContent() {
-  const whoWeAreImage = await getHomePageImages('who-we-are')
-  return <WhoWeAre whoWeAreImage={whoWeAreImage} />
-}
-
-async function WhatWeDoContent() {
-  const whatWeDoImage = await getHomePageImages('what-we-do')
-  return <WhatWeDo whatWeDoImage={whatWeDoImage} />
-}
-
-async function EventsContent() {
-  const upcoming = await getUpcomingEvents(5)
-  return <Events initialEvents={upcoming} />
+  return (
+    <>
+      <HeroSection heroImage={heroImage} />
+      <WhoWeAre whoWeAreImage={whoWeAreImage} />
+      <WhatWeDo whatWeDoImage={whatWeDoImage} />
+      <Events initialEvents={upcoming} />
+    </>
+  )
 }
 
 export default function HomePage() {
-  // ✅ NO BLOCKING! Each section streams in as data arrives via React Suspense
   return (
     <div className="home">
       <Header />
 
-      <Suspense fallback={<HeroSkeleton />}>
-        <HeroContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <WhoWeAreContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <WhatWeDoContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <EventsContent />
+      <Suspense
+        fallback={
+          <>
+            <HeroSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+          </>
+        }
+      >
+        <HomeContent />
       </Suspense>
 
       <Footer />

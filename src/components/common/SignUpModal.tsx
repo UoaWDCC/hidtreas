@@ -5,7 +5,7 @@ import Logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp fo
 import BirdPNG from '@/assets/signUpBird.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { createSubscriber } from '@/lib/payload/subscribers'
+import { createSubscriberAction } from '@/lib/payload/actions'
 
 const fields: { name: string; placeholder: string }[] = [
   {
@@ -84,14 +84,20 @@ export default function SignUpModal({
               onSubmit={(event) => {
                 const form = event.target as HTMLFormElement
                 if (checkValid(form, setErrors)) {
-                  createSubscriber(
+                  createSubscriberAction(
                     form.firstname.value.trim(),
                     form.lastname.value.trim(),
                     form.email.value.trim(),
                   )
-                    .then(() => {
-                      form.reset()
-                      setSuccessful(true)
+                    .then((result) => {
+                      if (result.success) {
+                        form.reset()
+                        setSuccessful(true)
+                      } else if (result.error?.includes('unique')) {
+                        setSuccessful(true)
+                      } else {
+                        alert('Error subscribing. Please try again later.')
+                      }
                     })
                     .catch((e) => {
                       if (e.message.includes('Value must be unique')) {

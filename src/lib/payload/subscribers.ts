@@ -1,31 +1,30 @@
-import { fetchJSON } from './client'
+import { getPayload } from './getPayload'
 import type { Subscriber } from '@/payload-types'
 
-type Paginated<T> = {
-  docs: T[]
-  totalDocs: number
-  limit: number
-  page: number
-  totalPages: number
-  hasNextPage: boolean
-  hasPrevPage: boolean
-}
+/**
+ * Fetch subscribers using Payload Local API (server-side only)
+ */
+export async function getSubscribers(opts: { page?: number; limit?: number } = {}) {
+  const { page = 1, limit = 10 } = opts
+  const payload = await getPayload()
 
-export async function createSubscriber(firstName: string, lastName: string, email: string) {
-  return fetchJSON<Subscriber>('/api/subscribers', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ firstName, lastName, email }),
+  return payload.find({
+    collection: 'subscribers',
+    sort: '-createdAt',
+    page,
+    limit,
   })
 }
 
-export async function getSubscribers(opts: { page?: number; limit?: number } = {}) {
-  const { page = 1, limit = 10 } = opts
-  return fetchJSON<Paginated<Subscriber>>(
-    `/api/subscribers?sort=-createdAt&page=${page}&limit=${limit}`,
-  )
-}
-
+/**
+ * Fetch a subscriber by ID using Payload Local API (server-side only)
+ */
 export async function getSubscriberById(id: string) {
-  return fetchJSON<Subscriber>(`/api/subscribers/${id}?depth=2`)
+  const payload = await getPayload()
+
+  return payload.findByID({
+    collection: 'subscribers',
+    id,
+    depth: 2,
+  })
 }
