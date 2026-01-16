@@ -31,6 +31,6 @@ swap_size_mb = 512
     path = "/"
 
 [[vm]]
-  memory = '512mb'
+  memory = '1024mb'
   cpu_kind = 'shared'
   cpus = 1
