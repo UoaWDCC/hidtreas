@@ -3,6 +3,7 @@ import type { EventSubscriber } from '@/payload-types'
 
 /**
  * Fetch event subscribers by event ID using Payload Local API (server-side only)
+ * Returns null during build time when Payload is not available
  */
 export async function getEventSubscribersByEventId(
   eventId: string,
@@ -10,6 +11,7 @@ export async function getEventSubscribersByEventId(
 ) {
   const { page = 1, limit = 10 } = opts
   const payload = await getPayload()
+  if (!payload) return null
 
   return payload.find({
     collection: 'event-subscribers',
@@ -25,6 +27,7 @@ export async function getEventSubscribersByEventId(
 
 /**
  * Fetch event subscribers by email using Payload Local API (server-side only)
+ * Returns null during build time when Payload is not available
  */
 export async function getEventSubscribersByEmail(
   email: string,
@@ -32,6 +35,7 @@ export async function getEventSubscribersByEmail(
 ) {
   const { page = 1, limit = 10 } = opts
   const payload = await getPayload()
+  if (!payload) return null
 
   return payload.find({
     collection: 'event-subscribers',
@@ -47,9 +51,11 @@ export async function getEventSubscribersByEmail(
 
 /**
  * Fetch an event subscriber by ID using Payload Local API (server-side only)
+ * Returns null during build time when Payload is not available
  */
 export async function getEventSubscriberById(id: string) {
   const payload = await getPayload()
+  if (!payload) return null
 
   return payload.findByID({
     collection: 'event-subscribers',

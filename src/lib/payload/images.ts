@@ -3,9 +3,11 @@ import type { HomePageImage, AboutPageImage } from '@/payload-types'
 
 /**
  * Fetch home page images using Payload Local API (no HTTP overhead)
+ * Returns empty array during build time when Payload is not available
  */
 export async function getHomePageImages(placement?: string): Promise<HomePageImage[]> {
   const payload = await getPayload()
+  if (!payload) return []
 
   const data = await payload.find({
     collection: 'home-page-images',
@@ -20,9 +22,11 @@ export async function getHomePageImages(placement?: string): Promise<HomePageIma
 
 /**
  * Fetch about page images using Payload Local API (no HTTP overhead)
+ * Returns empty array during build time when Payload is not available
  */
 export async function getAboutPageImages(placement?: string): Promise<AboutPageImage[]> {
   const payload = await getPayload()
+  if (!payload) return []
 
   const data = await payload.find({
     collection: 'about-page-images',

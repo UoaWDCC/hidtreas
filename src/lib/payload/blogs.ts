@@ -15,12 +15,27 @@ type BlogsResult = {
   nextPage?: number | null
 }
 
+const emptyBlogsResult: BlogsResult = {
+  docs: [],
+  totalDocs: 0,
+  limit: 10,
+  totalPages: 0,
+  page: 1,
+  pagingCounter: 1,
+  hasPrevPage: false,
+  hasNextPage: false,
+  prevPage: null,
+  nextPage: null,
+}
+
 /**
  * Fetch published blogs using Payload Local API
+ * Returns empty result during build time when Payload is not available
  */
 export async function getBlogs(opts: { page?: number; limit?: number } = {}): Promise<BlogsResult> {
   const { page = 1, limit = 10 } = opts
   const payload = await getPayload()
+  if (!payload) return emptyBlogsResult
 
   const data = await payload.find({
     collection: 'blogs',
@@ -41,9 +56,11 @@ export async function getBlogs(opts: { page?: number; limit?: number } = {}): Pr
 
 /**
  * Fetch a single blog by ID using Payload Local API
+ * Returns null during build time when Payload is not available
  */
 export async function getBlogById(id: string): Promise<BlogType | null> {
   const payload = await getPayload()
+  if (!payload) return null
 
   try {
     const blog = await payload.findByID({
@@ -59,9 +76,11 @@ export async function getBlogById(id: string): Promise<BlogType | null> {
 
 /**
  * Fetch a single blog by slug using Payload Local API
+ * Returns null during build time when Payload is not available
  */
 export async function getBlogBySlug(slug: string): Promise<BlogType | null> {
   const payload = await getPayload()
+  if (!payload) return null
 
   const data = await payload.find({
     collection: 'blogs',

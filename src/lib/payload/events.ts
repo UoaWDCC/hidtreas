@@ -4,12 +4,15 @@ import { EventType } from '@/types/event'
 
 /**
  * Fetch upcoming events (future-dated) using Payload Local API
+ * Returns empty array during build time when Payload is not available
  *
  * @param limit - Maximum number of events to fetch. Defaults to 5
  *  Events are sorted ascending by date
  */
 export async function getUpcomingEvents(limit: number = 5): Promise<EventType[]> {
   const payload = await getPayload()
+  if (!payload) return []
+
   const now = new Date().toISOString()
 
   const data = await payload.find({
@@ -27,6 +30,7 @@ export async function getUpcomingEvents(limit: number = 5): Promise<EventType[]>
 
 /**
  * Fetch past events using Payload Local API
+ * Returns empty array during build time when Payload is not available
  *
  * @param limit - Maximum number of events to fetch.
  *  Defaults to 0 (meaning all past events)
@@ -35,6 +39,8 @@ export async function getUpcomingEvents(limit: number = 5): Promise<EventType[]>
  */
 export async function getPastEvents(limit: number = 0): Promise<EventType[]> {
   const payload = await getPayload()
+  if (!payload) return []
+
   const now = new Date().toISOString()
 
   const data = await payload.find({
@@ -52,9 +58,11 @@ export async function getPastEvents(limit: number = 0): Promise<EventType[]> {
 
 /**
  * Fetch all events for static generation
+ * Returns empty array during build time when Payload is not available
  */
 export async function getAllEvents(): Promise<EventType[]> {
   const payload = await getPayload()
+  if (!payload) return []
 
   const data = await payload.find({
     collection: 'events',

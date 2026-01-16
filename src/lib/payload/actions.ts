@@ -8,6 +8,9 @@ import { getPayload } from '@/lib/payload/getPayload'
  */
 export async function createSubscriberAction(firstName: string, lastName: string, email: string) {
   const payload = await getPayload()
+  if (!payload) {
+    return { success: false, error: 'Database not available' }
+  }
 
   try {
     const subscriber = await payload.create({
@@ -32,6 +35,9 @@ export async function createEventSubscriberAction(
   lastName: string,
 ) {
   const payload = await getPayload()
+  if (!payload) {
+    return { success: false, error: 'Database not available' }
+  }
 
   try {
     const subscriber = await payload.create({
