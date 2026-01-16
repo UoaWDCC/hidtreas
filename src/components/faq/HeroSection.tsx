@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import waveBackground from '@/assets/waveBackground.png'
-import heroImage from '@/assets/faqheroimage.jpg'
+import waveBackground from '@/assets/wave-background.png'
+import heroImage from '@/assets/community-run.png'
 
 export default function HeroSection() {
   return (
@@ -32,8 +32,8 @@ export default function HeroSection() {
       </div>
       <div className="absolute pt-2 lg:left-20 lg:bottom-[-10]">
         <p className="text-lg font-bold text-center md:text-2xl lg:text-3xl sm:max-w-3xl w-auto px-2 md:px-0">
-          "Let the wisdom of the past guide the hope of the future —every person is a hidden
-          treasure waiting to shine."
+          &ldquo;Let the wisdom of the past guide the hope of the future —every person is a hidden
+          treasure waiting to shine.&rdquo;
         </p>
       </div>
     </div>

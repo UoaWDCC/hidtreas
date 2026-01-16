@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import bigGreenKoru from '@/assets/bigGreenKoru.png'
+import bigGreenKoru from '@/assets/big-green-koru.svg'
 import leaf from '@/assets/leaf.svg'
 import type { BlogType } from '@/types/blog'
 

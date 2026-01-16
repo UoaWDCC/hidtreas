@@ -27,7 +27,7 @@ export default function Search({ blogs }: { blogs: BlogType[] }) {
         <input
           type="text"
           placeholder="Search blogs..."
-          className="w-full px-6 py-3 sm:py-4 rounded-full border-2 border-transparent ring-1 ring-[#13384e] focus:border-[#13384e] focus:outline-none text-sm sm:text-base placeholder-gray-500"
+          className="w-full px-6 py-3 sm:py-4 rounded-full border-2 border-transparent ring-1 ring-primary focus:border-primary focus:outline-none text-sm sm:text-base placeholder-gray-500"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

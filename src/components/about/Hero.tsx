@@ -7,23 +7,14 @@ interface HeroSectionProps {
 }
 
 export default function Hero({ heroImage }: HeroSectionProps) {
-  // Fixed: Added optional chaining to prevent crashes if array is empty
   const image = heroImage?.[0]?.image
-  // ✅ Use 'hero' size (1920px) for hero section
   const imageUrl = getPayloadImageUrl(image, 'hero') ?? ''
-
-  // Log error if no image
-  if (!imageUrl) {
-    console.error('About Hero image not loaded from Payload CMS')
-  }
 
   return (
     <div className="mb-[3rem] md:mb-[8rem]">
       {/* Hero */}
       <div className="relative flex justify-center">
         <div className="flex flex-col md:flex-row h-auto w-full ">
-          {/* Image */}
-
           {/*className="object-cover object-left opacity-70"*/}
           <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
             {imageUrl ? (
@@ -38,7 +29,7 @@ export default function Hero({ heroImage }: HeroSectionProps) {
                 priority
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-[#13384E] to-[#0a2638] flex items-center justify-center">
+              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
                 <p className="text-white text-xl">Loading image...</p>
               </div>
             )}

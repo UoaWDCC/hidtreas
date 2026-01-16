@@ -1,5 +1,17 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-primary: #13384e;
+  --color-primary-hover: #0a2638;
+  --color-primary-light: #1c5370;
+  --color-background: #fdf4ed;
+  --color-card-bg: #fff8f3;
+  --color-accent-red: #eb5454;
+  --color-text-muted: #13384e70;
+  --color-border: #e6e1de;
+  --color-input-bg: #f0f0f0;
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -13,26 +25,27 @@
 /* Mobile-specific improvements */
 @media (max-width: 640px) {
   /* Improve touch targets */
-  button, a {
+  button,
+  a {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Better text readability on mobile */
   p {
     line-height: 1.6;
   }
-  
+
   /* Improve spacing for mobile */
   .mobile-spacing {
     margin-bottom: 1.5rem;
   }
-  
+
   /* Mobile-specific animations */
   .mobile-fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }
-  
+
   /* Better mobile shadows */
   .mobile-shadow {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -42,26 +55,27 @@
 /* iPad and tablet-specific improvements */
 @media (min-width: 641px) and (max-width: 1023px) {
   /* Optimize touch targets for tablets */
-  button, a {
+  button,
+  a {
     min-height: 48px;
     min-width: 48px;
   }
-  
+
   /* Better text spacing for tablet reading */
   p {
     line-height: 1.65;
   }
-  
+
   /* Tablet-optimized spacing */
   .tablet-spacing {
     margin-bottom: 2rem;
   }
-  
+
   /* Ensure proper header navigation spacing */
   nav {
     gap: 1.25rem;
   }
-  
+
   /* Better tablet shadows */
   .tablet-shadow {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
@@ -114,7 +128,8 @@
 }
 
 @keyframes bobUpDown {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -123,7 +138,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   25% {
@@ -160,7 +176,8 @@
 }
 
 @keyframes gentleRotate {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   50% {
@@ -169,7 +186,8 @@
 }
 
 @keyframes breathe {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -187,7 +205,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -196,7 +215,8 @@
 }
 
 @keyframes wiggle {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotate(0deg);
   }
   25% {
@@ -208,11 +228,14 @@
 }
 
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 5px rgba(19, 56, 78, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(19, 56, 78, 0.6), 0 0 30px rgba(19, 56, 78, 0.4);
+    box-shadow:
+      0 0 20px rgba(19, 56, 78, 0.6),
+      0 0 30px rgba(19, 56, 78, 0.4);
   }
 }
 
@@ -258,7 +281,7 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -276,20 +299,34 @@
 }
 
 /* Staggered animations for multiple elements */
-.animate-stagger-1 { animation-delay: 0.1s; }
-.animate-stagger-2 { animation-delay: 0.2s; }
-.animate-stagger-3 { animation-delay: 0.3s; }
-.animate-stagger-4 { animation-delay: 0.4s; }
-.animate-stagger-5 { animation-delay: 0.5s; }
+.animate-stagger-1 {
+  animation-delay: 0.1s;
+}
+.animate-stagger-2 {
+  animation-delay: 0.2s;
+}
+.animate-stagger-3 {
+  animation-delay: 0.3s;
+}
+.animate-stagger-4 {
+  animation-delay: 0.4s;
+}
+.animate-stagger-5 {
+  animation-delay: 0.5s;
+}
 
 /* Text glow effect for homepage text - constant, not pulsing */
 .text-glow {
-  text-shadow: 0 0 8px rgba(19, 56, 78, 0.4), 0 0 16px rgba(19, 56, 78, 0.2);
+  text-shadow:
+    0 0 8px rgba(19, 56, 78, 0.4),
+    0 0 16px rgba(19, 56, 78, 0.2);
 }
 
 /* Hover effects */
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
@@ -301,7 +338,9 @@
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .animate-on-scroll.animate-in {
@@ -338,20 +377,13 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background-color: #fdf4ed;
+  background-color: var(--color-background);
   font-family: var(--font-default);
-  color: #13384e;
+  color: var(--color-primary);
 }
 
 h1 {
   font-family: var(--font-header);
-}
-
-@theme {
-  --font-k2d: var(--font-k2d, 'K2D', sans-serif);
-  --font-inter: var(--font-inter, 'Inter', sans-serif);
-  --font-default: var(--font-inter, 'Inter', sans-serif);
-  --font-header: var(--font-k2d, 'K2D', sans-serif);
 }
 
 .clamp-2 {

@@ -1,4 +1,4 @@
-import { isAdmin, isAdminField, isAdminOrSelf } from '@/access/UserAccess'
+import { isAdminField, isAdminOrSelf } from '@/access/UserAccess'
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {

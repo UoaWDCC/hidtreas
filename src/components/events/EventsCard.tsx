@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useState } from 'react'
-import KiwiBird from '@/assets/kiwiBird.svg'
+import KiwiBird from '@/assets/kiwi-bird.svg'
 import type { EventType } from '@/types/event'
 import AnimatedSection from '@/components/common/AnimatedSection'
 
@@ -28,7 +28,7 @@ export default function EventsCard({
 
   return (
     <AnimatedSection animationClass="animate-scale-in" delay={0.1}>
-      <div className="flex flex-col items-center w-70 min-h-[28rem] border-4 border-[#13384E] rounded-xl gap-y-3 px-4 pt-6 pb-6 bg-[#FFF8F3] transition-all duration-200 hover:scale-105 hover:shadow-xl hover:border-[#0b2433]">
+      <div className="flex flex-col items-center w-70 min-h-[28rem] border-4 border-primary rounded-xl gap-y-3 px-4 pt-6 pb-6 bg-card-bg transition-all duration-200 hover:scale-105 hover:shadow-xl hover:border-primary-hover">
         <div className="flex flex-col items-center gap-1">
           <Image src={KiwiBird} alt="kiwi-bird" width={36} className="animate-bob" />
           <h3 className="text-2xl text-center">
@@ -38,7 +38,7 @@ export default function EventsCard({
                 type="button"
                 onClick={() => setIsTitleExpanded((prev) => !prev)}
                 className={`inline-flex cursor-pointer ml-2 align-baseline text-xs uppercase tracking-wide ${
-                  isTitleExpanded ? 'text-[#13384E]' : 'text-[#13384E]/70'
+                  isTitleExpanded ? 'text-primary' : 'text-text-muted'
                 }`}
                 aria-label={isTitleExpanded ? 'Show less title text' : 'Show full event title'}
               >
@@ -52,7 +52,7 @@ export default function EventsCard({
           <button
             type="button"
             onClick={onOpenModal}
-            className="relative flex justify-center items-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#13384E] group"
+            className="relative flex justify-center items-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary group"
             aria-label={`Open event recap for ${event.title}`}
           >
             <Image
@@ -68,7 +68,7 @@ export default function EventsCard({
               HOSTED BY: {event.hostedBy}
             </p>
           </button>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#13384E]">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             VENUE: {event.venue ?? 'TBA'}
           </p>
           <p className="text-xs text-center">
@@ -78,7 +78,9 @@ export default function EventsCard({
                 type="button"
                 onClick={() => setIsDescriptionExpanded((prev) => !prev)}
                 className={`inline-flex cursor-pointer ml-2 align-baseline text-xs uppercase tracking-wide ${
-                  isDescriptionExpanded ? 'text-[#13384E]' : 'text-[#13384E]/70'
+                  isDescriptionExpanded
+                    ? 'text-primary'
+                    : 'text-text-muted'
                 }`}
                 aria-label={
                   isDescriptionExpanded

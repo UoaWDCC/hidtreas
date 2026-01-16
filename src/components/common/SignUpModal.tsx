@@ -1,8 +1,8 @@
 import { IconX } from '@tabler/icons-react'
 import Modal from './Modal'
 import Image from 'next/image'
-import Logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
-import BirdPNG from '@/assets/signUpBird.png'
+import Logo from '@/assets/logo.webp'
+import BirdPNG from '@/assets/kiwi-illustration.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { createSubscriberAction } from '@/lib/payload/actions'
@@ -61,13 +61,13 @@ export default function SignUpModal({
           />
           <Image src={Logo} alt="Hidden Treasure Logo" width={100} height={100} />
           <h1 className="text-6xl font-[1000] mt-10">THANK YOU FOR SIGNING UP!</h1>
-          <p className="mt-5">We can't wait to share our updates with you.</p>
+          <p className="mt-5">We can&apos;t wait to share our updates with you.</p>
         </div>
       ) : (
         <>
           <IconX
             aria-label="Close sign up modal"
-            className="absolute top-3 right-3 z-30 h-7 w-7 cursor-pointer text-[#13384e] transition hover:text-[#0a2638]"
+            className="absolute top-3 right-3 z-30 h-7 w-7 cursor-pointer text-primary transition hover:text-primary-hover"
             onClick={() => setSignOpen(false)}
           />
           <div className="hidden xl:block xl:w-[16rem] h-full bg-cyan-500 rounded-l-lg">
@@ -155,7 +155,7 @@ export default function SignUpModal({
               </div>
               <button
                 type="submit"
-                className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-[#0a2638] transition"
+                className="bg-primary text-background rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-primary-hover transition"
               >
                 SIGN UP
               </button>
@@ -169,7 +169,7 @@ export default function SignUpModal({
 
 function checkValid(form: HTMLFormElement, setErrors: (errors: boolean[]) => void) {
   let valid = true
-  let errors = [...emptyErrors]
+  const errors = [...emptyErrors]
   if (form.firstname.value.trim().length <= 0) {
     errors[0] = true
     valid = false

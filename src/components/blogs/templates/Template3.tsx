@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import gL from '@/assets/groupedLeaves.svg'
-import authorImage from '@/assets/people_placeholder.png'
+import gL from '@/assets/leaf.svg'
+import authorImage from '@/assets/event-placeholder.png'
 import type { BlogType } from '@/types/blog'
 
 interface Template3Props {
@@ -15,8 +15,7 @@ export default function Template3({ blog }: Template3Props) {
       <nav className="text-xs sm:text-sm text-black mt-4 mb-2 pl-[2rem] relative">
         <div className="md:flex md:justify-between md:items-start">
           <div>
-            BLOGS {'>'}{' '}
-            <span className="uppercase">{blog.category}</span>:{' '}
+            BLOGS {'>'} <span className="uppercase">{blog.category}</span>:{' '}
             <span className="text-black">{blog.title}</span>
           </div>
         </div>
@@ -24,17 +23,10 @@ export default function Template3({ blog }: Template3Props) {
 
       {/* Hero block */}
       <div className="w-[100vw] md:w-[70vw] aspect-[16/9] relative md:rounded-xl overflow-hidden my-10 mx-auto">
-        <Image
-          src={blog.imageUrl}
-          alt={blog.imageAlt}
-          className="object-cover"
-          fill
-        />
+        <Image src={blog.imageUrl} alt={blog.imageAlt} className="object-cover" fill />
 
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
-          <p className="uppercase tracking-widest text-[0.8rem] text-white/60">
-            {blog.category}
-          </p>
+          <p className="uppercase tracking-widest text-[0.8rem] text-white/60">{blog.category}</p>
           <h1 className="mt-2 text-[clamp(2rem,4vw,4rem)] font-bold leading-tight text-white">
             {blog.title}
           </h1>
@@ -56,9 +48,7 @@ export default function Template3({ blog }: Template3Props) {
                   blog.content?.root?.children
                     ?.map((child: any) =>
                       child.type === 'paragraph'
-                        ? `<p>${(child.children ?? [])
-                          .map((c: any) => c.text || '')
-                          .join('')}</p>`
+                        ? `<p>${(child.children ?? []).map((c: any) => c.text || '').join('')}</p>`
                         : '',
                     )
                     .join('') || 'Content coming soon...',
@@ -74,10 +64,8 @@ export default function Template3({ blog }: Template3Props) {
                 className="object-cover rounded-xl overflow-hidden border border-gray-300"
                 fill
               />
-              <div className="absolute -bottom-6 -left-6 bg-[#13384E] text-white p-4 rounded-md shadow-lg max-w-[60%] text-center">
-                <p className="text-sm md:text-base font-semibold">
-                  {blog.quote}
-                </p>
+              <div className="absolute -bottom-6 -left-6 bg-primary text-white p-4 rounded-md shadow-lg max-w-[60%] text-center">
+                <p className="text-sm md:text-base font-semibold">{blog.quote}</p>
                 {/* TODO: Remove placeholder fields once the field is added to Payload blog collection */}
                 <p className="text-xs mt-2">- {blog.quoteAuthor}</p>
               </div>
@@ -100,10 +88,8 @@ export default function Template3({ blog }: Template3Props) {
             </div>
 
             <div className="md:col-span-2 text-center md:text-left space-y-3">
-              <h2 className="text-2xl font-bold text-[#13384E]">About the Author</h2>
-              <p className="text-sm text-gray-700 leading-relaxed">
-                {blog.authorBio}
-              </p>
+              <h2 className="text-2xl font-bold text-primary">About the Author</h2>
+              <p className="text-sm text-gray-700 leading-relaxed">{blog.authorBio}</p>
             </div>
           </div>
         </section>

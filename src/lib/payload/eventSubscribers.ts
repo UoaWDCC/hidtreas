@@ -1,5 +1,4 @@
 import { getPayload } from './getPayload'
-import type { EventSubscriber } from '@/payload-types'
 
 /**
  * Fetch event subscribers by event ID using Payload Local API (server-side only)

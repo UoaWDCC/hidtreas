@@ -1,5 +1,4 @@
 import { getPayload } from './getPayload'
-import type { Subscriber } from '@/payload-types'
 
 /**
  * Fetch subscribers using Payload Local API (server-side only)

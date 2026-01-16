@@ -1,7 +1,6 @@
 import Image from 'next/image'
-import backgroundImage from '@/assets/blue_wave.png'
-import feather from '@/assets/big_feather.png'
-import { useState } from 'react'
+import backgroundImage from '@/assets/blue-wave.png'
+import feather from '@/assets/big-feather.png'
 import EventsCarousel from './EventsCarousel'
 import AnimatedSection from '../common/AnimatedSection'
 import type { EventType } from '@/types/event'
@@ -21,7 +20,6 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
             quality={80}
           />
         </div>
-        {/* Content */}
         <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-[2vw] md:pt-[6vw] px-4 sm:px-[3vw]">
           <div className="flex flex-col items-center md:items-start md:gap-[2vw] w-full max-w-xs sm:max-w-none md:max-w-none">
             <AnimatedSection
@@ -29,14 +27,12 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
               delay={0.2}
               className="flex flex-row items-center gap-4 pb-10 leading-tight tracking-wide"
             >
-              {/* Logo */}
               <Image
                 src={feather}
                 alt="Feather Icon"
                 className="w-[12vw] max-w-[80px] h-auto scale-x-[-1] animate-bob"
                 quality={85}
               />
-              {/* Text */}
               <h2
                 className="text-3xl sm:text-[6vw] md:text-[4vw] font-bold animate-bob"
                 style={{

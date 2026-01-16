@@ -2,8 +2,7 @@ import Accordion from './Accordion'
 
 export default function FAQ() {
   return (
-    //640
-    <div className="flex items-center justify-center bg-[#fdf4ed] px-1 sm:px-lg py-60 mb-100 md:mb-20">
+    <div className="flex items-center justify-center bg-background px-1 sm:px-lg py-60 mb-100 md:mb-20">
       {/* Content wrapper to control top alignment */}
       <div className="flex flex-col md:flex-row gap-12 max-w-6xl w-full">
         {/* LEFT SIDE */}
@@ -14,8 +13,8 @@ export default function FAQ() {
             We got you.
           </h1>
           <p className="text-md max-w-sm md:text-base">
-            Can't find what you're looking for? Email us or visit our contact page to send a
-            message. We'll get back to you as soon as possible.
+            Can&apos;t find what you&apos;re looking for? Email us or visit our contact page to send
+            a message. We&apos;ll get back to you as soon as possible.
           </p>
         </div>
 

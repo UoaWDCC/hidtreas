@@ -1,10 +1,8 @@
 import React from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
-import BlogCard from '@/components/blogs/BlogCard'
 import Search from '@/components/blogs/Search'
 import { getBlogs } from '@/lib/payload/blogs'
-import type { BlogType } from '@/types/blog'
 
 // ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300

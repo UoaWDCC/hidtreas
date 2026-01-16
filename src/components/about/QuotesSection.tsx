@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import { Covered_By_Your_Grace } from 'next/font/google'
 
-import blueWave from '@/assets/blue_wave.png'
-import bigFeather from '@/assets/big_feather.png'
+import blueWave from '@/assets/blue-wave.png'
+import bigFeather from '@/assets/big-feather.png'
 
 import { AboutPageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
@@ -18,15 +18,8 @@ interface QuoteSectionProps {
 }
 
 export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
-  // Fixed: Added optional chaining to prevent crashes if array is empty
   const image = quoteImage?.[0]?.image
-  // ✅ Use 'card' size (768px) for quote section image
   const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
-
-  // Log error if no image
-  if (!imageUrl) {
-    console.error('Quote section image not loaded from Payload CMS')
-  }
   return (
     <section className="py-8  md:py-12">
       <div className="relative w-full min-h-[70vh] mb-[3rem]">
@@ -41,7 +34,7 @@ export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
             priority={false}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#13384E] to-[#0a2638]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-hover" />
         )}
 
         {/* Blue wave decoration - top */}
@@ -63,8 +56,8 @@ export default function QuotesSection({ quoteImage }: QuoteSectionProps) {
               className={`${coveredByYourGrace.className} text-white text-[2rem] sm:text-[3rem] md:text-[3.5rem]`}
             >
               {/*make the text stand out a bit more from background*/}
-              "Let the wisdom of the past guide the hope of the future—every person is a hidden
-              treasure waiting to shine."
+              &ldquo;Let the wisdom of the past guide the hope of the future—every person is a
+              hidden treasure waiting to shine.&rdquo;
             </blockquote>
           </div>
         </div>

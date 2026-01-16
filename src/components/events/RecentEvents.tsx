@@ -2,8 +2,8 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import SignUpModal from '@/components/events/EventsSignUpModal'
-import Koru from '@/assets/recent_events_koru.png'
-import KiwiBird from '@/assets/kiwiBird.svg'
+import Koru from '@/assets/big-green-koru.svg'
+import KiwiBird from '@/assets/kiwi-bird.svg'
 import { Kosugi_Maru } from 'next/font/google'
 import type { EventType } from '@/types/event'
 import Modal from '@/components/common/Modal'
@@ -105,7 +105,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
       <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.2}>
         {/* Header Bar */}
         <div
-          className="w-[45%] bg-[#13384E] rounded-t-2xl flex items-center justify-center relative z-10"
+          className="w-[45%] bg-primary rounded-t-2xl flex items-center justify-center relative z-10"
           style={{ height: '5rem' }}
         >
           <h2 className="text-white text-base md:text-2xl lg:text-3xl font-semibold">
@@ -115,7 +115,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
 
         {/* Main Content */}
         <section
-          className="relative w-full bg-[#13384E] px-6 pb-12 overflow-x-hidden"
+          className="relative w-full bg-primary px-6 pb-12 overflow-x-hidden"
           style={{ marginTop: '-1px' }}
         >
           {events.map((event, idx) => (
@@ -142,7 +142,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                     }
                   }}
                 />
-                <div className="absolute top-0 left-0 bg-[#13384E] text-white px-5 py-3 text-lg font-semibold rounded-br-xl transition-all duration-300 group-hover:rounded-xl">
+                <div className="absolute top-0 left-0 bg-primary text-white px-5 py-3 text-lg font-semibold rounded-br-xl transition-all duration-300 group-hover:rounded-xl">
                   {event.date.toLocaleDateString('en-NZ', {
                     day: 'numeric',
                     month: 'long',
@@ -155,7 +155,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                   className="absolute bottom-[0.45rem] left-1/2 -translate-x-1/2 inline-flex items-center justify-center cursor-pointer sm:bottom-3"
                   aria-label={`Open image gallery for ${event.title}`}
                 >
-                  <span className="rounded-full bg-white/85 px-[0.36rem] py-[0.16rem] text-center text-[0.48rem] font-semibold uppercase tracking-[0.1em] text-[#13384E] shadow-sm transition-all duration-300 hover:bg-white hover:scale-110 hover:animate-pulse leading-[0.52rem] sm:px-2.5 sm:py-[0.2rem] sm:text-[0.65rem] sm:tracking-[0.2em] sm:leading-tight">
+                  <span className="rounded-full bg-white/85 px-[0.36rem] py-[0.16rem] text-center text-[0.48rem] font-semibold uppercase tracking-[0.1em] text-primary shadow-sm transition-all duration-300 hover:bg-white hover:scale-110 hover:animate-pulse leading-[0.52rem] sm:px-2.5 sm:py-[0.2rem] sm:text-[0.65rem] sm:tracking-[0.2em] sm:leading-tight">
                     Tap to see images
                   </span>
                 </button>
@@ -188,7 +188,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                     setEventToSignUp({ title: event.title, id: event.id })
                     setSignOpen(true)
                   }}
-                  className="mt-6 mb-4 px-6 py-2 bg-white text-[#13384E] font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start md:mt-auto"
+                  className="mt-6 mb-4 px-6 py-2 bg-white text-primary font-semibold rounded-xl shadow hover:bg-gray-200 transition-all duration-300 hover:cursor-pointer hover:scale-105 hover:shadow-lg hover:animate-glow self-start md:mt-auto"
                 >
                   SIGN UP HERE
                 </button>
@@ -209,7 +209,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
         open={galleryOpen}
         onClose={closeGallery}
         noHeader
-        className="w-full max-w-3xl !bg-[#FFF8F3] p-6 rounded-3xl shadow-2xl"
+        className="w-full max-w-3xl !bg-card-bg p-6 rounded-3xl shadow-2xl"
         superClassName="bg-black/60"
       >
         <Modal.Body className="p-0">
@@ -217,7 +217,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
             <button
               type="button"
               onClick={closeGallery}
-              className="absolute text-[#13384E] transition hover:text-[#0b2433]"
+              className="absolute text-primary transition hover:text-primary-hover"
               style={{ top: '-0.75rem', right: '-0.75rem' }}
               aria-label="Close gallery"
             >
@@ -225,7 +225,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
             </button>
 
             {activeEvent && (
-              <h3 className="mb-6 text-center text-2xl font-semibold text-[#13384E]">
+              <h3 className="mb-6 text-center text-2xl font-semibold text-primary">
                 {activeEvent.title}
               </h3>
             )}
@@ -249,7 +249,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                   <button
                     type="button"
                     onClick={goToPrev}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-[#13384E] shadow transition hover:bg-white"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-primary shadow transition hover:bg-white"
                     aria-label="Previous image"
                   >
                     <IconChevronLeft size={28} />
@@ -257,7 +257,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                   <button
                     type="button"
                     onClick={goToNext}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-[#13384E] shadow transition hover:bg-white"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 text-primary shadow transition hover:bg-white"
                     aria-label="Next image"
                   >
                     <IconChevronRight size={28} />
@@ -283,7 +283,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
                         width: index === activeIndex ? '0.7rem' : '0.5rem',
                         height: index === activeIndex ? '0.7rem' : '0.5rem',
                         backgroundColor:
-                          index === activeIndex ? '#13384E' : 'rgba(19, 56, 78, 0.35)',
+                          index === activeIndex ? 'var(--color-primary)' : 'rgba(19, 56, 78, 0.35)',
                       }}
                     />
                   </button>

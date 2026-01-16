@@ -1,4 +1,4 @@
-import PlaceholderImg from '@/assets/event-pic.png'
+import PlaceholderImg from '@/assets/event-placeholder.png'
 import type { Event } from '@/payload-types'
 import { EventType } from '@/types/event'
 

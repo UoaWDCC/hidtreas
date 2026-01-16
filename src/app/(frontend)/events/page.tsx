@@ -9,7 +9,6 @@ import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
 // ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300
 
-// ✅ Loading fallback
 function EventsSkeleton() {
   return (
     <div className="py-12 px-4">
@@ -25,7 +24,6 @@ function EventsSkeleton() {
   )
 }
 
-// ✅ Parallel data fetching - both requests start simultaneously
 async function EventsContent() {
   const [upcoming, past] = await Promise.all([getUpcomingEvents(5), getPastEvents()])
 

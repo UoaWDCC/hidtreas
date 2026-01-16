@@ -1,13 +1,14 @@
 import Footer from '@/components/common/Footer'
 import Header from '@/components/common/Header'
 import '../global.css'
-import feather from '@/assets/big_feather.png'
-import kiwi from '@/assets/kiwiBird.svg'
-import blueKoru from '@/assets/blue_koru.png'
-import koruAndLeaf from '@/assets/koruAndLeaf.png'
-import blueWave from '@/assets/blue_wave.png'
+import feather from '@/assets/big-feather.png'
+import kiwi from '@/assets/kiwi-bird.svg'
+import blueKoru from '@/assets/blue-koru.png'
+import koruAndLeaf from '@/assets/koru-and-leaf.png'
+import blueWave from '@/assets/blue-wave.png'
 import leaf from '@/assets/leaf.svg'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const bgImages = [
   {
@@ -60,8 +61,8 @@ export default async function NotFound() {
 
         {/* Links out of page - currently links back to 404 not found*/}
         <div className="underline font-semibold text-sm mt-5 flex flex-col gap-4 justify-center mt-20 uppercase tracking-wider">
-          <a href="/">Return to Home</a>
-          <a href="/NotFound">Explore our Stories and Events</a>
+          <Link href="/">Return to Home</Link>
+          <Link href="/events">Explore our Stories and Events</Link>
         </div>
 
         {/* All the extras in the background */}

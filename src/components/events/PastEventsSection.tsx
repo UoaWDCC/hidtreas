@@ -3,7 +3,7 @@
 import YearFilter from '@/components/events/YearFilter'
 import PastEvents from '@/components/events/PastEventsGrid'
 import Image from 'next/image'
-import BlueKoru from '@/assets/blue_koru.png'
+import BlueKoru from '@/assets/blue-koru.png'
 import type { EventType } from '@/types/event'
 import AnimatedSection from '@/components/common/AnimatedSection'
 import { useEffect, useState, useMemo } from 'react'

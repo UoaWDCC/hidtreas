@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import nasz from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
+import nasz from '@/assets/logo.webp'
 import SignUpModal from './SignUpModal'
 import Link from 'next/link'
 
@@ -39,13 +39,13 @@ export default function Header() {
         aria-label="Toggle mobile menu"
       >
         <span
-          className={`w-[1.5rem] h-[0.125rem] bg-[#13384E] transition-all duration-300 ${mobileMenuOpen ? 'transform rotate-45 translate-y-[0.375rem]' : 'mb-[0.375rem]'}`}
+          className={`w-[1.5rem] h-[0.125rem] bg-primary transition-all duration-300 ${mobileMenuOpen ? 'transform rotate-45 translate-y-[0.375rem]' : 'mb-[0.375rem]'}`}
         ></span>
         <span
-          className={`w-[1.5rem] h-[0.125rem] bg-[#13384E] transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'mb-[0.375rem]'}`}
+          className={`w-[1.5rem] h-[0.125rem] bg-primary transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'mb-[0.375rem]'}`}
         ></span>
         <span
-          className={`w-[1.5rem] h-[0.125rem] bg-[#13384E] transition-all duration-300 ${mobileMenuOpen ? 'transform -rotate-45 -translate-y-[0.375rem]' : ''}`}
+          className={`w-[1.5rem] h-[0.125rem] bg-primary transition-all duration-300 ${mobileMenuOpen ? 'transform -rotate-45 -translate-y-[0.375rem]' : ''}`}
         ></span>
       </button>
 
@@ -61,13 +61,11 @@ export default function Header() {
             About Us
           </Link>
         </h1>
-        {/* Blogs currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-3">
           <Link href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
             Blogs
           </Link>
         </h1>
-        {/* Events currently links to 404 not found */}
         <h1 className="animate-slide-in-right animate-stagger-4">
           <Link href="/events" className="hover:underline uppercase tracking-wide hover-lift">
             Events
@@ -75,7 +73,7 @@ export default function Header() {
         </h1>
         <h1 className="animate-slide-in-right animate-stagger-5">
           <button
-            className="bg-[#13384E] text-white px-[1.25rem] md:px-[1.5rem] xl:px-[1.75rem] py-[0.6rem] md:py-[0.75rem] rounded-md text-[1rem] md:text-[1.125rem] font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
+            className="bg-primary text-white px-[1.25rem] md:px-[1.5rem] xl:px-[1.75rem] py-[0.6rem] md:py-[0.75rem] rounded-md text-[1rem] md:text-[1.125rem] font-medium hover:bg-primary-hover hover:cursor-pointer transition hover-lift"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
@@ -100,7 +98,7 @@ export default function Header() {
               Events
             </Link>
             <button
-              className="bg-[#13384E] text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-[#0a2638] hover:cursor-pointer transition hover-lift"
+              className="bg-primary text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-primary-hover hover:cursor-pointer transition hover-lift"
               onClick={() => setSignOpen(true)}
             >
               SIGN UP

@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
-import blueKoru from '@/assets/blue_koru.png'
+import logo from '@/assets/logo.webp'
+import blueKoru from '@/assets/blue-koru.png'
 import { AboutPageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
 
@@ -13,22 +13,11 @@ export default function Descriptions({
   descriptionImage1,
   descriptionImage2,
 }: DescriptionImageProps) {
-  // Fixed: Added optional chaining to prevent crashes if arrays are empty
   const image = descriptionImage1?.[0]?.image
-  // ✅ Use 'card' size (768px) for description images
   const rightimageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
   const image2 = descriptionImage2?.[0]?.image
-  // ✅ Use 'card' size (768px) for description images
   const leftimageUrl = getPayloadImageUrl(image2, 'card') ?? ''
-
-  // Log errors if images not found
-  if (!rightimageUrl) {
-    console.error('Description image 1 not loaded from Payload CMS')
-  }
-  if (!leftimageUrl) {
-    console.error('Description image 2 not loaded from Payload CMS')
-  }
 
   return (
     <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">
@@ -97,7 +86,7 @@ export default function Descriptions({
                   src={rightimageUrl}
                   alt="Flag Bearer"
                   fill
-                  className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
+                  className="object-cover rounded-lg border-4 border-primary shadow-xl ring-1 ring-primary/20"
                   sizes="14vw"
                   quality={75}
                 />
@@ -123,7 +112,7 @@ export default function Descriptions({
                   src={leftimageUrl}
                   alt="People sitting on steps wearing traditional Indian clothing."
                   fill
-                  className="object-cover rounded-lg border-4 border-[#13384E] shadow-xl ring-1 ring-[#13384E]/20"
+                  className="object-cover rounded-lg border-4 border-primary shadow-xl ring-1 ring-primary/20"
                   sizes="14vw"
                   quality={75}
                 />

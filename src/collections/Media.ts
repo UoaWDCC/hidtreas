@@ -14,7 +14,7 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     disableLocalStorage: true,
-    // ✅ CRITICAL FIX: Generate optimized image sizes instead of serving full-resolution images
+    // Generate optimized image sizes for better performance
     imageSizes: [
       {
         name: 'thumbnail',

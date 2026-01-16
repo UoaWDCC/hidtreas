@@ -1,11 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-interface AccordionItem {
-  title: string
-  content: string
-}
+import type { AccordionItem } from '@/types/accordion'
 
 const items: AccordionItem[] = [
   {
@@ -43,7 +39,7 @@ const Accordion: React.FC = () => {
   }
 
   return (
-    <div className="h-0 mx-auto bg-[#fdf4ed]">
+    <div className="h-0 mx-auto bg-background">
       {items.map((item, index) => (
         <div key={index} className="border-t">
           <button

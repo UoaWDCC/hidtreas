@@ -6,13 +6,12 @@ import HeroSection from '@/components/home/HeroSection'
 import WhatWeDo from '@/components/home/WhatWeDo'
 import WhoWeAre from '@/components/home/WhoWeAre'
 import Events from '@/components/home/Events'
-import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
+import { getUpcomingEvents } from '@/lib/payload/events'
 import { getHomePageImages } from '@/lib/payload/images'
 
 // ISR: Revalidate every 5 minutes for fresh content while keeping pages static
 export const revalidate = 300
 
-// ✅ Loading fallbacks for each section
 function HeroSkeleton() {
   return (
     <div className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
@@ -32,7 +31,6 @@ function SectionSkeleton() {
   )
 }
 
-// ✅ Parallel data fetching - all requests start simultaneously
 async function HomeContent() {
   // Fetch all data in parallel for faster page load
   const [heroImage, whoWeAreImage, whatWeDoImage, upcoming] = await Promise.all([

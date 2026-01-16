@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from 'next/image'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import type { EventType } from '@/types/event'
-import PlaceholderImage from '@/assets/landscape_placeholder.png'
+import PlaceholderImage from '@/assets/event-placeholder.png'
 
 type ThumbMetrics = {
   width: number
@@ -735,7 +735,7 @@ export default function PastEventsPopUpModal({
     <Modal
       open={signOpen}
       onClose={() => setSignOpen(false)}
-      className="w-full max-w-[64rem] !bg-[#FFF8F3] rounded-[2.5rem] shadow-lg"
+      className="w-full max-w-[64rem] !bg-card-bg rounded-[2.5rem] shadow-lg"
       superClassName="bg-black/40 px-4"
       noHeader
     >
@@ -750,7 +750,7 @@ export default function PastEventsPopUpModal({
         <button
           type="button"
           onClick={() => setSignOpen(false)}
-          className="absolute right-2 top-1 cursor-pointer text-[#13384E] md:right-6 md:top-6"
+          className="absolute right-2 top-1 cursor-pointer text-primary md:right-6 md:top-6"
           aria-label="Close"
         >
           <IconX size={28} />
@@ -759,7 +759,7 @@ export default function PastEventsPopUpModal({
         {/* Headline section: title, date, venue */}
         <div className="flex w-full max-w-3xl flex-col items-center gap-2 text-center">
           <h2
-            className={`${!isTitleExpanded ? 'clamp-2' : ''} text-3xl font-black text-[#13384E] md:text-4xl`}
+            className={`${!isTitleExpanded ? 'clamp-2' : ''} text-3xl font-black text-primary md:text-4xl`}
             title={slide.originalTitle ?? slide.event.title}
           >
             {displayTitleText}
@@ -783,13 +783,13 @@ export default function PastEventsPopUpModal({
                   }
                 })
               }
-              className="inline-flex cursor-pointer align-baseline text-xs uppercase tracking-wide text-[#13384E]/80"
+              className="inline-flex cursor-pointer align-baseline text-xs uppercase tracking-wide text-primary/80"
               aria-label={isTitleExpanded ? 'Show less event title' : 'Show full event title'}
             >
               {isTitleExpanded ? 'SHOW LESS' : 'SHOW MORE'}
             </button>
           )}
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#13384E]/70 md:text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary/70 md:text-sm">
             <span>
               {slide.event.date.toLocaleDateString('en-NZ', {
                 day: 'numeric',
@@ -799,7 +799,7 @@ export default function PastEventsPopUpModal({
             </span>
             {selectedEvent?.venue && (
               <span className="flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-[#13384E]/40" />
+                <span className="h-1 w-1 rounded-full bg-primary/40" />
                 VENUE: {selectedEvent.venue}
               </span>
             )}
@@ -821,7 +821,7 @@ export default function PastEventsPopUpModal({
                 aria-label="Previous image"
                 disabled={currentIdx === 0}
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white shadow-md">
                   <IconChevronLeft size={12} />
                 </span>
               </button>
@@ -956,7 +956,7 @@ export default function PastEventsPopUpModal({
                       setCurrentIdx(index)
                       scrollToIndex(index)
                     }}
-                    className={`flex-shrink-0 snap-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#13384E] transition-all duration-300 w-full mx-auto md:mx-0 ${
+                    className={`flex-shrink-0 snap-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all duration-300 w-full mx-auto md:mx-0 ${
                       isActive
                         ? 'pointer-events-none max-w-[23rem] md:max-w-none md:w-[23rem]'
                         : 'max-w-[20rem] md:max-w-none md:w-[21rem]'
@@ -1002,7 +1002,7 @@ export default function PastEventsPopUpModal({
                 aria-label="Next image"
                 disabled={currentIdx >= slides.length - 1}
               >
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#13384E] text-white shadow-md">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-white shadow-md">
                   <IconChevronRight size={12} />
                 </span>
               </button>
@@ -1095,7 +1095,7 @@ export default function PastEventsPopUpModal({
                       handleThumbPointerUp(event as unknown as ReactPointerEvent<HTMLDivElement>)
                     }
                   }}
-                  className="absolute top-1/2 touch-none rounded-full bg-[#13384E]"
+                  className="absolute top-1/2 touch-none rounded-full bg-primary"
                   style={{
                     width: `${thumbMetrics.width}px`,
                     height: '0.75rem',
@@ -1141,7 +1141,7 @@ export default function PastEventsPopUpModal({
                     }
                   })
                 }
-                className="inline-flex cursor-pointer align-baseline text-sm uppercase tracking-wide text-[#13384E]/80"
+                className="inline-flex cursor-pointer align-baseline text-sm uppercase tracking-wide text-primary/80"
                 aria-label={
                   isDescriptionExpanded
                     ? 'Show less event description'

@@ -71,7 +71,6 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
                 }}
                 className="group w-[55vw] sm:w-[40vw] md:w-[35vw] min-w-[210px] max-w-[340px] md:max-w-[420px] h-auto min-h-[32vh] sm:min-h-[50vh] snap-center relative rounded-xl overflow-hidden shadow-lg cursor-default focus:outline-none"
               >
-                {/* Image */}
                 <Image src={event.imageUrl || ''} alt={event.title} fill className="object-cover" />
 
                 {/* Info strip */}
@@ -80,7 +79,7 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
                   onClick={(event) => event.stopPropagation()}
                   onTouchStart={(event) => event.stopPropagation()}
                   onTouchMove={(event) => event.stopPropagation()}
-                  className={`absolute bottom-0 left-0 w-full max-w-full h-[60%] bg-[#fdf4ed] text-[#13384e] flex flex-col p-3 sm:p-5 overflow-x-hidden justify-start transition-opacity duration-300 group-hover:opacity-100 group-hover:pointer-events-auto ${overlayVisibilityClasses}`}
+                  className={`absolute bottom-0 left-0 w-full max-w-full h-[60%] bg-background text-primary flex flex-col p-3 sm:p-5 overflow-x-hidden justify-start transition-opacity duration-300 group-hover:opacity-100 group-hover:pointer-events-auto ${overlayVisibilityClasses}`}
                   style={{ WebkitOverflowScrolling: 'touch' }}
                 >
                   <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">{event.title}</h1>
@@ -103,7 +102,7 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
           delay={0.8 + events.length * 0.15}
           className="flex-shrink-0"
         >
-          <div className="gap-4 sm:gap-6 w-[55vw] sm:w-[40vw] md:w-[35vw] min-w-[210px] max-w-[340px] md:max-w-[420px] h-auto min-h-[28vh] sm:min-h-[50vh] snap-center flex flex-col items-center justify-center rounded-xl bg-[#13384E] text-white shadow-lg text-center px-4 sm:px-6 py-6">
+          <div className="gap-4 sm:gap-6 w-[55vw] sm:w-[40vw] md:w-[35vw] min-w-[210px] max-w-[340px] md:max-w-[420px] h-auto min-h-[28vh] sm:min-h-[50vh] snap-center flex flex-col items-center justify-center rounded-xl bg-primary text-white shadow-lg text-center px-4 sm:px-6 py-6">
             <h1 className="text-base sm:text-2xl md:text-3xl font-bold leading-tight">
               WANT MORE EVENTS LIKE THESE?
             </h1>
