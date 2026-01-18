@@ -29,9 +29,7 @@ export default function Hero({ heroImage }: HeroSectionProps) {
                 priority
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
-                <p className="text-white text-xl">Loading image...</p>
-              </div>
+              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-hover" />
             )}
           </div>
 

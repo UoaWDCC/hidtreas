@@ -29,9 +29,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
             quality={85}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover flex items-center justify-center">
-            <p className="text-white text-xl">Loading hero image...</p>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover" />
         )}
         <div className="absolute inset-0 bg-white/70 z-10" />
 

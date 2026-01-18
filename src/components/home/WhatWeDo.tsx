@@ -95,9 +95,7 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
               quality={75}
             />
           ) : (
-            <div className="w-full aspect-square rounded-lg shadow-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
-              <p className="text-white">Loading image...</p>
-            </div>
+            <div className="w-full aspect-square rounded-lg shadow-xl bg-gradient-to-br from-primary to-primary-hover" />
           )}
           <Image
             src={leaf}

@@ -39,9 +39,7 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
               quality={75}
             />
           ) : (
-            <div className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] aspect-square rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
-              <p className="text-white">Loading image...</p>
-            </div>
+            <div className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] aspect-square rounded-lg bg-gradient-to-br from-primary to-primary-hover" />
           )}
 
           <Image
