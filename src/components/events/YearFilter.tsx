@@ -3,9 +3,9 @@
 import React from 'react'
 
 const BASE_BTN =
-  'font-bold text-l md:text-xl lg:text-2xl text-[#13384E] border-2 rounded-2xl gap px-2 cursor-pointer'
-const NORMAL_BTN = 'bg-[#FFF8F3] border-[#13384E]'
-const SELECTED_BTN = 'bg-[#13384E] text-white'
+  'font-bold text-l md:text-xl lg:text-2xl text-primary border-2 rounded-2xl gap px-2 cursor-pointer'
+const NORMAL_BTN = 'bg-card-bg border-primary'
+const SELECTED_BTN = 'bg-primary text-white'
 
 type Props = {
   years?: number[]

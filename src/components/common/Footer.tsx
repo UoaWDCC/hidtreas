@@ -1,22 +1,11 @@
 'use client'
-import {
-  IconPhoneFilled,
-  IconMailFilled,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandFacebook,
-  IconBrandYoutube,
-  IconArrowRight,
-  IconX,
-} from '@tabler/icons-react'
+import { IconBrandFacebook, IconArrowRight } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
-import footerLogoSharpened from '@/assets/footer-logo-sharpened.webp' // Changed from .png to .webp for 90% smaller file
-import Modal from './Modal'
+import logoFooter from '@/assets/logo-footer.webp'
 import SignUpModal from './SignUpModal'
 
-// TODO: Make sure that the links are correct
 const links: {
   label: string
   items: { label: string; href: string | undefined; icon: any }[]
@@ -30,28 +19,17 @@ const links: {
       { label: 'Events', href: '/events', icon: undefined },
       { label: 'Blogs', href: '/blogs', icon: undefined },
       { label: 'FAQ', href: '/faq', icon: undefined },
-      //{ label: 'Our Values', href: '/values', icon: undefined },
-      //{ label: 'Contact Us', href: '/contact', icon: undefined },
     ],
     extlinks: undefined,
   },
   {
     label: 'CONNECT WITH US',
-    items: [
-      //{ label: '0800 123 456', href: undefined, icon: IconPhoneFilled },
-      //{ label: 'insert.email@here.com', href: undefined, icon: IconMailFilled },
-    ],
+    items: [],
     extlinks: [
-      //{ href: 'https://www.instagram.com/hiddentreasure', icon: IconBrandInstagram },
       {
         href: 'https://www.facebook.com/people/Hidden-Treasure/61574941850535/',
         icon: IconBrandFacebook,
       },
-      //{ href: 'https://www.youtube.com/hiddentreasure', icon: IconBrandYoutube },
-      /*{
-        href: 'https://www.linkedin.com/company/hiddentreasure',
-        icon: IconBrandLinkedin,
-      }, */
     ],
   },
 ]
@@ -87,7 +65,7 @@ export default function Footer() {
     <div className="relative w-full" ref={footerRef}>
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} initialEmail={email} />
       <Image
-        src={footerLogoSharpened}
+        src={logoFooter}
         alt="Hidden Treasure Logo"
         className={`absolute bottom-0 left-0 z-0 hidden xl:block ${
           isVisible ? 'animate-bounce' : ''

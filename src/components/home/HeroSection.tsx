@@ -1,10 +1,8 @@
 'use client'
 import Image from 'next/image'
-import logoImage from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
-import backgroundImage from '@/assets/blur_blue_wave.webp' // Changed from .png to .webp for 76% smaller file
+import logoImage from '@/assets/logo.webp'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'
-import AnimatedSection from '../common/AnimatedSection'
 import { HomePageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
 
@@ -14,16 +12,8 @@ interface HeroSectionProps {
 
 export default function HeroSection({ heroImage }: HeroSectionProps) {
   const [signOpen, setSignOpen] = useState(false)
-  // ensures it always uses the first image in the list
   const image = heroImage?.[0]?.image
-
-  // ✅ Use 'hero' size (1920px) for hero section - much smaller than original!
   const imageUrl = getPayloadImageUrl(image, 'hero') ?? ''
-
-  // If no image URL, show error in console and use fallback
-  if (!imageUrl) {
-    console.error('Hero image not loaded from Payload CMS')
-  }
 
   return (
     <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
@@ -39,21 +29,18 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
             quality={85}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-r from-[#13384E] to-[#0a2638] flex items-center justify-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary-hover flex items-center justify-center">
             <p className="text-white text-xl">Loading hero image...</p>
           </div>
         )}
         <div className="absolute inset-0 bg-white/70 z-10" />
 
-        {/* Content */}
         <div className="absolute inset-0 z-20 flex items-center justify-center md:items-start md:justify-start md:pl-[12vw] md:pt-[11vw] px-4 sm:px-[3vw]">
           <div className="flex flex-col items-center md:flex-row md:items-start md:gap-[2vw] w-full max-w-xs sm:max-w-none md:max-w-none">
-            {/* Logo */}
             <div className="flex-shrink-0 mb-4 sm:mb-[2vw] md:mb-0 animate-bob animate-slide-in-left">
               <Image src={logoImage} alt="Logo" className="w-32 sm:w-[32vw] md:w-[24vw] h-auto" />
             </div>
 
-            {/* Text Content */}
             <div
               className="flex-1 text-center md:text-left animate-slide-in-right animate-stagger-1"
               style={{ opacity: 0, transform: 'translateX(100px)', visibility: 'hidden' }}
@@ -77,7 +64,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
                 Preserving the past, inspiring the future.
               </p>
               <button
-                className="mt-4 sm:mt-[2vw] bg-[#13384E] text-white px-6 sm:px-[2.5vw] py-3 sm:py-[1vw] rounded-lg sm:rounded-[1vw] text-lg sm:text-[1.6vw] md:text-[1.1vw] font-semibold hover:bg-[#0a2638] hover:cursor-pointer transition animate-bob hover-lift"
+                className="mt-4 sm:mt-[2vw] bg-primary text-white px-6 sm:px-[2.5vw] py-3 sm:py-[1vw] rounded-lg sm:rounded-[1vw] text-lg sm:text-[1.6vw] md:text-[1.1vw] font-semibold hover:bg-primary-hover hover:cursor-pointer transition animate-bob hover-lift"
                 style={{
                   animation: 'bob 3s ease-in-out infinite 0.9s',
                 }}

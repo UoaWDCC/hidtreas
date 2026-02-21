@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
-import koru1 from '@/assets/koruAndLeaf.png'
-import koru2 from '@/assets/otherKoru.png'
+import koru1 from '@/assets/koru-and-leaf.png'
+import koru2 from '@/assets/other-koru.png'
 import { useRouter } from 'next/navigation'
 import AnimatedSection from '../common/AnimatedSection'
 import { HomePageImage } from '@/payload-types'
@@ -14,16 +14,10 @@ interface WhoWeAreProps {
 export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
   const router = useRouter()
   const image = whoWeAreImage?.[0]?.image
-  // ✅ Use 'card' size (768px) for section images - perfect for this display size
   const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
 
-  // If no image URL, show error in console
-  if (!imageUrl) {
-    console.error('Who We Are image not loaded from Payload CMS')
-  }
-
   return (
-    <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-x-hidden overflow-y-visible">
+    <div className="relative pt-12 sm:pt-16 md:pt-[5rem] pb-12 sm:pb-16 md:pb-[5rem] px-4 sm:px-0 overflow-hidden">
       <AnimatedSection animationClass="animate-slide-in-top">
         <div className="flex justify-center">
           <h2 className="text-2xl sm:text-3xl md:text-[clamp(1.75rem,5vw,3.5rem)] font-bold">
@@ -38,14 +32,15 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
             <Image
               src={imageUrl}
               alt="Who We Are"
-              width={1000}
-              height={1000}
+              width={768}
+              height={576}
               className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] h-auto rounded-lg"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 52vw, 55vw"
+              priority
               quality={75}
             />
           ) : (
-            <div className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] aspect-square rounded-lg bg-gradient-to-br from-[#13384E] to-[#0a2638] flex items-center justify-center">
+            <div className="relative z-0 w-full max-w-md sm:w-[52vw] md:max-w-none md:w-[55vw] aspect-square rounded-lg bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
               <p className="text-white">Loading image...</p>
             </div>
           )}
@@ -53,13 +48,13 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
           <Image
             src={koru1}
             alt="koru & leaf"
-            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] h-auto animate-gentle-rotate z-10"
+            className="absolute bottom-[-20%] sm:bottom-[-40%] left-[0%] w-20 sm:w-[28vw] max-w-[280px] h-auto animate-gentle-rotate z-10"
           />
 
           <Image
             src={koru2}
             alt="koru"
-            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] h-auto animate-gentle-rotate animate-stagger-2 z-10"
+            className="absolute top-[-20%] sm:top-[-30%] right-[0%] w-16 sm:w-[20vw] max-w-[200px] h-auto animate-gentle-rotate animate-stagger-2 z-10"
           />
         </div>
       </AnimatedSection>
@@ -74,7 +69,7 @@ export default function WhoWeAre({ whoWeAreImage }: WhoWeAreProps) {
               passionate about blending generations, knowledge, and compassion to uplift lives.
             </p>
             <button
-              className="bg-[#13384E] px-6 sm:px-8 py-3 rounded-lg text-white text-base sm:text-lg mt-6 hover:cursor-pointer animate-bob hover-lift"
+              className="bg-primary px-6 sm:px-8 py-3 rounded-lg text-white text-base sm:text-lg mt-6 hover:cursor-pointer animate-bob hover-lift"
               onClick={() => router.push('/about')}
             >
               FIND OUT MORE

@@ -37,7 +37,6 @@ export function getPayloadImageUrl(
   if (typeof image === 'string') return image
   if (!image) return null
 
-  // ✅ Use optimized size if available, fallback to original
   const mediaWithSizes = image as MediaWithSizes
   const sizedImage = mediaWithSizes.sizes?.[size]
 

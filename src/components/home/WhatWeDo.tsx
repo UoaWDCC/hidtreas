@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import kiwiBird from '@/assets/kiwiBird.svg'
+import kiwiBird from '@/assets/kiwi-bird.svg'
 import leaf from '@/assets/leaf.svg'
 import { useState, useRef, useEffect } from 'react'
 import SignUpModal from '../common/SignUpModal'
@@ -15,16 +15,8 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
   const [signOpen, setSignOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
-  // ensures it always uses the first image in the list
   const image = whatWeDoImage?.[0]?.image
-
-  // ✅ Use 'card' size (768px) for section images - perfect for this display size
   const imageUrl = getPayloadImageUrl(image, 'card') ?? ''
-
-  // If no image URL, show error in console
-  if (!imageUrl) {
-    console.error('What We Do image not loaded from Payload CMS')
-  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,7 +67,7 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
           </p>
 
           <button
-            className={`border-2 border-[#13384E] text-[#13384E] font-semibold px-6 sm:px-8 py-3 rounded-md hover:bg-[#13384E] hover:text-white hover:cursor-pointer transition text-base sm:text-lg hover:shadow-lg hover:shadow-[#13384E]/20 ${
+            className={`border-2 border-primary text-primary font-semibold px-6 sm:px-8 py-3 rounded-md hover:bg-primary hover:text-white hover:cursor-pointer transition text-base sm:text-lg hover:shadow-lg hover:shadow-primary/20 ${
               isVisible ? 'animate-bounce' : ''
             }`}
             style={{
@@ -96,14 +88,14 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
             <Image
               src={imageUrl}
               alt="What We Do"
-              width={200}
-              height={200}
+              width={768}
+              height={576}
               className="w-full rounded-lg shadow-xl"
               sizes="(max-width: 768px) 100vw, 50vw"
               quality={75}
             />
           ) : (
-            <div className="w-full aspect-square rounded-lg shadow-xl bg-gradient-to-br from-[#13384E] to-[#0a2638] flex items-center justify-center">
+            <div className="w-full aspect-square rounded-lg shadow-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
               <p className="text-white">Loading image...</p>
             </div>
           )}

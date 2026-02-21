@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import runImage from '@/assets/hidtreas-run-img.png'
-import blueKoru from '@/assets/blue_koru_crop.png'
+import runImage from '@/assets/community-run.png'
+import blueKoru from '@/assets/blue-koru.png'
 import AnimatedSection from '@/components/common/AnimatedSection'
 
 export default function Hero() {
@@ -10,7 +10,6 @@ export default function Hero() {
       <AnimatedSection animationClass="animate-slide-in-bottom" delay={0.1}>
         <div className="relative flex justify-center">
           <div className="w-full relative flex justify-center">
-            {/* Image */}
             <Image
               src={runImage}
               alt="Events page main image"
@@ -41,7 +40,7 @@ export default function Hero() {
               <div className="w-[50vw]">
                 <p className="mt-4 text-[0.75rem rem] sm:text-[0.875remrem] md:text-[1rem] lg:text-[1.125rem] font-normal animate-fade-in">
                   Hidden Treasure hosts events that build community and connect generations. It
-                  supports seniors, runs women's groups and donation drives, promotes culture
+                  supports seniors, runs women&apos;s groups and donation drives, promotes culture
                   through libraries and radio, and partners with schools.
                 </p>
               </div>

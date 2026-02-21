@@ -1,18 +1,41 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
-import BlogCard from '@/components/blogs/BlogCard'
 import Search from '@/components/blogs/Search'
 import { getBlogs } from '@/lib/payload/blogs'
-import type { BlogType } from '@/types/blog'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
-export const revalidate = 300
+// ISR: Revalidate every 30 minutes — content changes infrequently
+export const revalidate = 1800
 
-export default async function BlogsPage() {
+function BlogsSkeleton() {
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div className="w-full max-w-4xl px-4 mb-10 sm:px-6 lg:px-8">
+        <div className="w-full h-12 sm:h-14 rounded-full bg-gray-200 animate-pulse" />
+      </div>
+      <div className="px-[2.5rem] lg:px-[7rem] mb-16 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[3rem]">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border-2 border-gray-200 rounded-xl p-8 flex flex-col gap-4 animate-pulse">
+              <div className="w-full h-48 sm:h-56 md:h-64 bg-gray-200 rounded-xl" />
+              <div className="h-8 bg-gray-200 rounded w-3/4" />
+              <div className="h-4 bg-gray-200 rounded w-full" />
+              <div className="h-4 bg-gray-200 rounded w-2/3" />
+              <div className="h-10 bg-gray-200 rounded w-32" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+async function BlogsContent() {
   const { docs: blogs } = await getBlogs({ page: 1, limit: 10 })
+  return <Search blogs={blogs} />
+}
 
+export default function BlogsPage() {
   return (
     <div className="blogs">
       <Header />
@@ -28,7 +51,9 @@ export default async function BlogsPage() {
       </div>
 
       {/* Search Bar Filter + Blog Grid */}
-      <Search blogs={blogs} />
+      <Suspense fallback={<BlogsSkeleton />}>
+        <BlogsContent />
+      </Suspense>
 
       <Footer />
     </div>

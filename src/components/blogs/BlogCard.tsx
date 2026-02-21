@@ -1,21 +1,19 @@
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import Link from 'next/link'
-import React, { FunctionComponent } from 'react'
 import { BlogType } from '@/types/blog'
 
 interface Props {
   blog: BlogType
 }
 
-const BlogCard: FunctionComponent<Props> = ({ blog }) => {
+export default function BlogCard({ blog }: Props) {
   return (
     <div
       className="
-        group border-2 border-[#13384E] rounded-xl w-full h-full p-8 flex flex-col justify-between
-        shadow-md hover:shadow-xl hover:bg-[#13384E]/10 transition-all duration-300
+        group border-2 border-primary rounded-xl w-full h-full p-8 flex flex-col justify-between
+        shadow-md hover:shadow-xl hover:bg-primary/10 transition-all duration-300
       "
     >
-      {/* Image container */}
       <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
         <Image
           src={blog.imageUrl}
@@ -35,12 +33,10 @@ const BlogCard: FunctionComponent<Props> = ({ blog }) => {
 
       <Link
         href={`/blogs/${blog.slug}`}
-        className="border-2 border-[#13384E] rounded-md px-4 py-1 font-semibold hover:bg-[#13384E] hover:text-[#FDF4ED] transition-colors duration-300 text-center inline-block"
+        className="border-2 border-primary rounded-md px-4 py-1 font-semibold hover:bg-primary hover:text-background transition-colors duration-300 text-center inline-block"
       >
         READ MORE
       </Link>
     </div>
   )
 }
-
-export default BlogCard

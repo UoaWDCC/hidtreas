@@ -1,4 +1,5 @@
 import { isEditorOrAdmin } from '@/access/UserAccess'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCache'
 import type { CollectionConfig } from 'payload'
 
 export const Member: CollectionConfig = {
@@ -6,6 +7,10 @@ export const Member: CollectionConfig = {
 
   admin: {
     useAsTitle: 'name',
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   access: {
     read: () => true,

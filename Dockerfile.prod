@@ -31,7 +31,23 @@ RUN pnpm install --frozen-lockfile --prod=false
 # Copy application code
 COPY . .
 
-# Build application
+# Build-time args so Next.js can pre-render pages with real Payload data
+# and configure remotePatterns for S3 image optimization
+ARG PAYLOAD_SECRET
+ARG DATABASE_URI
+ARG AWS_BUCKET
+ARG AWS_REGION
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+
+ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
+ENV DATABASE_URI=$DATABASE_URI
+ENV AWS_BUCKET=$AWS_BUCKET
+ENV AWS_REGION=$AWS_REGION
+ENV AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
+# Build application (pages pre-render with real data from Payload)
 RUN pnpm run build
 
 # Remove development dependencies

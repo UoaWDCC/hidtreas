@@ -6,11 +6,9 @@ import RecentEvents from '@/components/events/RecentEvents'
 import PastEventsSection from '@/components/events/PastEventsSection'
 import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
-export const revalidate = 300
+// ISR: Revalidate every 30 minutes — content changes infrequently
+export const revalidate = 1800
 
-// ✅ Loading fallback
 function EventsSkeleton() {
   return (
     <div className="py-12 px-4">
@@ -26,15 +24,15 @@ function EventsSkeleton() {
   )
 }
 
-// ✅ Independent async components
-async function RecentEventsContent() {
-  const upcoming = await getUpcomingEvents(5)
-  return <RecentEvents initialEvents={upcoming} />
-}
+async function EventsContent() {
+  const [upcoming, past] = await Promise.all([getUpcomingEvents(5), getPastEvents()])
 
-async function PastEventsContent() {
-  const past = await getPastEvents()
-  return <PastEventsSection initialEvents={past} />
+  return (
+    <>
+      <RecentEvents initialEvents={upcoming} />
+      <PastEventsSection initialEvents={past} />
+    </>
+  )
 }
 
 export default function EventsPage() {
@@ -43,12 +41,15 @@ export default function EventsPage() {
       <Header />
       <Hero />
 
-      <Suspense fallback={<EventsSkeleton />}>
-        <RecentEventsContent />
-      </Suspense>
-
-      <Suspense fallback={<EventsSkeleton />}>
-        <PastEventsContent />
+      <Suspense
+        fallback={
+          <>
+            <EventsSkeleton />
+            <EventsSkeleton />
+          </>
+        }
+      >
+        <EventsContent />
       </Suspense>
 
       <Footer />

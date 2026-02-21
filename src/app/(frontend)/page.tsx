@@ -6,14 +6,12 @@ import HeroSection from '@/components/home/HeroSection'
 import WhatWeDo from '@/components/home/WhatWeDo'
 import WhoWeAre from '@/components/home/WhoWeAre'
 import Events from '@/components/home/Events'
-import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
-import { getHomePageImages } from '@/lib/payload/images'
+import { getUpcomingEvents } from '@/lib/payload/events'
+import { getAllHomePageImages } from '@/lib/payload/images'
 
-// Use dynamic rendering to avoid build-time fetch errors, but cache for 5 minutes in production
-export const dynamic = 'force-dynamic'
-export const revalidate = 300
+// ISR: Revalidate every 30 minutes — content changes infrequently
+export const revalidate = 1800
 
-// ✅ Loading fallbacks for each section
 function HeroSkeleton() {
   return (
     <div className="px-4 sm:px-[3vw] py-4 sm:py-[1vw]">
@@ -33,47 +31,41 @@ function SectionSkeleton() {
   )
 }
 
-// ✅ Async Server Components - Each fetches independently!
-async function HeroContent() {
-  const heroImage = await getHomePageImages('hero')
-  return <HeroSection heroImage={heroImage} />
-}
+async function HomeContent() {
+  // Fetch images in one query + events in parallel (2 DB queries instead of 4)
+  const [allImages, upcoming] = await Promise.all([getAllHomePageImages(), getUpcomingEvents(5)])
 
-async function WhoWeAreContent() {
-  const whoWeAreImage = await getHomePageImages('who-we-are')
-  return <WhoWeAre whoWeAreImage={whoWeAreImage} />
-}
+  // Filter by placement in memory — instant, no extra DB round-trips
+  const heroImage = allImages.filter((img) => img.placement === 'hero')
+  const whoWeAreImage = allImages.filter((img) => img.placement === 'who-we-are')
+  const whatWeDoImage = allImages.filter((img) => img.placement === 'what-we-do')
 
-async function WhatWeDoContent() {
-  const whatWeDoImage = await getHomePageImages('what-we-do')
-  return <WhatWeDo whatWeDoImage={whatWeDoImage} />
-}
-
-async function EventsContent() {
-  const upcoming = await getUpcomingEvents(5)
-  return <Events initialEvents={upcoming} />
+  return (
+    <>
+      <HeroSection heroImage={heroImage} />
+      <WhoWeAre whoWeAreImage={whoWeAreImage} />
+      <WhatWeDo whatWeDoImage={whatWeDoImage} />
+      <Events initialEvents={upcoming} />
+    </>
+  )
 }
 
 export default function HomePage() {
-  // ✅ NO BLOCKING! Each section streams in as data arrives via React Suspense
   return (
     <div className="home">
       <Header />
 
-      <Suspense fallback={<HeroSkeleton />}>
-        <HeroContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <WhoWeAreContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <WhatWeDoContent />
-      </Suspense>
-
-      <Suspense fallback={<SectionSkeleton />}>
-        <EventsContent />
+      <Suspense
+        fallback={
+          <>
+            <HeroSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+            <SectionSkeleton />
+          </>
+        }
+      >
+        <HomeContent />
       </Suspense>
 
       <Footer />

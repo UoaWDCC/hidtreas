@@ -1,4 +1,5 @@
 import { isEditorOrAdmin } from '@/access/UserAccess'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCache'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
@@ -6,6 +7,10 @@ export const Blogs: CollectionConfig = {
   slug: 'blogs',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   access: {
     read: () => true,
@@ -113,15 +118,19 @@ export const Blogs: CollectionConfig = {
       name: 'category',
       type: 'text',
       admin: {
-        condition: (data) =>
-          data.template === 'template2' || data.template === 'template3',
-        description: '⚠️ Required when using this template – category displayed in header (e.g. “Stories”, “Behind the Scenes”)',
+        condition: (data) => data.template === 'template2' || data.template === 'template3',
+        description:
+          '⚠️ Required when using this template – category displayed in header (e.g. “Stories”, “Behind the Scenes”)',
       },
       validate: (value: unknown, { data }: { data: any }) => {
-        if (data.published && (data.template === 'template2' || data.template === 'template3') && !value) {
-          return 'This field is required for this template';
+        if (
+          data.published &&
+          (data.template === 'template2' || data.template === 'template3') &&
+          !value
+        ) {
+          return 'This field is required for this template'
         }
-        return true;
+        return true
       },
     },
 
@@ -143,9 +152,9 @@ export const Blogs: CollectionConfig = {
             data.template === 'template4') &&
           !value
         ) {
-          return 'This field is required for this template';
+          return 'This field is required for this template'
         }
-        return true;
+        return true
       },
     },
 
@@ -167,9 +176,9 @@ export const Blogs: CollectionConfig = {
             data.template === 'template4') &&
           !value
         ) {
-          return 'This field is required for this template';
+          return 'This field is required for this template'
         }
-        return true;
+        return true
       },
     },
 
@@ -182,9 +191,9 @@ export const Blogs: CollectionConfig = {
       },
       validate: (value: unknown, { data }: { data: any }) => {
         if (data.published && data.template === 'template3' && !value) {
-          return 'This field is required for this template';
+          return 'This field is required for this template'
         }
-        return true;
+        return true
       },
     },
 

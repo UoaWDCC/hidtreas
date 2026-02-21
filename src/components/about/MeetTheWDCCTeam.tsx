@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 
-import aboutUsLeaf from '@/assets/about_us_leaf.png'
-import hidtreasWdccTeam from '@/assets/hidtreas-wdcc-team.jpg'
-import blueKoru from '@/assets/blue_koru.png'
+import decorativeLeaf from '@/assets/decorative-leaf.png'
+import wdccTeam from '@/assets/wdcc-team.jpg'
+import blueKoru from '@/assets/blue-koru.png'
 
 export default function MeetTheWDCCTeam() {
   return (
@@ -23,7 +23,7 @@ export default function MeetTheWDCCTeam() {
             <div className="relative order-2 lg:order-1">
               <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh]">
                 <Image
-                  src={hidtreasWdccTeam}
+                  src={wdccTeam}
                   alt="Hidtreas WDCC Team"
                   fill
                   className="object-contain object-center"
@@ -35,7 +35,7 @@ export default function MeetTheWDCCTeam() {
               {/* Leaf decoration */}
               <div className="absolute -bottom-16 -left-[6rem] sm:-left-[8rem] md:-left-[10rem] z-10">
                 <Image
-                  src={aboutUsLeaf}
+                  src={decorativeLeaf}
                   alt="Leaf decoration"
                   width={160}
                   height={200}
@@ -54,10 +54,7 @@ export default function MeetTheWDCCTeam() {
               </h2>
 
               <div className="space-y-3 md:space-y-4">
-                <p
-                  className="text-[0.9rem] sm:text-[1rem] md:text-[1.1rem] leading-relaxed font-normal text-center mx-auto max-w-[70ch]"
-                  style={{ color: '#13384E' }}
-                >
+                <p className="text-[0.9rem] sm:text-[1rem] md:text-[1.1rem] leading-relaxed font-normal text-center mx-auto max-w-[70ch] text-primary">
                   The Web Development and Consulting Club (WDCC) helped design and create this very
                   website! Here are the members who brought it to life: <br />
                   Top row: Nathan Dalpatan, Andrew Chen, Jack Harken <br />

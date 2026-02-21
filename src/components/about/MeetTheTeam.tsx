@@ -1,16 +1,17 @@
-import Image, { StaticImageData } from 'next/image'
-import placeholderImage from '@/assets/personPicture.png'
-import koru from '@/assets/bigGreenKoru.png'
-import kiwi from '@/assets/kiwiBird.svg'
-import { getMembers } from '@/lib/payload/members'
-import { MemberType } from '@/types/member'
+import Image from 'next/image'
+import placeholderImage from '@/assets/event-placeholder.png'
+import koru from '@/assets/blue-koru.png'
+import kiwi from '@/assets/kiwi-bird.svg'
+import type { Member } from '@/payload-types'
+import type { MemberType } from '@/types/member'
 
-export default async function MeetTheTeam() {
-  const members = await getMembers()
+interface MeetTheTeamProps {
+  members: Member[]
+}
 
+export default function MeetTheTeam({ members }: MeetTheTeamProps) {
   return (
     <div className="relative mb-[6rem] md:mb-[8rem]">
-      {/* whole section */}
 
       {/*background koru - positioned between sections*/}
       <Image
@@ -20,7 +21,6 @@ export default async function MeetTheTeam() {
       />
 
       <div className="flex justify-center ">
-        {/* heading */}
         <div className="mt-0">
           <h2 className="text-[clamp(2rem,6vw,4rem)] font-bold">Meet the Team!</h2>
         </div>
@@ -57,13 +57,11 @@ export default async function MeetTheTeam() {
 function TeamMember({ name, pronoun, role, imageUrl }: MemberType) {
   return (
     <div className="flex flex-col items-center text-center">
-      {/* image */}
 
       <div className="relative w-[clamp(4rem,20vw,10rem)] aspect-[4/5] overflow-hidden border-2 border-current rounded-md">
         <Image src={imageUrl} alt={`${name}'s photo`} fill className="object-cover object-top" />
       </div>
 
-      {/* text stuff */}
       <p className="text-[clamp(1rem,4vw,2rem)]">{name}</p>
       <p className="text-[clamp(0.5rem,2vw,1rem)]">{pronoun}</p>
       <p className="text-[clamp(0.8rem,2.5vw,1.6rem)]">{role}</p>

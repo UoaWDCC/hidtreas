@@ -1,10 +1,15 @@
 import { isEditorOrAdmin } from '@/access/UserAccess'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCache'
 import type { CollectionConfig } from 'payload'
 
 export const Events: CollectionConfig = {
   slug: 'events',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   access: {
     read: () => true,

@@ -1,10 +1,15 @@
 import { isEditorOrAdmin } from '@/access/UserAccess'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCache'
 import type { CollectionConfig } from 'payload'
 
 export const HomePageImages: CollectionConfig = {
   slug: 'home-page-images',
   admin: {
     useAsTitle: 'title',
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   access: {
     read: () => true,

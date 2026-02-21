@@ -1,11 +1,11 @@
 import { IconX } from '@tabler/icons-react'
 import Modal from '../common/Modal'
 import Image from 'next/image'
-import Logo from '@/assets/sharpened_logo.webp' // Changed from .png to .webp for 90% smaller file
-import BackgroundImage from '@/assets/otherKoru.png'
+import Logo from '@/assets/logo.webp'
+import BackgroundImage from '@/assets/other-koru.png'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { createEventSubscriber } from '@/lib/payload/eventSubscribers'
+import { createEventSubscriberAction } from '@/lib/payload/actions'
 
 const fields = [
   { name: 'firstname', placeholder: 'FIRST NAME' },
@@ -47,12 +47,12 @@ export default function EventsSignUpModal({
         setErrors(emptyErrors)
         setSignOpen(false)
       }}
-      className="h-[30rem] bg-[#fdf4ed] flex flex-col w-[85vw] max-w-[28rem] sm:max-w-[30rem] md:max-w-[32rem] lg:max-w-[34rem] xl:w-xl"
+      className="h-[30rem] bg-background flex flex-col w-[85vw] max-w-[28rem] sm:max-w-[30rem] md:max-w-[32rem] lg:max-w-[34rem] xl:w-xl"
       superClassName="bg-stone-200/75"
       noHeader
       doNotCloseOnClickOutside={answers}
     >
-      <div className="relative h-full w-full bg-[#fdf4ed]">
+      <div className="relative h-full w-full bg-background">
         {successful ? (
           <div className="relative p-6 h-full w-full flex flex-col items-center justify-center text-center">
             <IconX
@@ -64,7 +64,7 @@ export default function EventsSignUpModal({
             />
             <Image src={Logo} alt="Hidden Treasure Logo" width={100} height={100} />
             <h1 className="text-6xl font-[1000] mt-10">THANK YOU FOR SIGNING UP!</h1>
-            <p className="mt-5">We can't wait to share our updates with you.</p>
+            <p className="mt-5">We can&apos;t wait to share our updates with you.</p>
           </div>
         ) : (
           <>
@@ -105,16 +105,22 @@ export default function EventsSignUpModal({
                     })
                     return
                   }
-                  createEventSubscriber(
+                  createEventSubscriberAction(
                     eventToSignUp ? eventToSignUp.id : form.event.value.id,
                     form.email.value.trim(),
                     form.firstname.value.trim(),
                     form.lastname.value.trim(),
                   )
-                    .then(() => {
-                      setSuccessful(true)
-                      setAnswers(false)
-                      form.reset()
+                    .then((result) => {
+                      if (result.success) {
+                        setSuccessful(true)
+                        setAnswers(false)
+                        form.reset()
+                      } else if (result.error?.includes('unique')) {
+                        setSuccessful(true)
+                      } else {
+                        alert('Error subscribing. Please try again later.')
+                      }
                     })
                     .catch((e) => {
                       if (e.message.includes('Value must be unique')) {
@@ -131,7 +137,7 @@ export default function EventsSignUpModal({
                     <input
                       key={field.name}
                       type="text"
-                      className="block rounded-md px-2 w-[10rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                      className="block rounded-md px-2 w-[10rem] h-[3rem] bg-input-bg border-2 text-m"
                       placeholder={field.placeholder}
                       name={field.name}
                       defaultValue={field.name === 'email' ? initialEmail : ''}
@@ -146,7 +152,7 @@ export default function EventsSignUpModal({
                   <input
                     key="email"
                     type="text"
-                    className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                    className="rounded-md px-2 w-[25rem] h-[3rem] bg-input-bg border-2 text-m"
                     placeholder="EMAIL ADDRESS"
                     name="email"
                     defaultValue={initialEmail}
@@ -159,9 +165,7 @@ export default function EventsSignUpModal({
 
                 <div className="flex justify-center mt-8">
                   {eventToSignUp ? (
-                    // If event is preselected, show title instead of dropdown
-                    // Only show the first 30 characters of the title
-                    // (to avoid overflow)
+                    // Show truncated event title (max 30 chars) when preselected
                     <p className="text-2xl font-semibold">
                       {eventToSignUp.title.length > 30
                         ? eventToSignUp.title.slice(0, 30) + '...'
@@ -170,7 +174,7 @@ export default function EventsSignUpModal({
                   ) : (
                     <select
                       name="event"
-                      className="rounded-md px-2 w-[25rem] h-[3rem] bg-[#F0F0F0] border-2 text-m"
+                      className="rounded-md px-2 w-[25rem] h-[3rem] bg-input-bg border-2 text-m"
                       onChange={() => setAnswers(true)}
                       defaultValue="SELECT EVENT"
                       style={{
@@ -206,7 +210,7 @@ export default function EventsSignUpModal({
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-[#13384e] text-[#fdf4ed] rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-[#0a2638] transition"
+                    className="bg-primary text-background rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-primary-hover transition"
                   >
                     SIGN UP
                   </button>
@@ -222,7 +226,7 @@ export default function EventsSignUpModal({
 
 function checkValid(form: HTMLFormElement, setErrors: (errors: boolean[]) => void) {
   let valid = true
-  let errors = [...emptyErrors]
+  const errors = [...emptyErrors]
   if (form.firstname.value.trim().length <= 0) {
     errors[0] = true
     valid = false

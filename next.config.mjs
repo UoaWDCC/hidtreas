@@ -4,7 +4,19 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const AWS_BUCKET = process.env.AWS_BUCKET || ''
 const AWS_REGION = process.env.AWS_REGION || 'ap-southeast-2'
 
-const remotePatterns = []
+const remotePatterns = [
+  // Wildcard fallback for any S3 bucket (safety net)
+  {
+    protocol: 'https',
+    hostname: '*.s3.*.amazonaws.com',
+    pathname: '/media/**',
+  },
+  {
+    protocol: 'https',
+    hostname: '*.s3.amazonaws.com',
+    pathname: '/media/**',
+  },
+]
 
 if (AWS_BUCKET) {
   remotePatterns.push(
@@ -28,7 +40,8 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    // Cache optimized images for 1 week — S3 content is immutable (new uploads get new filenames)
+    minimumCacheTTL: 604800,
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
