@@ -2,8 +2,7 @@ import { IconX } from '@tabler/icons-react'
 import Modal from './Modal'
 import Image from 'next/image'
 import Logo from '@/assets/logo.webp'
-import BirdPNG from '@/assets/kiwi-illustration.png'
-import { useRouter } from 'next/navigation'
+import BirdPNG from '@/assets/kiwi-illustration.webp'
 import { useState } from 'react'
 import { createSubscriberAction } from '@/lib/payload/actions'
 
@@ -32,7 +31,6 @@ export default function SignUpModal({
   setSignOpen: (open: boolean) => void
   initialEmail?: string
 }) {
-  const router = useRouter()
   const [answers, setAnswers] = useState(false)
   const [errors, setErrors] = useState(emptyErrors)
   const [successful, setSuccessful] = useState(false)
@@ -143,10 +141,9 @@ export default function SignUpModal({
                   }}
                 >
                   I AGREE TO THE{' '}
+                  {/* TODO: Add Terms and Conditions page */}
                   <a
-                    onClick={() => {
-                      router.push('/TermsAndConditions')
-                    }}
+                    href="#"
                     className="underline hover:cursor-pointer"
                   >
                     TERMS AND CONDITIONS

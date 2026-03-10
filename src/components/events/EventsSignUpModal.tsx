@@ -3,7 +3,6 @@ import Modal from '../common/Modal'
 import Image from 'next/image'
 import Logo from '@/assets/logo.webp'
 import BackgroundImage from '@/assets/other-koru.png'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { createEventSubscriberAction } from '@/lib/payload/actions'
 
@@ -31,10 +30,9 @@ export default function EventsSignUpModal({
   signOpen: boolean
   setSignOpen: (open: boolean) => void
   initialEmail?: string
-  eventOptions?: string[]
+  eventOptions?: { title: string; id: string }[]
   eventToSignUp?: { title: string; id: string } | null
 }) {
-  const router = useRouter()
   const [answers, setAnswers] = useState(false)
   const [errors, setErrors] = useState(emptyErrors)
   const [successful, setSuccessful] = useState(false)
@@ -72,6 +70,7 @@ export default function EventsSignUpModal({
               src={BackgroundImage}
               alt="Background"
               fill
+              sizes="(max-width: 768px) 85vw, 34rem"
               className="object-cover object-center z-0 scale-x-[-1] rotate-180"
               style={{
                 objectFit: 'contain', // Zooms out (shows full image)
@@ -106,7 +105,7 @@ export default function EventsSignUpModal({
                     return
                   }
                   createEventSubscriberAction(
-                    eventToSignUp ? eventToSignUp.id : form.event.value.id,
+                    eventToSignUp ? eventToSignUp.id : form.event.value,
                     form.email.value.trim(),
                     form.firstname.value.trim(),
                     form.lastname.value.trim(),
@@ -185,8 +184,8 @@ export default function EventsSignUpModal({
                         SELECT EVENT
                       </option>
                       {eventOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
+                        <option key={option.id} value={option.id}>
+                          {option.title}
                         </option>
                       ))}
                     </select>
@@ -196,11 +195,10 @@ export default function EventsSignUpModal({
                   <input type="checkbox" name="agreeTnC" className="mr-1 hover:cursor-pointer" />
                   <label className="text-sm" style={{ color: errors[4] ? 'red' : 'black' }}>
                     I AGREE TO THE{' '}
+                    {/* TODO: Add Terms and Conditions page */}
                     <a
-                      onClick={() => {
-                        router.push('/TermsAndConditions')
-                        setAnswers(true)
-                      }}
+                      href="#"
+                      onClick={(e) => e.preventDefault()}
                       className="underline hover:cursor-pointer"
                     >
                       TERMS AND CONDITIONS

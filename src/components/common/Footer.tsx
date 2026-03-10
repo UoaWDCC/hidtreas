@@ -71,7 +71,7 @@ export default function Footer() {
           isVisible ? 'animate-bounce' : ''
         }`}
         style={{
-          animation: isVisible ? 'bob 4s ease-in-out infinite 0.5s' : 'none',
+          animation: isVisible ? 'bobUpDown 4s ease-in-out infinite 0.5s' : 'none',
         }}
         width={400}
         height={360}
@@ -95,7 +95,7 @@ export default function Footer() {
                 isVisible ? 'animate-bounce' : ''
               }`}
               style={{
-                animation: isVisible ? 'bob 3s ease-in-out infinite 1s' : 'none',
+                animation: isVisible ? 'bobUpDown 3s ease-in-out infinite 1s' : 'none',
               }}
             >
               <input
@@ -147,7 +147,7 @@ export default function Footer() {
                     }`}
                     style={{
                       animation: isVisible
-                        ? `bob 3s ease-in-out infinite ${1.5 + iconIndex * 0.2}s`
+                        ? `bobUpDown 3s ease-in-out infinite ${1.5 + iconIndex * 0.2}s`
                         : 'none',
                     }}
                   >
@@ -177,17 +177,6 @@ export default function Footer() {
         <p className="text-center text-sm sm:text-base">{`© ${new Date().getUTCFullYear()} Hidden Treasure. All rights reserved.`}</p>
       </div>
 
-      <style jsx>{`
-        @keyframes bob {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-3px);
-          }
-        }
-      `}</style>
     </div>
   )
 }

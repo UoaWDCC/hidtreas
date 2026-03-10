@@ -4,13 +4,10 @@ import Image from 'next/image'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/big-green-koru.svg'
 import KiwiBird from '@/assets/kiwi-bird.svg'
-import { Kosugi_Maru } from 'next/font/google'
 import type { EventType } from '@/types/event'
 import Modal from '@/components/common/Modal'
 import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
 import AnimatedSection from '@/components/common/AnimatedSection'
-
-const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400' })
 
 // Component for truncated description with see more/see less functionality
 function TruncatedDescription({
@@ -28,7 +25,7 @@ function TruncatedDescription({
 
   return (
     <div>
-      <p className={`text-sm md:text-base leading-relaxed ${kosugiMaru.className}`}>
+      <p className={`text-sm md:text-base leading-relaxed font-kosugi`}>
         {displayText}
       </p>
       {shouldTruncate && (
@@ -43,7 +40,7 @@ function TruncatedDescription({
   )
 }
 
-export default function RecentEvents({ initialEvents }: { initialEvents: EventType[] }) {
+export default function UpcomingEvents({ initialEvents }: { initialEvents: EventType[] }) {
   const [eventToSignUp, setEventToSignUp] = useState({ title: '', id: '' })
   const [signOpen, setSignOpen] = useState(false)
   const [galleryOpen, setGalleryOpen] = useState(false)
@@ -51,7 +48,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
   const [activeIndex, setActiveIndex] = useState(0)
 
   const events = initialEvents
-  const eventNames = events.map((e) => e.title)
+  const eventNames = events.map((e) => ({ title: e.title, id: e.id }))
 
   const activeEvent = useMemo(
     () => events.find((event) => event.id === activeEventId) ?? null,
@@ -83,6 +80,8 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
     if (!activeGallery.length) return
     setActiveIndex((prev) => (prev - 1 + activeGallery.length) % activeGallery.length)
   }
+
+  if (events.length === 0) return null
 
   return (
     <>
@@ -174,7 +173,7 @@ export default function RecentEvents({ initialEvents }: { initialEvents: EventTy
               </div>
 
               <div className="text-white max-w-xl flex flex-col md:min-h-[300px]">
-                <h2 className={`text-2xl md:text-3xl font-semibold mb-2 ${kosugiMaru.className}`}>
+                <h2 className={`text-2xl md:text-3xl font-semibold mb-2 font-kosugi`}>
                   {event.title}
                 </h2>
                 <h3 className="text-base md:text-lg font-medium mb-4">

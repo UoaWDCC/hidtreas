@@ -11,10 +11,12 @@ import { EventType } from '@/types/event'
 export function mapPayloadEvent(e: Event): EventType {
   const mediaItems = Array.isArray(e.image) ? e.image : e.image ? [e.image] : []
   const mediaUrls = mediaItems
-    .map((item) => (typeof item === 'object' && item?.url ? item.url : null))
-    .filter((url): url is string => Boolean(url))
+    .map((item) => (typeof item === 'object' && item?.url
+      ? { card: (item as any)?.sizes?.card?.url ?? item.url, thumb: (item as any)?.sizes?.thumbnail?.url ?? item.url }
+      : null))
+    .filter((urls): urls is { card: string; thumb: string } => Boolean(urls))
 
-  const [primaryImage, ...additionalImages] = mediaUrls
+  const [primary, ...rest] = mediaUrls
 
   return {
     id: e.id,
@@ -23,7 +25,7 @@ export function mapPayloadEvent(e: Event): EventType {
     date: new Date(e.date),
     hostedBy: e.host?.join(', ') ?? 'Unknown host',
     venue: e.venue ?? undefined,
-    imageUrl: primaryImage ?? PlaceholderImg,
-    galleryImages: additionalImages,
+    imageUrl: primary?.card ?? PlaceholderImg,
+    galleryImages: rest.map(r => r.thumb),
   }
 }

@@ -9,6 +9,7 @@ export type BlogType = {
   content: any
   authorName: string
   imageUrl: string | StaticImageData
+  cardImageUrl: string | StaticImageData
   imageAlt: string
   template: TemplateKey
   published: boolean

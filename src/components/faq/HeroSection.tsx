@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import waveBackground from '@/assets/wave-background.png'
-import heroImage from '@/assets/community-run.png'
+import heroImage from '@/assets/community-run.webp'
 
 export default function HeroSection() {
   return (
@@ -10,6 +10,7 @@ export default function HeroSection() {
           src={waveBackground}
           alt="Blue Wave with white koru and leaves"
           fill
+          sizes="50vw"
           className="object-contain object-bottom-right"
         />
       </div>
@@ -30,7 +31,7 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-      <div className="absolute pt-2 lg:left-20 lg:bottom-[-10]">
+      <div className="relative pt-4 pb-4 lg:pl-20">
         <p className="text-lg font-bold text-center md:text-2xl lg:text-3xl sm:max-w-3xl w-auto px-2 md:px-0">
           &ldquo;Let the wisdom of the past guide the hope of the future —every person is a hidden
           treasure waiting to shine.&rdquo;

@@ -1,5 +1,7 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import gL from '@/assets/leaf.svg'
 import authorImage from '@/assets/event-placeholder.png'
 import type { BlogType } from '@/types/blog'
@@ -23,7 +25,7 @@ export default function Template3({ blog }: Template3Props) {
 
       {/* Hero block */}
       <div className="w-[100vw] md:w-[70vw] aspect-[16/9] relative md:rounded-xl overflow-hidden my-10 mx-auto">
-        <Image src={blog.imageUrl} alt={blog.imageAlt} className="object-cover" fill />
+        <Image src={blog.imageUrl} alt={blog.imageAlt} className="object-cover" fill sizes="(max-width: 768px) 100vw, 70vw" />
 
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
           <p className="uppercase tracking-widest text-[0.8rem] text-white/60">{blog.category}</p>
@@ -42,18 +44,7 @@ export default function Template3({ blog }: Template3Props) {
         {/* Content + Sidebar Image */}
         <div className="mt-[8vh] grid grid-cols-1 md:grid-cols-2 gap-[15vw] md:gap-[5vw] px-[9vw]">
           <div className="text-[0.8125rem] leading-[1.75rem] text-black">
-            <div
-              dangerouslySetInnerHTML={{
-                __html:
-                  blog.content?.root?.children
-                    ?.map((child: any) =>
-                      child.type === 'paragraph'
-                        ? `<p>${(child.children ?? []).map((c: any) => c.text || '').join('')}</p>`
-                        : '',
-                    )
-                    .join('') || 'Content coming soon...',
-              }}
-            />
+            {blog.content ? <RichText data={blog.content} /> : <p>Content coming soon...</p>}
           </div>
 
           <div className="relative flex flex-col items-end w-full">
@@ -63,6 +54,7 @@ export default function Template3({ blog }: Template3Props) {
                 alt={blog.imageAlt}
                 className="object-cover rounded-xl overflow-hidden border border-gray-300"
                 fill
+                sizes="(max-width: 768px) 95%, 45%"
               />
               <div className="absolute -bottom-6 -left-6 bg-primary text-white p-4 rounded-md shadow-lg max-w-[60%] text-center">
                 <p className="text-sm md:text-base font-semibold">{blog.quote}</p>

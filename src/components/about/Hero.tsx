@@ -16,14 +16,13 @@ export default function Hero({ heroImage }: HeroSectionProps) {
       <div className="relative flex justify-center">
         <div className="flex flex-col md:flex-row h-auto w-full ">
           {/*className="object-cover object-left opacity-70"*/}
-          <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden">
+          <div className="w-full md:w-1/2 h-64 md:h-screen overflow-hidden relative">
             {imageUrl ? (
               <Image
                 src={imageUrl}
-                width={1000}
-                height={1000}
                 alt="Hidden Treasure People"
-                className="w-full h-full object-cover object-center"
+                fill
+                className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 quality={85}
                 priority

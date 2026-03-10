@@ -51,7 +51,7 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
                 isVisible ? 'animate-bounce' : ''
               }`}
               style={{
-                animation: isVisible ? 'bob 3s ease-in-out infinite' : 'none',
+                animation: isVisible ? 'bobUpDown 3s ease-in-out infinite' : 'none',
               }}
             />
             <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold">WHAT WE DO</h2>
@@ -71,7 +71,7 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
               isVisible ? 'animate-bounce' : ''
             }`}
             style={{
-              animation: isVisible ? 'bob 3s ease-in-out infinite 0.5s' : 'none',
+              animation: isVisible ? 'bobUpDown 3s ease-in-out infinite 0.5s' : 'none',
             }}
             onClick={() => setSignOpen(true)}
           >
@@ -106,23 +106,11 @@ export default function WhatWeDo({ whatWeDoImage }: WhatWeDoProps) {
               isVisible ? 'animate-bounce' : ''
             }`}
             style={{
-              animation: isVisible ? 'bob 3s ease-in-out infinite 1s' : 'none',
+              animation: isVisible ? 'bobUpDown 3s ease-in-out infinite 1s' : 'none',
             }}
           />
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes bob {
-          0%,
-          100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-3px);
-          }
-        }
-      `}</style>
 
       <SignUpModal signOpen={signOpen} setSignOpen={setSignOpen} />
     </div>

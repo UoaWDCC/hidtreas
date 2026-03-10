@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import Hero from '@/components/events/Hero'
-import RecentEvents from '@/components/events/RecentEvents'
+import UpcomingEvents from '@/components/events/UpcomingEvents'
 import PastEventsSection from '@/components/events/PastEventsSection'
 import { getPastEvents, getUpcomingEvents } from '@/lib/payload/events'
 
@@ -29,7 +29,7 @@ async function EventsContent() {
 
   return (
     <>
-      <RecentEvents initialEvents={upcoming} />
+      <UpcomingEvents initialEvents={upcoming} />
       <PastEventsSection initialEvents={past} />
     </>
   )

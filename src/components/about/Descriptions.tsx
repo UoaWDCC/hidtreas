@@ -14,10 +14,10 @@ export default function Descriptions({
   descriptionImage2,
 }: DescriptionImageProps) {
   const image = descriptionImage1?.[0]?.image
-  const rightimageUrl = getPayloadImageUrl(image, 'card') ?? ''
+  const rightimageUrl = getPayloadImageUrl(image, 'thumbnail') ?? ''
 
   const image2 = descriptionImage2?.[0]?.image
-  const leftimageUrl = getPayloadImageUrl(image2, 'card') ?? ''
+  const leftimageUrl = getPayloadImageUrl(image2, 'thumbnail') ?? ''
 
   return (
     <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">

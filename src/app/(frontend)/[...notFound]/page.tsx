@@ -1,6 +1,5 @@
 import Footer from '@/components/common/Footer'
 import Header from '@/components/common/Header'
-import '../global.css'
 import feather from '@/assets/big-feather.png'
 import kiwi from '@/assets/kiwi-bird.svg'
 import blueKoru from '@/assets/blue-koru.png'

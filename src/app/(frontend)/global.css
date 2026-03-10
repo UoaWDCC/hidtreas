@@ -195,15 +195,6 @@
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
 @keyframes pulse {
   0%,
   100% {
@@ -211,19 +202,6 @@
   }
   50% {
     opacity: 0.7;
-  }
-}
-
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-3deg);
-  }
-  75% {
-    transform: rotate(3deg);
   }
 }
 
@@ -280,18 +258,8 @@
   animation: breathe 3s ease-in-out infinite;
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
 .animate-pulse {
   animation: pulse 2s ease-in-out infinite;
-}
-
-.animate-wiggle {
-  animation: wiggle 1s ease-in-out infinite;
 }
 
 .animate-glow {
@@ -363,6 +331,9 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+.font-kosugi { font-family: var(--font-kosugi-maru); }
+.font-covered { font-family: var(--font-covered); }
 
 :root {
   --font-default: var(--font-k2d);

@@ -40,6 +40,7 @@ export default function Template2({ blog }: Template2Props) {
               alt={blog.title}
               fill
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 22rem"
             />
           </div>
           <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20" />

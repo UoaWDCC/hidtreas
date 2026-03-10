@@ -7,6 +7,9 @@ import type { EventType } from '@/types/event'
 
 export default function Events({ initialEvents }: { initialEvents: EventType[] }) {
   const events = initialEvents
+
+  if (events.length === 0) return null
+
   return (
     <section className="px-4 sm:px-[3vw] py-4 sm:py-[1vw] overflow-hidden">
       <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[70vh] px-4 overflow-hidden">
@@ -15,7 +18,6 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
             src={backgroundImage}
             alt="Background Image"
             className="w-[90vw] min-w-[500px] h-auto max-w-none"
-            priority
             sizes="90vw"
             quality={80}
           />
@@ -36,7 +38,7 @@ export default function Events({ initialEvents }: { initialEvents: EventType[] }
               <h2
                 className="text-3xl sm:text-[6vw] md:text-[4vw] font-bold animate-bob"
                 style={{
-                  animation: 'bob 3s ease-in-out infinite 0.3s',
+                  animation: 'bobUpDown 3s ease-in-out infinite 0.3s',
                 }}
               >
                 UPCOMING

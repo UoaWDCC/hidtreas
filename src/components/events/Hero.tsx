@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import runImage from '@/assets/community-run.png'
+import runImage from '@/assets/community-run.webp'
 import blueKoru from '@/assets/blue-koru.png'
 import AnimatedSection from '@/components/common/AnimatedSection'
 

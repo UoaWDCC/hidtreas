@@ -16,7 +16,7 @@ export default function BlogCard({ blog }: Props) {
     >
       <div className="w-full h-48 sm:h-56 md:h-64 relative rounded-xl overflow-hidden mb-4">
         <Image
-          src={blog.imageUrl}
+          src={blog.cardImageUrl}
           alt={blog.title}
           className="object-cover"
           fill

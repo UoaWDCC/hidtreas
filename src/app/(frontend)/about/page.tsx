@@ -12,11 +12,48 @@ import { getMembers } from '@/lib/payload/members'
 // ISR: Revalidate every 30 minutes — content changes infrequently
 export const revalidate = 1800
 
-function SectionSkeleton() {
+function AboutSkeleton() {
   return (
-    <div className="py-12 px-4">
-      <div className="max-w-7xl mx-auto h-64 bg-gray-200 rounded-lg animate-pulse" />
-    </div>
+    <>
+      {/* Hero skeleton — half image, half text */}
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="w-full md:w-1/2 h-64 md:h-screen bg-gray-200 animate-pulse" />
+        <div className="w-full md:w-1/2 flex flex-col justify-center p-6 md:p-8 space-y-4">
+          <div className="h-12 w-48 bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-full max-w-md bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-3/4 max-w-md bg-gray-200 rounded animate-pulse" />
+        </div>
+      </div>
+
+      {/* Descriptions skeleton — centered text with small side images */}
+      <div className="py-12 flex flex-col items-center px-4">
+        <div className="h-16 w-24 bg-gray-200 rounded animate-pulse mb-6" />
+        <div className="w-[60%] space-y-3">
+          <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-5/6 bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+          <div className="h-4 w-4/5 bg-gray-200 rounded animate-pulse" />
+        </div>
+      </div>
+
+      {/* Meet the Team skeleton — heading + grid */}
+      <div className="py-8 px-10">
+        <div className="h-10 w-64 bg-gray-200 rounded animate-pulse mx-auto mb-8" />
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-[10vw] px-[5vw]">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="flex flex-col items-center space-y-2">
+              <div className="w-[clamp(4rem,20vw,10rem)] aspect-[4/5] bg-gray-200 rounded animate-pulse" />
+              <div className="h-4 w-20 bg-gray-200 rounded animate-pulse" />
+              <div className="h-3 w-16 bg-gray-200 rounded animate-pulse" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quotes skeleton — full-width background */}
+      <div className="w-full min-h-[70vh] bg-gray-200 animate-pulse" />
+    </>
   )
 }
 
@@ -46,14 +83,7 @@ export default function AboutPage() {
       <Header />
 
       <Suspense
-        fallback={
-          <>
-            <SectionSkeleton />
-            <SectionSkeleton />
-            <SectionSkeleton />
-            <SectionSkeleton />
-          </>
-        }
+        fallback={<AboutSkeleton />}
       >
         <AboutContent />
       </Suspense>

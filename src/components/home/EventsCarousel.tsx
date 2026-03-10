@@ -11,7 +11,9 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
   const [generalSignOpen, setGeneralSignOpen] = useState(false)
   const [activeCard, setActiveCard] = useState<string | null>(null)
   const events = initialEvents
-  const eventNames = events.map((e) => e.title)
+  const eventNames = events.map((e) => ({ title: e.title, id: e.id }))
+
+  if (events.length === 0) return null
 
   return (
     <div className="w-screen max-w-full overflow-x-auto py-4 pt-10 md:pt-20 sm:pt-25">
@@ -71,7 +73,7 @@ export default function ImageCarousel({ initialEvents }: { initialEvents: EventT
                 }}
                 className="group w-[55vw] sm:w-[40vw] md:w-[35vw] min-w-[210px] max-w-[340px] md:max-w-[420px] h-auto min-h-[32vh] sm:min-h-[50vh] snap-center relative rounded-xl overflow-hidden shadow-lg cursor-default focus:outline-none"
               >
-                <Image src={event.imageUrl} alt={event.title} fill className="object-cover" />
+                <Image src={event.imageUrl} alt={event.title} fill className="object-cover" sizes="(max-width: 640px) 55vw, (max-width: 768px) 40vw, 35vw" />
 
                 {/* Info strip */}
                 <div

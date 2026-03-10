@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import nasz from '@/assets/logo.webp'
 import SignUpModal from './SignUpModal'
 import Link from 'next/link'
@@ -9,6 +10,17 @@ import Link from 'next/link'
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [signOpen, setSignOpen] = useState(false)
+  const pathname = usePathname()
+
+  const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About Us' },
+    { href: '/blogs', label: 'Blogs' },
+    { href: '/events', label: 'Events' },
+  ]
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href)
 
   return (
     <header className="px-4 sm:px-6 md:px-12 lg:px-16 py-[0.6rem] flex items-center justify-between relative">
@@ -16,7 +28,7 @@ export default function Header() {
       {/* Logo + Brand — Wrapped in Link to home */}
       <Link
         href="/"
-        className="flex items-center space-x-2 sm:space-x-2.5 md:space-x-3 animate-slide-in-left hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="flex items-center space-x-2 sm:space-x-2.5 md:space-x-3"
       >
         <Image
           src={nasz}
@@ -34,7 +46,7 @@ export default function Header() {
 
       {/* Mobile Menu Button */}
       <button
-        className="lg:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem] animate-slide-in-right"
+        className="lg:hidden flex flex-col justify-center items-center w-[2.5rem] h-[2.5rem] p-[0.5rem]"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         aria-label="Toggle mobile menu"
       >
@@ -51,29 +63,19 @@ export default function Header() {
 
       {/* Desktop Navigation */}
       <nav className="hidden lg:flex items-center space-x-[1.5rem] xl:space-x-[2rem] font-medium text-[1rem] md:text-[1.125rem] antialiased">
-        <h1 className="animate-slide-in-right animate-stagger-1">
-          <Link href="/" className="hover:underline uppercase tracking-wide hover-lift">
-            Home
-          </Link>
-        </h1>
-        <h1 className="animate-slide-in-right animate-stagger-2">
-          <Link href="/about" className="hover:underline uppercase tracking-wide hover-lift">
-            About Us
-          </Link>
-        </h1>
-        <h1 className="animate-slide-in-right animate-stagger-3">
-          <Link href="/blogs" className="hover:underline uppercase tracking-wide hover-lift">
-            Blogs
-          </Link>
-        </h1>
-        <h1 className="animate-slide-in-right animate-stagger-4">
-          <Link href="/events" className="hover:underline uppercase tracking-wide hover-lift">
-            Events
-          </Link>
-        </h1>
-        <h1 className="animate-slide-in-right animate-stagger-5">
+        {navLinks.map((link, i) => (
+          <h1 key={link.href}>
+            <Link
+              href={link.href}
+              className={`uppercase tracking-wide hover:underline ${isActive(link.href) ? 'underline' : ''}`}
+            >
+              {link.label}
+            </Link>
+          </h1>
+        ))}
+        <h1>
           <button
-            className="bg-primary text-white px-[1.25rem] md:px-[1.5rem] xl:px-[1.75rem] py-[0.6rem] md:py-[0.75rem] rounded-md text-[1rem] md:text-[1.125rem] font-medium hover:bg-primary-hover hover:cursor-pointer transition hover-lift"
+            className="bg-primary text-white px-[1.25rem] md:px-[1.5rem] xl:px-[1.75rem] py-[0.6rem] md:py-[0.75rem] rounded-md text-[1rem] md:text-[1.125rem] font-medium hover:bg-primary-hover hover:cursor-pointer transition"
             onClick={() => setSignOpen(true)}
           >
             SIGN UP
@@ -83,22 +85,19 @@ export default function Header() {
 
       {/* Mobile Navigation Menu - Slide Down */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden animate-slide-in-top">
+        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden">
           <div className="flex flex-col items-center py-[1rem] space-y-[1rem]">
-            <Link href="/" className="uppercase tracking-wide font-medium hover-lift">
-              Home
-            </Link>
-            <Link href="/about" className="uppercase tracking-wide font-medium hover-lift">
-              About Us
-            </Link>
-            <Link href="/blogs" className="uppercase tracking-wide font-medium hover-lift">
-              Blogs
-            </Link>
-            <Link href="/events" className="uppercase tracking-wide font-medium hover-lift">
-              Events
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`uppercase tracking-wide font-medium ${isActive(link.href) ? 'underline' : ''}`}
+              >
+                {link.label}
+              </Link>
+            ))}
             <button
-              className="bg-primary text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-primary-hover hover:cursor-pointer transition hover-lift"
+              className="bg-primary text-white px-[1.75rem] py-[0.5rem] rounded-md font-medium hover:bg-primary-hover hover:cursor-pointer transition"
               onClick={() => setSignOpen(true)}
             >
               SIGN UP

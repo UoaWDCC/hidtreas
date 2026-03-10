@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import placeholderImage from '@/assets/event-placeholder.png'
+import placeholderImage from '@/assets/person-picture.png'
 import koru from '@/assets/blue-koru.png'
 import kiwi from '@/assets/kiwi-bird.svg'
 import type { Member } from '@/payload-types'
@@ -43,7 +43,7 @@ export default function MeetTheTeam({ members }: MeetTheTeamProps) {
               role={member.role}
               imageUrl={
                 typeof member.image === 'object' && member.image?.url
-                  ? member.image.url
+                  ? ((member.image as any)?.sizes?.thumbnail?.url ?? member.image.url)
                   : placeholderImage
               }
             />
@@ -59,7 +59,7 @@ function TeamMember({ name, pronoun, role, imageUrl }: MemberType) {
     <div className="flex flex-col items-center text-center">
 
       <div className="relative w-[clamp(4rem,20vw,10rem)] aspect-[4/5] overflow-hidden border-2 border-current rounded-md">
-        <Image src={imageUrl} alt={`${name}'s photo`} fill className="object-cover object-top" />
+        <Image src={imageUrl} alt={`${name}'s photo`} fill className="object-cover object-top" sizes="(max-width: 768px) 20vw, 10rem" />
       </div>
 
       <p className="text-[clamp(1rem,4vw,2rem)]">{name}</p>

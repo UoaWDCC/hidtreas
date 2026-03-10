@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import decorativeLeaf from '@/assets/decorative-leaf.png'
-import wdccTeam from '@/assets/wdcc-team.jpg'
+import wdccTeam from '@/assets/wdcc-team.webp'
 import blueKoru from '@/assets/blue-koru.png'
 
 export default function MeetTheWDCCTeam() {

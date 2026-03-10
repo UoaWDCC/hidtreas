@@ -15,15 +15,18 @@ export function mapPayloadBlog(b: Blog): BlogType {
     description: b.description ?? '',
     content: b.content ?? null,
     authorName: b.authorName ?? 'Hidden Treasure Team',
-    imageUrl: typeof b.image === 'object' && b.image?.url ? b.image.url : placeholderImage,
+    imageUrl: typeof b.image === 'object' ? (b.image?.url ?? placeholderImage) : placeholderImage,
+    cardImageUrl: typeof b.image === 'object'
+      ? ((b.image as any)?.sizes?.card?.url ?? b.image?.url ?? placeholderImage)
+      : placeholderImage,
     imageAlt: typeof b.image === 'object' && b.image?.alt ? b.image.alt : 'Blog image',
     template,
     published: !!b.published,
-    createdAt: (b as any)?.createdAt,
-    updatedAt: (b as any)?.updatedAt,
-    category: (b as any).category ?? '',
-    quote: (b as any).quote ?? '',
-    quoteAuthor: (b as any).quoteAuthor ?? '',
-    authorBio: (b as any).authorBio ?? '',
+    createdAt: b.createdAt,
+    updatedAt: b.updatedAt,
+    category: b.category ?? '',
+    quote: b.quote ?? '',
+    quoteAuthor: b.quoteAuthor ?? '',
+    authorBio: b.authorBio ?? '',
   }
 }

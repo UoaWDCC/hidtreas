@@ -16,7 +16,10 @@ function BlogsSkeleton() {
       <div className="px-[2.5rem] lg:px-[7rem] mb-16 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[3rem]">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="border-2 border-gray-200 rounded-xl p-8 flex flex-col gap-4 animate-pulse">
+            <div
+              key={i}
+              className="border-2 border-gray-200 rounded-xl p-8 flex flex-col gap-4 animate-pulse"
+            >
               <div className="w-full h-48 sm:h-56 md:h-64 bg-gray-200 rounded-xl" />
               <div className="h-8 bg-gray-200 rounded w-3/4" />
               <div className="h-4 bg-gray-200 rounded w-full" />

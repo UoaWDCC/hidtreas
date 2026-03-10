@@ -48,7 +48,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
               <h1
                 className="text-4xl sm:text-[6vw] md:text-[5vw] font-extrabold leading-tight tracking-wide animate-bob"
                 style={{
-                  animation: 'bob 3s ease-in-out infinite 0.3s',
+                  animation: 'bobUpDown 3s ease-in-out infinite 0.3s',
                 }}
               >
                 HIDDEN
@@ -58,7 +58,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
               <p
                 className="mt-2 sm:mt-[1.5vw] text-base sm:text-[2vw] md:text-[1.5vw] font-normal animate-bob"
                 style={{
-                  animation: 'bob 3s ease-in-out infinite 0.6s',
+                  animation: 'bobUpDown 3s ease-in-out infinite 0.6s',
                 }}
               >
                 Preserving the past, inspiring the future.
@@ -66,7 +66,7 @@ export default function HeroSection({ heroImage }: HeroSectionProps) {
               <button
                 className="mt-4 sm:mt-[2vw] bg-primary text-white px-6 sm:px-[2.5vw] py-3 sm:py-[1vw] rounded-lg sm:rounded-[1vw] text-lg sm:text-[1.6vw] md:text-[1.1vw] font-semibold hover:bg-primary-hover hover:cursor-pointer transition animate-bob hover-lift"
                 style={{
-                  animation: 'bob 3s ease-in-out infinite 0.9s',
+                  animation: 'bobUpDown 3s ease-in-out infinite 0.9s',
                 }}
                 onClick={() => setSignOpen(true)}
               >

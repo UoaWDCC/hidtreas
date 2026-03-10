@@ -1,5 +1,7 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import bigGreenKoru from '@/assets/big-green-koru.svg'
 import leaf from '@/assets/leaf.svg'
 import type { BlogType } from '@/types/blog'
@@ -9,30 +11,6 @@ interface Template4Props {
 }
 
 export default function Template4({ blog }: Template4Props) {
-  // Split content into different sections
-  const getContentSections = () => {
-    const paragraphs =
-      blog.content?.root?.children
-        ?.filter((child: any) => child.type === 'paragraph')
-        ?.map((child: any) => (child.children ?? []).map((c: any) => c.text || '').join('')) || []
-
-    const totalParagraphs = paragraphs.length
-    const sectionSize = Math.ceil(totalParagraphs / 3)
-
-    return {
-      section1: paragraphs.slice(0, sectionSize),
-      section2: paragraphs.slice(sectionSize, sectionSize * 2),
-      section3: paragraphs.slice(sectionSize * 2),
-    }
-  }
-
-  const contentSections = getContentSections()
-
-  const renderContent = (paragraphs: string[]) => {
-    if (paragraphs.length === 0) return 'Content coming soon...'
-    return paragraphs.map((text, index) => `<p>${text}</p>`).join('')
-  }
-
   return (
     <div className="blog-detail overflow-x-hidden">
       {/* Breadcrumb Navigation */}
@@ -76,7 +54,7 @@ export default function Template4({ blog }: Template4Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start mb-[4rem]">
               <div className="relative">
                 <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
-                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 100vw, 40%" />
                 </div>
                 {/* Decorative leaves */}
                 <div className="absolute -top-[1rem] -left-[1rem] w-[clamp(3rem,8vw,4rem)] h-[clamp(3rem,8vw,4rem)] z-10">
@@ -92,27 +70,15 @@ export default function Template4({ blog }: Template4Props) {
               </div>
 
               <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: renderContent(contentSections.section1),
-                  }}
-                />
+                {blog.content ? <RichText data={blog.content} /> : <p>Content coming soon...</p>}
               </div>
             </div>
 
             {/* Second Row - Text Left, Image Right */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start mb-[4rem]">
-              <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: renderContent(contentSections.section2),
-                  }}
-                />
-              </div>
-
               <div className="relative">
                 <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
-                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 100vw, 40%" />
                 </div>
                 {/* Blue koru decoration */}
                 <div className="absolute -bottom-[1.5rem] -left-[1.5rem] w-[clamp(4rem,10vw,6rem)] h-[clamp(4rem,10vw,6rem)] z-10">
@@ -137,7 +103,7 @@ export default function Template4({ blog }: Template4Props) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start">
               <div className="relative">
                 <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
-                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+                  <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 100vw, 40%" />
                 </div>
                 {/* Decorative leaves */}
                 <div className="absolute -top-[1rem] -left-[1rem] w-[clamp(3rem,8vw,4rem)] h-[clamp(3rem,8vw,4rem)] z-10">
@@ -150,14 +116,6 @@ export default function Template4({ blog }: Template4Props) {
                     className="w-full h-full scale-x-[-1] rotate-6"
                   />
                 </div>
-              </div>
-
-              <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: renderContent(contentSections.section3),
-                  }}
-                />
               </div>
             </div>
 

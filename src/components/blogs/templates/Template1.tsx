@@ -1,5 +1,7 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import bigGreenKoru from '@/assets/big-green-koru.svg'
 import leaf from '@/assets/leaf.svg'
 import type { BlogType } from '@/types/blog'
@@ -35,7 +37,7 @@ export default function Template1({ blog }: Template1Props) {
         <div className="mt-[2rem] md:mt-[2rem] flex justify-center relative z-0">
           <div className="w-[80vw] md:w-[50vw] relative">
             <div className="aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300">
-              <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+              <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 80vw, 50vw" />
             </div>
             <div className="absolute -bottom-[0.75rem] -right-[1.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
               <Image
@@ -59,22 +61,12 @@ export default function Template1({ blog }: Template1Props) {
 
         <div className="mt-[3rem] flex justify-center px-[2rem] md:px-[4rem] lg:px-[6rem]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start max-w-5xl mx-auto w-full">
-            <div
-              className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black"
-              dangerouslySetInnerHTML={{
-                __html:
-                  blog.content?.root?.children
-                    ?.map((child: any) =>
-                      child.type === 'paragraph'
-                        ? `<p>${(child.children ?? []).map((c: any) => c.text || '').join('')}</p>`
-                        : '',
-                    )
-                    .join('') || 'Content coming soon...',
-              }}
-            />
+            <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
+              {blog.content ? <RichText data={blog.content} /> : <p>Content coming soon...</p>}
+            </div>
             <div className="order-first md:order-none flex justify-center md:justify-start w-[70vw] md:w-[95%] max-w-[25rem]">
               <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
-                <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill />
+                <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 70vw, 45%" />
               </div>
             </div>
           </div>
