@@ -5,6 +5,7 @@ export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
+    group: 'People',
   },
   access: {
     read: isAdminOrSelf,
@@ -18,11 +19,10 @@ export const Users: CollectionConfig = {
       name: 'role',
       saveToJWT: true,
       type: 'select',
-      defaultValue: 'viewer',
+      defaultValue: 'editor',
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
-        { label: 'Viewer', value: 'viewer' },
       ],
       access: {
         update: isAdminField,

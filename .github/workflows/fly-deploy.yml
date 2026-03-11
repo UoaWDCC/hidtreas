@@ -21,6 +21,7 @@ jobs:
           --build-arg AWS_REGION="${AWS_REGION}"
           --build-arg AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
           --build-arg AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
+          --build-arg NEXT_PUBLIC_SERVER_URL="${NEXT_PUBLIC_SERVER_URL}"
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
           PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
@@ -29,3 +30,4 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          NEXT_PUBLIC_SERVER_URL: ${{ secrets.NEXT_PUBLIC_SERVER_URL }}

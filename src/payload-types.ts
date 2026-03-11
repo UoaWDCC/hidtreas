@@ -206,11 +206,12 @@ export interface Media {
  */
 export interface Blog {
   id: string;
-  title: string;
   /**
    * Auto-generated from title; can be edited
    */
   slug?: string | null;
+  published?: boolean | null;
+  title: string;
   description?: string | null;
   content: {
     root: {
@@ -228,16 +229,16 @@ export interface Blog {
     [k: string]: unknown;
   };
   /**
-   * Displayed author name
-   */
-  authorName: string;
-  image?: (string | null) | Media;
-  /**
    * Select which layout template to use when rendering this blog.
    */
-  template: 'template1' | 'template2' | 'template3' | 'template4';
+  template: 'template1' | 'template2' | 'template3';
+  image?: (string | null) | Media;
   /**
-   * ⚠️ Required when using this template – category displayed in header (e.g. “Stories”, “Behind the Scenes”)
+   * Optional distinct second image used in Template 2. If not provided, the second image slot will be hidden.
+   */
+  secondaryImage?: (string | null) | Media;
+  /**
+   * ⚠️ Required when using this template – category displayed in header (e.g. "Stories", "Behind the Scenes")
    */
   category?: string | null;
   /**
@@ -249,14 +250,15 @@ export interface Blog {
    */
   quoteAuthor?: string | null;
   /**
-   * ⚠️ Required when using this template – short bio of the author
+   * Displayed author name
    */
-  authorBio?: string | null;
-  published?: boolean | null;
+  authorName: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
+ * Manage upcoming and past events
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
@@ -510,18 +512,18 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "blogs_select".
  */
 export interface BlogsSelect<T extends boolean = true> {
-  title?: T;
   slug?: T;
+  published?: T;
+  title?: T;
   description?: T;
   content?: T;
-  authorName?: T;
-  image?: T;
   template?: T;
+  image?: T;
+  secondaryImage?: T;
   category?: T;
   quote?: T;
   quoteAuthor?: T;
-  authorBio?: T;
-  published?: T;
+  authorName?: T;
   updatedAt?: T;
   createdAt?: T;
 }

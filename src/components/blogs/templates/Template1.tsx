@@ -1,4 +1,3 @@
-'use client'
 import React from 'react'
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
@@ -12,7 +11,7 @@ interface Template1Props {
 
 export default function Template1({ blog }: Template1Props) {
   return (
-    <div className="blog-detail overflow-x-hidden">
+    <div className="overflow-x-hidden">
       <nav className="text-xs sm:text-sm text-black mt-4 mb-2 pl-[2rem] relative">
         <div className="md:flex md:justify-between md:items-start">
           <div>
@@ -34,10 +33,10 @@ export default function Template1({ blog }: Template1Props) {
           {blog.title}
         </h1>
 
-        <div className="mt-[2rem] md:mt-[2rem] flex justify-center relative z-0">
+        <div className="mt-4 md:mt-[2rem] flex justify-center relative z-0">
           <div className="w-[80vw] md:w-[50vw] relative">
-            <div className="aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300">
-              <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 80vw, 50vw" />
+            <div className="aspect-[16/9] relative rounded-xl overflow-hidden border border-gray-300 bg-gray-200">
+              <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 80vw, 50vw" priority />
             </div>
             <div className="absolute -bottom-[0.75rem] -right-[1.5rem] w-[clamp(4rem,16vw,6rem)] h-[clamp(4rem,16vw,6rem)] z-10">
               <Image
@@ -49,7 +48,7 @@ export default function Template1({ blog }: Template1Props) {
           </div>
         </div>
 
-        <div className="hidden lg:block absolute -left-[clamp(1.5rem,11vw,18rem)] top-[clamp(25rem,70vh,40rem)] z-10 w-[clamp(10rem,18vw,16rem)] opacity-70">
+        <div className="hidden lg:block absolute -left-[clamp(1.5rem,11vw,18rem)] top-[clamp(25rem,70vh,40rem)] z-10 w-[clamp(10rem,18vw,16rem)] opacity-70 mix-blend-multiply">
           <Image src={bigGreenKoru} alt="Kiwi decoration" className="rotate-[70deg]" />
         </div>
 
@@ -60,14 +59,9 @@ export default function Template1({ blog }: Template1Props) {
         )}
 
         <div className="mt-[3rem] flex justify-center px-[2rem] md:px-[4rem] lg:px-[6rem]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[4rem] items-start max-w-5xl mx-auto w-full">
+          <div className="max-w-3xl mx-auto w-full">
             <div className="space-y-[1.25rem] text-[0.8125rem] leading-[1.75rem] text-black">
               {blog.content ? <RichText data={blog.content} /> : <p>Content coming soon...</p>}
-            </div>
-            <div className="order-first md:order-none flex justify-center md:justify-start w-[70vw] md:w-[95%] max-w-[25rem]">
-              <div className="aspect-[4/3] relative rounded-xl overflow-hidden border border-gray-300">
-                <Image src={blog.imageUrl} alt={blog.title} className="object-cover" fill sizes="(max-width: 768px) 70vw, 45%" />
-              </div>
             </div>
           </div>
         </div>

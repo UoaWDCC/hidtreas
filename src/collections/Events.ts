@@ -6,6 +6,10 @@ export const Events: CollectionConfig = {
   slug: 'events',
   admin: {
     useAsTitle: 'title',
+    group: 'Content',
+    description: 'Manage upcoming and past events',
+    defaultColumns: ['title', 'date', 'venue', 'published'],
+    listSearchableFields: ['title', 'venue', 'description'],
   },
   hooks: {
     afterChange: [revalidateAfterChange],
@@ -53,6 +57,9 @@ export const Events: CollectionConfig = {
       name: 'published',
       type: 'checkbox',
       defaultValue: false,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'host',

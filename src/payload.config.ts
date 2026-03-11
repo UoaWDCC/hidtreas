@@ -26,6 +26,21 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    livePreview: {
+      url: ({ data }) => {
+        const base =
+          typeof window !== 'undefined'
+            ? window.location.origin
+            : process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+        return `${base}/blogs/preview/${data.slug || ''}`
+      },
+      collections: ['blogs'],
+      breakpoints: [
+        { label: 'Mobile', name: 'mobile', width: 375, height: 667 },
+        { label: 'Tablet', name: 'tablet', width: 768, height: 1024 },
+        { label: 'Desktop', name: 'desktop', width: 1440, height: 900 },
+      ],
+    },
   },
   collections: [
     Users,

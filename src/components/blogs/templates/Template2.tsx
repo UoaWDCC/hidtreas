@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Image from 'next/image'
 import BlogContent from '@/components/blogs/templates/Template2BlogContent'
 import RelatedBlogs from '@/components/blogs/RelatedBlogs'
@@ -17,7 +17,7 @@ export default function Template2({ blog }: Template2Props) {
       </div>
 
       {/* Hero Section */}
-      <section className="grid md:grid-cols-2 gap-8 px-6 py-8 items-end max-w-6xl mx-auto">
+      <section className="grid md:grid-cols-2 gap-8 px-6 py-8 items-start md:items-end max-w-6xl mx-auto">
         <div className="space-y-4">
 
           <h2 className="uppercase text-sm tracking-wide text-gray-600 font-medium">
@@ -27,23 +27,23 @@ export default function Template2({ blog }: Template2Props) {
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-[#1a1a1a] text-balance">
             {blog.title}
           </h1>
-          <p className="text-gray-700 leading-relaxed max-w-md">
+          <p className="text-gray-700 leading-relaxed max-w-md px-1">
             {blog.description || 'Explore the story behind this blog post...'}
           </p>
           <p className="text-sm font-medium text-gray-800">By: {blog.authorName}</p>
         </div>
 
-        <div className="relative max-w-sm ml-auto">
-          <div className="relative w-full h-[22rem] rounded-lg shadow-lg overflow-hidden">
+        <div className="relative w-full max-w-sm md:ml-auto">
+          <div className="relative w-full h-[22rem] rounded-lg shadow-lg overflow-hidden bg-gray-200">
             <Image
               src={blog.imageUrl}
               alt={blog.title}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 22rem"
+              priority
             />
           </div>
-          <div className="absolute -bottom-4 -right-4 w-16 h-16 opacity-20" />
         </div>
       </section>
 
@@ -51,7 +51,9 @@ export default function Template2({ blog }: Template2Props) {
       <BlogContent blog={blog} />
 
       {/* Related Blogs */}
-      <RelatedBlogs currentBlogId={blog.id} />
+      <Suspense>
+        <RelatedBlogs currentBlogId={blog.id} />
+      </Suspense>
     </>
   )
 }

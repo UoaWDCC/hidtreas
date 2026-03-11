@@ -19,8 +19,9 @@ export async function createSubscriberAction(firstName: string, lastName: string
     })
     return { success: true, data: subscriber }
   } catch (error) {
+    const message = error instanceof Error ? error.message : ''
     console.error('Error creating subscriber:', error)
-    return { success: false, error: 'Failed to create subscriber' }
+    return { success: false, error: message }
   }
 }
 
