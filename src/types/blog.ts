@@ -11,6 +11,7 @@ export type BlogType = {
   imageUrl: string | StaticImageData
   cardImageUrl: string | StaticImageData
   imageAlt: string
+  secondaryImageUrl?: string | StaticImageData
   template: TemplateKey
   published: boolean
   createdAt?: string
@@ -18,5 +19,4 @@ export type BlogType = {
   category?: string
   quote?: string
   quoteAuthor?: string
-  authorBio?: string
 }

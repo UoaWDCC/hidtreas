@@ -3,6 +3,9 @@ import type { CollectionConfig } from 'payload'
 
 export const EventSubscribers: CollectionConfig = {
   slug: 'event-subscribers',
+  admin: {
+    group: 'Subscribers',
+  },
   access: {
     read: isAdmin,
     create: () => true,

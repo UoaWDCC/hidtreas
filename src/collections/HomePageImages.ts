@@ -6,6 +6,7 @@ export const HomePageImages: CollectionConfig = {
   slug: 'home-page-images',
   admin: {
     useAsTitle: 'title',
+    group: 'Media',
   },
   hooks: {
     afterChange: [revalidateAfterChange],

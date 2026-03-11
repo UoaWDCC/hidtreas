@@ -101,6 +101,7 @@ export default function Footer() {
               <input
                 type="text"
                 className="rounded-l-xl pl-5 w-40 z-10"
+                placeholder="Enter your email"
                 onChange={handleEmailChange}
               />
               <button type="submit" className="cursor-pointer">

@@ -68,11 +68,11 @@ export default function SignUpModal({
             className="absolute top-3 right-3 z-30 h-7 w-7 cursor-pointer text-primary transition hover:text-primary-hover"
             onClick={() => setSignOpen(false)}
           />
-          <div className="hidden xl:block xl:w-[16rem] h-full bg-cyan-500 rounded-l-lg">
+          <div className="hidden xl:block xl:w-[16rem] shrink-0 rounded-l-lg overflow-hidden">
             <Image
               src={BirdPNG}
               alt="Hidden Treasure Logo"
-              className="w-full h-full rounded-l-lg object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
           <div className="relative flex-1 w-full p-6 h-full flex flex-col items-center justify-center text-center overflow-y-auto pt-8">

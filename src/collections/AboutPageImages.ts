@@ -6,6 +6,7 @@ export const AboutPageImages: CollectionConfig = {
   slug: 'about-page-images',
   admin: {
     useAsTitle: 'title',
+    group: 'Media',
   },
   hooks: {
     afterChange: [revalidateAfterChange],
