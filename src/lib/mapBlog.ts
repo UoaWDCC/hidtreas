@@ -20,6 +20,10 @@ export function mapPayloadBlog(b: Blog): BlogType {
       ? ((b.image as any)?.sizes?.card?.url ?? b.image?.url ?? placeholderImage)
       : placeholderImage,
     imageAlt: typeof b.image === 'object' && b.image?.alt ? b.image.alt : 'Blog image',
+    secondaryImageUrl:
+      typeof b.secondaryImage === 'object'
+        ? (b.secondaryImage?.url ?? undefined)
+        : undefined,
     template,
     published: !!b.published,
     createdAt: b.createdAt,
@@ -27,6 +31,5 @@ export function mapPayloadBlog(b: Blog): BlogType {
     category: b.category ?? '',
     quote: b.quote ?? '',
     quoteAuthor: b.quoteAuthor ?? '',
-    authorBio: b.authorBio ?? '',
   }
 }

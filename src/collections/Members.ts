@@ -5,8 +5,13 @@ import type { CollectionConfig } from 'payload'
 export const Member: CollectionConfig = {
   slug: 'members',
 
+  labels: {
+    singular: 'Team Member',
+    plural: 'Team Members',
+  },
   admin: {
     useAsTitle: 'name',
+    group: 'People',
   },
   hooks: {
     afterChange: [revalidateAfterChange],

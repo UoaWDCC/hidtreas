@@ -5,6 +5,7 @@ export const Subscribers: CollectionConfig = {
   slug: 'subscribers',
   admin: {
     useAsTitle: 'email',
+    group: 'Subscribers',
   },
   access: {
     read: isAdmin,
