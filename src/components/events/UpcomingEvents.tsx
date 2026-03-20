@@ -1,6 +1,6 @@
 'use client'
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/big-green-koru.svg'
 import KiwiBird from '@/assets/kiwi-bird.svg'

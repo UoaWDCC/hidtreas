@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import logo from '@/assets/logo.webp'
 import blueKoru from '@/assets/blue-koru.png'
 import { AboutPageImage } from '@/payload-types'

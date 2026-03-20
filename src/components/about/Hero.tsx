@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import { AboutPageImage } from '@/payload-types'
 import { getPayloadImageUrl } from '@/utils/image'
 
