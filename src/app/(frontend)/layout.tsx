@@ -1,21 +1,51 @@
 import React from 'react'
 import './global.css'
+import localFont from 'next/font/local'
 
-import { K2D, Inter, Kosugi_Maru, Covered_By_Your_Grace } from 'next/font/google'
-
-const k2d = K2D({
-  subsets: ['latin'],
+const k2d = localFont({
+  src: [
+    { path: '../../fonts/K2D-300.ttf', weight: '300', style: 'normal' },
+    { path: '../../fonts/K2D-400.ttf', weight: '400', style: 'normal' },
+    { path: '../../fonts/K2D-500.ttf', weight: '500', style: 'normal' },
+    { path: '../../fonts/K2D-600.ttf', weight: '600', style: 'normal' },
+    { path: '../../fonts/K2D-700.ttf', weight: '700', style: 'normal' },
+    { path: '../../fonts/K2D-800.ttf', weight: '800', style: 'normal' },
+  ],
   variable: '--font-k2d',
-  weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
 })
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = localFont({
+  src: [
+    { path: '../../fonts/Inter-100.ttf', weight: '100', style: 'normal' },
+    { path: '../../fonts/Inter-200.ttf', weight: '200', style: 'normal' },
+    { path: '../../fonts/Inter-300.ttf', weight: '300', style: 'normal' },
+    { path: '../../fonts/Inter-400.ttf', weight: '400', style: 'normal' },
+    { path: '../../fonts/Inter-500.ttf', weight: '500', style: 'normal' },
+    { path: '../../fonts/Inter-600.ttf', weight: '600', style: 'normal' },
+    { path: '../../fonts/Inter-700.ttf', weight: '700', style: 'normal' },
+    { path: '../../fonts/Inter-800.ttf', weight: '800', style: 'normal' },
+    { path: '../../fonts/Inter-900.ttf', weight: '900', style: 'normal' },
+  ],
   variable: '--font-inter',
+  display: 'swap',
 })
 
-const kosugiMaru = Kosugi_Maru({ subsets: ['latin'], weight: '400', variable: '--font-kosugi-maru' })
-const coveredByYourGrace = Covered_By_Your_Grace({ subsets: ['latin'], weight: '400', variable: '--font-covered' })
+const kosugiMaru = localFont({
+  src: '../../fonts/KosugiMaru-400.ttf',
+  weight: '400',
+  style: 'normal',
+  variable: '--font-kosugi-maru',
+  display: 'swap',
+})
+
+const coveredByYourGrace = localFont({
+  src: '../../fonts/CoveredByYourGrace-400.ttf',
+  weight: '400',
+  style: 'normal',
+  variable: '--font-covered',
+  display: 'swap',
+})
 
 export const metadata = {
   description: "A charity intended on preserving our community's hidden treasures.",
@@ -31,7 +61,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en" className={`${k2d.variable} ${inter.variable} ${kosugiMaru.variable} ${coveredByYourGrace.variable}`}>
+    <html
+      lang="en"
+      className={`${k2d.variable} ${inter.variable} ${kosugiMaru.variable} ${coveredByYourGrace.variable}`}
+    >
       <body>
         <main>{children}</main>
       </body>

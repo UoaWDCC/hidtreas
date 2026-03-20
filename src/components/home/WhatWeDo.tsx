@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import kiwiBird from '@/assets/kiwi-bird.svg'
 import leaf from '@/assets/leaf.svg'
 import { useState, useRef, useEffect } from 'react'

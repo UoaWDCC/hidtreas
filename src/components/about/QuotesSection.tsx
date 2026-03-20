@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import blueWave from '@/assets/blue-wave.png'
 import bigFeather from '@/assets/big-feather.png'
 

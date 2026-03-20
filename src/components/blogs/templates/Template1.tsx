@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import bigGreenKoru from '@/assets/big-green-koru.svg'
 import leaf from '@/assets/leaf.svg'

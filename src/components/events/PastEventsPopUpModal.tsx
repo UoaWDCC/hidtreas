@@ -1,6 +1,7 @@
 import { IconChevronLeft, IconChevronRight, IconX } from '@tabler/icons-react'
 import Modal from '../common/Modal'
-import Image, { type StaticImageData } from 'next/image'
+import Image from '@/components/common/AppImage'
+import type { StaticImageData } from 'next/image'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent } from 'react'
 import type { EventType } from '@/types/event'

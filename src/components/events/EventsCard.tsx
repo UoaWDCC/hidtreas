@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import { useState } from 'react'
 import KiwiBird from '@/assets/kiwi-bird.svg'
 import type { EventType } from '@/types/event'

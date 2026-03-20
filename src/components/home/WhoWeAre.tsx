@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import koru1 from '@/assets/koru-and-leaf.png'
 import koru2 from '@/assets/other-koru.png'
 import { useRouter } from 'next/navigation'
