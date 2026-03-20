@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import placeholderImage from '@/assets/person-picture.png'
 import koru from '@/assets/blue-koru.png'
 import kiwi from '@/assets/kiwi-bird.svg'

@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import logoImage from '@/assets/logo.webp'
 import { useState } from 'react'
 import SignUpModal from '../common/SignUpModal'

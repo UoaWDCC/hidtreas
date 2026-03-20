@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import BlogContent from '@/components/blogs/templates/Template2BlogContent'
 import RelatedBlogs from '@/components/blogs/RelatedBlogs'
 import { BlogType } from '@/types/blog'

@@ -332,9 +332,6 @@ html {
   }
 }
 
-.font-kosugi { font-family: var(--font-kosugi-maru); }
-.font-covered { font-family: var(--font-covered); }
-
 :root {
   --font-default: var(--font-k2d);
   --font-header: var(--font-inter);
@@ -343,6 +340,9 @@ html {
 * {
   box-sizing: border-box;
 }
+
+.font-kosugi { font-family: var(--font-kosugi-maru); }
+.font-covered { font-family: var(--font-covered); }
 
 html,
 body {

@@ -1,5 +1,5 @@
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import Image from 'next/image'
+import Image from '@/components/common/AppImage'
 import type { BlogType } from '@/types/blog'
 
 interface BlogContentProps {

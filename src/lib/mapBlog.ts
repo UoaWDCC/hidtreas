@@ -15,14 +15,16 @@ export function mapPayloadBlog(b: Blog): BlogType {
     description: b.description ?? '',
     content: b.content ?? null,
     authorName: b.authorName ?? 'Hidden Treasure Team',
-    imageUrl: typeof b.image === 'object' ? (b.image?.url ?? placeholderImage) : placeholderImage,
+    imageUrl: typeof b.image === 'object'
+      ? ((b.image as any)?.sizes?.hero?.url ?? b.image?.url ?? placeholderImage)
+      : placeholderImage,
     cardImageUrl: typeof b.image === 'object'
       ? ((b.image as any)?.sizes?.card?.url ?? b.image?.url ?? placeholderImage)
       : placeholderImage,
     imageAlt: typeof b.image === 'object' && b.image?.alt ? b.image.alt : 'Blog image',
     secondaryImageUrl:
       typeof b.secondaryImage === 'object'
-        ? (b.secondaryImage?.url ?? undefined)
+        ? ((b.secondaryImage as any)?.sizes?.card?.url ?? b.secondaryImage?.url ?? undefined)
         : undefined,
     template,
     published: !!b.published,
