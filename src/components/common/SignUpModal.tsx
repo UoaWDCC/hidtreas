@@ -34,6 +34,7 @@ export default function SignUpModal({
   const [answers, setAnswers] = useState(false)
   const [errors, setErrors] = useState(emptyErrors)
   const [successful, setSuccessful] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   return (
     <Modal
@@ -80,34 +81,39 @@ export default function SignUpModal({
             <h1 className="text-3xl font-[1000]">SIGN UP WITH US TODAY!</h1>
             <form
               onSubmit={(event) => {
-                const form = event.target as HTMLFormElement
-                if (checkValid(form, setErrors)) {
-                  createSubscriberAction(
-                    form.firstname.value.trim(),
-                    form.lastname.value.trim(),
-                    form.email.value.trim(),
-                  )
-                    .then((result) => {
-                      if (result.success) {
-                        form.reset()
-                        setSuccessful(true)
-                      } else if (result.error?.includes('unique')) {
-                        setSuccessful(true)
-                      } else {
-                        alert('Error subscribing. Please try again later.')
-                      }
-                    })
-                    .catch((e) => {
-                      if (e.message.includes('Value must be unique')) {
-                        setSuccessful(true)
-                      } else {
-                        alert('Error subscribing. Please try again later.')
-                      }
-                    })
-                }
                 event.preventDefault()
+                const form = event.target as HTMLFormElement
+                if (submitting || !checkValid(form, setErrors)) return
+                setSubmitting(true)
+                createSubscriberAction({
+                  firstName: form.firstname.value.trim(),
+                  lastName: form.lastname.value.trim(),
+                  email: form.email.value.trim(),
+                  agreed: form.agreeTnC.checked,
+                  company: (form.company as HTMLInputElement)?.value ?? '',
+                })
+                  .then((result) => {
+                    // A duplicate means they are already subscribed — treat as success.
+                    if (result.success || result.code === 'DUPLICATE') {
+                      form.reset()
+                      setSuccessful(true)
+                    } else {
+                      alert('Error subscribing. Please try again later.')
+                    }
+                  })
+                  .catch(() => alert('Error subscribing. Please try again later.'))
+                  .finally(() => setSubmitting(false))
               }}
             >
+              {/* Honeypot: hidden from users; bots that fill it are silently dropped */}
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               {fields.map((field, index) => {
                 const defaultValue = field.name === 'email' ? initialEmail : ''
                 return (
@@ -152,9 +158,10 @@ export default function SignUpModal({
               </div>
               <button
                 type="submit"
-                className="bg-primary text-background rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-primary-hover transition"
+                disabled={submitting}
+                className="bg-primary text-background rounded-md px-2 w-[15rem] h-[2rem] mt-5 hover:cursor-pointer hover:bg-primary-hover transition disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                SIGN UP
+                {submitting ? 'SIGNING UP…' : 'SIGN UP'}
               </button>
             </form>
           </div>

@@ -13,7 +13,9 @@ export async function getAllHomePageImages(): Promise<HomePageImage[]> {
   const data = await payload.find({
     collection: 'home-page-images',
     depth: 1,
-    sort: 'createdAt',
+    // Newest first: consumers read [0] per placement, so the most recent upload
+    // for a placement wins instead of a stale earlier one.
+    sort: '-createdAt',
     limit: 50,
   })
 
@@ -42,7 +44,9 @@ export async function getAllAboutPageImages(): Promise<AboutPageImage[]> {
   const data = await payload.find({
     collection: 'about-page-images',
     depth: 1,
-    sort: 'createdAt',
+    // Newest first: consumers read [0] per placement, so the most recent upload
+    // for a placement wins instead of a stale earlier one.
+    sort: '-createdAt',
     limit: 50,
   })
 

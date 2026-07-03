@@ -32,7 +32,9 @@ export default function BlogContent({ blog }: BlogContentProps) {
             <blockquote className="text-2xl md:text-3xl italic font-light text-gray-800 leading-relaxed mb-4 text-left">
               {blog.quote}
             </blockquote>
-            <footer className="text-sm text-gray-600 font-medium text-left">- {blog.authorName}</footer>
+            <footer className="text-sm text-gray-600 font-medium text-left">
+              - {blog.quoteAuthor || blog.authorName}
+            </footer>
           </div>
         </div>
 

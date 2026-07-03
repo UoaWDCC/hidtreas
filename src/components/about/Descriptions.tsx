@@ -15,9 +15,11 @@ export default function Descriptions({
 }: DescriptionImageProps) {
   const image = descriptionImage1?.[0]?.image
   const rightimageUrl = getPayloadImageUrl(image, 'thumbnail') ?? ''
+  const rightAlt = typeof image === 'object' && image?.alt ? image.alt : 'About Hidden Treasure'
 
   const image2 = descriptionImage2?.[0]?.image
   const leftimageUrl = getPayloadImageUrl(image2, 'thumbnail') ?? ''
+  const leftAlt = typeof image2 === 'object' && image2?.alt ? image2.alt : 'About Hidden Treasure'
 
   return (
     <section className="relative pb-[3rem] md:pb-[4.5rem] pt-[0.5rem] md:pt-[1rem]">
@@ -85,7 +87,7 @@ export default function Descriptions({
                 {rightimageUrl && (
                   <Image
                     src={rightimageUrl}
-                    alt="Flag Bearer"
+                    alt={rightAlt}
                     fill
                     className="object-cover rounded-lg border-4 border-primary shadow-xl ring-1 ring-primary/20"
                     sizes="14vw"
@@ -113,7 +115,7 @@ export default function Descriptions({
                 {leftimageUrl && (
                   <Image
                     src={leftimageUrl}
-                    alt="People sitting on steps wearing traditional Indian clothing."
+                    alt={leftAlt}
                     fill
                     className="object-cover rounded-lg border-4 border-primary shadow-xl ring-1 ring-primary/20"
                     sizes="14vw"

@@ -36,6 +36,7 @@ export default function EventsSignUpModal({
   const [answers, setAnswers] = useState(false)
   const [errors, setErrors] = useState(emptyErrors)
   const [successful, setSuccessful] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   return (
     <Modal
@@ -95,7 +96,7 @@ export default function EventsSignUpModal({
                 onSubmit={(event) => {
                   event.preventDefault()
                   const form = event.target as HTMLFormElement
-                  if (!checkValid(form, setErrors)) return
+                  if (submitting || !checkValid(form, setErrors)) return
                   if (!eventToSignUp && form.event.value === 'SELECT EVENT') {
                     setErrors((prev) => {
                       const newErrors = [...prev]
@@ -104,33 +105,39 @@ export default function EventsSignUpModal({
                     })
                     return
                   }
-                  createEventSubscriberAction(
-                    eventToSignUp ? eventToSignUp.id : form.event.value,
-                    form.email.value.trim(),
-                    form.firstname.value.trim(),
-                    form.lastname.value.trim(),
-                  )
+                  setSubmitting(true)
+                  createEventSubscriberAction({
+                    eventId: eventToSignUp ? eventToSignUp.id : form.event.value,
+                    email: form.email.value.trim(),
+                    firstName: form.firstname.value.trim(),
+                    lastName: form.lastname.value.trim(),
+                    agreed: form.agreeTnC.checked,
+                    company: (form.company as HTMLInputElement)?.value ?? '',
+                  })
                     .then((result) => {
-                      if (result.success) {
+                      // Duplicate = already registered for this event -> success.
+                      if (result.success || result.code === 'DUPLICATE') {
                         setSuccessful(true)
                         setAnswers(false)
                         form.reset()
-                      } else if (result.error?.includes('unique')) {
-                        setSuccessful(true)
                       } else {
                         alert('Error subscribing. Please try again later.')
                       }
                     })
-                    .catch((e) => {
-                      if (e.message.includes('Value must be unique')) {
-                        setSuccessful(true)
-                      } else {
-                        alert('Error subscribing. Please try again later.')
-                      }
-                    })
+                    .catch(() => alert('Error subscribing. Please try again later.'))
+                    .finally(() => setSubmitting(false))
                 }}
                 className="mt-8"
               >
+                {/* Honeypot: hidden from users; bots that fill it are silently dropped */}
+                <input
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
                 <div className="flex justify-center gap-[5rem]">
                   {fields.slice(0, 2).map((field, index) => (
                     <input
@@ -208,9 +215,10 @@ export default function EventsSignUpModal({
                 <div className="flex justify-center">
                   <button
                     type="submit"
-                    className="bg-primary text-background rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-primary-hover transition"
+                    disabled={submitting}
+                    className="bg-primary text-background rounded-md px-2 w-[6rem] h-[3rem] mt-4 hover:bg-primary-hover transition disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    SIGN UP
+                    {submitting ? '...' : 'SIGN UP'}
                   </button>
                 </div>
               </form>

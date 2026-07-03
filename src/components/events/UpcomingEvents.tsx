@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from '@/components/common/AppImage'
 import SignUpModal from '@/components/events/EventsSignUpModal'
 import Koru from '@/assets/big-green-koru.svg'
@@ -47,7 +47,17 @@ export default function UpcomingEvents({ initialEvents }: { initialEvents: Event
   const [activeEventId, setActiveEventId] = useState<string | null>(null)
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const events = initialEvents
+  // The server splits upcoming/past with its own clock at render time, then the
+  // result is ISR-cached — so an event can linger here (with a live signup CTA)
+  // after it has passed. Re-apply the cut on the client clock after mount to drop
+  // any event that is no longer upcoming. `now == null` on first render keeps SSR
+  // and hydration identical.
+  const [now, setNow] = useState<number | null>(null)
+  useEffect(() => setNow(Date.now()), [])
+  const events = useMemo(
+    () => (now == null ? initialEvents : initialEvents.filter((e) => e.date.getTime() >= now)),
+    [initialEvents, now],
+  )
   const eventNames = events.map((e) => ({ title: e.title, id: e.id }))
 
   const activeEvent = useMemo(

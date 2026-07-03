@@ -1,3 +1,4 @@
+import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidateCache'
 import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
@@ -9,6 +10,10 @@ export const Media: CollectionConfig = {
   admin: {
     group: 'Media',
     hidden: true,
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange],
+    afterDelete: [revalidateAfterDelete],
   },
   access: {
     read: () => true,

@@ -4,10 +4,12 @@ const triggerRevalidate = async (collectionSlug: string, slug?: string, req?: Pa
   const secret = process.env.REVALIDATE_SECRET
   if (!secret) return
 
-  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  // Call the app over the loopback interface so the request stays on the machine
+  // rather than routing out to the public hostname and back through the CDN.
+  const baseUrl = process.env.REVALIDATE_BASE_URL || 'http://127.0.0.1:3000'
 
   try {
-    await fetch(`${baseUrl}/api/revalidate`, {
+    const res = await fetch(`${baseUrl}/api/revalidate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,6 +17,11 @@ const triggerRevalidate = async (collectionSlug: string, slug?: string, req?: Pa
       },
       body: JSON.stringify({ collection: collectionSlug, slug }),
     })
+    if (!res.ok) {
+      req?.payload.logger.error(
+        `Revalidation for ${collectionSlug} returned HTTP ${res.status}`,
+      )
+    }
   } catch (error) {
     req?.payload.logger.error(`Revalidation failed for ${collectionSlug}: ${error}`)
   }

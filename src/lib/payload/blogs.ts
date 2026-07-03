@@ -68,7 +68,9 @@ export async function getBlogById(id: string): Promise<BlogType | null> {
       id,
       depth: 1,
     })
-    return blog ? mapPayloadBlog(blog) : null
+    // findByID can't take a where clause; enforce published here.
+    if (!blog || !blog.published) return null
+    return mapPayloadBlog(blog)
   } catch {
     return null
   }
@@ -78,17 +80,23 @@ export async function getBlogById(id: string): Promise<BlogType | null> {
  * Fetch a single blog by slug using Payload Local API
  * Returns null during build time when Payload is not available
  */
-export async function getBlogBySlug(slug: string): Promise<BlogType | null> {
+export async function getBlogBySlug(
+  slug: string,
+  opts: { includeDrafts?: boolean } = {},
+): Promise<BlogType | null> {
   const payload = await getPayload()
   if (!payload) return null
 
+  // The Local API runs with overrideAccess, so filter published here — otherwise
+  // an unpublished blog would be readable at its public /blogs/<slug> URL. The
+  // preview route passes includeDrafts after authenticating an editor.
   const data = await payload.find({
     collection: 'blogs',
     depth: 1,
     limit: 1,
-    where: {
-      slug: { equals: slug },
-    },
+    where: opts.includeDrafts
+      ? { slug: { equals: slug } }
+      : { and: [{ slug: { equals: slug } }, { published: { equals: true } }] },
   })
 
   const blog = data.docs[0]

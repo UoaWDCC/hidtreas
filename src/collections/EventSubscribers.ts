@@ -8,7 +8,9 @@ export const EventSubscribers: CollectionConfig = {
   },
   access: {
     read: isAdmin,
-    create: () => true,
+    // No public REST create. Signups go through createEventSubscriberAction (Local
+    // API / overrideAccess) which adds consent + honeypot guards.
+    create: () => false,
     update: isAdmin,
     delete: isAdmin,
   },

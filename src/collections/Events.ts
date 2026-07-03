@@ -16,7 +16,8 @@ export const Events: CollectionConfig = {
     afterDelete: [revalidateAfterDelete],
   },
   access: {
-    read: () => true,
+    // Anonymous callers only see published events; editors/admins see drafts.
+    read: ({ req: { user } }) => (user ? true : { published: { equals: true } }),
     create: isEditorOrAdmin,
     update: isEditorOrAdmin,
     delete: isEditorOrAdmin,

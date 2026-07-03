@@ -1,4 +1,4 @@
-import { isAdminField, isAdminOrSelf } from '@/access/UserAccess'
+import { isAdmin, isAdminField, isAdminOrSelf } from '@/access/UserAccess'
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
@@ -9,7 +9,9 @@ export const Users: CollectionConfig = {
   },
   access: {
     read: isAdminOrSelf,
-    create: () => true,
+    // Only admins may create accounts. Payload still allows the very first user
+    // to be created when the collection is empty (initial bootstrap).
+    create: isAdmin,
     update: isAdminOrSelf,
     delete: isAdminOrSelf,
   },
@@ -25,6 +27,7 @@ export const Users: CollectionConfig = {
         { label: 'Editor', value: 'editor' },
       ],
       access: {
+        create: isAdminField,
         update: isAdminField,
       },
       required: true,

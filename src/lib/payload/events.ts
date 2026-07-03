@@ -21,7 +21,7 @@ export async function getUpcomingEvents(limit: number = 5): Promise<EventType[]>
     limit,
     sort: 'date',
     where: {
-      date: { greater_than: now },
+      and: [{ published: { equals: true } }, { date: { greater_than: now } }],
     },
   })
 
@@ -49,7 +49,7 @@ export async function getPastEvents(limit: number = 0): Promise<EventType[]> {
     limit: limit || 100,
     sort: '-date',
     where: {
-      date: { less_than: now },
+      and: [{ published: { equals: true } }, { date: { less_than: now } }],
     },
   })
 
@@ -69,6 +69,9 @@ export async function getAllEvents(): Promise<EventType[]> {
     depth: 1,
     limit: 100,
     sort: '-date',
+    where: {
+      published: { equals: true },
+    },
   })
 
   return data.docs.map(mapPayloadEvent)

@@ -9,7 +9,9 @@ export const Subscribers: CollectionConfig = {
   },
   access: {
     read: isAdmin,
-    create: () => true,
+    // No public REST create. Signups go through the createSubscriberAction server
+    // action, which uses the Local API (overrideAccess) and adds its own guards.
+    create: () => false,
     update: isAdmin,
     delete: isAdmin,
   },

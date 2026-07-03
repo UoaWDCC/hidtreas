@@ -16,7 +16,10 @@ export const Blogs: CollectionConfig = {
     afterDelete: [revalidateAfterDelete],
   },
   access: {
-    read: () => true,
+    // Anonymous callers only see published blogs (applies to the public REST API);
+    // logged-in editors/admins see drafts too. The Local API used by the frontend
+    // runs with overrideAccess, so the fetchers filter published explicitly as well.
+    read: ({ req: { user } }) => (user ? true : { published: { equals: true } }),
     create: isEditorOrAdmin,
     update: isEditorOrAdmin,
     delete: isEditorOrAdmin,
@@ -38,13 +41,13 @@ export const Blogs: CollectionConfig = {
             const baseSource =
               data.slug || data.title || (operation === 'update' ? originalDoc?.title : '')
 
-            const base = slugify((baseSource || '').toString(), {
-              lower: true,
-              strict: true,
-              trim: true,
-            })
+            const base =
+              slugify((baseSource || '').toString(), {
+                lower: true,
+                strict: true,
+                trim: true,
+              }) || 'post' // titles with no transliterable chars slugify to '' — keep it reachable
 
-            if (!base) return
             if (operation === 'update' && data.slug === originalDoc?.slug) return
 
             let candidate = base
